@@ -1,0 +1,66 @@
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow"><i class="external"></i>Contributor Workflow</a></li>
+                <li><a href="https://github.com/apache/incubator-daffodil"><i class="external"></i>GitHub</a></li>
+                <li><a href="https://issues.apache.org/jira/projects/DAFFODIL/"><i class="external"></i>JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://www.apache.org/"><i class="external"></i>Apache Software Foundation</a></li>
+                <li><a href="http://www.apache.org/licenses/"><i class="external"></i>License</a></li>
+                <li><a href="http://www.apache.org/security"><i class="external"></i>Security</a></li>
+                <li><a href="http://www.apache.org/foundation/sponsorship.html"><i class="external"></i>Sponsorship</a></li>
+                <li><a href="http://www.apache.org/foundation/thanks.html"><i class="external"></i>Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+{% if page.title == "Home" %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Apache Daffodil (incubating)</h1>
+    <p>Daffodil is an open-source implementation of the Data Format Description Language to convert between fixed format data and XML/JSON.</p>
+
+    {% assign latest = site.releases  | where: 'released', 'true' | sort: 'date' | last %}
+    <a href="{{ latest.url }}" class="btn btn-primary btn-lg bigFingerButton" role="button">Get Daffodil {{ latest.title }}</a></p>
+  </div>
+</div>
+{% endif %}

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+#
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -12,6 +14,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-Gemfile.lock
-target
+set -e
+
+jekyll clean --source site
+jekyll build --source site
+
+COMMIT_HASH=`git rev-parse HEAD`
+git checkout asf-site
+#git pull --rebase
+rm -rf content
+mv target content
+git add content
+echo "Publishing changes from master branch $COMMIT_HASH"
+git commit -a -m "Publishing from $COMMIT_HASH"
+echo " "
+echo "==================================================================="
+echo "You are now on the asf-site branch with your new changes committed."
+echo " git push the 'asf-site' branch upstream to update the live site."
+echo "==================================================================="
+echo " "
+
+set +e
