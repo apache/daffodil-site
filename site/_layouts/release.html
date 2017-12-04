@@ -1,0 +1,87 @@
+---
+layout: default
+permalink: /release/release-notes-:title
+---
+
+<h2>{% if page.apache %}Apache {% endif %}Daffodil {{ page.title }}</h2>
+
+{% unless page.released %}
+  <div class="alert alert-warning">
+    Apache Daffodil {{ page.title }} has not yet been released! The artifacts
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil which has not yet occurred.
+  </div>
+{% endunless %}
+
+{% unless page.apache %}
+  <div class="alert alert-warning">
+    This release is from prior to Daffodil's acceptance into the Apache Incubator.
+    It is not an Apache Software Foundation release, and is licensed under the
+    <a href="https://opensource.org/licenses/NCSA">NCSA license</a>.
+  </div>
+{% endunless %}
+
+<div class="row">
+  <div class="col-md-8">
+    {% if page.source-dist %}
+      <h3>Source</h3>
+      {% include download-list.html
+         version=page.title
+         artifacts=page.source-dist
+         checksum-root=page.checksum-root
+         artifact-root=page.artifact-root
+      %}
+    {% endif %}
+
+    {% if page.binary-dist %}
+        <h3>Binaries</h3>
+        {% include download-list.html
+         version=page.title
+         artifacts=page.binary-dist
+         checksum-root=page.checksum-root
+         artifact-root=page.artifact-root
+        %}
+    {% endif %}
+  </div>
+  <div class="col-md-4">
+    <h3>Documentation</h3>
+    <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a><br />
+    <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>
+  </div>
+</div>
+
+<h3>API Dependency</h3>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#maven">Maven</a></li>
+  <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+</ul>
+<div class="tab-content">
+  <div id="maven" class="tab-pane fade in active">
+{% highlight xml %}
+  <dependency>
+    <groupId>{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}</groupId>
+    <artifactId>daffodil-japi_{{ page.scala-version }}</artifactId>
+    <version>{{ page.title }}</version>
+  </dependency>
+{% unless page.apache %}
+  <repository>
+    <id>ncsa-sonatype-releases</id>
+    <name>NCSA Sonatype Releases</name>
+    <url>https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases</url>
+  </repository>
+{% endunless %}
+{% endhighlight %}
+  </div>
+  <div id="sbt" class="tab-pane fade">
+{% highlight scala %}
+  libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}" %% "daffodil-sapi" % "{{ page.title }}"
+{% unless page.apache %} 
+  resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"
+{% endunless %}
+{% endhighlight %}
+  </div> 
+</div>
+
+<h3>Release Notes</h3>
+
+{{ content }}

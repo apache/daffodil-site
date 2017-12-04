@@ -1,0 +1,411 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>infoset - Daffodil-2.0.0 Scala API - edu.illinois.ncsa.daffodil.sapi.infoset</title>
+          <meta name="description" content="infoset - Daffodil - 2.0.0 Scala API - edu.illinois.ncsa.daffodil.sapi.infoset" />
+          <meta name="keywords" content="infoset Daffodil 2.0.0 Scala API edu.illinois.ncsa.daffodil.sapi.infoset" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../../index.html';
+            var hash = 'edu.illinois.ncsa.daffodil.sapi.infoset.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../../package.html" class="extype" name="edu">edu</a>.<a href="../../../../package.html" class="extype" name="edu.illinois">illinois</a>.<a href="../../../package.html" class="extype" name="edu.illinois.ncsa">ncsa</a>.<a href="../../package.html" class="extype" name="edu.illinois.ncsa.daffodil">daffodil</a>.<a href="../package.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi">sapi</a></p>
+        <h1>infoset</h1><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">infoset</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines various classes used control the representation of the infoset for parse and unparse.
+Classes that extend <a href="InfosetOutputter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> are provided to the <a href="../DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter):edu.illinois.ncsa.daffodil.sapi.ParseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:edu\.illinois\.ncsa\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a>
+method to deteremine how to output an infoset. These classes are not
+guaranteed to be thread-safe. Classes that extend <a href="InfosetInputter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> are
+provided to the <a href="../DataProcessor.html#unparse(input:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):edu.illinois.ncsa.daffodil.sapi.UnparseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#unparse">DataProcessor#unparse(input*</a> method to determine how to read in
+an infoset. A new InfosetOutputter is required for each call to unparse().
+</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="edu.illinois.ncsa.daffodil.sapi.infoset"><span>infoset</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="InfosetInputterextendsInfosetInputter"></a>
+      <a id="InfosetInputter:InfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InfosetInputter.html"><span class="name">InfosetInputter</span></a><span class="result"> extends <span class="extype" name="edu.illinois.ncsa.daffodil.infoset.InfosetInputter">infoset.InfosetInputter</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@InfosetInputterextendsInfosetInputter" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Abstract class used to determine how the infoset representation should be
+input from a call to <a href="../DataProcessor.html#unparse(input:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):edu.illinois.ncsa.daffodil.sapi.UnparseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#unparse">DataProcessor#unparse(input*</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Abstract class used to determine how the infoset representation should be
+input from a call to <a href="../DataProcessor.html#unparse(input:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):edu.illinois.ncsa.daffodil.sapi.UnparseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#unparse">DataProcessor#unparse(input*</a>. This uses a Cursor API, such
+that each call to advance/inspect must update a cursor value, minimizing
+allocations. Callers of advance/inspect are expected to copy out any
+information from advanceAccessor and inspectAccessor if they need to retain
+the information after a call to advance/inspect.
+</p></div></div>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="InfosetInputterProxyextendsInfosetInputter"></a>
+      <a id="InfosetInputterProxy:InfosetInputterProxy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InfosetInputterProxy.html"><span class="name">InfosetInputterProxy</span></a><span class="result"> extends <a href="InfosetInputter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@InfosetInputterProxyextendsInfosetInputter" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="InfosetOutputterextendsInfosetOutputter"></a>
+      <a id="InfosetOutputter:InfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InfosetOutputter.html"><span class="name">InfosetOutputter</span></a><span class="result"> extends <span class="extype" name="edu.illinois.ncsa.daffodil.infoset.InfosetOutputter">infoset.InfosetOutputter</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@InfosetOutputterextendsInfosetOutputter" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Abstract class used to determine how the infoset representation should be
+output from a call to <a href="../DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter):edu.illinois.ncsa.daffodil.sapi.ParseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:edu\.illinois\.ncsa\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Abstract class used to determine how the infoset representation should be
+output from a call to <a href="../DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter):edu.illinois.ncsa.daffodil.sapi.ParseResult" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:edu\.illinois\.ncsa\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a>. The Daffodil core will call
+the various methods of this class in an order appropriate to create an
+infoset representation.</p><p>Classes that extend InfosetOutputter are not guaranteed to be thread-safe.
+</p></div></div>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="InfosetOutputterProxyextendsInfosetOutputter"></a>
+      <a id="InfosetOutputterProxy:InfosetOutputterProxy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InfosetOutputterProxy.html"><span class="name">InfosetOutputterProxy</span></a><span class="result"> extends <a href="InfosetOutputter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@InfosetOutputterProxyextendsInfosetOutputter" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.JDOMInfosetInputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="JDOMInfosetInputterextendsInfosetInputterProxy"></a>
+      <a id="JDOMInfosetInputter:JDOMInfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JDOMInfosetInputter.html"><span class="name">JDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@JDOMInfosetInputterextendsInfosetInputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Read in an infoset in the form of a jdom2 Document
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.JDOMInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="JDOMInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="JDOMInfosetOutputter:JDOMInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JDOMInfosetOutputter.html"><span class="name">JDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@JDOMInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output the infoset as a jdom Document
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.JsonInfosetInputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="JsonInfosetInputterextendsInfosetInputterProxy"></a>
+      <a id="JsonInfosetInputter:JsonInfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonInfosetInputter.html"><span class="name">JsonInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@JsonInfosetInputterextendsInfosetInputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Read in an infoset in the form of json text from a java.io.Reader
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.JsonInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="JsonInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="JsonInfosetOutputter:JsonInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonInfosetOutputter.html"><span class="name">JsonInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@JsonInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output the infoset as json text, written to a java.io.Writer
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.NullInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NullInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="NullInfosetOutputter:NullInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="NullInfosetOutputter.html"><span class="name">NullInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@NullInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ignore all infoset output
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.ScalaXMLInfosetInputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ScalaXMLInfosetInputterextendsInfosetInputterProxy"></a>
+      <a id="ScalaXMLInfosetInputter:ScalaXMLInfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ScalaXMLInfosetInputter.html"><span class="name">ScalaXMLInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@ScalaXMLInfosetInputterextendsInfosetInputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Read in an infoset in the form of a scala.xml.Node
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.ScalaXMLInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ScalaXMLInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="ScalaXMLInfosetOutputter:ScalaXMLInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ScalaXMLInfosetOutputter.html"><span class="name">ScalaXMLInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@ScalaXMLInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output the infoset as a scala.xml.Node
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.W3CDOMInfosetInputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="W3CDOMInfosetInputterextendsInfosetInputterProxy"></a>
+      <a id="W3CDOMInfosetInputter:W3CDOMInfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="W3CDOMInfosetInputter.html"><span class="name">W3CDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@W3CDOMInfosetInputterextendsInfosetInputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Read in an infoset in the form of a w3c Document
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.W3CDOMInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="W3CDOMInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="W3CDOMInfosetOutputter:W3CDOMInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="W3CDOMInfosetOutputter.html"><span class="name">W3CDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@W3CDOMInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output the infoset as a w3c Document
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.XMLTextInfosetInputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="XMLTextInfosetInputterextendsInfosetInputterProxy"></a>
+      <a id="XMLTextInfosetInputter:XMLTextInfosetInputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="XMLTextInfosetInputter.html"><span class="name">XMLTextInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@XMLTextInfosetInputterextendsInfosetInputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Read in an infoset in the form of XML text from a java.io.Reader
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.infoset.XMLTextInfosetOutputter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="XMLTextInfosetOutputterextendsInfosetOutputterProxy"></a>
+      <a id="XMLTextInfosetOutputter:XMLTextInfosetOutputter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="XMLTextInfosetOutputter.html"><span class="name">XMLTextInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#edu.illinois.ncsa.daffodil.sapi.infoset.package@XMLTextInfosetOutputterextendsInfosetOutputterProxy" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output the infoset as XML Text, written to a java.io.Writer
+</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

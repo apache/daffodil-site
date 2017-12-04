@@ -1,0 +1,49 @@
+---
+layout: page
+title: People
+description: People
+group: nav-right
+---
+<!--
+{% comment %}
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+{% endcomment %}
+-->
+
+### People
+
+{% if site.data.contributors  %}
+<table class="table">
+    <tr>
+        <th><b>Full Name</b></th>
+        <th><b>Apache ID</b></th>
+        <th><b>GitHub</b></th>
+        <th><b>Role</b></th>
+        <th><b>Affiliation</b></th>
+    </tr>
+    {% assign contributors = site.data.contributors | sort: "last" %}
+    {% for member in contributors %}
+        <tr>
+        <td>{{member.first}} {{member.last}}</td>
+        <td>{{member.apacheId}}</td>
+        <td><a href="http://github.com/{{ member.githubId }}">{{ member.githubId }}</a></td>
+        <td>{{member.role}}</td>
+        <td>{{member.org}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+

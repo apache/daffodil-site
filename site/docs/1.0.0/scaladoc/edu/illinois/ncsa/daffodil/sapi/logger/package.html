@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>logger - Daffodil-1.0.0 Scala API - edu.illinois.ncsa.daffodil.sapi.logger</title>
+          <meta name="description" content="logger - Daffodil - 1.0.0 Scala API - edu.illinois.ncsa.daffodil.sapi.logger" />
+          <meta name="keywords" content="logger Daffodil 1.0.0 Scala API edu.illinois.ncsa.daffodil.sapi.logger" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../../index.html';
+            var hash = 'edu.illinois.ncsa.daffodil.sapi.logger.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../../package.html" class="extype" name="edu">edu</a>.<a href="../../../../package.html" class="extype" name="edu.illinois">illinois</a>.<a href="../../../package.html" class="extype" name="edu.illinois.ncsa">ncsa</a>.<a href="../../package.html" class="extype" name="edu.illinois.ncsa.daffodil">daffodil</a>.<a href="../package.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi">sapi</a></p>
+        <h1>logger</h1>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">logger</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides the classes necessary to recieve logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="ConsoleLogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="FileLogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="NullLogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
+<a href="../Daffodil$.html#setLogWriter(lw:edu.illinois.ncsa.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code> /var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
+Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="../Daffodil$.html#setLoggingLevel(lvl:edu.illinois.ncsa.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
+defaults to <a href="LogLevel$.html#Info:edu.illinois.ncsa.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.logger.LogLevel#Info">LogLevel#Info</a> if not set. For example, to change the log
+level to <a href="LogLevel$.html#Warning:edu.illinois.ncsa.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="edu.illinois.ncsa.daffodil.sapi.logger.LogLevel#Warning">LogLevel#Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="edu.illinois.ncsa.daffodil.sapi.logger"><span>logger</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="edu.illinois.ncsa.daffodil.sapi.logger.ConsoleLogWriter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConsoleLogWriterextendsLogWriter"></a>
+      <a id="ConsoleLogWriter:ConsoleLogWriter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ConsoleLogWriter.html"><span class="name">ConsoleLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt"><a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes log messages to stdout
+</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.logger.FileLogWriter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="FileLogWriterextendsLogWriter"></a>
+      <a id="FileLogWriter:FileLogWriter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="FileLogWriter.html"><span class="name">FileLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt"><a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes all log messages to a file.</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LogWriterextendsAnyRef"></a>
+      <a id="LogWriter:LogWriter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="LogWriter.html"><span class="name">LogWriter</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Abstract log writer, which can be overridden to create a custom log writer.</p>
+    </li><li name="edu.illinois.ncsa.daffodil.sapi.logger.NullLogWriter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NullLogWriterextendsLogWriter"></a>
+      <a id="NullLogWriter:NullLogWriter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="NullLogWriter.html"><span class="name">NullLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt"><a href="LogWriter.html" class="extype" name="edu.illinois.ncsa.daffodil.sapi.logger.LogWriter">LogWriter</a> that drops all log messages
+</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="edu.illinois.ncsa.daffodil.sapi.logger.LogLevel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LogLevel"></a>
+      <a id="LogLevel:LogLevel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="LogLevel$.html"><span class="name">LogLevel</span></a><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Logging levels.</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+      <script defer="defer" type="text/javascript" id="jquery-js" src="../../../../../../lib/jquery.js"></script><script defer="defer" type="text/javascript" id="jquery-ui-js" src="../../../../../../lib/jquery-ui.js"></script><script defer="defer" type="text/javascript" id="tools-tooltip-js" src="../../../../../../lib/tools.tooltip.js"></script><script defer="defer" type="text/javascript" id="template-js" src="../../../../../../lib/template.js"></script>
+    </body>
+      </html>

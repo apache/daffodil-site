@@ -1,0 +1,16 @@
+{% for file in include.artifacts %}
+<div class="row">
+  <div class="col-md-5">
+    <a href="{{ include.artifact-root | append: file }}">{{ file }}</a>
+  </div>
+  <div class="col-md-7">
+    {% if include.checksum-root %}
+      {% assign base = include.checksum-root | append: file %}
+      [ <a href="{{ base }}.md5">MD5</a> ]
+      [ <a href="{{ base }}.sha1">SHA1</a> ]
+      [ <a href="{{ base }}.sha256">SHA256</a> ]
+      [ <a href="{{ base }}.asc">PGP</a> ]
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
