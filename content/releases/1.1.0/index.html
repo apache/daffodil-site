@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | 1.1.0</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow"><i class="external"></i>Contributor Workflow</a></li>
+                <li><a href="https://github.com/apache/incubator-daffodil"><i class="external"></i>GitHub</a></li>
+                <li><a href="https://issues.apache.org/jira/projects/DAFFODIL/"><i class="external"></i>JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://www.apache.org/"><i class="external"></i>Apache Software Foundation</a></li>
+                <li><a href="http://www.apache.org/licenses/"><i class="external"></i>License</a></li>
+                <li><a href="http://www.apache.org/security"><i class="external"></i>Security</a></li>
+                <li><a href="http://www.apache.org/foundation/sponsorship.html"><i class="external"></i>Sponsorship</a></li>
+                <li><a href="http://www.apache.org/foundation/thanks.html"><i class="external"></i>Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <h2>Daffodil 1.1.0</h2>
+
+
+
+
+  <div class="alert alert-warning">
+    This release is from prior to Daffodil's acceptance into the Apache Incubator.
+    It is not an Apache Software Foundation release, and is licensed under the
+    <a href="https://opensource.org/licenses/NCSA">NCSA license</a>.
+  </div>
+
+
+<div class="row">
+  <div class="col-md-8">
+    
+
+    
+        <h3>Binaries</h3>
+        
+<div class="row">
+  <div class="col-md-5">
+    <a href="https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version=1.1.0&filename=daffodil-1.1.0.zip">daffodil-1.1.0.zip</a>
+  </div>
+  <div class="col-md-7">
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <a href="https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version=1.1.0&filename=daffodil-1.1.0.tgz">daffodil-1.1.0.tgz</a>
+  </div>
+  <div class="col-md-7">
+    
+  </div>
+</div>
+
+
+    
+  </div>
+  <div class="col-md-4">
+    <h3>Documentation</h3>
+    <a href="/docs/1.1.0/javadoc/">Javadoc</a><br />
+    <a href="/docs/1.1.0/scaladoc/">Scaladoc</a>
+  </div>
+</div>
+
+<h3>API Dependency</h3>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#maven">Maven</a></li>
+  <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+</ul>
+<div class="tab-content">
+  <div id="maven" class="tab-pane fade in active">
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>edu.illinois.ncsa<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>daffodil-japi_2.11<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+
+  <span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>ncsa-sonatype-releases<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;name&gt;</span>NCSA Sonatype Releases<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
+  <span class="nt">&lt;/repository&gt;</span></code></pre></figure>
+
+  </div>
+  <div id="sbt" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala">  <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"edu.illinois.ncsa"</span> <span class="o">%%</span> <span class="s">"daffodil-sapi"</span> <span class="o">%</span> <span class="s">"1.1.0"</span>
+ 
+  <span class="n">resolvers</span> <span class="o">+=</span> <span class="s">"NCSA Sonatype Releases"</span> <span class="n">at</span> <span class="s">"https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"</span></code></pre></figure>
+
+  </div> 
+</div>
+
+<h3>Release Notes</h3>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li>initial support for unparsing, including support for unparsing
+    <ul>
+      <li>initiators, terminators, and separators</li>
+      <li>escape characters</li>
+      <li>padding/fillByte</li>
+      <li>delimited, fixed length, and pattern length strings</li>
+      <li>arrays with occursCountKind ‘implicit’, ‘parsed’, and ‘fixed’</li>
+      <li>nillable simple and complex elements</li>
+      <li>sequences and choices</li>
+      <li>variables</li>
+    </ul>
+  </li>
+  <li>support for stream infosets via XMLEventReader</li>
+  <li>no longer pretty print large infoset to decrease memory and time to print. Set the new prettyPrintElementLimit tunable to change the size at which infosets will not be pretty printed</li>
+  <li>improve support including/importing absolute Windows file paths</li>
+  <li>improve parser performance with calendar types</li>
+  <li>fixed bug with delimiters and escape characters in which scoping could be incorrect, resulting in the use of the wrong delimiter/escape char</li>
+  <li>improved OOLAG to make debugging easier</li>
+  <li>support for save/reload of unparsers</li>
+</ul>
+
+<h4 id="cli">CLI</h4>
+
+<ul>
+  <li>variables set on the command line using -D when saving a parser are saved, and can be overridden when reloading the parser</li>
+  <li>add –unparse option to performance subcommand to run unparser performance tests</li>
+</ul>
+
+<h4 id="tdml">TDML</h4>
+
+<ul>
+  <li>enhancements to support unparser tests and round tripping parser tests</li>
+  <li>no longer trim resulting infoset, requiring expected infoset to be more exact, but give less false positives</li>
+  <li>detect and warn about duplicate test names</li>
+</ul>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

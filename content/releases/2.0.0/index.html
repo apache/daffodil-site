@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | 2.0.0</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow"><i class="external"></i>Contributor Workflow</a></li>
+                <li><a href="https://github.com/apache/incubator-daffodil"><i class="external"></i>GitHub</a></li>
+                <li><a href="https://issues.apache.org/jira/projects/DAFFODIL/"><i class="external"></i>JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://www.apache.org/"><i class="external"></i>Apache Software Foundation</a></li>
+                <li><a href="http://www.apache.org/licenses/"><i class="external"></i>License</a></li>
+                <li><a href="http://www.apache.org/security"><i class="external"></i>Security</a></li>
+                <li><a href="http://www.apache.org/foundation/sponsorship.html"><i class="external"></i>Sponsorship</a></li>
+                <li><a href="http://www.apache.org/foundation/thanks.html"><i class="external"></i>Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <h2>Daffodil 2.0.0</h2>
+
+
+
+
+  <div class="alert alert-warning">
+    This release is from prior to Daffodil's acceptance into the Apache Incubator.
+    It is not an Apache Software Foundation release, and is licensed under the
+    <a href="https://opensource.org/licenses/NCSA">NCSA license</a>.
+  </div>
+
+
+<div class="row">
+  <div class="col-md-8">
+    
+
+    
+        <h3>Binaries</h3>
+        
+<div class="row">
+  <div class="col-md-5">
+    <a href="https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version=2.0.0&filename=daffodil-2.0.0.zip">daffodil-2.0.0.zip</a>
+  </div>
+  <div class="col-md-7">
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <a href="https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version=2.0.0&filename=daffodil-2.0.0.tgz">daffodil-2.0.0.tgz</a>
+  </div>
+  <div class="col-md-7">
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <a href="https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version=2.0.0&filename=daffodil-2.0.0-1.noarch.rpm">daffodil-2.0.0-1.noarch.rpm</a>
+  </div>
+  <div class="col-md-7">
+    
+  </div>
+</div>
+
+
+    
+  </div>
+  <div class="col-md-4">
+    <h3>Documentation</h3>
+    <a href="/docs/2.0.0/javadoc/">Javadoc</a><br />
+    <a href="/docs/2.0.0/scaladoc/">Scaladoc</a>
+  </div>
+</div>
+
+<h3>API Dependency</h3>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#maven">Maven</a></li>
+  <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+</ul>
+<div class="tab-content">
+  <div id="maven" class="tab-pane fade in active">
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>edu.illinois.ncsa<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>daffodil-japi_2.11<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.0<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+
+  <span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>ncsa-sonatype-releases<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;name&gt;</span>NCSA Sonatype Releases<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
+  <span class="nt">&lt;/repository&gt;</span></code></pre></figure>
+
+  </div>
+  <div id="sbt" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala">  <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"edu.illinois.ncsa"</span> <span class="o">%%</span> <span class="s">"daffodil-sapi"</span> <span class="o">%</span> <span class="s">"2.0.0"</span>
+ 
+  <span class="n">resolvers</span> <span class="o">+=</span> <span class="s">"NCSA Sonatype Releases"</span> <span class="n">at</span> <span class="s">"https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"</span></code></pre></figure>
+
+  </div> 
+</div>
+
+<h3>Release Notes</h3>
+
+<h4 id="core">Core</h4>
+
+<ul>
+  <li>support for unparse, with one-to-one feature parity with parse</li>
+  <li>support for unparse specific properties like dfdl:outputValueCalc, dfdl:filleByte, dfdl:truncateSpecifiedLengthString</li>
+  <li>now requires Java 8 and Scala 2.11</li>
+  <li>DFDL expression changes:
+    <ul>
+      <li>support added for dfdl:contentLength(), dfdl:valueLength(), fn:error(), and math:pow() functions</li>
+      <li>support equality comparisons of xs:hexBinary types</li>
+      <li>fix bugs with integer equality comparisons and converting differing integer types</li>
+      <li>fix bugs with div/idiv not using the appropriate kindof division</li>
+      <li>fix bugs with daf:trace on complex types</li>
+    </ul>
+  </li>
+  <li>creation of a new data input/output stream layer</li>
+  <li>add support for 3-, 4-, 5-, 6-, and 7-bit ASCII encodings</li>
+  <li>add property daf:parseUnparsePolicy and tunable to enable only parsing, unparsing, or both</li>
+  <li>add tunable unqualifiedPathStepProperty to specify how unqualified DFDL expression path steps are resolved</li>
+  <li>allow dfdl:lengthKind=”pattern” when type=”xs:hexBinary”</li>
+  <li>support for xs:choice direct dispatch</li>
+  <li>support for xs:boolean type</li>
+  <li>support for xs:hexBinary type with bit lengths</li>
+  <li>support for xs:ignoreCase=”yes”</li>
+  <li>support for xs:union restrictions</li>
+  <li>support for runtime valued properties</li>
+  <li>improved diagnostic messages</li>
+  <li>numerous bug fixes and performance improvements</li>
+  <li>fix failure to import/include schemas with deep paths. includes and imports now reliably import files in jars or relative to paths on the classpath</li>
+</ul>
+
+<h4 id="api">API</h4>
+
+<ul>
+  <li>new parse and unparse API with InfosetInputter’s and InfosetOutputter’s</li>
+  <li>native infoset support for JDOM, w3c DOM, Scala XML Nodes, XML Text, and JSON</li>
+  <li>calling isError on a ParseResult now returns true if either there were parse errors OR validation errors</li>
+  <li>add new methods (isProcessingError and isValidationError) to ParseResult to determine if isError was true due to a parse error or a validation error</li>
+  <li>deprecated the canProceed() method, instead one should use !isError()</li>
+</ul>
+
+<h4 id="tdml">TDML</h4>
+
+<ul>
+  <li>support for setting tunables in tdml:defineConfig</li>
+  <li>created an XSL stylesheet for creating DFDL tutorials from TDML files</li>
+</ul>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
