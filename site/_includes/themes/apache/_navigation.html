@@ -60,7 +60,9 @@
     <p>Daffodil is an open-source implementation of the Data Format Description Language to convert between fixed format data and XML/JSON.</p>
 
     {% assign latest = site.releases  | where: 'released', 'true' | sort: 'date' | last %}
-    <a href="{{ latest.url }}" class="btn btn-primary btn-lg bigFingerButton" role="button">Get Daffodil {{ latest.title }}</a></p>
+    <a href="{{ latest.url }}" class="btn btn-primary btn-lg bigFingerButton" role="button">
+      Get Daffodil {{ latest.title }}{% unless latest.apache %}, a Pre-Apache Release{% endunless %}
+    </a></p>
   </div>
 </div>
 {% endif %}
