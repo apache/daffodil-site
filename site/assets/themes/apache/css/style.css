@@ -8,6 +8,16 @@ body {
   font-size: 16px;
 }
 
+/* this makes it so anchors are slightly below the navbar so they
+ * aren't covered up when linked */
+*[id]:before {
+	display:block;
+	content: " ";
+	margin-top: -75px;
+	height: 75px;
+	visibility: hidden;
+}
+
 h1,
 h2,
 h3,
@@ -415,4 +425,14 @@ i.external:before {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	border-color: #dddddd;
+}
+
+dd {
+	margin-top: 10px;
+	margin-left: 30px;
+}
+
+dt code {
+	color: inherit;
+	background-color: inherit;
 }
