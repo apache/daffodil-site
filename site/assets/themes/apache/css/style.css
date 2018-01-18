@@ -403,7 +403,7 @@ hr {
   }
 }
 
-i.external {
+a.external:before {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -416,7 +416,7 @@ i.external {
   margin-right: 5px;
 }
 
-i.external:before {
+a.external:before {
   content: "\e066";
 }
 
