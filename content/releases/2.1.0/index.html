@@ -42,9 +42,13 @@
             <li id="documentation">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
                 <li><a href="/docs/latest/javadoc/">Java API</a></li>
                 <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
                 <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
               </ul>
             </li>
             <li id="community">
@@ -57,19 +61,19 @@
             <li id="development">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
-                <li><a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow"><i class="external"></i>Contributor Workflow</a></li>
-                <li><a href="https://github.com/apache/incubator-daffodil"><i class="external"></i>GitHub</a></li>
-                <li><a href="https://issues.apache.org/jira/projects/DAFFODIL/"><i class="external"></i>JIRA</a></li>
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
+                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
               </ul>
             </li>
             <li id="apache">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="http://www.apache.org/"><i class="external"></i>Apache Software Foundation</a></li>
-                <li><a href="http://www.apache.org/licenses/"><i class="external"></i>License</a></li>
-                <li><a href="http://www.apache.org/security"><i class="external"></i>Security</a></li>
-                <li><a href="http://www.apache.org/foundation/sponsorship.html"><i class="external"></i>Sponsorship</a></li>
-                <li><a href="http://www.apache.org/foundation/thanks.html"><i class="external"></i>Thanks</a></li>
+                <li><a class="external" href="http://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="http://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="http://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
               </ul>
             </li>
           </ul>
@@ -94,78 +98,106 @@
 
 
 <div class="row">
-  <div class="col-md-8">
-    
-      <h3>Source</h3>
-      
-<div class="row">
-  <div class="col-md-5">
-    <a href="http://apache.org/dyn/closer.cgi?action=download&filename=daffodil-2.1.0-incubating-src.tar.gz">daffodil-2.1.0-incubating-src.tar.gz</a>
-  </div>
-  <div class="col-md-7">
-    
-      
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-incubating-src.tar.gz.md5">MD5</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-incubating-src.tar.gz.sha1">SHA1</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-incubating-src.tar.gz.sha256">SHA256</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-incubating-src.tar.gz.asc">PGP</a> ]
-    
-  </div>
-</div>
-
-
-    
-
-    
-        <h3>Binaries</h3>
+  <div class="col-md-9">
+    <h3>Get Release</h3>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
+      <li><a data-toggle="tab" href="#maven">Maven</a></li>
+      <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="download" class="tab-pane fade in active">
         
+          <h4>Source</h4>
+          <p>
+          
 <div class="row">
-  <div class="col-md-5">
-    <a href="http://apache.org/dyn/closer.cgi?action=download&filename=daffodil-2.1.0-bin.tar.gz">daffodil-2.1.0-bin.tar.gz</a>
+  <div class="col-md-6">
+    <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-incubating-src.zip">daffodil-2.1.0-incubating-src.zip</a>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-6 text-right">
     
       
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-bin.tar.gz.md5">MD5</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-bin.tar.gz.sha1">SHA1</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-bin.tar.gz.sha256">SHA256</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-bin.tar.gz.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-incubating-src.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-incubating-src.zip.md5">MD5</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-incubating-src.zip.sha1">SHA1</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-incubating-src.zip.sha256">SHA256</a> ]
+    
+  </div>
+</div>
+
+
+          </p>
+        
+
+        
+          <h4>Binaries</h4>
+          <p>
+          
+<div class="row">
+  <div class="col-md-6">
+    <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.tar.gz">daffodil-2.1.0-bin.tar.gz</a>
+  </div>
+  <div class="col-md-6 text-right">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.tar.gz.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.tar.gz.md5">MD5</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.tar.gz.sha1">SHA1</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.tar.gz.sha256">SHA256</a> ]
     
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-5">
-    <a href="http://apache.org/dyn/closer.cgi?action=download&filename=daffodil-2.1.0-1.noarch.rpm">daffodil-2.1.0-1.noarch.rpm</a>
+  <div class="col-md-6">
+    <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.zip">daffodil-2.1.0-bin.zip</a>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-6 text-right">
     
       
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-1.noarch.rpm.md5">MD5</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-1.noarch.rpm.sha1">SHA1</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-1.noarch.rpm.sha256">SHA256</a> ]
-      [ <a href="https://www.apache.org/dist/daffodil-2.1.0-1.noarch.rpm.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.zip.md5">MD5</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.zip.sha1">SHA1</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-bin.zip.sha256">SHA256</a> ]
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-1.noarch.rpm">daffodil-2.1.0-1.noarch.rpm</a>
+  </div>
+  <div class="col-md-6 text-right">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-1.noarch.rpm.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-1.noarch.rpm.md5">MD5</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-1.noarch.rpm.sha1">SHA1</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/incubator/daffodil/2.1.0-rc1/daffodil-2.1.0-1.noarch.rpm.sha256">SHA256</a> ]
     
   </div>
 </div>
 
 
-    
-  </div>
-  <div class="col-md-4">
-    <h3>Documentation</h3>
-    <a href="/docs/2.1.0/javadoc/">Javadoc</a><br />
-    <a href="/docs/2.1.0/scaladoc/">Scaladoc</a>
-  </div>
-</div>
+          </p>
+        
 
-<h3>API Dependency</h3>
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#maven">Maven</a></li>
-  <li><a data-toggle="tab" href="#sbt">SBT</a></li>
-</ul>
-<div class="tab-content">
-  <div id="maven" class="tab-pane fade in active">
+        
+          <p>
+            <i>
+              The above release files should be verified using the PGP signatures and the
+              <a href='https://dist.apache.org/repos/dist/dev/incubator/daffodil/KEYS'>project release KEYS</a>. See
+              <a href='https://www.apache.org/dyn/closer.cgi#verify'>verification instructions</a>
+              for a description of using the PGP and KEYS files for
+              verification. Checksums (MD5, SHA1, SHA256) are also provided as
+              alternative verification methods.
+            </i>
+          </p>
+        
+      </div>
+
+      <div id="maven" class="tab-pane fade">
 
 <figure class="highlight"><pre><code class="language-xml" data-lang="xml">  <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.apache.daffodil<span class="nt">&lt;/groupId&gt;</span>
@@ -173,33 +205,145 @@
     <span class="nt">&lt;version&gt;</span>2.1.0<span class="nt">&lt;/version&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
 
-  </div>
-  <div id="sbt" class="tab-pane fade">
+      </div>
+      <div id="sbt" class="tab-pane fade">
 
 <figure class="highlight"><pre><code class="language-scala" data-lang="scala">  <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-sapi"</span> <span class="o">%</span> <span class="s">"2.1.0"</span></code></pre></figure>
 
-  </div> 
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 text-right">
+    <h3>Documentation</h3>
+    <a href="/docs/2.1.0/javadoc/">Javadoc</a><br />
+    <a href="/docs/2.1.0/scaladoc/">Scaladoc</a>
+  </div>
 </div>
 
-<h3>Release Notes</h3>
+<h3 id="release-notes">Release Notes</h3>
 
-<h4 id="category-one">Category One</h4>
+<p>Daffodil 2.1.0 is the first release of Daffodil as an Apache incubator project.
+This release includes relicensing the source to Apache v2, changing the
+namespace to org.apache.daffodil, and numerous bug fixes and DFDL feature
+additions to support more DFDL schemas.</p>
 
-<p>Sentence describing this category of fixes</p>
+<p><strong>This release contains changes which break compatibility with past releases.</strong>
+Please see the deprecation / compatibility notes section for more information.</p>
+
+<h4 id="packed-decimal">Packed Decimal</h4>
+
+<p>Added support for binary packed decimal data types. In addition to <code class="highlighter-rouge">standard</code>,
+the <code class="highlighter-rouge">dfdl:binaryNumberRep</code> property now also accepts values of <code class="highlighter-rouge">bcd</code>,
+<code class="highlighter-rouge">packed</code>, and <code class="highlighter-rouge">ibm4690Packed</code> to support Binary Coded Decimal, IBM 390
+Packed Decimal, and IBM 4690 Packed Decimal, respectively. The
+<code class="highlighter-rouge">dfdl:binaryDecimalVirtualPoint</code> property applies for the appropriate types.
+Also implemented are <code class="highlighter-rouge">dfdl:binaryPackedSignCodes</code> and
+<code class="highlighter-rouge">dfdl:binaryNumberCheckPolicy</code> to configure the valid nibble values when
+<code class="highlighter-rouge">dfdl:binaryNumberRep</code> is <code class="highlighter-rouge">packed</code>.</p>
 
 <ul>
-  <li>Sections should be Header level4, i.e. ####</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-123">DAFFODIL-123</a>] - use {% jira 123 %} to link to Daffodil JIRA issues</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1739">DAFFODIL-1739</a>] Implement ‘packed’ and ‘bcd’</li>
 </ul>
 
-<h4 id="category-two">Category Two</h4>
+<h4 id="apache-incubation-support">Apache Incubation Support</h4>
 
-<p>Sentence describing this category of fixes</p>
+<p>Multiple changes were made to support the move to Apache incubation. This
+includes changes to the source directory structure, relicensing files to Apache
+v2, changing the project package to org.apache.daffodil, updating the build
+infrastructure to SBT 1.x, and adding TravisCI continuous integration support.</p>
 
 <ul>
-  <li>Sections should be Header level4, i.e. ####</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-123">DAFFODIL-123</a>] - use {% jira 123 %} to link to Daffodil JIRA issues</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1856">DAFFODIL-1856</a>] Changes necessary for apache incubation</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1857">DAFFODIL-1857</a>] Update sbt to 1.x, simplifing build config and replacing deprecated syntax</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1870">DAFFODIL-1870</a>] invalid and nonfunctional URLs in source files</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1858">DAFFODIL-1858</a>] Add support for TravisCI</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1873">DAFFODIL-1873</a>] sbt warnings/errors</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1612">DAFFODIL-1612</a>] sbt - branches without tags cause sbt compile to fail</li>
 </ul>
+
+<h4 id="ambiguous-path-expressions">Ambiguous Path Expressions</h4>
+
+<p>Previously, ambiguous path expressions (i.e. path expressions that could
+potentially reference multiple non-array elements of the same name) were not
+allowed and caused a schema definition error at schema. As of 2.1.0, such
+ambiguities are detected at runtime but are now only considered schema
+definition warnings. However, if a path expression ever evaluates to more than
+on non-array element at runtime, it will then be considered an error and cause a
+runtime schema definition error. This can allow for schemas that have ambiguous
+path expression, but in practice only ever evaluate to a single element.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1773">DAFFODIL-1773</a>] Choice ambiguous element name results in failed expression</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1869">DAFFODIL-1869</a>] Nato link16 doesn’t work on 2.0.0 Daffodil</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1877">DAFFODIL-1877</a>] Slow schema compilation due to unambiguous checks</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1854">DAFFODIL-1854</a>] Remove concept of slots from InfosetImpl.scala</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1860">DAFFODIL-1860</a>] Minimize the number of HashMap allocations/insertions in the Infoset</li>
+</ul>
+
+<h4 id="tdml-runner-enhancements">TDML Runner Enhancements</h4>
+
+<p>Changes were made to the TDML runner to support embedded defaultConfig option
+and to verify expected schema definition warnings.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1868">DAFFODIL-1868</a>] TDML Runner defaultConfig cannot be embedded. Not checked properly.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1583">DAFFODIL-1583</a>] TDML Runner - expected warnings feature</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1846">DAFFODIL-1846</a>] TDML Runner - Infoset.contents is stripping off all attributes</li>
+</ul>
+
+<h4 id="bitorderbyteorderencoding-refactoring">BitOrder/ByteOrder/Encoding Refactoring</h4>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1001">DAFFODIL-1001</a>] Invalid bitOrder and byteOrder combination should produce SDE</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1597">DAFFODIL-1597</a>] Too many ways that encoding, byteOrder, etc. are being setup</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1843">DAFFODIL-1843</a>] Unparser bitOrder change and OVC (outputValueCalc) interaction</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1876">DAFFODIL-1876</a>] Improve performance regression due to FormatInfo changes</li>
+</ul>
+
+<h4 id="xml-output">XML Output</h4>
+
+<p>The XML infoset output (via the XMLTextInfosetOutputter) now writes an XML
+declaration <code class="highlighter-rouge"><span class="cp">&lt;?xml version="1.) ... ?&gt;</span></code> at the beginning of output. It also
+ensures output is flushed at the end of writing, which should prevent issues
+users reported of receiving only partial data.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1844">DAFFODIL-1844</a>] XMLTextInfosetOutputter should output an XML declaration</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1871">DAFFODIL-1871</a>] XMLTextInfosetOutputter endDocument should flush the writer</li>
+</ul>
+
+<h4 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h4>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1867">DAFFODIL-1867</a>] Memory leak in Register</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1862">DAFFODIL-1862</a>] Better logging/reset mechanism for MarkPool</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1851">DAFFODIL-1851</a>] Unparsing delimited data with escape characters could lead to truncation</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1855">DAFFODIL-1855</a>] Property Resolution - resolve onto ref objects</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1864">DAFFODIL-1864</a>] spurious SDE about all-text schema being non-scannable</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1866">DAFFODIL-1866</a>] Eclipse classpaths need fixing</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1872">DAFFODIL-1872</a>] Eclipse classpaths for daffodil-io module need fixing</li>
+</ul>
+
+<h4 id="deprecationcompatability">Deprecation/Compatability</h4>
+
+<p>As of 2.1.0, the following changes have been made which affect compatibility
+with past releases:</p>
+
+<p><strong>Namespace Change</strong></p>
+
+<p>Now that Daffodil is an Apache incubator project, its package namespace has been
+changed from <code class="highlighter-rouge">edu.illinois.ncsa.daffodil</code> to <code class="highlighter-rouge">org.apache.daffodil</code>.
+Developers using the Daffodil Java and Scala API will need to update their
+source code and SBT/Maven configurations to use the new package namespace.</p>
+
+<p><strong>Daffodil Extension <code class="highlighter-rouge">daf</code> XML Namespace Change</strong></p>
+
+<p>The Daffodil extension <code class="highlighter-rouge">daf</code> XML namespace has been modified to represent the move to
+Apache, changing from <code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:opensource.ncsa.illinois.edu:2012:ext</code>
+to <code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext</code>. Backwards
+compatibility is maintained for schemas using the old <code class="highlighter-rouge">daf</code> namespace. All future
+Daffodil extensions will only be supported in the new namespace, so it is
+recommended that one update schemas to use the new namespace.</p>
 
 
       <footer>

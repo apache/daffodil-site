@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | Frequently Asked Questions</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
+                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="http://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="http://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="http://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<style type="text/css">
+.in, .collapsing {
+	margin-left: 20px;
+}
+.question {
+	cursor: pointer;
+}
+</style>
+
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+
+<p><a class="question" data-toggle="collapse" data-target="#faq1">
+  Q: When should I use an XSD facet like maxLength, and when should I use the DFDL length property?
+</a></p>
+<div id="faq1" class="collapse">
+  <p>Here’s part of an example from the DFDL tutorial of a street address:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"houseNumber"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"explicit"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+</code></pre>
+  </div>
+
+  <p>Note that the length of the house number is constrained with DFDL.  XSD can also be used to constrain lengths.</p>
+
+  <p>When should you used XSD to do this, and when should you use DFDL?  Should you ever use both?</p>
+
+  <p>You must use the dfdl:length property, because it can’t parse the data without it. You may use the XSD facets to check further, and it often makes sense to use both.</p>
+
+  <p>Consider</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">/&gt;</span>
+</code></pre>
+  </div>
+
+  <p>Now the length is coming from a field someplace at runtime. Validating that it is within some additional constraints on maxLength might be very valuable. To do that you nave to write the more verbose:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;xs:simpleType&gt;</span>
+    <span class="nt">&lt;xs:restriction</span> <span class="na">base=</span><span class="s">"xs:string"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;xs:maxLength</span> <span class="na">value=</span><span class="s">"140"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/xs:restriction&gt;</span>
+  <span class="nt">&lt;/xs:simpleType&gt;</span>
+<span class="nt">&lt;/xs:element&gt;</span>
+</code></pre>
+  </div>
+
+  <p>Not too bad actually. And if you can reuse some simple type definitions it’s not bad at all.</p>
+
+  <p>One further point. Suppose you want to parse the string using the header-supplied length, but it’s flat out a parse error if the length turns out to be greater than 140. You can ask the DFDL processor to check the facet maxLength at parse time using an assertion like this:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;xs:simpleType&gt;</span>
+    <span class="nt">&lt;xs:annotation&gt;&lt;xs:appinfo</span> <span class="na">source=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;dfdl:assert&gt;</span>{ dfdl:checkConstraints() }<span class="nt">&lt;/dfdl:assert&gt;</span>
+    <span class="nt">&lt;/xs:appinfo&gt;&lt;/xs:annotation&gt;</span>
+    <span class="nt">&lt;xs:restriction</span> <span class="na">base=</span><span class="s">"xs:string"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;xs:maxLength</span> <span class="na">value=</span><span class="s">"140"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/xs:restriction&gt;</span>
+  <span class="nt">&lt;/xs:simpleType&gt;</span>
+<span class="nt">&lt;/xs:element&gt;</span>
+</code></pre>
+  </div>
+
+  <p>The dfdl:assert statement annotation calls a built-in DFDL function called dfdl:checkConstraints, which tells DFDL to test the facet constraints and issue a parse error if they are not satisfied. This is particularly useful for enumeration constraints where an element value is an identifier of some sort.</p>
+</div>
+
+<p><a class="question" data-toggle="collapse" data-target="#faq2">
+  Q: Should I use dfdl:assert to validate while parsing?
+</a></p>
+<div id="faq2" class="collapse">
+  <p>In general, no. The dfdl:assert statement annotation should be used to guide the parser. It should test things that must be true in order to successfully parse the data and create an Infoset from it.</p>
+
+  <p>But, it should not be used to ensure validation of the values of the data elements.</p>
+
+  <p>By way of illustrating what not to do, it is tempting to put facet constraints on simple type definitions in your schema, and then use a dfdl:assert like this:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert&gt;</span>{ checkConstraints(.) }<span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre>
+  </div>
+
+  <p>so that the parser will validate as it parses, and will fail to parse values that do not satisfy the facet constraints.</p>
+
+  <p>Don’t do this. Your schema will not be as useful because it will not be able to be used for some applications, for example, applications that want to accept well-formed, but invalid data and analyze, act,  or report on the invalid aspects.</p>
+
+  <p>In some sense, embedding checks like this into a DFDL schema is second-guessing the application’s needs, and assuming the application does not even want to successfully parse and create an infoset from data that does not obey the facet constraints.</p>
+</div>
+
+<p><a class="question" data-toggle="collapse" data-target="#faq3">
+  Q: How do I prevent my DFDL expressions and regular expressions from being modified by my XML editor?
+</a></p>
+<div id="faq3" class="collapse">
+  <p>Use CDATA with expressions and regular expressions, and generally to stop XML editors from messing with your DFDL schema layouts.</p>
+
+  <p>Most XML editors will wrap long lines. So your</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+  </div>
+
+  <p>just might get turned into</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar
+<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+  </div>
+
+  <p>Now most of the time that is fine. But sometimes the whitespace really matters. One such place is when you type a regular expression. In DFDL this can come up in this way:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span> *<span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre>
+  </div>
+
+  <p>Now the contents of that element is “ *”, i.e., a single space, and the “*” character. That means zero or more spaces in regex language. If you don’t want your XML tooling to mess with the whitespace do this instead:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[ *]]&gt;</span><span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre>
+  </div>
+
+  <p>CDATA informs XML processors that you very much care about this. Any decent XML tooling/editor will see this and decide it cannot line-wrap this or in any way mess with the whitespace. Also useful if you want to write a complex DFDL expression in the expression language, and you want indentation and lines to be respected. Here’s an example:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:discriminator&gt;</span><span class="cp">&lt;![CDATA[{
+    if (daf:trace((daf:trace(../../ex:presenceBit,"presenceBit") = 0),"pbIsZero")) then false()
+    else if
+    (daf:trace(daf:trace(dfdl:occursIndex(),"occursIndex") = 1,"indexIsOne")) then true()
+    else if
+    (daf:trace(daf:trace(xs:int(daf:trace(../../ex:A1[daf:trace(dfdl:occursIndex()-1,"indexMinusOne")],
+                                       "occursIndexMinusOneNode")/ex:repeatBit),
+                       "priorRepeatBit") = 0,
+              "priorRepeatBitIsZero"))
+    then false()
+    else true() 
+}]]&gt;</span><span class="nt">&lt;/dfdl:discriminator&gt;</span>
+</code></pre>
+  </div>
+
+  <p>If you get done writing something very deeply nested like this (and XPath style languages require this all the time), then you do NOT want anything messing with the whitespace.</p>
+
+  <p>About the xml:space=’preserve’ attribute: According to this thread on the stack overflow web site, xml:space is only about whitespace-only nodes, not nodes that are part whitespace. Within element-only content, the text nodes found between the elements are whitespace-only nodes. Unless you use xml:space=’preserve’, those are eliminated. None of the above discussion is about whitespace-only nodes. It’s about value nodes containing text strings with surrounding whitespace.</p>
+</div>
+
+<p><a class="question" data-toggle="collapse" data-target="#faq4">
+  Q: Why doesn’t DFDL allow me to express my format using offsets into a file, instead of lengths?
+</a></p>
+<div id="faq4" class="collapse">
+  <p>With some study, the DFDL workgroup concluded that these formats nearly always require the full complexity of a transformation system AND a data format description system. DFDL is only about the latter problem.</p>
+
+  <p>In other words, it was left out for complexity reasons, not because we didn’t think there were examples.</p>
+
+  <p>It is a much more complex issue than people think. As we got into it we kept falling down the slippery slope of needing rich transformations to express such things.</p>
+
+  <p>We certainly have seen formats where there are a bunch of fields, in the ordinary manner, but instead of expressing their lengths, the forrmat specifies only their starting positions relative to start of record. There are also formats where there are tables of offsets into a subsequent data array.</p>
+
+  <p>DFDL requires one to recast such a specification as lengths.</p>
+
+  <p>It is not a “either or” scenario where lengths and offsets are equivalent so you can pick one.</p>
+
+  <p>Use of lengths is simply a superior and more precise way of expressing the format because use of offsets can obscure aliasing, which is the term for when there are two elements (or more) that describe the same part of the data representation. With lengths, it’s clear what every bit means, and that every bit is in fact described or explicitly skipped. You can’t just use an offset to skip past a bunch of data leaving it not described at all. You can’t have aliasing of the same data.</p>
+
+  <p>Aliasing is a difficult issue when parsing. When unparsing it is a nightmare, as it introduces non-determinacy in what the data written actually comes out like. It depends on who writes it last with what alias.</p>
+
+  <p>Structures like</p>
+
+  <div class="highlighter-rouge"><pre class="highlight"><code>&lt;offset to start&gt;&lt;length of thing&gt;
+&lt;offset to start2&gt;&lt;length of thing2&gt;
+...
+&lt;offset to startN&gt;&lt;length of thingN&gt;
+thing
+thing2
+...
+thingN
+</code></pre>
+  </div>
+
+  <p>So long as the things and the corresponding descriptor pairs are in order, these can be described. The lengths need not even be there as they are redundant. If present they can be checked for validity. Overlap can be checked for and deemed invalid.</p>
+
+  <p>But, in DFDL the above <em>must</em> be represented as two vectors. One of the offsets table, the other of the things. If you want an array of things and then want DFDL to convert that into the offsets and things separately, well DFDL doesn’t do transformations of that sort. Do that first in XSLT or other transformation system when unparsing. When parsing, you first parse with DFDL, then transform the data into the logical single vector using XSLT (or other).</p>
+
+  <div class="alert alert-warning">
+XProc is a language for expressing chains of XML-oriented transformations like this. Calabash is an open-source XProc implementation, and the daffodil-calabash-extension provides Daffodil stages that have been created to enable creation of XProc pipelines that glue together transformations like XSLT with DFDL parse/unparse steps. This can be used to create a unit that runs both DFDL and an XSLT together for parse or for unparse (they would be different XSLTs).
+If the things are potentially out of order, especially if the lengths are not stored, but just implied by "from this offset to the start of the next one, whichever one that is", that is simply too complex a transformation for DFDL. 
+</div>
+
+  <p>If you think about what is required mentally to decode this efficiently, you must grab all the entries, sort them by offset, and then compute lengths, etc.  Shy of building a real programming language (e.g., XQuery) into DFDL there has to be a limit to what level of complexity we allow DFDL to express directly.   And unparsing is entirely non-deterministic… you have to stage an array/blob filled with fill bytes, write pieces to it one by one, potentially overwriting sections. It’s really quite hard. Even if you supported this in DFDL somehow, would it in fact write these things out in the order an application does? So will you even be able to re-create data?</p>
+
+  <p>There is a sense in which formats expressed as these sorts of “potentially overlapping regions” are simply not adequately specified unless they specify the exact order things are to be written so that the contents of overlap regions is deterministic.</p>
+
+  <p>There could be formats where there are offset tables like this, where in principle things could be out of order, or overlapping/aliased, but they simply never are, and allowing them to be is effectively a bad idea as it allows people to do very obscure things - information hiding, polyglot files, etc. PDF is heavily criticized for this. It may be an unstated principle that such formats <em>do not</em> do this sort of out-of-order or aliasing stuff.</p>
+
+  <p>All that said, practically speaking, people have data with offset tables, and out-of-order might be a possibility that needs to be allowed at least on parsing. So what to do in DFDL?</p>
+
+  <p>In this case, DFDL can describe the table of offsets, and a big blob of data. Beyond that something else (e.g., XSLT, or a program) must take over for expressing the sort and extraction of chunks out of the larger blob.</p>
+
+  <p>If you think about this, if you want deterministic unparsing behavior, that is what has to be presented to the DFDL unparser anyway, since presenting the resolved content blob means the application has dealt with the order to which the various chunks (which may overlap) have been written.</p>
+</div>
+
+<p><a class="question" data-toggle="collapse" data-target="#faq5">
+  Q: How can I get strings in the data to become element names?
+</a></p>
+<div id="faq5" class="collapse">
+  <p>If the data contains tags/strings, and you want those strings to become element names in XML, then you <em>must</em> do pass 1 to extract the tag information, use them as element names when you create a DFDL schema dynamically, and then parse the data again with this new specialized DFDL schema.</p>
+
+  <p>Or you can parse the data with a generic schema where your tag names will be in element values someplace, and do a transformation outside of DFDL to convert them to element names.</p>
+
+  <p>Consider the common “comma separated values” or  CSV formats. If you have</p>
+
+  <div class="highlighter-rouge"><pre class="highlight"><code>Name, Address, Phone
+Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
+</code></pre>
+  </div>
+
+  <p>and you want</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;columnNames&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Name<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Address<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Phone<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;/columnNames&gt;</span>
+<span class="nt">&lt;row&gt;</span>
+  <span class="nt">&lt;col&gt;</span>Mike<span class="nt">&lt;/col&gt;</span>
+  <span class="nt">&lt;col&gt;</span>8840 Standford Blvd, Columbia MD<span class="nt">&lt;/col&gt;</span>
+  <span class="nt">&lt;col&gt;</span>888-888-8888<span class="nt">&lt;/col&gt;</span>
+<span class="nt">&lt;/row&gt;</span>
+</code></pre>
+  </div>
+  <p>That’s what you would get from a generic CSV DFDL schema. If you want this:</p>
+
+  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;row&gt;</span>
+  <span class="nt">&lt;Name&gt;</span>Mike<span class="nt">&lt;/Name&gt;</span>
+  <span class="nt">&lt;Address&gt;</span>8840 Stanford Blvd, Columbia MD<span class="nt">&lt;/Address&gt;</span>
+  <span class="nt">&lt;Phone&gt;</span>888-888-8888<span class="nt">&lt;/Phone&gt;</span>
+<span class="nt">&lt;/row&gt;</span>
+</code></pre>
+  </div>
+
+  <p>That’s a specific-to-exactly-these-column-names CSV DFDL schema that is required. If you have lots of files with this exact structure you would create this DFDL schema once.</p>
+
+  <p>If you have no idea what CSV is coming at you, but want this sort of XML elements anyway, then you have to generate a DFDL schema on the fly from the data (parse just the headers with a generic DFDL schema first - then use that to create the DFDL schema.</p>
+
+  <p>Or you parse using the generic schema, then use XSLT or something to convert the result of the generic parse.</p>
+
+  <p>Keep in mind that this problem has little to do with DFDL. Given an XML document like the generic one above, but you didn’t want that XML, you wanted the specific style XML. Well you have the same problem. You need to grab the column names first, then transform the data using them as the element names.</p>
+</div>
+
+<!---
+Copy the below snippet and edit to create a new FAQ entry, changing the
+question and answer only. Everything else should remain exactly the same.
+
+
+<a class="question" data-toggle="collapse" data-target="#faq6">
+  Q: Question Goes Here
+</a>
+<div id="faq6" class="collapse" markdown="1">
+  Answer goes here using markdown
+</div>
+-->
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

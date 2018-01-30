@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | Examples</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
+                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="http://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="http://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="http://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<h2 id="examples">Examples</h2>
+
+<p>Below are two examples of how Daffodil parses Comma-Separated Values (CSV) and Packet Capture data (PCAP) data to XML. For simplicity, each example uses the Daffodil <a href="/cli">Command Line Interface</a> to parse input data to output XML.</p>
+
+<h3 id="comma-separated-values-csv">Comma-Separated Values (CSV)</h3>
+
+<p>This DFDL schema is found at the DFDLSchemas GitHub <a href="https://github.com/DFDLSchemas/CSV">CSV repository</a>.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>daffodil parse --schema CSV/src/main/resources/com/tresys/csv/xsd/csv.dfdl.xsd CSV/src/test/resources/com/tresys/csv/data/simpleCSV.csv
+</code></pre>
+</div>
+<p>The above command uses the csv.dfdl.xsd schema to parse the simpleCSV.csv input data. The simpleCSV.csv contains the following data:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>last,first,middle,DOB
+smith,robert,brandon,1988-03-24
+johnson,john,henry,1986-01-23
+jones,arya,cat,1986-02-19
+</code></pre>
+</div>
+
+<p>The result of the parse is the following XML:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;ex:file</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;title&gt;</span>last<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>first<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>middle<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>DOB<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>smith<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>robert<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>brandon<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1988-03-24<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>johnson<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>john<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>henry<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1986-01-23<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>jones<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>arya<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>cat<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1986-02-19<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+<span class="nt">&lt;/ex:file&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="packet-capture-data-pcap">Packet Capture Data (PCAP)</h3>
+
+<p>This DFDL schema is found in the DFDLSchemas GitHub <a href="https://github.com/DFDLSchemas/PCAP">PCAP repository</a>.</p>
+
+<p>The PCAP file format is a binary file format used to capture network packets. For information on this file format, visit the <a href="http://wiki.wireshark.org/Development/LibpcapFileFormat">Wireshark Libpcap File Format</a> page.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>daffodil parse --schema PCAP/src/main/resources/com/tresys/pcap/xsd/pcap.dfdl.xsd PCAP/src/test/resources/com/tresys/pcap/data/icmp.cap
+</code></pre>
+</div>
+
+<p>The above command uses the pcap.dfdl.xsd schema to parse the icmp.cap input file. Viewed as a hex dump, the icmp.cap file looks like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0000000     c3d4 a1b2 0002 0004 0000 0000 0000 0000
+0000020     ffff 0000 0001 0000 6fc4 51c1 ccf8 000c
+0000040     004a 0000 004a 0000 5000 e056 4914 0c00
+...
+0001300     0000 5c2f 0002 0024 6261 6463 6665 6867
+0001320     6a69 6c6b 6e6d 706f 7271 7473 7675 6177
+0001340     6362 6564 6766 6968
+</code></pre>
+</div>
+
+<p>The result of the parse is the following XML:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;pcap:PCAP</span> <span class="na">xmlns:pcap=</span><span class="s">"urn:pcap:2.4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;PCAPHeader&gt;</span>
+    <span class="nt">&lt;MagicNumber&gt;</span>D4C3B2A1<span class="nt">&lt;/MagicNumber&gt;</span>
+    <span class="nt">&lt;Version&gt;</span>
+      <span class="nt">&lt;Major&gt;</span>2<span class="nt">&lt;/Major&gt;</span>
+      <span class="nt">&lt;Minor&gt;</span>4<span class="nt">&lt;/Minor&gt;</span>
+    <span class="nt">&lt;/Version&gt;</span>
+    <span class="nt">&lt;Zone&gt;</span>0<span class="nt">&lt;/Zone&gt;</span>
+    <span class="nt">&lt;SigFigs&gt;</span>0<span class="nt">&lt;/SigFigs&gt;</span>
+    <span class="nt">&lt;SnapLen&gt;</span>65535<span class="nt">&lt;/SnapLen&gt;</span>
+    <span class="nt">&lt;Network&gt;</span>1<span class="nt">&lt;/Network&gt;</span>
+  <span class="nt">&lt;/PCAPHeader&gt;</span>
+  <span class="nt">&lt;Packet&gt;</span>
+    <span class="nt">&lt;PacketHeader&gt;</span>
+      <span class="nt">&lt;Seconds&gt;</span>1371631556<span class="nt">&lt;/Seconds&gt;</span>
+      <span class="nt">&lt;USeconds&gt;</span>838904<span class="nt">&lt;/USeconds&gt;</span>
+      <span class="nt">&lt;InclLen&gt;</span>74<span class="nt">&lt;/InclLen&gt;</span>
+      <span class="nt">&lt;OrigLen&gt;</span>74<span class="nt">&lt;/OrigLen&gt;</span>
+    <span class="nt">&lt;/PacketHeader&gt;</span>
+    <span class="nt">&lt;pcap:LinkLayer&gt;</span>
+      <span class="nt">&lt;pcap:Ethernet&gt;</span>
+        <span class="nt">&lt;MACDest&gt;</span>005056E01449<span class="nt">&lt;/MACDest&gt;</span>
+        <span class="nt">&lt;MACSrc&gt;</span>000C29340BDE<span class="nt">&lt;/MACSrc&gt;</span>
+        <span class="nt">&lt;Ethertype&gt;</span>2048<span class="nt">&lt;/Ethertype&gt;</span>
+        <span class="nt">&lt;pcap:NetworkLayer&gt;</span>
+          <span class="nt">&lt;pcap:IPv4&gt;</span>
+            <span class="nt">&lt;IPv4Header&gt;</span>
+              <span class="nt">&lt;Version&gt;</span>4<span class="nt">&lt;/Version&gt;</span>
+              <span class="nt">&lt;IHL&gt;</span>5<span class="nt">&lt;/IHL&gt;</span>
+              <span class="nt">&lt;DSCP&gt;</span>0<span class="nt">&lt;/DSCP&gt;</span>
+              <span class="nt">&lt;ECN&gt;</span>0<span class="nt">&lt;/ECN&gt;</span>
+              <span class="nt">&lt;Length&gt;</span>60<span class="nt">&lt;/Length&gt;</span>
+              <span class="nt">&lt;Identification&gt;</span>55107<span class="nt">&lt;/Identification&gt;</span>
+              <span class="nt">&lt;Flags&gt;</span>0<span class="nt">&lt;/Flags&gt;</span>
+              <span class="nt">&lt;FragmentOffset&gt;</span>0<span class="nt">&lt;/FragmentOffset&gt;</span>
+              <span class="nt">&lt;TTL&gt;</span>128<span class="nt">&lt;/TTL&gt;</span>
+              <span class="nt">&lt;Protocol&gt;</span>1<span class="nt">&lt;/Protocol&gt;</span>
+              <span class="nt">&lt;Checksum&gt;</span>11123<span class="nt">&lt;/Checksum&gt;</span>
+              <span class="nt">&lt;IPSrc&gt;</span>192.168.158.139<span class="nt">&lt;/IPSrc&gt;</span>
+              <span class="nt">&lt;IPDest&gt;</span>174.137.42.77<span class="nt">&lt;/IPDest&gt;</span>
+            <span class="nt">&lt;/IPv4Header&gt;</span>
+            <span class="nt">&lt;PayloadLength&gt;</span>40<span class="nt">&lt;/PayloadLength&gt;</span>
+            <span class="nt">&lt;Protocol&gt;</span>1<span class="nt">&lt;/Protocol&gt;</span>
+            <span class="nt">&lt;pcap:ICMPv4&gt;</span>
+              <span class="nt">&lt;Type&gt;</span>8<span class="nt">&lt;/Type&gt;</span>
+              <span class="nt">&lt;Code&gt;</span>0<span class="nt">&lt;/Code&gt;</span>
+              <span class="nt">&lt;Checksum&gt;</span>10844<span class="nt">&lt;/Checksum&gt;</span>
+              <span class="nt">&lt;Data&gt;</span>02002100<span class="nt">&lt;/Data&gt;</span>
+            <span class="nt">&lt;/pcap:ICMPv4&gt;</span>
+          <span class="nt">&lt;/pcap:IPv4&gt;</span>
+        <span class="nt">&lt;/pcap:NetworkLayer&gt;</span>
+      <span class="nt">&lt;/pcap:Ethernet&gt;</span>
+    <span class="nt">&lt;/pcap:LinkLayer&gt;</span>
+  <span class="nt">&lt;/Packet&gt;</span>
+  ...
+<span class="nt">&lt;/pcap:PCAP&gt;</span>
+</code></pre>
+</div>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

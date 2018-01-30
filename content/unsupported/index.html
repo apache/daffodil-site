@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | Unsupported Features and Errata</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
+                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="http://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="http://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="http://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<style type="text/css">
+th {
+	background-color: #f4f4f4;
+}
+
+td, th {
+	padding: 5px 10px;
+	border-top: solid 1px #cccccc;
+	width: 20px;
+}
+
+table {
+    display:table;
+    width:100%;
+}
+
+th:last-child {
+    width:100%;
+}
+</style>
+
+<h2 id="unsupported-features--errata">Unsupported Features &amp; Errata</h2>
+
+<p>The following table lists unsupported features and errata of the DFDL Specification since Daffodil 1.0.0 and if/when those features were implemented. Any features/errata not listed in this table were implemented prior to 1.0.0.</p>
+
+<p><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i> = supported   <i class="glyphicon glyphicon-remove" style="color: #d00000;"></i> = unsupported   <i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i> = partially supported</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Unparsing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>unparser</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>outputNewLine</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>fillByte</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textPadKind</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textOutputMinLength</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>generateEscapeBlock</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>extraEscapedCharacters</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>truncateSpecifiedLengthString</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>outputValueCalc</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Types</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>decimal</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>integer</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>nonNegativeInteger</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>hexBinary</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>boolean</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>date (binary)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>time (binary)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>dateTime (binary)</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>XML Schema Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>fixed</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>default</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>elementFormDefault</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>DFDL Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>defaulting of values for required elements</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>‘packed’ binary number representations (packed, bcd, etc.)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>‘zoned’ binary number representations</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>advanced text number format properties</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>bi-directional text</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>unordered sequences</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>floating elements in sequences</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>external variables</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>byte-value entities (aka raw-byte entities)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>validation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>alignment</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>‘type’ component of DFDL infoset</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>‘unionMemberSchema’ component of DFDL infoset</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>‘valid’ component of DFDL infoset</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>unicodeByteOrderMark</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>all runtime-computed format properties</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>runtime-computation for escapeCharacter, escapeEscapeCharacter, byteOrder</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>IANA standard encodings other than utf-8, utf-16BE, utf-16LE, utf-32BE, utf-32LE, and ASCII</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>optional qualified names in expression language</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>check for non-portable regular expressions</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>delimited binary</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>extended ICU symbols ‘u’ and ‘I’ in calendarPattern</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Daffodil Specific</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>save/reload parser</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Properties and Property Enumerations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>ignoreCase=”yes”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>utf16Width=”variable”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textNumberRep=”zoned”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryNumberRep=”packed”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryNumberRep=”bcd”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryNumberRep=”ibm4690Packed”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>binaryFloatRep=”ibm390Hex”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>nilKind=”logicalValue”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>nilKind=”literalCharacter”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>lengthKind=”prefixed”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>lengthKind=”endOfParent”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>occursCountKind=”stopValue”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>documentFinalTerminatorCanBeMissing=”yes”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textNumberPattern</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textNumberCheckPolicy</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textNumberRounding</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textNumberRoundingMode</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textNumberRoundingIncrement</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardGroupingSeparator</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardDecimalSeparator</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardExponentRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardInfinityRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardNaNRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textStandardZeroRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textStandardBase (behaves as 10)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textZonedSignStyle</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>decimalSigned</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textBooleanTrueRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textBooleanFalseRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textBooleanPadCharacter</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>textBooleanJustification</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryBooleanTrueRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryBooleanFalseRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidi (behaves as “no”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidiTextOrdering</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidiOrientation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidiSymmetric</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidiTextShaped</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>textBidiNumeralShapes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>alignment</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>alignmentUnits</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>leadingSkip</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>trailingSkip</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>prefixIncludesPrefixLength</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>prefixLengthType</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryDecimalVirtualPoint</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryNumberCheckPolicy</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>binaryPackedSignCodes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>binaryCalendarRep</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>binaryCalendarEpoch</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>useNilForDefault</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>sequenceKind=’unordered’</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>floating=”yes”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>choiceLengthKind=”explicit”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>choiceLength</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>occursStopValue</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>seperatorSuppressionPolicy (overrides separatorPolicy)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>separatorPolicy</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>bitOrder</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>encodingErrorPolicy=”replace”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>encodingErrorPolicy=”error”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>failureType=”recoverableError”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>choiceDispatchKey</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>choiceBranchKey</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Functions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>contentLength</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>valueLength</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Annotations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>newVariableInstance</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th>Miscellaneous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>File sizes greater than 4GB</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Java version &lt;= 6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Java version 7</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Java version 8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Strict DFDL expressions adherence (i.e. disallow features of XPath not available in DFDL expressions)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-minus" style="color: #efcb00;"></i></td>
+      <td>XPath 2.0 Support (query-style expressions not supported)</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">1.0.0</th>
+      <th style="text-align: center">1.1.0</th>
+      <th style="text-align: center">2.0.0</th>
+      <th style="text-align: center">2.1.0</th>
+      <th><a href="https://redmine.ogf.org/dmsf_files/13384?download=">DFDL v1.0 Spec Errata</a> (Minor Technical Fixes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.5</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.7</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.9</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.10</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.11</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.12</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.13</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.14</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.15</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.16</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.17</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.18</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.19</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.20</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.21</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.22</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.23</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.24</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.25</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.26</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.27</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.28</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.29</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i></td>
+      <td>Erratum 5.30</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td style="text-align: center"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i></td>
+      <td>Erratum 5.31</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

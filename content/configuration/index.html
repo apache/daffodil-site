@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | Configuration</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              <!--<img src="/assets/themes/apache/img/logo.png" width="50">-->
+              Apache Daffodil (incubating)
+          </a>
+        </div>
+        <nav class="navbar-collapse collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
+                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="http://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="http://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="http://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Daffodil has the capability to read in parameters via an external XML file, defined by the <a href="https://github.com/apache/incubator-daffodil/blob/master/daffodil-propgen/src/main/resources/edu/illinois/ncsa/daffodil/xsd/dafext.xsd">dafext.xsd</a> schema. Below are the parameters that can be defined.</p>
+
+<h3 id="external-variables">External Variables</h3>
+
+<p>External variables can be defined using the <code class="highlighter-rouge">externalVariablesBindings</code> tag. For example, the following configuration file defines two variables, <code class="highlighter-rouge">var1</code> and <code class="highlighter-rouge">var2</code>, in the <code class="highlighter-rouge">http://example.com</code> namespace.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;dfdlConfig</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;externalVariableBindings&gt;</span>
+    <span class="nt">&lt;bind</span> <span class="na">name=</span><span class="s">"ex:var1"</span><span class="nt">&gt;</span>-9<span class="nt">&lt;/bind&gt;</span>
+    <span class="nt">&lt;bind</span> <span class="na">name=</span><span class="s">"ex:var2"</span><span class="nt">&gt;</span>Foo<span class="nt">&lt;/bind&gt;</span>
+  <span class="nt">&lt;/externalVariableBindings&gt;</span>
+<span class="nt">&lt;/dfdlConfig&gt;</span>
+</code></pre>
+</div>
+
+<p>The following defined in a DFDL schema would allow the external variables to be set or overridden:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:defineVariable</span> <span class="na">name=</span><span class="s">"var1"</span> <span class="na">external=</span><span class="s">"true"</span> <span class="na">type=</span><span class="s">"xsd:int"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/dfdl:defineVariable&gt;</span>
+<span class="nt">&lt;dfdl:defineVariable</span> <span class="na">name=</span><span class="s">"var2"</span> <span class="na">external=</span><span class="s">"true"</span> <span class="na">type=</span><span class="s">"xsd:string"</span><span class="nt">&gt;</span>Bar<span class="nt">&lt;/dfdl:defineVariable&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="tunable-parameters">Tunable Parameters</h3>
+
+<p>Tunable parameters can be modified to change Daffodil schema compilation and data parsing properties. For example, the following sets the <code class="highlighter-rouge">maxOccursBounds</code> tunable to 1024:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;dfdlConfig</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;tunables&gt;</span>
+    <span class="nt">&lt;maxOccursBounds&gt;</span>1024<span class="nt">&lt;/maxOccursBounds&gt;</span>
+  <span class="nt">&lt;/tunables&gt;</span>
+<span class="nt">&lt;/dfdlConfig&gt;</span>
+</code></pre>
+</div>
+
+<p>Below is a description of the available tunable parameters:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">generatedNamespacePrefixStem</code></dt>
+  <dd>
+    <p>If elementFormDefault is qualified, but no prefix is associated with the targetNamespace, a prefix will be created using this value, with numbers appended if necessary to ensure uniqueness. Defaults to “tns”.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">inputFileMemoryMapLowThreshold</code></dt>
+  <dd>
+    <p>In certain I/O optimized situations (text-only, encodingErrorPolicy=’replace’, fixed-width encoding) input files larger than this will be mmapped. Input files smaller than this will be simply read using ordinary I/O (because for small files that is just faster). This exists because mmap is more expensive than ordinary I/O for small files. Defaults to 225.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">maxBinaryDecimalVirtualPoint</code></dt>
+  <dd>
+    <p>An upper limit on the value of the dfdl:binaryDecimalVirtualPoint property. Defaults to 200.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">maxFieldContentLengthInBytes</code></dt>
+  <dd>
+    <p>A maximum limit for various daffodil I/O properties, including the maximim size of a simple element and maximum regular expression characters to match. Defaults to 220.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">maxLengthForVariableLengthDelimiterDisplay</code></dt>
+  <dd>
+    <p>When unexpected text is found where a delimiter is expected, this is the maximum number of bytes (characters) to display when the expected delimiter is a variable length delimiter. Defaults to 10.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">maxOccursBounds</code></dt>
+  <dd>
+    <p>A maximum limit for the number of repeats of array elements. Defaults to 1024.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">maxSkipLengthInBytes</code></dt>
+  <dd>
+    <p>A maximum limit for the number of bytes that can be skipped in a skip region. Defaults to 1024.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">minBinaryDecimalVirtualPoint</code></dt>
+  <dd>
+    <p>A lower limit on the value of the dfdl:binaryDecimalVirtualPoint property. Defaults to -200.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">parseUnparsePolicy</code></dt>
+  <dd>
+    <p>Whether to compile a schema to support parsing (“parseOnly”), unparsing (“unparseOnly”), both parsing and unparsing (“both”), or to use the daf:parseUnparsePolicy property from the root node (“schema”). Defaults to “both”.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">requireBitOrderProperty</code></dt>
+  <dd>
+    <p>If true, require that the bitOrder property is specified. If false, use a default value for bitOrder if not defined in a schema. Defaults to false.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">requireEncodingErrorPolicyProperty</code></dt>
+  <dd>
+    <p>If true, require that the encodingErrorPolicy property is specified. If false, use a default value if not defined in a schema. Defaults to false.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">unqualifiedPathStepPolicy</code></dt>
+  <dd>
+    <p>Specified how unqualified path steps are resolved. Defaults to <code class="highlighter-rouge">noNamespace</code>. Value values are:</p>
+
+    <dl>
+      <dt><code class="highlighter-rouge">noNamespace</code></dt>
+      <dd>
+        <p>Unqualified path steps remain unqualified and will only match elements in NoNamespace. A prefix must be provided to match namespaced elements.</p>
+      </dd>
+      <dt><code class="highlighter-rouge">defaultNamespace</code></dt>
+      <dd>
+        <p>Unqualified path steps will always use the default namespace. If a default namespace is defined, it is not possible to match a NoNamespace element with this policy. Because of this, this may not work well with elementFormDefault=”unqualified”.</p>
+      </dd>
+      <dt><code class="highlighter-rouge">preferDefaultNamespace</code></dt>
+      <dd>
+        <p>Attempt to use the default namespace to resolve an unqualified path step. If that fails to match an element, then try to resolve using NoNamespace.</p>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="http://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2017 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Feather logo, and the Apache Incubator project logo are trademarks of The Apache
+                    Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
