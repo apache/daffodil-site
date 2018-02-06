@@ -94,13 +94,8 @@ crossPaths := false
  
 testOptions in ThisBuild += Tests.Argument(TestFrameworks.JUnit, "-v")
  
-resolvers in ThisBuild ++= Seq(
-  "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases",
-  "NCSA Sonatype Snapshots" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/snapshots"
-)
- 
 libraryDependencies in ThisBuild := Seq(
-  "edu.illinois.ncsa" %% "daffodil-tdml" % "2.0.0" % "test"
+  "org.apache.daffodil" %% "daffodil-tdml" % "2.1.0" % "test",
   "junit" % "junit" % "4.11" % "test",
   "com.novocode" % "junit-interface" % "0.10" % "test",
 )
@@ -125,7 +120,7 @@ Stylistically, the XSD ``elementFormDefault="unqualified"`` is the preferred sty
 The ``xs:include`` or ``xs:import`` elements of a DFDL Schema can import/include a DFDL schema that follows these conventions like this:
 
 ``` xml
-<xs:import namespace="urn:tresys.com/RFormat" schemaLocation="com/tresys/RFormat/xsd/main.dfdl.xsd"/>
+<xs:import namespace="urn:apache.org/RFormat" schemaLocation="org/apache/RFormat/xsd/main.dfdl.xsd"/>
 ```
 
 The above is for using a DFDL schema as a library, from another different DFDL schema. 
@@ -136,9 +131,9 @@ Within a DFDL schema, one DFDL schema file can reference another peer file that 
 <xs:include schemaLocation="format.dfdl.xsd"/>
 ```
 
-That is, peer files need not carry the long ``com/tresys/RFormat/xsd/`` prefix that makes the reference globally unique.
+That is, peer files need not carry the long ``org/apache/RFormat/xsd/`` prefix that makes the reference globally unique.
 
-However, if one schema wants to include another different schema, then this standard way of organizing schema projects ensures that when packaged into jar files, the ``/src/main/resources`` directory contents are at the "root" of the jar file so that the ``schemaLocation`` of the ``xs:import`` or ``xs:include`` containing the fully qualified path (``com/tresys/RFormat/xsd/main.dfdl.xsd``) will be found on the ``CLASSPATH`` unambiguously. This convention is what allows the schema files themselves to have short names like main.dfdl.xsd, and format.dfdl.xsd. Those names only need to be unique within a single schema project. Across schema projects our standard DFDL schema project layout insures unambiguous qualification is available.
+However, if one schema wants to include another different schema, then this standard way of organizing schema projects ensures that when packaged into jar files, the ``/src/main/resources`` directory contents are at the "root" of the jar file so that the ``schemaLocation`` of the ``xs:import`` or ``xs:include`` containing the fully qualified path (``org/apache/RFormat/xsd/main.dfdl.xsd``) will be found on the ``CLASSPATH`` unambiguously. This convention is what allows the schema files themselves to have short names like main.dfdl.xsd, and format.dfdl.xsd. Those names only need to be unique within a single schema project. Across schema projects our standard DFDL schema project layout insures unambiguous qualification is available.
 
 ### Git Revision Control
 
