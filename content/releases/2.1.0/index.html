@@ -61,8 +61,8 @@
             <li id="development">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
-                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
-                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
                 <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
               </ul>
             </li>
@@ -247,57 +247,71 @@ Also implemented are <code class="highlighter-rouge">dfdl:binaryPackedSignCodes<
 
 <h4 id="apache-incubation-support">Apache Incubation Support</h4>
 
-<p>Multiple changes were made to support the move to Apache incubation. This
+<p>Multiple changes were made to support the move to the Apache incubator. This
 includes changes to the source directory structure, relicensing files to Apache
 v2, changing the project package to org.apache.daffodil, updating the build
 infrastructure to SBT 1.x, and adding TravisCI continuous integration support.</p>
 
 <ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1612">DAFFODIL-1612</a>] sbt - branches without tags cause sbt compile to fail</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1841">DAFFODIL-1841</a>] daffodil root jar is published but shouldn’t be, and its contents are wrong</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1856">DAFFODIL-1856</a>] Changes necessary for apache incubation</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1857">DAFFODIL-1857</a>] Update sbt to 1.x, simplifing build config and replacing deprecated syntax</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1870">DAFFODIL-1870</a>] invalid and nonfunctional URLs in source files</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1858">DAFFODIL-1858</a>] Add support for TravisCI</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1859">DAFFODIL-1859</a>] Switch to apache.org namespace and Apache v2 license</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1870">DAFFODIL-1870</a>] invalid and nonfunctional URLs in source files</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1873">DAFFODIL-1873</a>] sbt warnings/errors</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1612">DAFFODIL-1612</a>] sbt - branches without tags cause sbt compile to fail</li>
 </ul>
 
 <h4 id="ambiguous-path-expressions">Ambiguous Path Expressions</h4>
 
 <p>Previously, ambiguous path expressions (i.e. path expressions that could
-potentially reference multiple non-array elements of the same name) were not
-allowed and caused a schema definition error at schema. As of 2.1.0, such
-ambiguities are detected at runtime but are now only considered schema
-definition warnings. However, if a path expression ever evaluates to more than
-on non-array element at runtime, it will then be considered an error and cause a
-runtime schema definition error. This can allow for schemas that have ambiguous
-path expression, but in practice only ever evaluate to a single element.</p>
+potentially reference multiple non-array elements of the same name) were
+forbidden and caused a schema definition error at schema compilation time. As
+of 2.1.0, such ambiguities are detected at compile time but are now only
+considered schema definition warnings. However, if a path expression ever
+evaluates to more than one non-array element at runtime, it will then be
+considered an error and cause a runtime schema definition error. This change
+allows for schemas that appear to have ambiguous path expressions, but in
+only ever evaluate to a single element in practice.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1773">DAFFODIL-1773</a>] Choice ambiguous element name results in failed expression</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1869">DAFFODIL-1869</a>] Nato link16 doesn’t work on 2.0.0 Daffodil</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1877">DAFFODIL-1877</a>] Slow schema compilation due to unambiguous checks</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1854">DAFFODIL-1854</a>] Remove concept of slots from InfosetImpl.scala</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1860">DAFFODIL-1860</a>] Minimize the number of HashMap allocations/insertions in the Infoset</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1869">DAFFODIL-1869</a>] Nato link16 doesn’t work on 2.0.0 Daffodil</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1877">DAFFODIL-1877</a>] Slow schema compilation due to unambiguous checks</li>
 </ul>
 
 <h4 id="tdml-runner-enhancements">TDML Runner Enhancements</h4>
 
-<p>Changes were made to the TDML runner to support embedded defaultConfig option
-and to verify expected schema definition warnings.</p>
+<p>Changes were made to the TDML runner to support an embedded defaultConfig
+option and to verify expected schema definition warnings.</p>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1868">DAFFODIL-1868</a>] TDML Runner defaultConfig cannot be embedded. Not checked properly.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1583">DAFFODIL-1583</a>] TDML Runner - expected warnings feature</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1846">DAFFODIL-1846</a>] TDML Runner - Infoset.contents is stripping off all attributes</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1868">DAFFODIL-1868</a>] TDML Runner defaultConfig cannot be embedded. Not checked properly.</li>
 </ul>
 
 <h4 id="bitorderbyteorderencoding-refactoring">BitOrder/ByteOrder/Encoding Refactoring</h4>
 
+<p>The way bitOrder, byteOrder, and encoding consistency was checked required
+fairly complicated logic at schema compilation time. Not only was this logic
+difficult to validate, which led to bugs, it also contributed to slow schema
+compilation times. This complex logic was removed and replaced with an
+efficient mechanism for runtime validation. This reduced code complexity, fixerd
+some bugs, and will facilitate future performance optimizations during schema
+compilation.</p>
+
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1001">DAFFODIL-1001</a>] Invalid bitOrder and byteOrder combination should produce SDE</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1597">DAFFODIL-1597</a>] Too many ways that encoding, byteOrder, etc. are being setup</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1732">DAFFODIL-1732</a>] BitOrderChangeParser not inserted correctly for bitmap schema</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1767">DAFFODIL-1767</a>] byteOrderChangeParser optimization not working</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1843">DAFFODIL-1843</a>] Unparser bitOrder change and OVC (outputValueCalc) interaction</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1876">DAFFODIL-1876</a>] Improve performance regression due to FormatInfo changes</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1884">DAFFODIL-1884</a>] Regression in bitOrder changing</li>
 </ul>
 
 <h4 id="xml-output">XML Output</h4>
@@ -315,12 +329,12 @@ users reported of receiving only partial data.</p>
 <h4 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h4>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1867">DAFFODIL-1867</a>] Memory leak in Register</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1862">DAFFODIL-1862</a>] Better logging/reset mechanism for MarkPool</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1851">DAFFODIL-1851</a>] Unparsing delimited data with escape characters could lead to truncation</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1855">DAFFODIL-1855</a>] Property Resolution - resolve onto ref objects</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1862">DAFFODIL-1862</a>] Better logging/reset mechanism for MarkPool</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1864">DAFFODIL-1864</a>] spurious SDE about all-text schema being non-scannable</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1866">DAFFODIL-1866</a>] Eclipse classpaths need fixing</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1867">DAFFODIL-1867</a>] Memory leak in Register</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1872">DAFFODIL-1872</a>] Eclipse classpaths for daffodil-io module need fixing</li>
 </ul>
 

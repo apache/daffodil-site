@@ -61,8 +61,8 @@
             <li id="development">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
-                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow">Contributor Workflow</a></li>
-                <li><a class="external" href="https://github.com/apache/incubator-daffodil">GitHub</a></li>
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
                 <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
               </ul>
             </li>
@@ -104,37 +104,46 @@
   <li>Contribute code, javadocs, documentation.</li>
 </ul>
 
-<h3 id="mailing-list">Mailing list</h3>
+<h3 id="mailing-lists">Mailing Lists</h3>
 
 <p>Get help using Daffodil or contribute to the project on our mailing lists:</p>
 
-<ul>
-  <li><a href="mailto:users@daffodil.incubator.apache.org">users@daffodil.incubator.apache.org</a> is for usage questions, help, and announcements -
-<a href="mailto:users-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe">subscribe</a>,
-<a href="mailto:users-unsubscribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe">unsubscribe</a>,
-<a href="https://lists.apache.org/list.html?users@daffodil.apache.org">archives</a></li>
-  <li><a href="mailto:dev@daffodil.incubator.apache.org">dev@daffodil.incubator.apache.org</a> is for people who want to contribute code to Daffodil -
-<a href="mailto:dev-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe">subscribe</a>,
-<a href="mailto:dev-unsubcribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe">unsubscribe</a>,
-<a href="https://lists.apache.org/list.html?dev@daffodil.apache.org">archives</a></li>
-  <li><a href="mailto:comits@daffodil.incubator.apache.org">commits@daffodil.incubator.apache.org</a> is for commit messages and patches to Daffodil -
-<a href="mailto:commits-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe">subscribe</a>,
-<a href="mailto:commits-unsubcribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe">unsubscribe</a>,
-<a href="https://lists.apache.org/list.html?commits@daffodil.apache.org">archives</a></li>
-</ul>
+<dl>
+  <dt><a href="mailto:users@daffodil.apache.org">users@daffodil.apache.org</a> – <a href="mailto:users-subscribe@daffodil.apache.org?subject=send this email to subscribe">subscribe</a>, <a href="mailto:users-unsubscribe@daffodil.apache.org?subject=send this email to unsubscribe">unsubscribe</a>, <a href="https://lists.apache.org/list.html?users@daffodil.apache.org">archives</a></dt>
+  <dd>
+    <p>For usage/help questions (e.g. DFDL schema creation, CLI/API usage) and announcements</p>
+  </dd>
+  <dt><a href="mailto:dev@daffodil.apache.org">dev@daffodil.apache.org</a> – <a href="mailto:dev-subscribe@daffodil.apache.org?subject=send this email to subscribe">subscribe</a>, <a href="mailto:dev-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe">unsubscribe</a>, <a href="https://lists.apache.org/list.html?dev@daffodil.apache.org">archives</a></dt>
+  <dd>
+    <p>For those who want to contribute code to Daffodil, join in on design discussions, track issues and Daffodil development, etc.</p>
+  </dd>
+  <dt><a href="mailto:comits@daffodil.apache.org">commits@daffodil.apache.org</a> – <a href="mailto:commits-subscribe@daffodil.apache.org?subject=send this email to subscribe">subscribe</a>, <a href="mailto:commits-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe">unsubscribe</a>, <a href="https://lists.apache.org/list.html?commits@daffodil.apache.org">archives</a></dt>
+  <dd>
+    <p>For tracking new commits to the Daffodil codebase</p>
+  </dd>
+</dl>
 
 <h3 id="issue-tracker">Issue tracker</h3>
 
 <h4 id="bug-reports">Bug Reports</h4>
 
-<p>Found bug? Enter an issue in the <a href="https://issues.apache.org/jira/browse/DAFFODIL">Daffodil Issue Tracker</a> on JIRA.</p>
+<p>Found bug? Enter an issue in the <a href="https://issues.apache.org/jira/browse/DAFFODIL">Daffodil Issue Tracker</a>
+on JIRA. Be sure to provide as much detail as possible in the issue description
+on how to reproduce the bug. It is also helpful and highly encouraged to create
+and submit a <a href="/tdml">Test Data Markup Language (TMDL)</a> file that illustrates
+the issue, enabling developers to quickly reproduce the issue.</p>
 
 <p>Before submitting an issue, please:</p>
 
 <ul>
   <li>Verify that the bug does in fact exist.</li>
-  <li>Search the issue tracker to verify there is no existing issue reporting the bug you’ve found.</li>
-  <li>Consider tracking down the bug yourself in the Wink’s source and submitting a patch along with your bug report. This is a great time saver for the Wink developers and helps ensure the bug will be fixed quickly.</li>
+  <li>Search the issue tracker to verify there are no existing issues reporting the
+same bug you have found. If you do find an existing bug that sounds similar or
+closely related, feel free to add your information as a comment to provide
+extra details to help the developers fix the issue.</li>
+  <li>Consider tracking down and fixing the bug and submitting a pull request along
+with creating a bug report. Visit the <a href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Daffodil Developers wiki</a>
+for information to get started contributing.</li>
 </ul>
 
 <h4 id="feature-requests">Feature Requests</h4>
@@ -143,11 +152,11 @@
 
 <h3 id="source-code">Source Code</h3>
 
-<p>The project sources are accessible via <a href="https://github.com/apache/incubator-daffodil">GitHub</a> and <a href="https://gitbox.apache.org/repos/asf?p=incubator-daffodil.git">ASF</a></p>
+<p>The project sources are accessible via <a href="https://github.com/apache/incubator-daffodil">GitHub</a> and <a href="https://gitbox.apache.org/repos/asf?p=incubator-daffodil.git">ASF</a>.</p>
 
 <h3 id="website-source-code">Website Source Code</h3>
 
-<p>The project website sources are accessible via <a href="https://github.com/apache/incubator-daffodil-site">GitHub</a> and <a href="https://gitbox.apache.org/repos/asf?p=incubator-daffodil-site.git">ASF</a></p>
+<p>The project website sources are accessible via <a href="https://github.com/apache/incubator-daffodil-site">GitHub</a> and <a href="https://gitbox.apache.org/repos/asf?p=incubator-daffodil-site.git">ASF</a>.</p>
 
   </div>
 </div>
