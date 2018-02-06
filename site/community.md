@@ -35,35 +35,43 @@ You can:
 * Report bugs and submit patches.
 * Contribute code, javadocs, documentation.
 
-### Mailing list
+### Mailing Lists
 
 Get help using Daffodil or contribute to the project on our mailing lists:
 
-* [users@daffodil.incubator.apache.org](mailto:users@daffodil.incubator.apache.org) is for usage questions, help, and announcements -
-  [subscribe](mailto:users-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe),
-  [unsubscribe](mailto:users-unsubscribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe),
-  [archives](https://lists.apache.org/list.html?users@daffodil.apache.org)
-* [dev@daffodil.incubator.apache.org](mailto:dev@daffodil.incubator.apache.org) is for people who want to contribute code to Daffodil -
-  [subscribe](mailto:dev-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe),
-  [unsubscribe](mailto:dev-unsubcribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe),
-  [archives](https://lists.apache.org/list.html?dev@daffodil.apache.org)
-* [commits@daffodil.incubator.apache.org](mailto:comits@daffodil.incubator.apache.org) is for commit messages and patches to Daffodil -
-  [subscribe](mailto:commits-subscribe@daffodil.incubator.apache.org?subject=send this email to subscribe),
-  [unsubscribe](mailto:commits-unsubcribe@daffodil.incubator.apache.org?subject=send this email to unsubscribe),
-  [archives](https://lists.apache.org/list.html?commits@daffodil.apache.org)
+[users@daffodil.apache.org](mailto:users@daffodil.apache.org) -- [subscribe](mailto:users-subscribe@daffodil.apache.org?subject=send this email to subscribe), [unsubscribe](mailto:users-unsubscribe@daffodil.apache.org?subject=send this email to unsubscribe), [archives](https://lists.apache.org/list.html?users@daffodil.apache.org)
+
+  : For usage/help questions (e.g. DFDL schema creation, CLI/API usage) and announcements
+
+[dev@daffodil.apache.org](mailto:dev@daffodil.apache.org) -- [subscribe](mailto:dev-subscribe@daffodil.apache.org?subject=send this email to subscribe), [unsubscribe](mailto:dev-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe), [archives](https://lists.apache.org/list.html?dev@daffodil.apache.org)
+
+  : For those who want to contribute code to Daffodil, join in on design discussions, track issues and Daffodil development, etc.
+
+[commits@daffodil.apache.org](mailto:comits@daffodil.apache.org) -- [subscribe](mailto:commits-subscribe@daffodil.apache.org?subject=send this email to subscribe), [unsubscribe](mailto:commits-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe), [archives](https://lists.apache.org/list.html?commits@daffodil.apache.org)
+
+  : For tracking new commits to the Daffodil codebase
 
 
 ### Issue tracker
 
 #### Bug Reports
 
-Found bug? Enter an issue in the [Daffodil Issue Tracker](https://issues.apache.org/jira/browse/DAFFODIL) on JIRA.
+Found bug? Enter an issue in the [Daffodil Issue Tracker](https://issues.apache.org/jira/browse/DAFFODIL)
+on JIRA. Be sure to provide as much detail as possible in the issue description
+on how to reproduce the bug. It is also helpful and highly encouraged to create
+and submit a [Test Data Markup Language (TMDL)](/tdml) file that illustrates
+the issue, enabling developers to quickly reproduce the issue.
 
 Before submitting an issue, please:
 
 * Verify that the bug does in fact exist.
-* Search the issue tracker to verify there is no existing issue reporting the bug you've found.
-* Consider tracking down the bug yourself in the Wink's source and submitting a patch along with your bug report. This is a great time saver for the Wink developers and helps ensure the bug will be fixed quickly.
+* Search the issue tracker to verify there are no existing issues reporting the
+  same bug you have found. If you do find an existing bug that sounds similar or
+  closely related, feel free to add your information as a comment to provide
+  extra details to help the developers fix the issue.
+* Consider tracking down and fixing the bug and submitting a pull request along
+  with creating a bug report. Visit the [Daffodil Developers wiki](https://cwiki.apache.org/confluence/display/DAFFODIL/)
+  for information to get started contributing.
 
 #### Feature Requests
 
@@ -71,8 +79,8 @@ Enhancement requests for new features are also welcome. The more concrete and ra
 
 ### Source Code
 
-The project sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil.git)
+The project sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil.git).
 
 ### Website Source Code
 
-The project website sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil-site) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil-site.git)
+The project website sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil-site) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil-site.git).
