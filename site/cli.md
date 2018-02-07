@@ -88,7 +88,7 @@ Parse a file, using either a DFDL schema or a saved parser.
 
 ``-c, --config FILE``
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See Configuration File for details on the file format.
+   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
 
 ``-D [{NAMESPACE}]VARIABLE=VALUE``
 
@@ -122,7 +122,7 @@ Parse a file, using either a DFDL schema or a saved parser.
 
 ``-T TUNABLE=VALUE``
 
-   : Modify Daffodil configuration options to change parsing behavior. See Tunable Parameters for the list of tunable parameters.
+   : Modify Daffodil configuration options to change parsing behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
 ``-V, --validate [MODE]``
 
@@ -154,7 +154,7 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 
 ``-c, --config FILE``
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See Configuration File for details on the file format.
+   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
 
 ``-D [{NAMESPACE}]VARIABLE=VALUE``
 
@@ -188,7 +188,7 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 
 ``-T TUNABLE=VALUE``
 
-   : Modify Daffodil configuration options to change parsing behavior. See Tunable Parameters for the list of tunable parameters.
+   : Modify Daffodil configuration options to change parsing behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
 ``-V, --validate [MODE]``
 
@@ -217,7 +217,7 @@ Save a parser that can be reused for parsing and unparsing.
 
 ``-c, --config FILE``
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See Configuration File for details on the file format.
+   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
 
 ``-D [{NAMESPACE}]VARIABLE=VALUE``
 
@@ -239,7 +239,7 @@ Save a parser that can be reused for parsing and unparsing.
 
 ``-T TUNABLE=VALUE``
 
-   : Modify Daffodil configuration options to change parsing behavior. See Tunable Parameters for the list of tunable parameters.
+   : Modify Daffodil configuration options to change parsing behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
 ``-V, --validate MODE``
 
@@ -309,7 +309,7 @@ Run a performance test (parse or unparse), using either a DFDL schema or a saved
 
 ``-c, --config FILE``
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See  Configuration File for details on the file format.
+   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
 
 ``-D [{NAMESPACE}]VARIABLE=VALUE``
 
@@ -347,7 +347,7 @@ Run a performance test (parse or unparse), using either a DFDL schema or a saved
 
 ``-T TUNABLE=VALUE``
 
-   : Modify Daffodil configuration options to change processing behavior. See Tunable Parameters for the list of tunable parameters.
+   : Modify Daffodil configuration options to change processing behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
 ``-u, --unparse``
 
