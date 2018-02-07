@@ -456,7 +456,7 @@ result: by the time a program is reading the XML data, it should only see LF
 line endings.</p>
 
 <p>It is possible to get a literal CR character into XML content, but ONLY by
-using the numeric character entity notation, i.e., . So one might try to
+using the numeric character entity notation, i.e., <code class="highlighter-rouge">&amp;#xD;</code>. So one might try to
 write the above test as:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
