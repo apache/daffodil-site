@@ -389,7 +389,7 @@ result: by the time a program is reading the XML data, it should only see LF
 line endings.
 
 It is possible to get a literal CR character into XML content, but ONLY by
-using the numeric character entity notation, i.e., &#xD;. So one might try to
+using the numeric character entity notation, i.e., ``&#xD;``. So one might try to
 write the above test as:
 
 ```xml
