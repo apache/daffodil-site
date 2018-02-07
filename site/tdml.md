@@ -293,3 +293,176 @@ that warnings are considered non-fatal and so can appear alongside
   <tdml:warning>'http://www.ogf.org/dfdl/dfdl-1.0/' should be 'http://www.ogf.org/dfdl/'</tdml:warning>
 </tdml:warnings>
 ```
+
+### Using CDATA Regions
+
+XML CDATA regions indicate XML data that should not be interpreted as XML.
+Although in general is it used to easily include XML special characters in XML
+data, its use has other benefits in TDML files as well. Below are examples of
+what scenarios when CDATA regions should and should not be used.
+
+#### {% ok %} &nbsp;As a clear way represent XML special characters
+
+The characters ``<``, ``>``, ``&``, ``'``, and ``"`` must be represented in XML
+with ``&lt;``, ``&gt;``, ``&amp;``, ``&apos;``, and ``&quot;``, respectively.
+These special characters are not escaped when used in CDATA tags, which can
+make the data more clear. For example, the following are equivalent:
+
+```xml
+<foo>abc&amp;&amp;&amp;>def</foo>
+<foo>abc<![CDATA[&&&]]>def</foo>
+```
+
+#### {% ok %} &nbsp;To preserve textual formatting within TDML - for clarity reasons
+
+Often times IDE's and XML editors will indent, wrap, and remove redundant
+whitespace in XML data. However, sometimes it is desired that such formatting
+is maintained for readability purposes. Many tools  refuse to perform
+modifications on CDATA regions, so they can be used as a way to maintain
+formatting. For example:
+
+```xml
+<tdml:documentPart type="byte"><![CDATA[
+00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f
+20 21    23 24 25    27 28 29 2a 2b 2c 2d 2e 2f
+30 31 32 33 34 35 36 37 38 39 3a 3b    3d    3f
+40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f
+50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f
+]]></tdml:documentPart>
+```
+
+The data holes in the above matrix of hex would be hard to understand without
+the formatting. But logically, the whitespace is irrelevant when the
+documentPart type is "byte". In effect, we have CDATA here so that tooling like
+IDEs, XML editor, etc. will not mess with the formatting of the content.
+
+#### {% ok %} &nbsp;To avoid insertion of whitespace that would make things incorrect
+
+Let us assume that the input document should contain exactly two letters:
+``a年``. This might be represented as the following in a TDML file:
+
+```xml
+<document>
+  <documentPart type="text">a年</documentPart>
+</document>
+```
+
+The problem is that it is possible that an XML tool might reformat the XML as
+this:
+
+```xml
+<document>
+  <documentPart type="text">
+    a年
+  </documentPart>
+</document>
+```
+
+But this is a text documentPart containing some letters with surrounding
+whitespace. Our test, in this case, expects data of length exactly 2
+characters, so could cause a failure. CDATA can be used to prevent many XML
+tools from reformatting and inserting whitespace that could affect the test
+input data:
+
+```xml
+<document>
+  <documentPart type="text"><![CDATA[a年]]></documentPart>
+</document>
+```
+#### {% err %} &nbsp;To preserve specific line endings
+
+Using CDATA does NOT necessarily preserve line endings. So if you had a test
+where you have this:
+
+```xml
+<documentPart type="text"><![CDATA[Text followed by a CR LF
+]]></documentPart>
+```
+
+If you edit that on a windows machine, where CRLF is the usual text line
+ending, then the file will actually have a CRLF line ending in that text. If
+the test has say, ``dfdl:terminator="%CR;%LF;"``, then this should fail
+because, no matter what, XML always standardizes line endings to just one
+character: LF. XML replaces CRLF with LF, and isolated CR with LF. The net
+result: by the time a program is reading the XML data, it should only see LF
+line endings.
+
+It is possible to get a literal CR character into XML content, but ONLY by
+using the numeric character entity notation, i.e., &#xD;. So one might try to
+write the above test as:
+
+```xml
+<documentPart type="text"><![CDATA[Text followed by a CR LF]]></documentPart>
+<documentPart type="text">&#xD;&#xA;</documentPart>
+```
+
+Even this, however, is not a sure thing, because re-indenting the XML might
+cause you to get:
+
+```xml
+<documentPart type="text"><![CDATA[Text followed by a CR LF]]></documentPart>
+<documentPart type="text">
+   &#xD;&#xA;
+</documentPart>
+```
+
+Which would be broken because of the whitespace insertions around the
+``&#xD;&#xA;``.
+
+There are two good solutions to this problem. First one can use type="byte"
+document parts:
+
+```xml
+<documentPart type="text"><![CDATA[Text followed by a CR LF]]></documentPart>
+<documentPart type="byte">0D 0A</documentPart>
+```
+
+This will always create exactly the bytes ``0D`` and ``0A``, and documentParts
+are concatenated together with nothing between. However, this will break if the
+documentPart has an encoding where CR and LF are not exactly represented by the
+bytes 0D and 0A. For example currently we support
+``encoding="us-ascii-7-bit-packed"``. In that encoding, CR and LF each take up
+only 7 bits, resulting in 14 bits rather than 2 full bytes.
+
+The best way to handle this problem is to use the documentPart
+replaceDFDLEntities attribute:
+
+```xml
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[Text followed by a CR LF%CR;%LF;]]></documentPart>
+```
+
+The line gets kind of long, but those ``%CR;`` and ``%LF;`` are DFDL entities
+syntax for those Unicode characters. These are translated into whatever
+encoding the documentPart specifies, so this will be robust even if the
+encoding is say, UTF-16 or the 7-bit encoding.
+
+If you have a multi-line piece of data and need CRLFs in it, then this does get
+a bit clumsy as you have to do it like this where each text line gets its own
+documentPart:
+
+```xml
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[Of all the gin joints%CR;%LF;]]></documentPart>
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[In all the towns in the world%CR;%LF;]]></documentPart>
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[She walked into mine%CR;%LF;]]></documentPart>
+```
+
+So the general rule is that CDATA regions cannot be used to ensure that
+specific kinds of line endings will be preserved in a file.
+
+Some tests, however, are insensitive to the presence of whitespace. This is
+true of many tests for delimited text formats. In those cases you may want
+CDATA to preserve formatting of text (so it won't be re-indented), and to
+preserve *some* line endings. If this same test example was instead using
+``dfdl:terminator="%NL;"``, the NL entity matches CRLF, CR, or LF, and even
+some other obscure Unicode line ending characters. In that case, the original
+documentPart XML:
+
+```xml
+<documentPart type="text"><![CDATA[Of all the gin joints
+In all the towns of the world
+She walked into mine
+]]></documentPart>
+```
+
+is fine, and will work and be robust.
