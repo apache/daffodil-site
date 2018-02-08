@@ -24,7 +24,7 @@ limitations under the License.
 
 ## Configuration
 
-Daffodil has the capability to read in parameters via an external XML file, defined by the [dafext.xsd](https://github.com/apache/incubator-daffodil/blob/master/daffodil-propgen/src/main/resources/edu/illinois/ncsa/daffodil/xsd/dafext.xsd) schema. Below are the parameters that can be defined.
+Daffodil has the capability to read in parameters via an external XML file, defined by the [dafext.xsd](https://github.com/apache/incubator-daffodil/blob/master/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/dafext.xsd) schema. Below are the parameters that can be defined.
 
 ### External Variables
 

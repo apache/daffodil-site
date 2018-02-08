@@ -24,7 +24,7 @@ limitations under the License.
 
 ## Command Line Interface
 
-The binary Daffodil [release](/release) contain a ``/bin`` directory that contains two scripts: ``daffodil.bat`` for Windows and ``daffodil`` for Linux. These files must be executed on the command line. The general usage is:
+The binary Daffodil [releases](/releases) contain a ``/bin`` directory that contains two scripts: ``daffodil.bat`` for Windows and ``daffodil`` for Linux. These files must be executed on the command line. The general usage is:
 
     daffodil [GLOBAL_OPTIONS] <subcommand> [SUBCOMMAND_OPTIONS]
 
