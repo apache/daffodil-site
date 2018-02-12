@@ -262,6 +262,8 @@ infrastructure to SBT 1.x, and adding TravisCI continuous integration support.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1870">DAFFODIL-1870</a>] invalid and nonfunctional URLs in source files</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1873">DAFFODIL-1873</a>] sbt warnings/errors</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1890">DAFFODIL-1890</a>] Update user related links from the wiki to daffodil.apache.org</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1896">DAFFODIL-1896</a>] Modify artifact names to include “apache” and “incubating”</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1897">DAFFODIL-1897</a>] Some Schemas fail to compile with latest updates</li>
 </ul>
 
 <h4 id="ambiguous-path-expressions">Ambiguous Path Expressions</h4>
@@ -337,6 +339,7 @@ users reported of receiving only partial data.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1866">DAFFODIL-1866</a>] Eclipse classpaths need fixing</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1867">DAFFODIL-1867</a>] Memory leak in Register</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1872">DAFFODIL-1872</a>] Eclipse classpaths for daffodil-io module need fixing</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1895">DAFFODIL-1895</a>] Eclipse classpath for daffodil-core needs fix</li>
 </ul>
 
 <h4 id="deprecationcompatability">Deprecation/Compatability</h4>
@@ -344,21 +347,33 @@ users reported of receiving only partial data.</p>
 <p>As of 2.1.0, the following changes have been made which affect compatibility
 with past releases:</p>
 
-<p><strong>Namespace Change</strong></p>
+<p><strong>Package Organization Change</strong></p>
 
-<p>Now that Daffodil is an Apache incubator project, its package namespace has been
-changed from <code class="highlighter-rouge">edu.illinois.ncsa.daffodil</code> to <code class="highlighter-rouge">org.apache.daffodil</code>.
+<p>Now that Daffodil is an Apache incubator project, the package organization has been
+changed from <code class="highlighter-rouge">edu.illinois.ncsa</code> to <code class="highlighter-rouge">org.apache.daffodil</code>.
 Developers using the Daffodil Java and Scala API will need to update their
-source code and SBT/Maven configurations to use the new package namespace.</p>
+source code and SBT/Maven configurations to use the new organization.</p>
 
 <p><strong>Daffodil Extension <code class="highlighter-rouge">daf</code> XML Namespace Change</strong></p>
 
-<p>The Daffodil extension <code class="highlighter-rouge">daf</code> XML namespace has been modified to represent the move to
-Apache, changing from <code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:opensource.ncsa.illinois.edu:2012:ext</code>
-to <code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext</code>. Backwards
-compatibility is maintained for schemas using the old <code class="highlighter-rouge">daf</code> namespace. All future
-Daffodil extensions will only be supported in the new namespace, so it is
-recommended that one update schemas to use the new namespace.</p>
+<p>The Daffodil extension <code class="highlighter-rouge">daf</code> XML namespace has been modified to represent the
+move to Apache, changing from
+<code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:opensource.ncsa.illinois.edu:2012:ext</code> to
+<code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext</code>. Backwards compatibility
+is maintained for schemas using the old <code class="highlighter-rouge">daf</code> namespace, though it should be
+considered deprecated. All future Daffodil extensions will only be supported in
+the new namespace, so it is recommended that one update schemas to use the new
+namespace.</p>
+
+<p><strong>Removal of built-in-formats.xsd</strong></p>
+
+<p>The built-in-formats.xsd file is a schema that defines a set defaults for a
+wide array of DFDL properties. This file was intended for use only during
+testing, but was errantly made available for use in real schemas. This was an
+oversight, and so this schema is no longer made available by default via an
+xs:import/include. Instead, one should import/include
+<code class="highlighter-rouge">IBMdefined/GeneralPurposeFormat.xsd</code> to get a reasonable set of default
+property values or define all necessary properties within a schema.</p>
 
 
       <footer>
