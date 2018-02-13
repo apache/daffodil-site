@@ -32,6 +32,7 @@ permalink: /release/release-notes-:title
     <div class="tab-content">
       <div id="download" class="tab-pane fade in active">
         {% if page.source-dist %}
+          {% if page.apache %} {% assign prefix = "src/" %} {% endif %}
           <h4>Source</h4>
           <p>
           {% include download-list.html
@@ -39,11 +40,13 @@ permalink: /release/release-notes-:title
              artifacts=page.source-dist
              checksum-root=page.checksum-root
              artifact-root=page.artifact-root
+             prefix=prefix
           %}
           </p>
         {% endif %}
 
         {% if page.binary-dist %}
+          {% if page.apache %} {% assign prefix = "bin/" %} {% endif %}
           <h4>Binaries</h4>
           <p>
           {% include download-list.html
@@ -51,6 +54,7 @@ permalink: /release/release-notes-:title
              artifacts=page.binary-dist
              checksum-root=page.checksum-root
              artifact-root=page.artifact-root
+             prefix=prefix
           %}
           </p>
         {% endif %}
