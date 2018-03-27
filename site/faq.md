@@ -168,7 +168,7 @@ CDATA informs XML processors that you very much care about this. Any decent XML 
 
 If you get done writing something very deeply nested like this (and XPath style languages require this all the time), then you do NOT want anything messing with the whitespace.
 
-About the xml:space='preserve' attribute: According to this thread on the stack overflow web site, xml:space is only about whitespace-only nodes, not nodes that are part whitespace. Within element-only content, the text nodes found between the elements are whitespace-only nodes. Unless you use xml:space='preserve', those are eliminated. None of the above discussion is about whitespace-only nodes. It's about value nodes containing text strings with surrounding whitespace.
+About the xml:space='preserve' attribute: According to [this page](http://www.xmlplease.com/xml/xmlspace/), xml:space is only about whitespace-only nodes, not nodes that are part whitespace. Within element-only content, the text nodes found between the elements are whitespace-only nodes. Unless you use xml:space='preserve', those are eliminated. None of the above discussion is about whitespace-only nodes. It's about value nodes containing text strings with surrounding whitespace.
 </div>
 
 
