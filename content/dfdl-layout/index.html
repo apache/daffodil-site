@@ -172,13 +172,8 @@
  
 <span class="n">testOptions</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">+=</span> <span class="nc">Tests</span><span class="o">.</span><span class="nc">Argument</span><span class="o">(</span><span class="nc">TestFrameworks</span><span class="o">.</span><span class="nc">JUnit</span><span class="o">,</span> <span class="s">"-v"</span><span class="o">)</span>
  
-<span class="n">resolvers</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">"NCSA Sonatype Releases"</span> <span class="n">at</span> <span class="s">"https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"</span><span class="o">,</span>
-  <span class="s">"NCSA Sonatype Snapshots"</span> <span class="n">at</span> <span class="s">"https://opensource.ncsa.illinois.edu/nexus/content/repositories/snapshots"</span>
-<span class="o">)</span>
- 
 <span class="n">libraryDependencies</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">"edu.illinois.ncsa"</span> <span class="o">%%</span> <span class="s">"daffodil-tdml"</span> <span class="o">%</span> <span class="s">"2.0.0"</span> <span class="o">%</span> <span class="s">"test"</span>
+  <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-tdml"</span> <span class="o">%</span> <span class="s">"2.1.0"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
   <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"4.11"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
   <span class="s">"com.novocode"</span> <span class="o">%</span> <span class="s">"junit-interface"</span> <span class="o">%</span> <span class="s">"0.10"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
 <span class="o">)</span>
@@ -203,7 +198,7 @@
 
 <p>The <code class="highlighter-rouge">xs:include</code> or <code class="highlighter-rouge">xs:import</code> elements of a DFDL Schema can import/include a DFDL schema that follows these conventions like this:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:tresys.com/RFormat"</span> <span class="na">schemaLocation=</span><span class="s">"com/tresys/RFormat/xsd/main.dfdl.xsd"</span><span class="nt">/&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:apache.org/RFormat"</span> <span class="na">schemaLocation=</span><span class="s">"org/apache/RFormat/xsd/main.dfdl.xsd"</span><span class="nt">/&gt;</span>
 </code></pre>
 </div>
 
@@ -215,9 +210,9 @@
 </code></pre>
 </div>
 
-<p>That is, peer files need not carry the long <code class="highlighter-rouge">com/tresys/RFormat/xsd/</code> prefix that makes the reference globally unique.</p>
+<p>That is, peer files need not carry the long <code class="highlighter-rouge">org/apache/RFormat/xsd/</code> prefix that makes the reference globally unique.</p>
 
-<p>However, if one schema wants to include another different schema, then this standard way of organizing schema projects ensures that when packaged into jar files, the <code class="highlighter-rouge">/src/main/resources</code> directory contents are at the “root” of the jar file so that the <code class="highlighter-rouge">schemaLocation</code> of the <code class="highlighter-rouge">xs:import</code> or <code class="highlighter-rouge">xs:include</code> containing the fully qualified path (<code class="highlighter-rouge">com/tresys/RFormat/xsd/main.dfdl.xsd</code>) will be found on the <code class="highlighter-rouge">CLASSPATH</code> unambiguously. This convention is what allows the schema files themselves to have short names like main.dfdl.xsd, and format.dfdl.xsd. Those names only need to be unique within a single schema project. Across schema projects our standard DFDL schema project layout insures unambiguous qualification is available.</p>
+<p>However, if one schema wants to include another different schema, then this standard way of organizing schema projects ensures that when packaged into jar files, the <code class="highlighter-rouge">/src/main/resources</code> directory contents are at the “root” of the jar file so that the <code class="highlighter-rouge">schemaLocation</code> of the <code class="highlighter-rouge">xs:import</code> or <code class="highlighter-rouge">xs:include</code> containing the fully qualified path (<code class="highlighter-rouge">org/apache/RFormat/xsd/main.dfdl.xsd</code>) will be found on the <code class="highlighter-rouge">CLASSPATH</code> unambiguously. This convention is what allows the schema files themselves to have short names like main.dfdl.xsd, and format.dfdl.xsd. Those names only need to be unique within a single schema project. Across schema projects our standard DFDL schema project layout insures unambiguous qualification is available.</p>
 
 <h3 id="git-revision-control">Git Revision Control</h3>
 
