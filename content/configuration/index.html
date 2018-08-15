@@ -99,35 +99,35 @@
 
 <p>External variables can be defined using the <code class="highlighter-rouge">externalVariablesBindings</code> tag. For example, the following configuration file defines two variables, <code class="highlighter-rouge">var1</code> and <code class="highlighter-rouge">var2</code>, in the <code class="highlighter-rouge">http://example.com</code> namespace.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="nt">&lt;dfdlConfig</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;externalVariableBindings&gt;</span>
-    <span class="nt">&lt;bind</span> <span class="na">name=</span><span class="s">"ex:var1"</span><span class="nt">&gt;</span>-9<span class="nt">&lt;/bind&gt;</span>
-    <span class="nt">&lt;bind</span> <span class="na">name=</span><span class="s">"ex:var2"</span><span class="nt">&gt;</span>Foo<span class="nt">&lt;/bind&gt;</span>
-  <span class="nt">&lt;/externalVariableBindings&gt;</span>
-<span class="nt">&lt;/dfdlConfig&gt;</span>
-</code></pre>
-</div>
+<p>``` xml
+<?xml version="1.0" encoding="UTF-8"?></p>
+<dfdlconfig xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ex="http://example.com">
+  <externalvariablebindings>
+    <bind name="ex:var1">-9</bind>
+    <bind name="ex:var2">Foo</bind>
+  </externalvariablebindings>
+</dfdlconfig>
+<p>```</p>
 
 <p>The following defined in a DFDL schema would allow the external variables to be set or overridden:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:defineVariable</span> <span class="na">name=</span><span class="s">"var1"</span> <span class="na">external=</span><span class="s">"true"</span> <span class="na">type=</span><span class="s">"xsd:int"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/dfdl:defineVariable&gt;</span>
-<span class="nt">&lt;dfdl:defineVariable</span> <span class="na">name=</span><span class="s">"var2"</span> <span class="na">external=</span><span class="s">"true"</span> <span class="na">type=</span><span class="s">"xsd:string"</span><span class="nt">&gt;</span>Bar<span class="nt">&lt;/dfdl:defineVariable&gt;</span>
-</code></pre>
-</div>
+<p>``` xml</p>
+<dfdl:definevariable name="var1" external="true" type="xsd:int">1</dfdl:definevariable>
+<dfdl:definevariable name="var2" external="true" type="xsd:string">Bar</dfdl:definevariable>
+<p>```</p>
 
 <h3 id="tunable-parameters">Tunable Parameters</h3>
 
 <p>Tunable parameters can be modified to change Daffodil schema compilation and data parsing properties. For example, the following sets the <code class="highlighter-rouge">maxOccursBounds</code> tunable to 1024:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="nt">&lt;dfdlConfig</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;tunables&gt;</span>
-    <span class="nt">&lt;maxOccursBounds&gt;</span>1024<span class="nt">&lt;/maxOccursBounds&gt;</span>
-  <span class="nt">&lt;/tunables&gt;</span>
-<span class="nt">&lt;/dfdlConfig&gt;</span>
-</code></pre>
-</div>
+<p>``` xml
+<?xml version="1.0" encoding="UTF-8"?></p>
+<dfdlconfig xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ex="http://example.com">
+  <tunables>
+    <maxoccursbounds>1024</maxoccursbounds>
+  </tunables>
+</dfdlconfig>
+<p>```</p>
 
 <p>Below is a description of the available tunable parameters:</p>
 

@@ -160,25 +160,25 @@
 
 <p>Use the below template for the build.sbt file:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">name</span> <span class="o">:=</span> <span class="s">"dfdl-RFormat"</span>
- 
-<span class="n">organization</span> <span class="o">:=</span> <span class="s">"org.apache"</span>
- 
-<span class="n">version</span> <span class="o">:=</span> <span class="s">"0.0.1"</span>
- 
-<span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"2.11.8"</span>
- 
-<span class="n">crossPaths</span> <span class="o">:=</span> <span class="kc">false</span>
- 
-<span class="n">testOptions</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">+=</span> <span class="nc">Tests</span><span class="o">.</span><span class="nc">Argument</span><span class="o">(</span><span class="nc">TestFrameworks</span><span class="o">.</span><span class="nc">JUnit</span><span class="o">,</span> <span class="s">"-v"</span><span class="o">)</span>
- 
-<span class="n">libraryDependencies</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-tdml"</span> <span class="o">%</span> <span class="s">"2.1.0"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-  <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"4.11"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-  <span class="s">"com.novocode"</span> <span class="o">%</span> <span class="s">"junit-interface"</span> <span class="o">%</span> <span class="s">"0.10"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-<span class="o">)</span>
-</code></pre>
-</div>
+<p>``` scala
+name := “dfdl-RFormat”</p>
+
+<p>organization := “org.apache”</p>
+
+<p>version := “0.0.1”</p>
+
+<p>scalaVersion := “2.11.8”</p>
+
+<p>crossPaths := false</p>
+
+<p>testOptions in ThisBuild += Tests.Argument(TestFrameworks.JUnit, “-v”)</p>
+
+<p>libraryDependencies in ThisBuild := Seq(
+  “org.apache.daffodil” %% “daffodil-tdml” % “2.1.0” % “test”,
+  “junit” % “junit” % “4.11” % “test”,
+  “com.novocode” % “junit-interface” % “0.10” % “test”,
+)
+```</p>
 
 <p>Edit the version of daffodil-tdml above to match the version you are using.</p>
 
@@ -198,17 +198,19 @@
 
 <p>The <code class="highlighter-rouge">xs:include</code> or <code class="highlighter-rouge">xs:import</code> elements of a DFDL Schema can import/include a DFDL schema that follows these conventions like this:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:apache.org/RFormat"</span> <span class="na">schemaLocation=</span><span class="s">"org/apache/RFormat/xsd/main.dfdl.xsd"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+<p>``` xml</p>
+<xs:import namespace="urn:apache.org/RFormat" schemalocation="org/apache/RFormat/xsd/main.dfdl.xsd" />
+
+<p>```</p>
 
 <p>The above is for using a DFDL schema as a library, from another different DFDL schema.</p>
 
 <p>Within a DFDL schema, one DFDL schema file can reference another peer file that appears in the same directory (the src/main/resources/…/xsd directory) via:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:include</span> <span class="na">schemaLocation=</span><span class="s">"format.dfdl.xsd"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+<p>``` xml</p>
+<xs:include schemalocation="format.dfdl.xsd" />
+
+<p>```</p>
 
 <p>That is, peer files need not carry the long <code class="highlighter-rouge">org/apache/RFormat/xsd/</code> prefix that makes the reference globally unique.</p>
 
@@ -235,9 +237,9 @@ sbt publishLocal # puts it into local .ivy2 cache where other maven/sbt will fin
 
 <p>That enables a different schema’s <code class="highlighter-rouge">build.sbt</code> to contain a library dependency on our hypthetical dfdl-RFormat schema using a dependency like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"org.apache" % "dfdl-RFormat" % "0.0.1" % "test"
-</code></pre>
-</div>
+<p><code class="highlighter-rouge">
+"org.apache" % "dfdl-RFormat" % "0.0.1" % "test"
+</code></p>
 
 <p>That will result in the contents of the <code class="highlighter-rouge">src/main/resources</code> directory above being on the classpath. XSD include and import statements search the classpath directories.</p>
 
