@@ -95,34 +95,41 @@
 
 <p>Daffodil provides extensions to the DFDL specification. These properties are in the namespace defined by the URI <code class="highlighter-rouge">urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext</code>. To use these the Daffodil DFDL Extensions, bind this namespace to the <code class="highlighter-rouge">daf</code> prefix in the <code class="highlighter-rouge">xs:schema</code> element, like so:</p>
 
-<p>``` xml</p>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext">
-```
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:schema</span> <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
+           <span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span><span class="nt">&gt;</span>
+</code></pre>
+</div>
 
-The following symbols defined in this namespace are described below.
+<p>The following symbols defined in this namespace are described below.</p>
 
-### Expression Functions
+<h3 id="expression-functions">Expression Functions</h3>
 
-``daf:error()``
+<dl>
+  <dt><code class="highlighter-rouge">daf:error()</code></dt>
+  <dd>
+    <p>A function that can be used in DFDL expressions. This functions does not return a value or accept any arguments. When called, it causes a Parse Error or Unparse Error.</p>
 
-   : A function that can be used in DFDL expressions. This functions does not return a value or accept any arguments. When called, it causes a Parse Error or Unparse Error.
+    <p><em>This function is deprecated as of Daffodil 2.0.0. Use the <code class="highlighter-rouge">fn:error(...)</code> function instead.</em></p>
+  </dd>
+  <dt><code class="highlighter-rouge">daf:trace($value, $label)</code></dt>
+  <dd>
+    <p>A function that can be used in DFDL expressions, similar to the <code class="highlighter-rouge">fn:trace()</code> function. This logs the string <code class="highlighter-rouge">$label</code> followed by <code class="highlighter-rouge">$value</code> converted to a string and returns <code class="highlighter-rouge">$value</code>. The second argument must be of type <code class="highlighter-rouge">xs:string</code>.</p>
+  </dd>
+</dl>
 
-     *This function is deprecated as of Daffodil 2.0.0. Use the ``fn:error(...)`` function instead.*
+<h3 id="properties">Properties</h3>
 
-``daf:trace($value, $label)``
+<dl>
+  <dt><code class="highlighter-rouge">daf:parseUnparsePolicy</code></dt>
+  <dd>
+    <p>A property applied to simple and complex elements, which specifies whether the element supports only parsing, only unparsing, or both parsing and unparse. Valid values for this property are <code class="highlighter-rouge">parse</code>, <code class="highlighter-rouge">unparse</code>, or <code class="highlighter-rouge">both</code>. This allows one to leave off properties that are required for only parse or only unparse, such as <code class="highlighter-rouge">dfdl:outputValueCalc</code> or <code class="highlighter-rouge">dfdl:outputNewLine</code>, so that one may have a valid schema if only a subset of functionality is needed.</p>
 
-   : A function that can be used in DFDL expressions, similar to the ``fn:trace()`` function. This logs the string ``$label`` followed by ``$value`` converted to a string and returns ``$value``. The second argument must be of type ``xs:string``.
+    <p>All elements must have a compatible parseUnparsePolicy with the compilation parseUnparsePolicy (which is defined by the root element daf:parseUnparsePolicy and/or the Daffodil parseUnparsePolicy tunable) or it is a Schema Definition Error. An element is defined to have a compatible parseUnparsePolicy if it has the same value as the compilation parseUnparsePolicy or if it has the value <code class="highlighter-rouge">both</code>.</p>
 
-### Properties
-
-``daf:parseUnparsePolicy``
-
-   : A property applied to simple and complex elements, which specifies whether the element supports only parsing, only unparsing, or both parsing and unparse. Valid values for this property are ``parse``, ``unparse``, or ``both``. This allows one to leave off properties that are required for only parse or only unparse, such as ``dfdl:outputValueCalc`` or ``dfdl:outputNewLine``, so that one may have a valid schema if only a subset of functionality is needed.
-
-     All elements must have a compatible parseUnparsePolicy with the compilation parseUnparsePolicy (which is defined by the root element daf:parseUnparsePolicy and/or the Daffodil parseUnparsePolicy tunable) or it is a Schema Definition Error. An element is defined to have a compatible parseUnparsePolicy if it has the same value as the compilation parseUnparsePolicy or if it has the value ``both``.
-
-     For compatibility, if this property is not defined, it is assumed to be ``both``.
-</xs:schema>
+    <p>For compatibility, if this property is not defined, it is assumed to be <code class="highlighter-rouge">both</code>.</p>
+  </dd>
+</dl>
 
   </div>
 </div>

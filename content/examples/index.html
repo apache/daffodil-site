@@ -99,48 +99,48 @@
 
 <p>This DFDL schema is found at the DFDLSchemas GitHub <a href="https://github.com/DFDLSchemas/CSV">CSV repository</a>.</p>
 
-<p><code class="highlighter-rouge">bash
-$ daffodil parse --schema CSV/src/main/resources/com/tresys/csv/xsd/csv.dfdl.xsd CSV/src/test/resources/com/tresys/csv/data/simpleCSV.csv
-</code>
-The above command uses the csv.dfdl.xsd schema to parse the simpleCSV.csv input data. The simpleCSV.csv contains the following data:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>daffodil parse --schema CSV/src/main/resources/com/tresys/csv/xsd/csv.dfdl.xsd CSV/src/test/resources/com/tresys/csv/data/simpleCSV.csv
+</code></pre>
+</div>
+<p>The above command uses the csv.dfdl.xsd schema to parse the simpleCSV.csv input data. The simpleCSV.csv contains the following data:</p>
 
-<p><code class="highlighter-rouge">
-last,first,middle,DOB
+<div class="highlighter-rouge"><pre class="highlight"><code>last,first,middle,DOB
 smith,robert,brandon,1988-03-24
 johnson,john,henry,1986-01-23
 jones,arya,cat,1986-02-19
-</code></p>
+</code></pre>
+</div>
 
 <p>The result of the parse is the following XML:</p>
 
-<p>```xml</p>
-<ex:file xmlns:ex="http://example.com">
-  <header>
-    <title>last</title>
-    <title>first</title>
-    <title>middle</title>
-    <title>DOB</title>
-  </header>
-  <record>
-    <item>smith</item>
-    <item>robert</item>
-    <item>brandon</item>
-    <item>1988-03-24</item>
-  </record>
-  <record>
-    <item>johnson</item>
-    <item>john</item>
-    <item>henry</item>
-    <item>1986-01-23</item>
-  </record>
-  <record>
-    <item>jones</item>
-    <item>arya</item>
-    <item>cat</item>
-    <item>1986-02-19</item>
-  </record>
-</ex:file>
-<p>```</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;ex:file</span> <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;title&gt;</span>last<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>first<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>middle<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;title&gt;</span>DOB<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>smith<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>robert<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>brandon<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1988-03-24<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>johnson<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>john<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>henry<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1986-01-23<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;</span>
+    <span class="nt">&lt;item&gt;</span>jones<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>arya<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>cat<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>1986-02-19<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/record&gt;</span>
+<span class="nt">&lt;/ex:file&gt;</span>
+</code></pre>
+</div>
 
 <h3 id="packet-capture-data-pcap">Packet Capture Data (PCAP)</h3>
 
@@ -148,82 +148,82 @@ jones,arya,cat,1986-02-19
 
 <p>The PCAP file format is a binary file format used to capture network packets. For information on this file format, visit the <a href="http://wiki.wireshark.org/Development/LibpcapFileFormat">Wireshark Libpcap File Format</a> page.</p>
 
-<p><code class="highlighter-rouge">bash
-$ daffodil parse --schema PCAP/src/main/resources/com/tresys/pcap/xsd/pcap.dfdl.xsd PCAP/src/test/resources/com/tresys/pcap/data/icmp.cap
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>daffodil parse --schema PCAP/src/main/resources/com/tresys/pcap/xsd/pcap.dfdl.xsd PCAP/src/test/resources/com/tresys/pcap/data/icmp.cap
+</code></pre>
+</div>
 
 <p>The above command uses the pcap.dfdl.xsd schema to parse the icmp.cap input file. Viewed as a hex dump, the icmp.cap file looks like:</p>
 
-<p><code class="highlighter-rouge">
-0000000     c3d4 a1b2 0002 0004 0000 0000 0000 0000
+<div class="highlighter-rouge"><pre class="highlight"><code>0000000     c3d4 a1b2 0002 0004 0000 0000 0000 0000
 0000020     ffff 0000 0001 0000 6fc4 51c1 ccf8 000c
 0000040     004a 0000 004a 0000 5000 e056 4914 0c00
 ...
 0001300     0000 5c2f 0002 0024 6261 6463 6665 6867
 0001320     6a69 6c6b 6e6d 706f 7271 7473 7675 6177
 0001340     6362 6564 6766 6968
-</code></p>
+</code></pre>
+</div>
 
 <p>The result of the parse is the following XML:</p>
 
-<p>```xml</p>
-<pcap:pcap xmlns:pcap="urn:pcap:2.4">
-  <pcapheader>
-    <magicnumber>D4C3B2A1</magicnumber>
-    <version>
-      <major>2</major>
-      <minor>4</minor>
-    </version>
-    <zone>0</zone>
-    <sigfigs>0</sigfigs>
-    <snaplen>65535</snaplen>
-    <network>1</network>
-  </pcapheader>
-  <packet>
-    <packetheader>
-      <seconds>1371631556</seconds>
-      <useconds>838904</useconds>
-      <incllen>74</incllen>
-      <origlen>74</origlen>
-    </packetheader>
-    <pcap:linklayer>
-      <pcap:ethernet>
-        <macdest>005056E01449</macdest>
-        <macsrc>000C29340BDE</macsrc>
-        <ethertype>2048</ethertype>
-        <pcap:networklayer>
-          <pcap:ipv4>
-            <ipv4header>
-              <version>4</version>
-              <ihl>5</ihl>
-              <dscp>0</dscp>
-              <ecn>0</ecn>
-              <length>60</length>
-              <identification>55107</identification>
-              <flags>0</flags>
-              <fragmentoffset>0</fragmentoffset>
-              <ttl>128</ttl>
-              <protocol>1</protocol>
-              <checksum>11123</checksum>
-              <ipsrc>192.168.158.139</ipsrc>
-              <ipdest>174.137.42.77</ipdest>
-            </ipv4header>
-            <payloadlength>40</payloadlength>
-            <protocol>1</protocol>
-            <pcap:icmpv4>
-              <type>8</type>
-              <code>0</code>
-              <checksum>10844</checksum>
-              <data>02002100</data>
-            </pcap:icmpv4>
-          </pcap:ipv4>
-        </pcap:networklayer>
-      </pcap:ethernet>
-    </pcap:linklayer>
-  </packet>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;pcap:PCAP</span> <span class="na">xmlns:pcap=</span><span class="s">"urn:pcap:2.4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;PCAPHeader&gt;</span>
+    <span class="nt">&lt;MagicNumber&gt;</span>D4C3B2A1<span class="nt">&lt;/MagicNumber&gt;</span>
+    <span class="nt">&lt;Version&gt;</span>
+      <span class="nt">&lt;Major&gt;</span>2<span class="nt">&lt;/Major&gt;</span>
+      <span class="nt">&lt;Minor&gt;</span>4<span class="nt">&lt;/Minor&gt;</span>
+    <span class="nt">&lt;/Version&gt;</span>
+    <span class="nt">&lt;Zone&gt;</span>0<span class="nt">&lt;/Zone&gt;</span>
+    <span class="nt">&lt;SigFigs&gt;</span>0<span class="nt">&lt;/SigFigs&gt;</span>
+    <span class="nt">&lt;SnapLen&gt;</span>65535<span class="nt">&lt;/SnapLen&gt;</span>
+    <span class="nt">&lt;Network&gt;</span>1<span class="nt">&lt;/Network&gt;</span>
+  <span class="nt">&lt;/PCAPHeader&gt;</span>
+  <span class="nt">&lt;Packet&gt;</span>
+    <span class="nt">&lt;PacketHeader&gt;</span>
+      <span class="nt">&lt;Seconds&gt;</span>1371631556<span class="nt">&lt;/Seconds&gt;</span>
+      <span class="nt">&lt;USeconds&gt;</span>838904<span class="nt">&lt;/USeconds&gt;</span>
+      <span class="nt">&lt;InclLen&gt;</span>74<span class="nt">&lt;/InclLen&gt;</span>
+      <span class="nt">&lt;OrigLen&gt;</span>74<span class="nt">&lt;/OrigLen&gt;</span>
+    <span class="nt">&lt;/PacketHeader&gt;</span>
+    <span class="nt">&lt;pcap:LinkLayer&gt;</span>
+      <span class="nt">&lt;pcap:Ethernet&gt;</span>
+        <span class="nt">&lt;MACDest&gt;</span>005056E01449<span class="nt">&lt;/MACDest&gt;</span>
+        <span class="nt">&lt;MACSrc&gt;</span>000C29340BDE<span class="nt">&lt;/MACSrc&gt;</span>
+        <span class="nt">&lt;Ethertype&gt;</span>2048<span class="nt">&lt;/Ethertype&gt;</span>
+        <span class="nt">&lt;pcap:NetworkLayer&gt;</span>
+          <span class="nt">&lt;pcap:IPv4&gt;</span>
+            <span class="nt">&lt;IPv4Header&gt;</span>
+              <span class="nt">&lt;Version&gt;</span>4<span class="nt">&lt;/Version&gt;</span>
+              <span class="nt">&lt;IHL&gt;</span>5<span class="nt">&lt;/IHL&gt;</span>
+              <span class="nt">&lt;DSCP&gt;</span>0<span class="nt">&lt;/DSCP&gt;</span>
+              <span class="nt">&lt;ECN&gt;</span>0<span class="nt">&lt;/ECN&gt;</span>
+              <span class="nt">&lt;Length&gt;</span>60<span class="nt">&lt;/Length&gt;</span>
+              <span class="nt">&lt;Identification&gt;</span>55107<span class="nt">&lt;/Identification&gt;</span>
+              <span class="nt">&lt;Flags&gt;</span>0<span class="nt">&lt;/Flags&gt;</span>
+              <span class="nt">&lt;FragmentOffset&gt;</span>0<span class="nt">&lt;/FragmentOffset&gt;</span>
+              <span class="nt">&lt;TTL&gt;</span>128<span class="nt">&lt;/TTL&gt;</span>
+              <span class="nt">&lt;Protocol&gt;</span>1<span class="nt">&lt;/Protocol&gt;</span>
+              <span class="nt">&lt;Checksum&gt;</span>11123<span class="nt">&lt;/Checksum&gt;</span>
+              <span class="nt">&lt;IPSrc&gt;</span>192.168.158.139<span class="nt">&lt;/IPSrc&gt;</span>
+              <span class="nt">&lt;IPDest&gt;</span>174.137.42.77<span class="nt">&lt;/IPDest&gt;</span>
+            <span class="nt">&lt;/IPv4Header&gt;</span>
+            <span class="nt">&lt;PayloadLength&gt;</span>40<span class="nt">&lt;/PayloadLength&gt;</span>
+            <span class="nt">&lt;Protocol&gt;</span>1<span class="nt">&lt;/Protocol&gt;</span>
+            <span class="nt">&lt;pcap:ICMPv4&gt;</span>
+              <span class="nt">&lt;Type&gt;</span>8<span class="nt">&lt;/Type&gt;</span>
+              <span class="nt">&lt;Code&gt;</span>0<span class="nt">&lt;/Code&gt;</span>
+              <span class="nt">&lt;Checksum&gt;</span>10844<span class="nt">&lt;/Checksum&gt;</span>
+              <span class="nt">&lt;Data&gt;</span>02002100<span class="nt">&lt;/Data&gt;</span>
+            <span class="nt">&lt;/pcap:ICMPv4&gt;</span>
+          <span class="nt">&lt;/pcap:IPv4&gt;</span>
+        <span class="nt">&lt;/pcap:NetworkLayer&gt;</span>
+      <span class="nt">&lt;/pcap:Ethernet&gt;</span>
+    <span class="nt">&lt;/pcap:LinkLayer&gt;</span>
+  <span class="nt">&lt;/Packet&gt;</span>
   ...
-</pcap:pcap>
-<p>```</p>
+<span class="nt">&lt;/pcap:PCAP&gt;</span>
+</code></pre>
+</div>
 
   </div>
 </div>
