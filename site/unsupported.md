@@ -230,3 +230,10 @@ The following table lists unsupported features and errata of the DFDL Specificat
 |{% err  %}|{% err  %}|{% err  %}|{% err  %}|Erratum 5.29
 |{% err  %}|{% err  %}|{% err  %}|{% err  %}|Erratum 5.30
 |{% ok   %}|{% ok   %}|{% ok   %}|{% ok   %}|Erratum 5.31
+|{% err  %}|{% err  %}|{% err  %}|{% ok   %}|Erratum 5.32
+|{% ok   %}|{% ok   %}|{% ok   %}|{% ok   %}|Erratum 5.33
+|{% ok   %}|{% ok   %}|{% ok   %}|{% ok   %}|Erratum 5.34
+|{% ok   %}|{% ok   %}|{% ok   %}|{% ok   %}|Erratum 5.35
+|{% err  %}|{% err  %}|{% ok   %}|{% ok   %}|Erratum 5.36
+|{% err  %}|{% err  %}|{% ok   %}|{% ok   %}|Erratum 5.37
+|{% ok   %}|{% ok   %}|{% ok   %}|{% ok   %}|Erratum 5.38
