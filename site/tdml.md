@@ -62,7 +62,7 @@ Below is an annotated TDML file for a very simple example:
   xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
   xmlns="http://www.w3.org/1999/xhtml"
   xsi:schemaLocation="http://www.ibm.com/xmlns/dfdl/testData tdml.xsd"
-  defaultRoundTrip="false">
+  defaultRoundTrip="none">
    
   <!--
     This example TDML file is for a self-contained bug report.
@@ -466,3 +466,23 @@ She walked into mine
 ```
 
 is fine, and will work and be robust.
+
+### Round-Trip Testing
+
+Round-trip testing, is using a single test case for testing both parse and unparse directions.
+
+The ``tdml:testSuite`` has a ``defaultRoundTrip`` attribute, and each test case can have a ``roundTrip`` attribute which overrides the default. 
+The values of these attributes for ``tdml:parserTestCase`` can be
+* ``none`` - parse given data, compare to expected infoset.
+* ``onePass`` - parse given data, compare to expected infoset. If successful, unparse infoset, compare to given data.
+* ``twoPass`` - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to output data, compare to given data, expect failure. If failed, parse output data to second infoset. Compare to expected infoset, expect success.
+* ``threePass`` - - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to first output data, compare to given data, expect failure. If failed, parse first output data to second infoset. Compare to expected infoset, expect failure. If failed, unparse second infoset to second output data, compare to first output data, expect success.
+For unparsing, the values can be 
+* ``none`` - unparse given infoset, compare output data to expected data.
+* ``onePass`` - unparse given infoset, compare output data to expected data. If successful, parse data to infoset, compare to given (expected) infoset.
+These are also accepted for backward compatiblity with earlier TDML runner versions but are deprecated:
+* ``false`` - means same as ``none``
+* ``true`` - means same as ``onePass``
+The default behavior if nothing is specified in either the ``tdml:testSuite`` or the test case itself, is ``onePass``.
+A test must be designated as (or default to) requiring a specific number of passes. A test designated as ``twoPass`` must fail in ``onePass`` in order to succeed with the second pass.
+A test designated ``threePass`` must fail both the first pass, and second pass in order to succeed on the third pass. The ``twoPass`` and especially ``threePass`` modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.
