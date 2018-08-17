@@ -128,7 +128,7 @@ when used with the TDML “tutorial” feature.</p>
   <span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span>
   <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span>
   <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.ibm.com/xmlns/dfdl/testData tdml.xsd"</span>
-  <span class="na">defaultRoundTrip=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+  <span class="na">defaultRoundTrip=</span><span class="s">"none"</span><span class="nt">&gt;</span>
    
   <span class="c">&lt;!--
     This example TDML file is for a self-contained bug report.
@@ -533,6 +533,28 @@ She walked into mine
 </div>
 
 <p>is fine, and will work and be robust.</p>
+
+<h3 id="round-trip-testing">Round-Trip Testing</h3>
+
+<p>Round-trip testing, is using a single test case for testing both parse and unparse directions.</p>
+
+<p>The <code class="highlighter-rouge">tdml:testSuite</code> has a <code class="highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="highlighter-rouge">roundTrip</code> attribute which overrides the default. 
+The values of these attributes for <code class="highlighter-rouge">tdml:parserTestCase</code> can be</p>
+<ul>
+  <li><code class="highlighter-rouge">none</code> - parse given data, compare to expected infoset.</li>
+  <li><code class="highlighter-rouge">onePass</code> - parse given data, compare to expected infoset. If successful, unparse infoset, compare to given data.</li>
+  <li><code class="highlighter-rouge">twoPass</code> - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to output data, compare to given data, expect failure. If failed, parse output data to second infoset. Compare to expected infoset, expect success.</li>
+  <li><code class="highlighter-rouge">threePass</code> - - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to first output data, compare to given data, expect failure. If failed, parse first output data to second infoset. Compare to expected infoset, expect failure. If failed, unparse second infoset to second output data, compare to first output data, expect success.
+For unparsing, the values can be</li>
+  <li><code class="highlighter-rouge">none</code> - unparse given infoset, compare output data to expected data.</li>
+  <li><code class="highlighter-rouge">onePass</code> - unparse given infoset, compare output data to expected data. If successful, parse data to infoset, compare to given (expected) infoset.
+These are also accepted for backward compatiblity with earlier TDML runner versions but are deprecated:</li>
+  <li><code class="highlighter-rouge">false</code> - means same as <code class="highlighter-rouge">none</code></li>
+  <li><code class="highlighter-rouge">true</code> - means same as <code class="highlighter-rouge">onePass</code>
+The default behavior if nothing is specified in either the <code class="highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="highlighter-rouge">onePass</code>.
+A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="highlighter-rouge">twoPass</code> must fail in <code class="highlighter-rouge">onePass</code> in order to succeed with the second pass.
+A test designated <code class="highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="highlighter-rouge">twoPass</code> and especially <code class="highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</li>
+</ul>
 
   </div>
 </div>
