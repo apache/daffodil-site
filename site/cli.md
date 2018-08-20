@@ -120,6 +120,10 @@ Parse a file, using either a DFDL schema or a saved parser.
 
    : The annotated DFDL schema to use to create the parser. This option cannot be used with the ``--parser`` option.
 
+``--stream``
+
+   : Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data. Parsing repeats until end of data is reached, an error occurs, or no data is consumed. Output infosets are separated by a NUL character.
+
 ``-T TUNABLE=VALUE``
 
    : Modify Daffodil configuration options to change parsing behavior. See [Configuration](/configuration) for the list of tunable parameters.
@@ -185,6 +189,10 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 ``-s, --schema FILE``
 
    : The annotated DFDL schema to use to create the parser. This option cannot be used with the ``--parser`` option.
+
+``--stream``
+
+   : Split the input data at NUL characters and unparse each chunk separately to the same output file.
 
 ``-T TUNABLE=VALUE``
 
