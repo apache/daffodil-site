@@ -143,31 +143,32 @@ parsing diagnostics</p><h5> Overview </h5><p>The <a href="Daffodil$.html" class=
 <span class="kw">val</span> dp = pf.onPath(<span class="lit">"/"</span>)</pre><p>The <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> provides the necessary functions to parse and unparse
 data, returning a <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a> or <a href="UnparseResult.html" class="extype" name="org.apache.daffodil.sapi.UnparseResult">UnparseResult</a>, respectively. These
 contain information about the parse/unparse, such as whether or not the
-processing succeeded any diagnostic information.</p><h6> Parse </h6><p>The <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:org\.apache\.daffodil\.sapi\.io\.InputSourceDataInputStream,output:org\.apache\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a> method accepts input data to parse in the form
-of a <a href="io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">io.InputSourceDataInputStream</a> and an <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">infoset.InfosetOutputter</a>
+processing succeeded any diagnostic information.</p><h6> Parse </h6><p>The <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a> method accepts input data to parse in the form
+of a <a href="io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a> and an <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>
 to determine the output representation of the infoset (e.g. Scala XML Nodes,
 JDOM2 Documents, etc.):</p><pre><span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(data)
 <span class="kw">val</span> pr = dp.parse(is, scalaOutputter)
-<span class="kw">val</span> node = scalaOutputter.getResult</pre><p>The <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:org\.apache\.daffodil\.sapi\.io\.InputSourceDataInputStream,output:org\.apache\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a> method is thread-safe and may be called multiple
+<span class="kw">val</span> node = scalaOutputter.getResult</pre><p>The <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a> method is thread-safe and may be called multiple
 times without the need to create other data processors. However,
-<a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">infoset.InfosetOutputter</a>'s are not thread safe, requiring a unique instance per
-thread. An <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">infoset.InfosetOutputter</a> should call <a href="infoset/InfosetOutputter.html#reset():Unit" class="extmbr" name="org.apache.daffodil.sapi.infoset.InfosetOutputter#reset">infoset.InfosetOutputter#reset</a> before
+<a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>'s are not thread safe, requiring a unique instance per
+thread. An <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> should call <a href="infoset/InfosetOutputter.html#reset():Unit" class="extmbr" name="org.apache.daffodil.sapi.infoset.InfosetOutputter#reset">InfosetOutputter.reset</a> before
 reuse (or a new one should be allocated). For example:</p><pre><span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 files.foreach { f <span class="kw">=&gt;</span> {
   outputter.reset
   <span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(<span class="kw">new</span> FileInputStream(f))
   <span class="kw">val</span> pr = dp.parse(is, scalaOutputter)
   <span class="kw">val</span> node = scalaOutputter.getResult
-}}</pre><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
+}</pre><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
 <span class="kw">while</span> (keepParsing) {
   scalaOutputter.reset()
   <span class="kw">val</span> pr = dp.parse(is, jdomOutputter)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()</pre><h6> Unparse </h6><p>The same <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
-via the <a href="DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor#unparse(input*</a> method. An <a href="infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">infoset.InfosetInputter</a>
+  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+}</pre><h6> Unparse </h6><p>The same <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
+via the <a href="DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method. An <a href="infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a>
 provides the infoset to unparse, with the unparsed data written to the
 provided java.nio.channels.WritableByteChannel. For example:</p><pre><span class="kw">val</span> inputter = <span class="kw">new</span> ScalaXMLInfosetInputter(node)
 <span class="kw">val</span> ur = dp.unparse(inputter, wbc)</pre><h5> Failures and Diagnostics </h5><p>It is possible that failures could occur during the creation of the
@@ -176,7 +177,7 @@ throwing an exception on error (e.g. invalid DFDL schema, parse
 error, etc), these classes extend <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a>, which is used to
 determine if an error occurred, and any diagnostic information (see
 <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>) related to the step. Thus, before continuing, one must check
-<a href="WithDiagnostics.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.WithDiagnostics#isError">WithDiagnostics#isError</a>. For example:</p><pre><span class="kw">val</span> pf = c.compile(file)
+<a href="WithDiagnostics.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.WithDiagnostics#isError">WithDiagnostics.isError</a>. For example:</p><pre><span class="kw">val</span> pf = c.compile(file)
 <span class="kw">if</span> (pf.isError()) {
   <span class="kw">val</span> diags = pf.getDiagnostics()
   diags.foreach { d <span class="kw">=&gt;</span>
@@ -225,10 +226,10 @@ methods in the <a href="debugger/DebuggerRunner.html" class="extype" name="org.a
       </span>
       
       <p class="shortcomment cmt">Defines various classes used control the representation of the infoset for parse and unparse.</p><div class="fullcomment"><div class="comment cmt"><p>Defines various classes used control the representation of the infoset for parse and unparse.
-Classes that extend <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> are provided to the <a href="DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:org\.apache\.daffodil\.sapi\.infoset\.InfosetOutputter)*</a>
+Classes that extend <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> are provided to the <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a>
 method to deteremine how to output an infoset. These classes are not
 guaranteed to be thread-safe. Classes that extend <a href="infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> are
-provided to the <a href="DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor#unparse(input*</a> method to determine how to read in
+provided to the <a href="DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method to determine how to read in
 an infoset. A new InfosetOutputter is required for each call to unparse().
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.io" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -265,8 +266,8 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       <p class="shortcomment cmt">Provides the classes necessary to receive logging messages from Daffodil.</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to receive logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="logger/ConsoleLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="logger/FileLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="logger/NullLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
 <a href="Daffodil$.html#setLogWriter(lw:org.apache.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code>/var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
 Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="Daffodil$.html#setLoggingLevel(lvl:org.apache.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
-defaults to <a href="logger/LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel#Info</a> if not set. For example, to change the log
-level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel#Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
+defaults to <a href="logger/LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel.Info</a> if not set. For example, to change the log
+level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel.Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
@@ -301,16 +302,16 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                         <a href="LocationInSchemaFile.html" title="Information related to locations in DFDL schema files">LocationInSchemaFile</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="ParseResult.html" title="Result of calling DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:org\.apache\.daffodil\.sapi\.infoset\.InfosetOutputter)*, containing any diagnostic information, and the final data location"></a>
-                        <a href="ParseResult.html" title="Result of calling DataProcessor#parse(input:java\.nio\.channels\.ReadableByteChannel,output:org\.apache\.daffodil\.sapi\.infoset\.InfosetOutputter)*, containing any diagnostic information, and the final data location">ParseResult</a>
+                        <a class="class" href="ParseResult.html" title="Result of calling DataProcessor.parse, containing any diagnostic information, and the final data location"></a>
+                        <a href="ParseResult.html" title="Result of calling DataProcessor.parse, containing any diagnostic information, and the final data location">ParseResult</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="" title="Factory to create DataProcessor's, used for parsing data"></a>
                         <a href="" title="Factory to create DataProcessor's, used for parsing data">ProcessorFactory</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="UnparseResult.html" title="Result of calling DataProcessor#unparse(input*, containing diagnostic information"></a>
-                        <a href="UnparseResult.html" title="Result of calling DataProcessor#unparse(input*, containing diagnostic information">UnparseResult</a>
+                        <a class="class" href="UnparseResult.html" title="Result of calling DataProcessor.unparse, containing diagnostic information"></a>
+                        <a href="UnparseResult.html" title="Result of calling DataProcessor.unparse, containing diagnostic information">UnparseResult</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="object" href="ValidationMode$.html" title="Validation modes for validating the resulting infoset against the DFDL schema"></a>
@@ -583,7 +584,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       
       <p class="shortcomment cmt">Get the list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s created during the construction of the parent object
 </p><div class="fullcomment"><div class="comment cmt"><p>Get the list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s created during the construction of the parent object
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s. May contain errors or warnings, and so may be non-empty even if <a href="WithDiagnostics.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.WithDiagnostics#isError">WithDiagnostics#isError</a> is false.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s. May contain errors or warnings, and so may be non-empty even if <a href="WithDiagnostics.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.WithDiagnostics#isError">WithDiagnostics.isError</a> is false.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -707,7 +708,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       
       <p class="shortcomment cmt">Create a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>
 </p><div class="fullcomment"><div class="comment cmt"><p>Create a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>
-</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>path to an element to use as the parsing root, relative to the distinguished root node. Currently, must be set to &quot;/&quot;</p></dd><dt>returns</dt><dd class="cmt"><p><a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used to parse data. Must check <a href="DataProcessor.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#isError">DataProcessor#isError</a> before using it.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>path to an element to use as the parsing root, relative to the distinguished root node. Currently, must be set to &quot;/&quot;</p></dd><dt>returns</dt><dd class="cmt"><p><a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used to parse data. Must check <a href="DataProcessor.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#isError">DataProcessor.isError</a> before using it.</p></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.ProcessorFactory#setDistinguishedRootNode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="setDistinguishedRootNode(name:String,namespace:String):Unit"></a><a id="setDistinguishedRootNode(String,String):Unit"></a>
       <span class="permalink">
