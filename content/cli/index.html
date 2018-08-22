@@ -202,6 +202,10 @@
   <dd>
     <p>The annotated DFDL schema to use to create the parser. This option cannot be used with the <code class="highlighter-rouge">--parser</code> option.</p>
   </dd>
+  <dt><code class="highlighter-rouge">--stream</code></dt>
+  <dd>
+    <p>Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data. Parsing repeats until end of data is reached, an error occurs, or no data is consumed. Output infosets are separated by a NUL character.</p>
+  </dd>
   <dt><code class="highlighter-rouge">-T TUNABLE=VALUE</code></dt>
   <dd>
     <p>Modify Daffodil configuration options to change parsing behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
@@ -274,6 +278,10 @@
   <dt><code class="highlighter-rouge">-s, --schema FILE</code></dt>
   <dd>
     <p>The annotated DFDL schema to use to create the parser. This option cannot be used with the <code class="highlighter-rouge">--parser</code> option.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">--stream</code></dt>
+  <dd>
+    <p>Split the input data at NUL characters and unparse each chunk separately to the same output file.</p>
   </dd>
   <dt><code class="highlighter-rouge">-T TUNABLE=VALUE</code></dt>
   <dd>
