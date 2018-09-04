@@ -7,7 +7,6 @@
     {% if include.checksum-root %}
       {% assign base = include.checksum-root | append: include.prefix | append: file %}
       [ <a href="{{ base }}.asc">PGP</a> ]
-      [ <a href="{{ base }}.sha1">SHA1</a> ]
       [ <a href="{{ base }}.sha256">SHA256</a> ]
       [ <a href="{{ base }}.sha512">SHA512</a> ]
     {% endif %}
