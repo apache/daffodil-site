@@ -32,7 +32,6 @@ limitations under the License.
         <th><b>Apache ID</b></th>
         <th><b>GitHub</b></th>
         <th><b>Role</b></th>
-        <th><b>Affiliation</b></th>
     </tr>
     {% assign contributors = site.data.contributors | sort: "last" %}
     {% for member in contributors %}
@@ -41,7 +40,6 @@ limitations under the License.
         <td>{{member.apacheId}}</td>
         <td><a href="http://github.com/{{ member.githubId }}">{{ member.githubId }}</a></td>
         <td>{{member.role}}</td>
-        <td>{{member.org}}</td>
         </tr>
     {% endfor %}
 </table>

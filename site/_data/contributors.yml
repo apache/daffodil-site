@@ -18,53 +18,45 @@
   apacheId: jadams
   githubId: jadams-tresys
   role: PPMC
-  org: Tresys Technology
 
 - first: John D.
   last: Ament
   apacheId: johndament
   githubId:
   role: Mentor
-  org: 
 
 - first: Mike
   last: Beckerle
   apacheId: mbeckerle
   githubId: mbeckerle
   role: PPMC
-  org: Tresys Technology
 
 - first: Beth
   last: Fahl
   apacheId: efinnegan
-  githubId:
+  githubId: efinnegan
   role: PPMC
-  org: Tresys Technology
 
 - first: Dave
   last: Fisher
   apacheId: wave
   githubId:
   role: Mentor
-  org: 
 
 - first: Steve
   last: Lawrence
   apacheId: slawrence
   githubId: stevedlawrence
   role: PPMC
-  org: Tresys Technology
 
 - first: Dave
   last: Thompson
   apacheId: dthompson
   githubId: dfthompson
   role: PPMC
-  org: Tresys Technology
 
 - first: Taylor
   last: Wise
   apacheId: vtguy08
   githubId: VTGuy
   role: PPMC
-  org: Strategic Business Systems (SBS)
