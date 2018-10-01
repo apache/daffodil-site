@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl"?>
+<rdf:RDF xml:lang="en"
+         xmlns="http://usefulinc.com/ns/doap#" 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:asfext="http://projects.apache.org/ns/asfext#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+  <Project rdf:about="https://daffodil.apache.org">
+
+    <name>Apache Daffodil</name>
+    <created>2017-08-27</created>
+    <license rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+    <asfext:pmc rdf:resource="https://incubator.apache.org" />
+
+    <shortdesc>Apache Daffodil is an open-source implementation of the
+        Data Format Description Language to convert between fixed
+        format data and XML/JSON.</shortdesc>
+    <description>Apache Daffodil is an open-source implementation of
+        the DFDL specification that uses DFDL data descriptions to parse
+        fixed format data into an infoset, which is most commonly
+        represented as either XML or JSON. This allows the use of
+        well-established XML or JSON technologies and libraries to
+        consume, inspect, and manipulate fixed format data in existing
+        solutions. Daffodil is also capable of the reverse by
+        serializing or "unparsing" an XML or JSON infoset back to the
+        original data format.</description>
+    
+    <homepage rdf:resource="https://daffodil.apache.org" />
+    <download-page rdf:resource="https://daffodil.apache.org/releases/"/>
+    <mailing-list rdf:resource="https://daffodil.apache.org/community/#mailing-lists" />
+    <bug-database rdf:resource="https://issues.apache.org/jira/browse/DAFFODIL" />
+
+    <programming-language>Scala</programming-language>
+    <programming-language>Java</programming-language>
+
+    <category rdf:resource="https://projects.apache.org/category/big-data" />
+    <category rdf:resource="https://projects.apache.org/category/library" />
+    <category rdf:resource="https://projects.apache.org/category/xml" />
+
+    <repository>
+      <GitRepository>
+        <location rdf:resource="https://github.com/apache/incubator-daffodil"/>
+        <browse rdf:resource="https://github.com/apache/incubator-daffodil"/>
+      </GitRepository>
+    </repository>
+    <repository>
+      <GitRepository>
+        <location rdf:resource="https://github.com/apache/incubator-daffodil-site"/>
+        <browse rdf:resource="https://github.com/apache/incubator-daffodil-site"/>
+      </GitRepository>
+    </repository>
+
+    <maintainer>
+        <foaf:Person>
+            <foaf:name>Apache Daffodil Community</foaf:name>
+            <foaf:mbox rdf:resource="mailto:dev@daffodil.apache.org"/>
+        </foaf:Person>
+    </maintainer>
+
+    <asfext:implements>
+      <asfext:Standard>
+        <asfext:title>Data Format Description Language</asfext:title>
+        <asfext:body>Open Grid Forum</asfext:body>
+        <asfext:id>DFDL</asfext:id>
+        <asfext:url rdf:resource="https://daffodil.apache.org/docs/dfdl/"/>
+      </asfext:Standard>
+    </asfext:implements>
+
+    <release>
+        <Version>
+            <name>Apache Daffodil</name>
+            <created>2018-09-04</created>
+            <revision>2.2.0</revision>
+        </Version>
+    </release>
+    <release>
+        <Version>
+            <name>Apache Daffodil</name>
+            <created>2018-05-14</created>
+            <revision>2.1.0</revision>
+        </Version>
+    </release>
+
+  </Project>
+</rdf:RDF>
