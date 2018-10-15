@@ -60,6 +60,7 @@ permalink: /release/release-notes-:title
         {% endif %}
 
         {% if page.apache %}
+          <hr />
           <p>
             <i>
               The above release files should be verified using the PGP signatures and the
@@ -75,25 +76,25 @@ permalink: /release/release-notes-:title
 
       <div id="maven" class="tab-pane fade">
 {% highlight xml %}
-  <dependency>
-    <groupId>{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}</groupId>
-    <artifactId>daffodil-japi_{{ page.scala-version }}</artifactId>
-    <version>{{ page.title }}</version>
-  </dependency>
+<dependency>
+  <groupId>{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}</groupId>
+  <artifactId>daffodil-japi_{{ page.scala-version }}</artifactId>
+  <version>{{ page.title }}</version>
+</dependency>
 {% unless page.apache %}
-  <repository>
-    <id>ncsa-sonatype-releases</id>
-    <name>NCSA Sonatype Releases</name>
-    <url>https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases</url>
-  </repository>
+<repository>
+  <id>ncsa-sonatype-releases</id>
+  <name>NCSA Sonatype Releases</name>
+  <url>https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases</url>
+</repository>
 {% endunless %}
 {% endhighlight %}
       </div>
       <div id="sbt" class="tab-pane fade">
 {% highlight scala %}
-  libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}" %% "daffodil-sapi" % "{{ page.title }}"
+libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}" %% "daffodil-sapi" % "{{ page.title }}"
 {% unless page.apache %}
-  resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"
+resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"
 {% endunless %}
 {% endhighlight %}
       </div>
