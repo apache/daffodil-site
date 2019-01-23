@@ -115,7 +115,7 @@
 
 <p>The standard file tree would be:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>RFormat/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RFormat/
 ├── src/
 │   ├── main/
 │   │   └── resources/
@@ -146,14 +146,13 @@
 ├── .project     - Eclipse project file (optional)
 └── .gitignore   - Git revision control system 'ignore' file (should contain 'target' and
                    'lib_managed' entries)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="buildsbt">build.sbt</h3>
 
 <p>Use the below template for the build.sbt file:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">name</span> <span class="o">:=</span> <span class="s">"dfdl-RFormat"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">:=</span> <span class="s">"dfdl-RFormat"</span>
  
 <span class="n">organization</span> <span class="o">:=</span> <span class="s">"org.apache"</span>
  
@@ -170,8 +169,7 @@
   <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"4.11"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
   <span class="s">"com.novocode"</span> <span class="o">%</span> <span class="s">"junit-interface"</span> <span class="o">%</span> <span class="s">"0.10"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
 <span class="o">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Edit the version of daffodil-tdml above to match the version you are using.</p>
 
@@ -191,17 +189,15 @@
 
 <p>The <code class="highlighter-rouge">xs:include</code> or <code class="highlighter-rouge">xs:import</code> elements of a DFDL Schema can import/include a DFDL schema that follows these conventions like this:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:apache.org/RFormat"</span> <span class="na">schemaLocation=</span><span class="s">"org/apache/RFormat/xsd/main.dfdl.xsd"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:apache.org/RFormat"</span> <span class="na">schemaLocation=</span><span class="s">"org/apache/RFormat/xsd/main.dfdl.xsd"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
 
 <p>The above is for using a DFDL schema as a library, from another different DFDL schema.</p>
 
 <p>Within a DFDL schema, one DFDL schema file can reference another peer file that appears in the same directory (the src/main/resources/…/xsd directory) via:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:include</span> <span class="na">schemaLocation=</span><span class="s">"format.dfdl.xsd"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:include</span> <span class="na">schemaLocation=</span><span class="s">"format.dfdl.xsd"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
 
 <p>That is, peer files need not carry the long <code class="highlighter-rouge">org/apache/RFormat/xsd/</code> prefix that makes the reference globally unique.</p>
 
@@ -219,18 +215,16 @@
 
 <p>The sbt command does all the work:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sbt package      # creates jar
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt package      # creates jar
 sbt publishLocal # puts it into local .ivy2 cache where other maven/sbt will find it.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The resulting jar has the src/main/resources directory in it at the root of the jar. If this jar is on the classpath, then other schemas containing XSD import or include statements will search the jar with the schema location.</p>
 
 <p>That enables a different schema’s <code class="highlighter-rouge">build.sbt</code> to contain a library dependency on our hypthetical dfdl-RFormat schema using a dependency like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>"org.apache" % "dfdl-RFormat" % "0.0.1" % "test"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"org.apache" % "dfdl-RFormat" % "0.0.1" % "test"
+</code></pre></div></div>
 
 <p>That will result in the contents of the <code class="highlighter-rouge">src/main/resources</code> directory above being on the classpath. XSD include and import statements search the classpath directories.</p>
 
@@ -262,7 +256,7 @@ sbt publishLocal # puts it into local .ivy2 cache where other maven/sbt will fin
             <hr>
             <div>
                 <div style="text-align: center;">
-                    Copyright &copy; 2018 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Copyright &copy; 2019 <a href="http://www.apache.org">The Apache Software Foundation</a>.
                     Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
                     2.0</a>.
                     <br>

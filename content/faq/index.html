@@ -101,9 +101,8 @@
 <div id="faq1" class="collapse">
   <p>Here’s part of an example from the DFDL tutorial of a street address:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"houseNumber"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"explicit"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"houseNumber"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"explicit"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+</code></pre></div>  </div>
 
   <p>Note that the length of the house number is constrained with DFDL.  XSD can also be used to constrain lengths.</p>
 
@@ -113,27 +112,25 @@
 
   <p>Consider</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">/&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">/&gt;</span>
+</code></pre></div>  </div>
 
   <p>Now the length is coming from a field someplace at runtime. Validating that it is within some additional constraints on maxLength might be very valuable. To do that you nave to write the more verbose:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
   <span class="nt">&lt;xs:simpleType&gt;</span>
     <span class="nt">&lt;xs:restriction</span> <span class="na">base=</span><span class="s">"xs:string"</span><span class="nt">&gt;</span>
       <span class="nt">&lt;xs:maxLength</span> <span class="na">value=</span><span class="s">"140"</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/xs:restriction&gt;</span>
   <span class="nt">&lt;/xs:simpleType&gt;</span>
 <span class="nt">&lt;/xs:element&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>Not too bad actually. And if you can reuse some simple type definitions it’s not bad at all.</p>
 
   <p>One further point. Suppose you want to parse the string using the header-supplied length, but it’s flat out a parse error if the length turns out to be greater than 140. You can ask the DFDL processor to check the facet maxLength at parse time using an assertion like this:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
   <span class="nt">&lt;xs:simpleType&gt;</span>
     <span class="nt">&lt;xs:annotation&gt;&lt;xs:appinfo</span> <span class="na">source=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0"</span><span class="nt">&gt;</span>
        <span class="nt">&lt;dfdl:assert&gt;</span>{ dfdl:checkConstraints() }<span class="nt">&lt;/dfdl:assert&gt;</span>
@@ -143,8 +140,7 @@
     <span class="nt">&lt;/xs:restriction&gt;</span>
   <span class="nt">&lt;/xs:simpleType&gt;</span>
 <span class="nt">&lt;/xs:element&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>The dfdl:assert statement annotation calls a built-in DFDL function called dfdl:checkConstraints, which tells DFDL to test the facet constraints and issue a parse error if they are not satisfied. This is particularly useful for enumeration constraints where an element value is an identifier of some sort.</p>
 </div>
@@ -159,9 +155,8 @@
 
   <p>By way of illustrating what not to do, it is tempting to put facet constraints on simple type definitions in your schema, and then use a dfdl:assert like this:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert&gt;</span>{ checkConstraints(.) }<span class="nt">&lt;/dfdl:assert&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert&gt;</span>{ checkConstraints(.) }<span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre></div>  </div>
 
   <p>so that the parser will validate as it parses, and will fail to parse values that do not satisfy the facet constraints.</p>
 
@@ -178,32 +173,28 @@
 
   <p>Most XML editors will wrap long lines. So your</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar<span class="nt">&lt;/a&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar<span class="nt">&lt;/a&gt;</span>
+</code></pre></div>  </div>
 
   <p>just might get turned into</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a&gt;</span>foobar
 <span class="nt">&lt;/a&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>Now most of the time that is fine. But sometimes the whitespace really matters. One such place is when you type a regular expression. In DFDL this can come up in this way:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span> *<span class="nt">&lt;/dfdl:assert&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span> *<span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre></div>  </div>
 
   <p>Now the contents of that element is “ *”, i.e., a single space, and the “*” character. That means zero or more spaces in regex language. If you don’t want your XML tooling to mess with the whitespace do this instead:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[ *]]&gt;</span><span class="nt">&lt;/dfdl:assert&gt;</span>
-</code></pre>
-  </div>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[ *]]&gt;</span><span class="nt">&lt;/dfdl:assert&gt;</span>
+</code></pre></div>  </div>
 
   <p>CDATA informs XML processors that you very much care about this. Any decent XML tooling/editor will see this and decide it cannot line-wrap this or in any way mess with the whitespace. Also useful if you want to write a complex DFDL expression in the expression language, and you want indentation and lines to be respected. Here’s an example:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dfdl:discriminator&gt;</span><span class="cp">&lt;![CDATA[{
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:discriminator&gt;</span><span class="cp">&lt;![CDATA[{
     if (daf:trace((daf:trace(../../ex:presenceBit,"presenceBit") = 0),"pbIsZero")) then false()
     else if
     (daf:trace(daf:trace(dfdl:occursIndex(),"occursIndex") = 1,"indexIsOne")) then true()
@@ -215,8 +206,7 @@
     then false()
     else true() 
 }]]&gt;</span><span class="nt">&lt;/dfdl:discriminator&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>If you get done writing something very deeply nested like this (and XPath style languages require this all the time), then you do NOT want anything messing with the whitespace.</p>
 
@@ -245,7 +235,7 @@
 
   <p>Structures like</p>
 
-  <div class="highlighter-rouge"><pre class="highlight"><code>&lt;offset to start&gt;&lt;length of thing&gt;
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;offset to start&gt;&lt;length of thing&gt;
 &lt;offset to start2&gt;&lt;length of thing2&gt;
 ...
 &lt;offset to startN&gt;&lt;length of thingN&gt;
@@ -253,8 +243,7 @@ thing
 thing2
 ...
 thingN
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>So long as the things and the corresponding descriptor pairs are in order, these can be described. The lengths need not even be there as they are redundant. If present they can be checked for validity. Overlap can be checked for and deemed invalid.</p>
 
@@ -288,14 +277,13 @@ If the things are potentially out of order, especially if the lengths are not st
 
   <p>Consider the common “comma separated values” or  CSV formats. If you have</p>
 
-  <div class="highlighter-rouge"><pre class="highlight"><code>Name, Address, Phone
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name, Address, Phone
 Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>and you want</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;columnNames&gt;</span>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;columnNames&gt;</span>
   <span class="nt">&lt;name&gt;</span>Name<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;name&gt;</span>Address<span class="nt">&lt;/name&gt;</span>
   <span class="nt">&lt;name&gt;</span>Phone<span class="nt">&lt;/name&gt;</span>
@@ -305,17 +293,15 @@ Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
   <span class="nt">&lt;col&gt;</span>8840 Standford Blvd, Columbia MD<span class="nt">&lt;/col&gt;</span>
   <span class="nt">&lt;col&gt;</span>888-888-8888<span class="nt">&lt;/col&gt;</span>
 <span class="nt">&lt;/row&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
   <p>That’s what you would get from a generic CSV DFDL schema. If you want this:</p>
 
-  <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;row&gt;</span>
+  <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;row&gt;</span>
   <span class="nt">&lt;Name&gt;</span>Mike<span class="nt">&lt;/Name&gt;</span>
   <span class="nt">&lt;Address&gt;</span>8840 Stanford Blvd, Columbia MD<span class="nt">&lt;/Address&gt;</span>
   <span class="nt">&lt;Phone&gt;</span>888-888-8888<span class="nt">&lt;/Phone&gt;</span>
 <span class="nt">&lt;/row&gt;</span>
-</code></pre>
-  </div>
+</code></pre></div>  </div>
 
   <p>That’s a specific-to-exactly-these-column-names CSV DFDL schema that is required. If you have lots of files with this exact structure you would create this DFDL schema once.</p>
 
@@ -367,7 +353,7 @@ question and answer only. Everything else should remain exactly the same.
             <hr>
             <div>
                 <div style="text-align: center;">
-                    Copyright &copy; 2018 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Copyright &copy; 2019 <a href="http://www.apache.org">The Apache Software Foundation</a>.
                     Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
                     2.0</a>.
                     <br>

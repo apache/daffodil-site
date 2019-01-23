@@ -88,9 +88,8 @@
 
 <p>The binary Daffodil <a href="/releases">releases</a> contain a <code class="highlighter-rouge">/bin</code> directory that contains two scripts: <code class="highlighter-rouge">daffodil.bat</code> for Windows and <code class="highlighter-rouge">daffodil</code> for Linux. These files must be executed on the command line. The general usage is:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil [GLOBAL_OPTIONS] &lt;subcommand&gt; [SUBCOMMAND_OPTIONS]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil [GLOBAL_OPTIONS] &lt;subcommand&gt; [SUBCOMMAND_OPTIONS]
+</code></pre></div></div>
 
 <p>The available subcommands are: <a href="#parse-subcommand">parse</a>, <a href="#unparse-subcommand">unparse</a>, <a href="#save-parser-subcommand">save-parser</a>, <a href="#test-subcommand">test</a>, and <a href="#performance-subcommand">performance</a>.</p>
 
@@ -103,9 +102,8 @@
   <dd>
     <p>The Daffodil CLI will look on the classpath for includes and imports, jars containing schemas, and some TDML files. To define additional directories specific to Daffodil to look for files, set the <code class="highlighter-rouge">DAFFODIL_CLASSPATH</code> environment variable, for example:</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>$ export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/includes/"
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/includes/"
+</code></pre></div>    </div>
 
     <p>In addition to defining directories to search for imports and includes, you can add a CatalogManager.properties file to the <code class="highlighter-rouge">DAFFODIL_CLASSPATH</code> to direct Daffodil to a relative path location of a user XML Catalog.</p>
   </dd>
@@ -152,11 +150,10 @@
 
 <h4 id="usage">Usage</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; [-r [{&lt;namespace&gt;}]&lt;root&gt;] [-p &lt;path&gt;] | -P &lt;parser&gt;)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; [-r [{&lt;namespace&gt;}]&lt;root&gt;] [-p &lt;path&gt;] | -P &lt;parser&gt;)
                [-D[{namespace}]&lt;variable&gt;=&lt;value&gt;...] [-T&lt;tunable&gt;=&lt;value&gt;] [-o &lt;output&gt;]
                [-V [mode]] [-c &lt;file&gt;] [-I &lt;infoset_type&gt;] [infile]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="options">Options</h4>
 
@@ -167,7 +164,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-D [{NAMESPACE}]VARIABLE=VALUE</code></dt>
   <dd>
-    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code> to define which namespace the variable belongs in, for example:</p>
+    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge">{NAMESPACE}</code> to define which namespace the variable belongs in, for example:</p>
 
     <p><code class="highlighter-rouge">-D{http://example.com}var1=var</code></p>
   </dd>
@@ -189,7 +186,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-r, --root [{NAMESPACE}]ROOT</code></dt>
   <dd>
-    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code>.</p>
+    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge">{NAMESPACE}</code>.</p>
   </dd>
   <dt><code class="highlighter-rouge">-s, --schema FILE</code></dt>
   <dd>
@@ -219,9 +216,8 @@
 
 <h4 id="example">Example</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil parse -s csv.dfdl.xsd test_file.csv
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil parse -s csv.dfdl.xsd test_file.csv
+</code></pre></div></div>
 
 <h3 id="unparse-subcommand">Unparse Subcommand</h3>
 
@@ -229,11 +225,10 @@
 
 <h4 id="usage-1">Usage</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; [-r [{&lt;namespace&gt;}]&lt;root&gt;] [-p &lt;path&gt;] | -P &lt;parser&gt;)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; [-r [{&lt;namespace&gt;}]&lt;root&gt;] [-p &lt;path&gt;] | -P &lt;parser&gt;)
                  [-D[{&lt;namespace&gt;}]&lt;variable&gt;=&lt;value&gt;...] [-T&lt;tunable&gt;=&lt;value&gt;] [-o &lt;output&gt;]
                  [-V [mode]] [-c &lt;file&gt;] [-I &lt;infoset_type&gt;] [infile]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="options-1">Options</h4>
 
@@ -244,7 +239,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-D [{NAMESPACE}]VARIABLE=VALUE</code></dt>
   <dd>
-    <p>Variables to be used when unparsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code> to define which namespace the variable belongs in, for example:</p>
+    <p>Variables to be used when unparsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge">{NAMESPACE}</code> to define which namespace the variable belongs in, for example:</p>
 
     <p><code class="highlighter-rouge">-D{http://example.com}var1=var</code></p>
   </dd>
@@ -294,9 +289,8 @@
 
 <h4 id="example-1">Example</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil unparse -s csv.dfdl.xsd test_file.infoset
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil unparse -s csv.dfdl.xsd test_file.infoset
+</code></pre></div></div>
 
 <h3 id="save-parser-subcommand">Save Parser Subcommand</h3>
 
@@ -304,9 +298,8 @@
 
 <h4 id="usage-2">Usage</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [-r [{namespace}]&lt;root&gt;] [-p &lt;path&gt;] [outfile]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [-r [{namespace}]&lt;root&gt;] [-p &lt;path&gt;] [outfile]
+</code></pre></div></div>
 
 <h4 id="options-2">Options</h4>
 
@@ -317,7 +310,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-D [{NAMESPACE}]VARIABLE=VALUE</code></dt>
   <dd>
-    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code> to define which namespace the variable belongs in, for example:</p>
+    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge">{NAMESPACE}</code> to define which namespace the variable belongs in, for example:</p>
 
     <p><code class="highlighter-rouge">-D{http://example.com}var1=var</code></p>
   </dd>
@@ -327,7 +320,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-r, --root [{NAMESPACE}]ROOT</code></dt>
   <dd>
-    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code>.</p>
+    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge">{NAMESPACE}</code>.</p>
   </dd>
   <dt><code class="highlighter-rouge">-s, --schema FILE</code></dt>
   <dd>
@@ -353,9 +346,8 @@
 
 <h4 id="example-2">Example</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
+</code></pre></div></div>
 
 <h3 id="test-subcommand">Test Subcommand</h3>
 
@@ -363,9 +355,8 @@
 
 <h4 id="usage-3">Usage</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil test [-l] [-r] [-i] &lt;tdmlfile&gt; [testname...]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [-l] [-r] [-i] &lt;tdmlfile&gt; [testname...]
+</code></pre></div></div>
 
 <h4 id="options-3">Options</h4>
 
@@ -398,9 +389,8 @@
 
 <h4 id="example-3">Example</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil test csv.tdml
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test csv.tdml
+</code></pre></div></div>
 
 <h3 id="performance-subcommand">Performance Subcommand</h3>
 
@@ -408,11 +398,10 @@
 
 <h4 id="usage-4">Usage</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; [-r [{namespace}]&lt;root&gt;] [-p &lt;path&gt;] |  -P &lt;parser)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; [-r [{namespace}]&lt;root&gt;] [-p &lt;path&gt;] |  -P &lt;parser)
                      [-u] [-V[mode]] [-N &lt;number&gt;] [-t &lt;threads&gt;]
                      [-D[{namespace}]&lt;variable&gt;=&lt;value&gt;] [-I &lt;infoset_type&gt;] &lt;infile&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="options-4">Options</h4>
 
@@ -423,7 +412,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-D [{NAMESPACE}]VARIABLE=VALUE</code></dt>
   <dd>
-    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code> to define which namespace the variable belongs in, for example:</p>
+    <p>Variables to be used when parsing. <code class="highlighter-rouge">VARIABLE</code> can be prefixed with <code class="highlighter-rouge">{NAMESPACE}</code> to define which namespace the variable belongs in, for example:</p>
 
     <p><code class="highlighter-rouge">-D{http://example.com}var1=var</code></p>
   </dd>
@@ -445,7 +434,7 @@
   </dd>
   <dt><code class="highlighter-rouge">-r, --root [{NAMESPACE}]ROOT</code></dt>
   <dd>
-    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge"><span class="p">{</span><span class="err">NAMESPACE</span><span class="p">}</span></code>.</p>
+    <p>The root element of the DFDL schema to use. This must be one of the top-level elements of the schema defined with <code class="highlighter-rouge">--schema</code>. This requires the <code class="highlighter-rouge">--schema</code> option to be defined. If not supplied, the first element of the schema defined with <code class="highlighter-rouge">--schema</code> is used. A namespace may be specified by prefixing <code class="highlighter-rouge">ROOT</code> with <code class="highlighter-rouge">{NAMESPACE}</code>.</p>
   </dd>
   <dt><code class="highlighter-rouge">-s, --schema FILE</code></dt>
   <dd>
@@ -479,9 +468,8 @@
 
 <h4 id="example-4">Example</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
+</code></pre></div></div>
 
   </div>
 </div>
@@ -511,7 +499,7 @@
             <hr>
             <div>
                 <div style="text-align: center;">
-                    Copyright &copy; 2018 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Copyright &copy; 2019 <a href="http://www.apache.org">The Apache Software Foundation</a>.
                     Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
                     2.0</a>.
                     <br>

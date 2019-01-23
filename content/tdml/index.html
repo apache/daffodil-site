@@ -106,7 +106,7 @@ when used with the TDML “tutorial” feature.</p>
 
 <p>Below is an annotated TDML file for a very simple example:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ASCII"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ASCII"?&gt;</span>
  
 <span class="nt">&lt;tdml:testSuite</span>
   <span class="na">suiteName=</span><span class="s">"Bug Report TDML Template"</span>
@@ -205,15 +205,13 @@ when used with the TDML “tutorial” feature.</p>
   <span class="nt">&lt;/tdml:unparserTestCase&gt;</span>
     
 <span class="nt">&lt;/tdml:testSuite&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Suppose you save the above out as a file <code class="highlighter-rouge">myDateTimeBug.tdml</code>. You can then run
 it using the <code class="highlighter-rouge">test</code> subcommand of the <a href="/cli">Daffodil Command Line Interface</a>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
+</code></pre></div></div>
 
 <h3 id="specifying-test-data">Specifying Test Data</h3>
 
@@ -222,7 +220,7 @@ external file by setting the <code class="highlighter-rouge">type</code> attribu
 element. Multiple <code class="highlighter-rouge">tdml:documentPart</code> elements are combined to create the
 test data. The different documentPart types are illustrated below.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;tdml:document&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:document&gt;</span>
   <span class="c">&lt;!--
     A document part with type="text" is text. It is often a good idea to use
     CDATA to avoid whitespace changes made by some autoindenting IDE's.
@@ -295,8 +293,7 @@ hardnessRating:967;
   <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"file"</span><span class="nt">&gt;</span>/some/directory/testData.in.dat<span class="nt">&lt;/tdml:documentPart&gt;</span>
 
 <span class="nt">&lt;/tdml:document&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Note that in order for a test to be considered successful, it must consume all
 the data defined in the <code class="highlighter-rouge">tdml:document</code> element. Otherwise the test will fail
 with a message about “left over data”.</p>
@@ -307,7 +304,7 @@ with a message about “left over data”.</p>
 external file by setting the <code class="highlighter-rouge">type</code> attribute on the <code class="highlighter-rouge">tdml:dfdlInfoset</code>
 element. If not provided, the type defaults to inline XML. For example:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;tdml:infoset&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:infoset&gt;</span>
   <span class="nt">&lt;tdml:dfdlInfoset</span> <span class="na">type=</span><span class="s">"infoset"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;ex:myTestRoot&gt;</span>2013-04-02T14:00:56.000000-05:00<span class="nt">&lt;/ex:myTestRoot&gt;</span>
   <span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
@@ -316,8 +313,7 @@ element. If not provided, the type defaults to inline XML. For example:</p>
 <span class="nt">&lt;tdml:infoset&gt;</span>
   <span class="nt">&lt;tdml:dfdlInfoset</span> <span class="na">type=</span><span class="s">"file"</span><span class="nt">&gt;</span>/some/directory/testData.in.xml<span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
 <span class="nt">&lt;/tdml:infoset&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Note that the <code class="highlighter-rouge">tdml:dfdlInfoset</code> may need to contain characters that are not
 legal in XML documents. Daffodil remaps these characters into legal XML
@@ -331,12 +327,11 @@ TDML allows for creating negative tests to expect errors and warnings. To do
 expect errors, replace the <code class="highlighter-rouge">tdml:infoset</code> element with a <code class="highlighter-rouge">tdml:errors</code>
 element:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;tdml:errors&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:errors&gt;</span>
   <span class="nt">&lt;tdml:error&gt;</span>Schema Definition Error<span class="nt">&lt;/tdml:error&gt;</span>
   <span class="nt">&lt;tdml:error&gt;</span>testElementName<span class="nt">&lt;/tdml:error&gt;</span>
 <span class="nt">&lt;/tdml:errors&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Each <code class="highlighter-rouge">tdml:error</code> child element contains a sub-string which must be found
 somewhere in the set of diagnostic messages that come out of the test. The
@@ -347,12 +342,11 @@ counterparts to define warnings that should be created during the test. Note
 that warnings are considered non-fatal and so can appear alongside
 <code class="highlighter-rouge">tdml:errors</code> and <code class="highlighter-rouge">tdml:infoset</code> elements.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;tdml:warnings&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:warnings&gt;</span>
   <span class="nt">&lt;tdml:warning&gt;</span>Schema Definition Warning<span class="nt">&lt;/tdml:warning&gt;</span>
   <span class="nt">&lt;tdml:warning&gt;</span>'http://www.ogf.org/dfdl/dfdl-1.0/' should be 'http://www.ogf.org/dfdl/'<span class="nt">&lt;/tdml:warning&gt;</span>
 <span class="nt">&lt;/tdml:warnings&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="using-cdata-regions">Using CDATA Regions</h3>
 
@@ -368,10 +362,9 @@ with <code class="highlighter-rouge">&amp;lt;</code>, <code class="highlighter-r
 These special characters are not escaped when used in CDATA tags, which can
 make the data more clear. For example, the following are equivalent:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;foo&gt;</span>abc<span class="ni">&amp;amp;&amp;amp;&amp;amp;</span>&gt;def<span class="nt">&lt;/foo&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;foo&gt;</span>abc<span class="ni">&amp;amp;&amp;amp;&amp;amp;</span>&gt;def<span class="nt">&lt;/foo&gt;</span>
 <span class="nt">&lt;foo&gt;</span>abc<span class="cp">&lt;![CDATA[&amp;&amp;&amp;]]&gt;</span>def<span class="nt">&lt;/foo&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="-to-preserve-textual-formatting-within-tdml---for-clarity-reasons"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To preserve textual formatting within TDML - for clarity reasons</h4>
 
@@ -381,7 +374,7 @@ is maintained for readability purposes. Many tools  refuse to perform
 modifications on CDATA regions, so they can be used as a way to maintain
 formatting. For example:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[
 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f
 20 21    23 24 25    27 28 29 2a 2b 2c 2d 2e 2f
@@ -389,8 +382,7 @@ formatting. For example:</p>
 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f
 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f
 ]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The data holes in the above matrix of hex would be hard to understand without
 the formatting. But logically, the whitespace is irrelevant when the
@@ -402,22 +394,20 @@ IDEs, XML editor, etc. will not mess with the formatting of the content.</p>
 <p>Let us assume that the input document should contain exactly two letters:
 <code class="highlighter-rouge">a年</code>. This might be represented as the following in a TDML file:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
   <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>a年<span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;/document&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The problem is that it is possible that an XML tool might reformat the XML as
 this:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
   <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>
     a年
   <span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;/document&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>But this is a text documentPart containing some letters with surrounding
 whitespace. Our test, in this case, expects data of length exactly 2
@@ -425,20 +415,18 @@ characters, so could cause a failure. CDATA can be used to prevent many XML
 tools from reformatting and inserting whitespace that could affect the test
 input data:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
   <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[a年]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;/document&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h4 id="-to-preserve-specific-line-endings"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i>  To preserve specific line endings</h4>
 
 <p>Using CDATA does NOT necessarily preserve line endings. So if you had a test
 where you have this:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF
 ]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If you edit that on a windows machine, where CRLF is the usual text line
 ending, then the file will actually have a CRLF line ending in that text. If
@@ -452,20 +440,18 @@ line endings.</p>
 using the numeric character entity notation, i.e., <code class="highlighter-rouge">&amp;#xD;</code>. So one might try to
 write the above test as:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="ni">&amp;#xD;&amp;#xA;</span><span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Even this, however, is not a sure thing, because re-indenting the XML might
 cause you to get:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>
    <span class="ni">&amp;#xD;&amp;#xA;</span>
 <span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Which would be broken because of the whitespace insertions around the
 <code class="highlighter-rouge">&amp;#xD;&amp;#xA;</code>.</p>
@@ -473,10 +459,9 @@ cause you to get:</p>
 <p>There are two good solutions to this problem. First one can use type=”byte”
 document parts:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span>0D 0A<span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This will always create exactly the bytes <code class="highlighter-rouge">0D</code> and <code class="highlighter-rouge">0A</code>, and documentParts
 are concatenated together with nothing between. However, this will break if the
@@ -488,9 +473,8 @@ only 7 bits, resulting in 14 bits rather than 2 full bytes.</p>
 <p>The best way to handle this problem is to use the documentPart
 replaceDFDLEntities attribute:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
 
 <p>The line gets kind of long, but those <code class="highlighter-rouge">%CR;</code> and <code class="highlighter-rouge">%LF;</code> are DFDL entities
 syntax for those Unicode characters. These are translated into whatever
@@ -501,11 +485,10 @@ encoding is say, UTF-16 or the 7-bit encoding.</p>
 a bit clumsy as you have to do it like this where each text line gets its own
 documentPart:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[In all the towns in the world%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[She walked into mine%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>So the general rule is that CDATA regions cannot be used to ensure that
 specific kinds of line endings will be preserved in a file.</p>
@@ -518,36 +501,62 @@ preserve <em>some</em> line endings. If this same test example was instead using
 some other obscure Unicode line ending characters. In that case, the original
 documentPart XML:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints
 In all the towns of the world
 She walked into mine
 ]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>is fine, and will work and be robust.</p>
 
 <h3 id="round-trip-testing">Round-Trip Testing</h3>
 
-<p>Round-trip testing, is using a single test case for testing both parse and unparse directions.</p>
+<p>Round-trip testing is using a single test case for testing both parse and unparse directions.</p>
 
-<p>The <code class="highlighter-rouge">tdml:testSuite</code> has a <code class="highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="highlighter-rouge">roundTrip</code> attribute which overrides the default. 
-The values of these attributes for <code class="highlighter-rouge">tdml:parserTestCase</code> can be</p>
-<ul>
-  <li><code class="highlighter-rouge">none</code> - parse given data, compare to expected infoset.</li>
-  <li><code class="highlighter-rouge">onePass</code> - parse given data, compare to expected infoset. If successful, unparse infoset, compare to given data.</li>
-  <li><code class="highlighter-rouge">twoPass</code> - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to output data, compare to given data, expect failure. If failed, parse output data to second infoset. Compare to expected infoset, expect success.</li>
-  <li><code class="highlighter-rouge">threePass</code> - - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to first output data, compare to given data, expect failure. If failed, parse first output data to second infoset. Compare to expected infoset, expect failure. If failed, unparse second infoset to second output data, compare to first output data, expect success.
-For unparsing, the values can be</li>
-  <li><code class="highlighter-rouge">none</code> - unparse given infoset, compare output data to expected data.</li>
-  <li><code class="highlighter-rouge">onePass</code> - unparse given infoset, compare output data to expected data. If successful, parse data to infoset, compare to given (expected) infoset.
-These are also accepted for backward compatiblity with earlier TDML runner versions but are deprecated:</li>
-  <li><code class="highlighter-rouge">false</code> - means same as <code class="highlighter-rouge">none</code></li>
-  <li><code class="highlighter-rouge">true</code> - means same as <code class="highlighter-rouge">onePass</code>
-The default behavior if nothing is specified in either the <code class="highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="highlighter-rouge">onePass</code>.
-A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="highlighter-rouge">twoPass</code> must fail in <code class="highlighter-rouge">onePass</code> in order to succeed with the second pass.
-A test designated <code class="highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="highlighter-rouge">twoPass</code> and especially <code class="highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</li>
-</ul>
+<p>The <code class="highlighter-rouge">tdml:testSuite</code> has a <code class="highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="highlighter-rouge">roundTrip</code> attribute which overrides the default.</p>
+
+<p>The default behavior if nothing is specified in either the <code class="highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="highlighter-rouge">onePass</code>. The values of these attributes can be:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">none</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">onePass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect match. Unparse infoset, compare to given data.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data, expect match. Parse data to infoset, compare to expected infoset, expect match.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">twoPass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset, compare to given data, expect failure. Parse output data to a second infoset. Compare to first infoset, expect success.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Invalid</p>
+  </dd>
+  <dt><code class="highlighter-rouge">threePass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset to first output data, compare to given data, expect failure. Parse first output data to second infoset. Compare to expected infoset, expect failure. Unparse second infoset to second output data, compare to first output data, expect success.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Invalid</p>
+  </dd>
+  <dt><code class="highlighter-rouge">false</code></dt>
+  <dd>
+    <p>Same as <code class="highlighter-rouge">none</code>, used for backwards compatability</p>
+  </dd>
+  <dt><code class="highlighter-rouge">true</code></dt>
+  <dd>
+    <p>Same as <code class="highlighter-rouge">onePass</code>, used for backwards compatability</p>
+  </dd>
+</dl>
+
+<p>A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="highlighter-rouge">twoPass</code> must fail in <code class="highlighter-rouge">onePass</code> in order to succeed with the second pass. A test designated <code class="highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="highlighter-rouge">twoPass</code> and especially <code class="highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</p>
 
   </div>
 </div>
@@ -577,7 +586,7 @@ A test designated <code class="highlighter-rouge">threePass</code> must fail bot
             <hr>
             <div>
                 <div style="text-align: center;">
-                    Copyright &copy; 2018 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Copyright &copy; 2019 <a href="http://www.apache.org">The Apache Software Foundation</a>.
                     Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
                     2.0</a>.
                     <br>

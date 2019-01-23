@@ -88,9 +88,8 @@
 
 <p>The Daffodil <a href="/cli">Command Line Interface</a> (CLI) comes with a built-in interactive debugger that pauses parsing/unparsing and allows for user inspection of some internal state. To start Daffodil in debugger mode, provide the global <code class="highlighter-rouge">--debug</code> option, for example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>daffodil --debug parse --schema schema.dfdl.xsd input.dat
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil --debug parse --schema schema.dfdl.xsd input.dat
+</code></pre></div></div>
 
 <p>Enabling the debugger displays a <code class="highlighter-rouge">(debug)</code> prompt, at which point various commands can be entered to control parsing and inspect Daffodil state. Note that you can optionally provide a file to the <code class="highlighter-rouge">--debug</code> option. Each line in the file is provided to the debugger as if it were typed by the user. Below is the list of commands accepted by the debugger and their descriptions.</p>
 
@@ -99,9 +98,8 @@
   <dd>
     <p>Create a breakpoint, causing the debugger to stop when the element with the <code class="highlighter-rouge">&lt;element_id&gt;</code> name is created.</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>break foo
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>break foo
+</code></pre></div>    </div>
 
     <p>Abbreviation: <code class="highlighter-rouge">b</code></p>
   </dd>
@@ -126,9 +124,8 @@
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">cond</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>condition 1 dfdl:occursIndex() eq 3
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>condition 1 dfdl:occursIndex() eq 3
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">continue</code></dt>
   <dd>
@@ -144,10 +141,9 @@
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">d</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>delete breakpoint 1
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>delete breakpoint 1
 delete display 1
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">disable &lt;type&gt; &lt;id&gt;</code></dt>
   <dd>
@@ -156,10 +152,9 @@ delete display 1
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">dis</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>disable breakpoint 1
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>disable breakpoint 1
 disable display 1
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">display &lt;debugger_command&gt;</code></dt>
   <dd>
@@ -168,9 +163,8 @@ disable display 1
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">di</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>display info infoset
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>display info infoset
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">enable &lt;type&gt; &lt;id&gt;</code></dt>
   <dd>
@@ -179,10 +173,9 @@ disable display 1
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">e</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>enable breakpoint 1
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enable breakpoint 1
 enable display 1
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">eval &lt;dfdl_expression&gt;</code></dt>
   <dd>
@@ -191,10 +184,9 @@ enable display 1
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">ev</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>eval dfdl:occursIndex()
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval dfdl:occursIndex()
 eval /ex:file/line[1]
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </dd>
   <dt><code class="highlighter-rouge">help [command]</code></dt>
   <dd>
@@ -217,9 +209,8 @@ eval /ex:file/line[1]
   <dd>
     <p>Abbreviation: <code class="highlighter-rouge">i</code></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>info data infoset
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info data infoset
+</code></pre></div>    </div>
 
     <p>The valid items are:</p>
 
@@ -304,11 +295,10 @@ eval /ex:file/line[1]
   <dt><code class="highlighter-rouge">set &lt;setting&gt; &lt;value&gt;</code></dt>
   <dd>Change a debugger setting.
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>set dataLength -1
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set dataLength -1
 set wrapLength 50
 set removeHidden true
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>Valid settings are:</p>
 
@@ -387,7 +377,7 @@ set removeHidden true
             <hr>
             <div>
                 <div style="text-align: center;">
-                    Copyright &copy; 2018 <a href="http://www.apache.org">The Apache Software Foundation</a>.
+                    Copyright &copy; 2019 <a href="http://www.apache.org">The Apache Software Foundation</a>.
                     Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
                     2.0</a>.
                     <br>
