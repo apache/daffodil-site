@@ -65,3 +65,6 @@ Any text editor can be used for authoring DFDL schemas. But because DFDL schemas
 
 Daffodil provides extensions to the DFDL specification to add extra enhancements and capabilities. These extensions are listed at [DFDL Extensions](/dfdl-extensions).
 
+### Infoset
+
+The Daffodil API and CLI support multiple ways to represent the DFDL infoset, including XML and JSON. See [Daffodil and the DFDL Infoset](/infoset) for a description of how the parts of the DFDL infoset are represented.
