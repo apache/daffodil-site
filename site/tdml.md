@@ -469,20 +469,42 @@ is fine, and will work and be robust.
 
 ### Round-Trip Testing
 
-Round-trip testing, is using a single test case for testing both parse and unparse directions.
+Round-trip testing is using a single test case for testing both parse and unparse directions.
 
 The ``tdml:testSuite`` has a ``defaultRoundTrip`` attribute, and each test case can have a ``roundTrip`` attribute which overrides the default. 
-The values of these attributes for ``tdml:parserTestCase`` can be
-* ``none`` - parse given data, compare to expected infoset.
-* ``onePass`` - parse given data, compare to expected infoset. If successful, unparse infoset, compare to given data.
-* ``twoPass`` - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to output data, compare to given data, expect failure. If failed, parse output data to second infoset. Compare to expected infoset, expect success.
-* ``threePass`` - - parse given data, compare to expected infoset expect failure. If failed, unparse infoset to first output data, compare to given data, expect failure. If failed, parse first output data to second infoset. Compare to expected infoset, expect failure. If failed, unparse second infoset to second output data, compare to first output data, expect success.
-For unparsing, the values can be 
-* ``none`` - unparse given infoset, compare output data to expected data.
-* ``onePass`` - unparse given infoset, compare output data to expected data. If successful, parse data to infoset, compare to given (expected) infoset.
-These are also accepted for backward compatiblity with earlier TDML runner versions but are deprecated:
-* ``false`` - means same as ``none``
-* ``true`` - means same as ``onePass``
-The default behavior if nothing is specified in either the ``tdml:testSuite`` or the test case itself, is ``onePass``.
-A test must be designated as (or default to) requiring a specific number of passes. A test designated as ``twoPass`` must fail in ``onePass`` in order to succeed with the second pass.
-A test designated ``threePass`` must fail both the first pass, and second pass in order to succeed on the third pass. The ``twoPass`` and especially ``threePass`` modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.
+
+The default behavior if nothing is specified in either the ``tdml:testSuite`` or the test case itself, is ``onePass``. The values of these attributes can be:
+
+``none``
+
+   : *tdml:parserTestCase:* Parse given data, compare to expected infoset.
+
+   : *tdml:unparserTestCase:* Unparse given infoset, compare output data to expected data.
+
+``onePass``
+
+   : *tdml:parserTestCase:* Parse given data, compare to expected infoset, expect match. Unparse infoset, compare to given data.
+
+   : *tdml:unparserTestCase:* Unparse given infoset, compare output data to expected data, expect match. Parse data to infoset, compare to expected infoset, expect match.
+
+``twoPass``
+
+   : *tdml:parserTestCase:* Parse given data, compare to expected infoset, expect failure. Unparse infoset, compare to given data, expect failure. Parse output data to a second infoset. Compare to first infoset, expect success.
+
+   : *tdml:unparserTestCase:* Invalid
+
+``threePass``
+
+   : *tdml:parserTestCase:* Parse given data, compare to expected infoset, expect failure. Unparse infoset to first output data, compare to given data, expect failure. Parse first output data to second infoset. Compare to expected infoset, expect failure. Unparse second infoset to second output data, compare to first output data, expect success.
+
+   : *tdml:unparserTestCase:* Invalid
+
+``false``
+
+   : Same as ``none``, used for backwards compatability
+
+``true``
+
+   : Same as ``onePass``, used for backwards compatability
+
+A test must be designated as (or default to) requiring a specific number of passes. A test designated as ``twoPass`` must fail in ``onePass`` in order to succeed with the second pass. A test designated ``threePass`` must fail both the first pass, and second pass in order to succeed on the third pass. The ``twoPass`` and especially ``threePass`` modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.
