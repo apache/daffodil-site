@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil (incubating) 2.2.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
-          <meta name="description" content="Apache Daffodil incubating 2.2.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
-          <meta name="keywords" content="Apache Daffodil incubating 2.2.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
+          <title>Apache Daffodil (incubating) 2.3.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
+          <meta name="description" content="Apache Daffodil incubating 2.3.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
+          <meta name="keywords" content="Apache Daffodil incubating 2.3.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil (incubating) 2.2.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil (incubating) 2.3.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -343,7 +343,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">DataProcessor</span><span class="result"> extends <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></span>
+        <span class="name">DataProcessor</span><span class="result"> extends <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -353,7 +353,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a>, <span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -379,7 +379,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.DataProcessor"><span>DataProcessor</span></li><li class="in" name="org.apache.daffodil.sapi.WithDiagnostics"><span>WithDiagnostics</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.apache.daffodil.sapi.DataProcessor"><span>DataProcessor</span></li><li class="in" name="org.apache.daffodil.sapi.WithDiagnostics"><span>WithDiagnostics</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -1020,7 +1020,9 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Parse input data without specifying a length
+</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data without specifying a length
+</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@deprecated</span>
               
         </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
@@ -1039,7 +1041,9 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>, <span name="lengthLimitInBits">lengthLimitInBits: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+      <p class="shortcomment cmt">Parse input data with a specified length
+</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data with a specified length
+</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt class="param">lengthLimitInBits</dt><dd class="cmt"><p>the length of the input data in bits, or -1 if no limit</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@deprecated</span>
               
         </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
@@ -1071,6 +1075,10 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <div id="inheritedMembers">
         <div class="parent" name="org.apache.daffodil.sapi.WithDiagnostics">
               <h3>Inherited from <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></h3>
+            </div><div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

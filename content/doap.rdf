@@ -85,6 +85,13 @@
     <release>
         <Version>
             <name>Apache Daffodil</name>
+            <created>2019-02-26</created>
+            <revision>2.3.0</revision>
+        </Version>
+    </release>
+    <release>
+        <Version>
+            <name>Apache Daffodil</name>
             <created>2018-09-04</created>
             <revision>2.2.0</revision>
         </Version>
