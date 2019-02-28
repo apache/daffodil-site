@@ -139,7 +139,7 @@ However, if one schema wants to include another different schema, then this stan
 
 You don't have to use Git version control, but many people do, and github.com is one of the reasons for this popularity.
 
-Each DFDL schema should have its own Git repository if it is going to be revised independently. We encourage users to join the [DFDLSchemas](http://dfdlschemas.github.io/) project on github and create repositories and publish schemas for any publicly-available formats there. For other formats that are not publicly available, one may want to put a placeholder for them on DFDLSchemas anyway (as IBM has done for some formats like Swift-MT.)
+Each DFDL schema should have its own Git repository if it is going to be revised independently. We encourage users to join the [DFDLSchemas](https://dfdlschemas.github.io/) project on github and create repositories and publish schemas for any publicly-available formats there. For other formats that are not publicly available, one may want to put a placeholder for them on DFDLSchemas anyway (as IBM has done for some formats like Swift-MT.)
 
 ### Jar File Packaging
 

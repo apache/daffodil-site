@@ -473,7 +473,7 @@ Infoset to the supported representations.
 Since DFDL strings can contain characters that are not allowed in XML at all,
 for the XML based representations, these characters are mapped into the Unicode
 Private Use Areas (PUA). This is similar to the scheme used by Microsoft
-Visio (See: <a href="http://msdn.microsoft.com/en-us/library/office/aa218415%28v=office.10%29.aspx">http://msdn.microsoft.com/en-us/library/office/aa218415%28v=office.10%29.aspx</a>),
+Visio (See: <a href="https://msdn.microsoft.com/en-us/library/office/aa218415%28v=office.10%29.aspx">https://msdn.microsoft.com/en-us/library/office/aa218415%28v=office.10%29.aspx</a>),
 but extended to handle all the XML 1.0 illegal characters including those
 with 16-bit codepoint values. This mapping is used bi-directionally, that is,
 illegal characters are replaced by their legal counterparts when parsing, and

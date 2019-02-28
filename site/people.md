@@ -38,7 +38,7 @@ limitations under the License.
         <tr>
         <td>{{member.first}} {{member.last}}</td>
         <td>{{member.apacheId}}</td>
-        <td><a href="http://github.com/{{ member.githubId }}">{{ member.githubId }}</a></td>
+        <td><a href="https://github.com/{{ member.githubId }}">{{ member.githubId }}</a></td>
         <td>{{member.role}}</td>
         </tr>
     {% endfor %}
