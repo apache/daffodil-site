@@ -19,12 +19,6 @@
   githubId: jadams-tresys
   role: PPMC
 
-- first: John D.
-  last: Ament
-  apacheId: johndament
-  githubId:
-  role: Mentor
-
 - first: Mike
   last: Beckerle
   apacheId: mbeckerle
@@ -60,3 +54,9 @@
   apacheId: vtguy08
   githubId: VTGuy
   role: PPMC
+
+- first: Christofer
+  last: Dutz
+  apacheId: cdutz
+  githubId: chrisdutz
+  role: Mentor
