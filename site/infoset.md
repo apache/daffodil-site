@@ -478,17 +478,17 @@ but extended to handle all the XML 1.0 illegal characters including those
 with 16-bit codepoint values. This mapping is used bi-directionally, that is,
 illegal characters are replaced by their legal counterparts when parsing, and
 the reverse transformation is performed when unparsing, thereby allowing the
-creation of data containing the XML illegal characters from legal XML
+creation of data streams containing the XML illegal characters from legal XML
 documents that contain only the mapped PUA corresponding characters.
 
 These are the legal XML characters (for XML v1.0):
 
 ```
-#x0 | #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] | #xD (treated specially)
+ #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] 
 ```
-
+All other characters are illegal.
 Illegal characters from ``#x00`` to ``#x1F`` are mapped to the PUA
-by adding ``#xE000`` to their character code.
+by adding ``#xE000`` to their character code. Hence, the NUL (#x0) character code becomes #xE000.
 
 Illegal characters from ``#xD800`` to ``#xDFFF`` are mapped to the PUA by adding
 ``#x1000`` to their character code. So ``#xD800`` maps to ``#xE800``, and
@@ -498,16 +498,18 @@ Illegal characters ``#xFFFE`` and ``#xFFFF`` are mapped to the PUA by
 subtracting ``#x0F00`` from their character code, so to characters ``#xF0FE``
 and ``#xF0FF``.
 
-Character ``#xD`` (Carriage Return or CR) is mapped to ``#xA`` (Line Feed, or
+The legal character ``#xD`` (Carriage Return or CR) is mapped to ``#xA`` (Line Feed, or
 LF). The CR character is allowed in the textual representation of XML
 documents, but is always converted to LF in the XML Infoset. That is, it is
 read by XML processors, but CRLF is converted to just LF, and CR alone is
 converted to LF. Daffodil is in a sense a different 'reader' of data into the
 XML infoset, so to be consistent with XML we map CR and CRLF to LF. 
 
-It is a processing error when parsing if any DFDL infoset string contains
+It is a processing error when parsing if the data-stream contains
 characters in the parts of the PUA used by this mapping for illegal XML
-codepoints.
+codepoints. When unparsing, the characters such as #xE000 found in the infoset string values are mapped back to the corresponding illegal character code points (#xE000 becomes #x0, aka NUL).
+
+The XML for an infoset can embed the #xE000 character or any of the other "illegal" characters mapped into the PUA conveniently by use of XSD numeric character entities such as "&#xE000;". This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL). 
 
 It is a processing error if any DFDL infoset string character is created with a
 character code greater than ``#x10FFFF``.
