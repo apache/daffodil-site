@@ -534,16 +534,16 @@ but extended to handle all the XML 1.0 illegal characters including those
 with 16-bit codepoint values. This mapping is used bi-directionally, that is,
 illegal characters are replaced by their legal counterparts when parsing, and
 the reverse transformation is performed when unparsing, thereby allowing the
-creation of data containing the XML illegal characters from legal XML
+creation of data streams containing the XML illegal characters from legal XML
 documents that contain only the mapped PUA corresponding characters.</p>
 
 <p>These are the legal XML characters (for XML v1.0):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#x0 | #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] | #xD (treated specially)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] 
 </code></pre></div></div>
-
-<p>Illegal characters from <code class="highlighter-rouge">#x00</code> to <code class="highlighter-rouge">#x1F</code> are mapped to the PUA
-by adding <code class="highlighter-rouge">#xE000</code> to their character code.</p>
+<p>All other characters are illegal.
+Illegal characters from <code class="highlighter-rouge">#x00</code> to <code class="highlighter-rouge">#x1F</code> are mapped to the PUA
+by adding <code class="highlighter-rouge">#xE000</code> to their character code. Hence, the NUL (#x0) character code becomes #xE000.</p>
 
 <p>Illegal characters from <code class="highlighter-rouge">#xD800</code> to <code class="highlighter-rouge">#xDFFF</code> are mapped to the PUA by adding
 <code class="highlighter-rouge">#x1000</code> to their character code. So <code class="highlighter-rouge">#xD800</code> maps to <code class="highlighter-rouge">#xE800</code>, and
@@ -553,16 +553,18 @@ by adding <code class="highlighter-rouge">#xE000</code> to their character code.
 subtracting <code class="highlighter-rouge">#x0F00</code> from their character code, so to characters <code class="highlighter-rouge">#xF0FE</code>
 and <code class="highlighter-rouge">#xF0FF</code>.</p>
 
-<p>Character <code class="highlighter-rouge">#xD</code> (Carriage Return or CR) is mapped to <code class="highlighter-rouge">#xA</code> (Line Feed, or
+<p>The legal character <code class="highlighter-rouge">#xD</code> (Carriage Return or CR) is mapped to <code class="highlighter-rouge">#xA</code> (Line Feed, or
 LF). The CR character is allowed in the textual representation of XML
 documents, but is always converted to LF in the XML Infoset. That is, it is
 read by XML processors, but CRLF is converted to just LF, and CR alone is
 converted to LF. Daffodil is in a sense a different ‘reader’ of data into the
 XML infoset, so to be consistent with XML we map CR and CRLF to LF.</p>
 
-<p>It is a processing error when parsing if any DFDL infoset string contains
+<p>It is a processing error when parsing if the data-stream contains
 characters in the parts of the PUA used by this mapping for illegal XML
-codepoints.</p>
+codepoints. When unparsing, the characters such as #xE000 found in the infoset string values are mapped back to the corresponding illegal character code points (#xE000 becomes #x0, aka NUL).</p>
+
+<p>The XML for an infoset can embed the #xE000 character or any of the other “illegal” characters mapped into the PUA conveniently by use of XSD numeric character entities such as “”. This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL).</p>
 
 <p>It is a processing error if any DFDL infoset string character is created with a
 character code greater than <code class="highlighter-rouge">#x10FFFF</code>.</p>
