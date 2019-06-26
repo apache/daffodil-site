@@ -229,13 +229,17 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
         : Set the maximum number of lines to display when displaying the infoset. This only affects the ``info infoset`` command. This shows the last number of lines of the infoset. If the number is less than or equal to zero, the entire infoset is printed. Defaults to ``-1``.
 
+     ``infosetParents <integer>``
+
+        : Set the number of parent elements to show when displaying the infoset. This only affects the ``info infoset`` command. A value of zero will only show the current infoset element. A value of ``-1`` will show the entire infoset. Defaults to ``-1``.
+
      ``removeHidden <boolean>``
 
         : Set whether or not hidden elements (e.g through the use of dfdl:hiddenGroupRef) should be displayed. This effects the ``eval`` and ``info infoset`` commands. Must be either ``true``/``false`` or ``1``/``0``. Defaults to ``false``.
 
      ``representation <string>``
 
-        : Set the output when displaying data. Must be either ``text` or ``binary``. Defaults to ``text``.
+        : Set the output when displaying data. Must be either ``text`` or ``binary``. Defaults to ``text``.
 
      ``wrapLength <integer>``
 
