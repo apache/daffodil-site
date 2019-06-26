@@ -319,13 +319,17 @@ set removeHidden true
       <dd>
         <p>Set the maximum number of lines to display when displaying the infoset. This only affects the <code class="highlighter-rouge">info infoset</code> command. This shows the last number of lines of the infoset. If the number is less than or equal to zero, the entire infoset is printed. Defaults to <code class="highlighter-rouge">-1</code>.</p>
       </dd>
+      <dt><code class="highlighter-rouge">infosetParents &lt;integer&gt;</code></dt>
+      <dd>
+        <p>Set the number of parent elements to show when displaying the infoset. This only affects the <code class="highlighter-rouge">info infoset</code> command. A value of zero will only show the current infoset element. A value of <code class="highlighter-rouge">-1</code> will show the entire infoset. Defaults to <code class="highlighter-rouge">-1</code>.</p>
+      </dd>
       <dt><code class="highlighter-rouge">removeHidden &lt;boolean&gt;</code></dt>
       <dd>
         <p>Set whether or not hidden elements (e.g through the use of dfdl:hiddenGroupRef) should be displayed. This effects the <code class="highlighter-rouge">eval</code> and <code class="highlighter-rouge">info infoset</code> commands. Must be either <code class="highlighter-rouge">true</code>/<code class="highlighter-rouge">false</code> or <code class="highlighter-rouge">1</code>/<code class="highlighter-rouge">0</code>. Defaults to <code class="highlighter-rouge">false</code>.</p>
       </dd>
       <dt><code class="highlighter-rouge">representation &lt;string&gt;</code></dt>
       <dd>
-        <p>Set the output when displaying data. Must be either <code class="highlighter-rouge">text` or</code>binary<code class="highlighter-rouge">. Defaults to</code>text``.</p>
+        <p>Set the output when displaying data. Must be either <code class="highlighter-rouge">text</code> or <code class="highlighter-rouge">binary</code>. Defaults to <code class="highlighter-rouge">text</code>.</p>
       </dd>
       <dt><code class="highlighter-rouge">wrapLength &lt;integer&gt;</code></dt>
       <dd>
