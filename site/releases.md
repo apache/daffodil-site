@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## Releases
-
 All recent Daffodil releases are listed here, along with several historical releases. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 
 ### Apache Releases
@@ -34,7 +32,7 @@ All recent Daffodil releases are listed here, along with several historical rele
     <tr>
         <th class="col-md-1">Version</th>
         <th>Summary</th>
-        <th class="col-md-2 text-right">Release Date</th>
+        <th class="col-md-2 text-right">Release&nbsp;Date</th>
     </tr>
     {% for release in releases reversed %}
         {% if release.title %}

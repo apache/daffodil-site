@@ -23,8 +23,6 @@ limitations under the License.
 -->
 
 
-## Examples
-
 Below are two examples of how Daffodil parses Comma-Separated Values (CSV) and Packet Capture data (PCAP) data to XML. For simplicity, each example uses the Daffodil [Command Line Interface](/cli) to parse input data to output XML.
 
 ### Comma-Separated Values (CSV)

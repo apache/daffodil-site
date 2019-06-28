@@ -31,8 +31,6 @@ limitations under the License.
 }
 </style>
 
-## Frequently Asked Questions
-
 {% assign faqNum=faqNum | plus:'1'  %}
 <a class="question" data-toggle="collapse" data-target="#faq{{faqNum}}">
   Q: When should I use an XSD facet like maxLength, and when should I use the DFDL length property?

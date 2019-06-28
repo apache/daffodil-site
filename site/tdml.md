@@ -24,8 +24,6 @@ limitations under the License.
 -->
 
 
-## Test Data Markup Language (TDML)
-
 Test Data Markup Language (TDML) it is a way of specifying a DFDL schema, input
 test data, and expected result or expected error/diagnostic messages, all
 self-contained in an XML file. IBM created TDML to capture tests for their own

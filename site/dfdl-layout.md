@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## Standard DFDL Schema Project layout
-
 There is a specific way of organizing a DFDL schema project that has been found to be helpful. It uses specific directory naming conventions and tree structure to manage name conflicts in a manner similar to how Java package names * correspond to directory names. This set of conventions provides a number of benefits:
 
 * No name conflicts or ambiguity on classpath if multiple DFDL schemas are used together

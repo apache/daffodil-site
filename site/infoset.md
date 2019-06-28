@@ -24,8 +24,6 @@ limitations under the License.
 -->
 
 
-## Daffodil and the DFDL Infoset
-
 Daffodil is an implementation of DFDL which supports multiple methods to
 represent the DFDL Infoset, including various XML representations and JSON.
 However, the DFDL Infoset is somewhat different from the representations that

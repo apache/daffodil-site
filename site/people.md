@@ -23,8 +23,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## People
-
 {% if site.data.contributors  %}
 <table class="table">
     <tr>

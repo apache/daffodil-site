@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## Interactive Debugger
-
 The Daffodil [Command Line Interface](/cli) (CLI) comes with a built-in interactive debugger that pauses parsing/unparsing and allows for user inspection of some internal state. To start Daffodil in debugger mode, provide the global ``--debug`` option, for example:
 
     daffodil --debug parse --schema schema.dfdl.xsd input.dat

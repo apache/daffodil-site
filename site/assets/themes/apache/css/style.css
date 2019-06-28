@@ -23,8 +23,11 @@ h6,
   font-weight: bold;
 }
 
-.jumbotron {
-  background-color: #ffe347;
+h2 {
+	font-size: 26px;
+	margin: 0px;
+	padding-top: 8px;
+	padding-bottom: 3px;
 }
 
 @media screen and (min-width: 768px) {
@@ -44,18 +47,11 @@ h6,
   text-align: center;
 }
 
-.navbar-brand {
-  padding: 12px 12px;
-  padding-top: 15px;
-  padding-bottom: 10px;
-}
-
 .navbar {
-  background-color:#fad400;
+  background-color:#f0f0f0;
   color: #000000;
-  border-color: #e0c52d;
+  border-width: 0px;
   margin-bottom: 0px;
-  border-radius: 0px;
 }
 
 .navbar-nav {
@@ -91,19 +87,22 @@ h6,
 
 .navbar-inverse .navbar-nav > li > a {
   color: #000000;
-  background-color:#fad400;
-  font-size: .9em;
+  background-color:#f0f0f0;
+  font-size: 0.95em;
   display: inline-block;
+  line-height: 42px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover, 
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #000000;
-  background-color: #ffe347;
+  background-color: #e0e0e0;
 }
 
 .navbar-inverse .navbar-nav > li > a.active {
-  background-color: #b3b300;
+  background-color: #e0e0e0;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -117,9 +116,12 @@ h6,
 }
 
 .navbar-brand {
-  font-size: 26px;
+  font-size: 0px;
+  line-height: 35px;
   display: inline-block;
   float: none;
+  margin: 8px 0px;
+  padding: 0px;
 }
 
 @media (min-width: 520px) {
@@ -130,7 +132,7 @@ h6,
 
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  background-color: #fad400;
+  background-color: #f0f0f0;
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
@@ -205,6 +207,13 @@ h6,
   }
 }
 
+.title {
+  background-color: #ffee84;
+  border-color: #b0b0b0;
+  border-style: solid;
+  border-width: 1px 0px;
+  margin-bottom: 20px;
+}
 
 .jumbotron h1,
 .jumbotron p  {
@@ -376,8 +385,9 @@ hr {
   font-family: 'Patua One', cursive; }
 
 .jumbotron small {
-    font-size: 60%;
-    color: #FFF;}
+    font-size: 65%;
+	color: #000000
+}
 
 .navbar-brand {
     font-family: 'Patua One', cursive;
@@ -400,7 +410,7 @@ hr {
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
   color: #000000;
-  background-color: #ffe347;
+  background-color: #e0e0e0;
 }
 
 .nav a:hover .caret {

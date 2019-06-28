@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## Getting Started
-
 ### Using Daffodil
 
 Daffodil is a library, requiring Java 8, used to convert between fixed format data and XML/JSON based on a DFDL schema. Some [examples](/examples) show the result of Daffodil parsing various inputs into XML. Multiple mechanisms that use the Daffodil library invoke its capabilities are described below.

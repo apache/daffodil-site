@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## Eclipse Configuration for DFDL Schema Authoring/Editing
-
 The Eclipse IDE can be used to assist a user in the authoring of DFDL schemas. This page contains instructions for setting up the Eclipse Integrated-Development-Environment (IDE), and to configure its XML editing features so that they provide some level of support for authoring DFDL schemas.
 
 DFDL extends a subset of XML Schema. Note however: an XML Schema is an XML document.

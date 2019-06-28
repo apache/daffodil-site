@@ -22,8 +22,6 @@ limitations under the License.
 {% endcomment %}
 -->
 
-## DFDL Extensions
-
 Daffodil provides extensions to the DFDL specification. These properties are in the namespace defined by the URI ``urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext``. To use these the Daffodil DFDL Extensions, bind this namespace to the ``daf`` prefix in the ``xs:schema`` element, like so:
 
 ``` xml
