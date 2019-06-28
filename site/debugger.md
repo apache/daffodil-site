@@ -130,10 +130,6 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
      The valid items are:
 
-     ``arrayIndex``
-
-     : Display the current array limit. Abbreviation: ``ai``
-
      ``bitLimit``
 
      : Display the current bit limit. Abbreviation: ``bl``
@@ -182,9 +178,9 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
      : Display the current infoset. Abbreviation: ``i``
 
-     ``occursBounds``
+     ``occursIndex``
 
-     : Display the current occurs bounds. Abbreviation: ``ob``
+     : Display the current array limit. Abbreviation: ``oi``
 
      ``parser``
 
