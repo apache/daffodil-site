@@ -46,8 +46,6 @@ Unsupported features and errata of the [DFDL Specification](/docs/dfdl) as of Da
 #### Properties and Property Enumerations
 
 * binaryFloatRep="ibm390Hex"
-* choiceLength
-* choiceLengthKind="explicit"
 * documentFinalTerminatorCanBeMissing="yes"
 * encodingErrorPolicy="error"
 * failureType="recoverableError"
