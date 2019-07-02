@@ -38,7 +38,7 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
    : Provides two [Apache NiFi](https://nifi.apache.org/) processors for parsing and unparsing NiFi FlowFiles.
 
-[XML Calabash Extension](https://opensource.ncsa.illinois.edu/bitbucket/projects/DFDL/repos/daffodil-nifi/browse)
+[XML Calabash Extension](https://opensource.ncsa.illinois.edu/bitbucket/projects/DFDL/repos/daffodil-calabash-extension/browse)
 
    : An extension to [XML Calabash](http://xmlcalabash.com) that declares XProc pipeline steps to parse and unparse input data.
 
