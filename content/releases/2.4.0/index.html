@@ -255,11 +255,12 @@ future release.</p>
 
 <h4 id="extension-empty-element-parse-policy-proposal">Extension: Empty Element Parse Policy [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+dfdlx%3AemptyElementParsePolicy+Property">Proposal</a>]</h4>
 
-<p>A new DFDL property named <code class="highlighter-rouge">dfdlx:emptyElementParsePolicy</code>	 is added to
+<p>A new DFDL property named <code class="highlighter-rouge">dfdlx:emptyElementParsePolicy</code> is added to
 control the behavior of empty string and hexBinary elements. This property
-allows one to switch between behavior that complies with the DFDL v1.0
-specification or with the IBM DFDL non-conformant implementation of the
-specification.</p>
+allows one to switch between different behaviors for empty elements which
+correspond to currently described behavior in the DFDL v1.0 specification
+document, and an alternate behavior planned for future inclusion in the DFDL
+v1.0 specification which also increase compatibility with IBM DFDL.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-110">DAFFODIL-110</a>] Implement separator suppression policies</li>
