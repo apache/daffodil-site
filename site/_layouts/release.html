@@ -20,7 +20,12 @@ permalink: /release/release-notes-:title
 {% endunless %}
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-3 text-right" style="float: right; z-index: 3;">
+    <h3>Documentation</h3>
+    <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a> | <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>
+  </div>
+
+  <div class="col-md-12">
     <h3>Get Release</h3>
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
@@ -97,11 +102,6 @@ resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/n
 {% endhighlight %}
       </div>
     </div>
-  </div>
-  <div class="col-md-3 text-right">
-    <h3>Documentation</h3>
-    <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a><br />
-    <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>
   </div>
 </div>
 

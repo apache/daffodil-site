@@ -64,6 +64,18 @@ h2 {
   display: inline-block;
 }
 
+.nav-tabs > li > a:hover {
+  border-color: #dddddd;
+  background-color: #ffffff;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
 .navbar-nav .open .dropdown-menu {
   position: absolute;
   border-radius: 4px;

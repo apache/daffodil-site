@@ -37,9 +37,9 @@ All recent Daffodil releases are listed here, along with several historical rele
     {% for release in releases reversed %}
         {% if release.title %}
             <tr>
-                <td class="col-md-1"><a href="{{ release.url | prepend: site.baseurl }}">{{ release.title }}</a></td>
-                <td>{{ release.summary }}</td>
-                <td class="col-md-2 text-right">{{ release.date | date: "%Y-%m-%d" }}</td>
+                <td style="vertical-align: middle; line-height: 2.5em;" class="col-md-1"><a href="{{ release.url | prepend: site.baseurl }}">{{ release.title }}</a></td>
+                <td style="vertical-align: middle;">{{ release.summary }}</td>
+                <td style="vertical-align: middle;" class="col-md-2 text-right">{{ release.date | date: "%Y-%m-%d" }}</td>
             </tr>
         {% endif %}
     {% endfor %}
@@ -63,14 +63,14 @@ No official Apache releases have been made yet. <a href="/community">Get involve
     <tr>
         <th class="col-md-1">Version</th>
         <th>Summary</th>
-        <th class="col-md-2 text-right">Release Date</th>
+        <th class="col-md-2 text-right">Release&nbsp;Date</th>
     </tr>
     {% for release in releases reversed %}
         {% if release.title %}
             <tr>
-                <td class="col-md-1"><a href="{{ release.url | prepend: site.baseurl }}">{{ release.title }}</a></td>
-                <td>{{ release.summary }}</td>
-                <td class="col-md-2 text-right">{{ release.date | date: "%Y-%m-%d" }}</td>
+                <td style="vertical-align: middle; line-height: 2.5em;" class="col-md-1"><a href="{{ release.url | prepend: site.baseurl }}">{{ release.title }}</a></td>
+                <td style="vertical-align: middle;" >{{ release.summary }}</td>
+                <td style="vertical-align: middle;" class="col-md-2 text-right">{{ release.date | date: "%Y-%m-%d" }}</td>
             </tr>
         {% endif %}
     {% endfor %}
