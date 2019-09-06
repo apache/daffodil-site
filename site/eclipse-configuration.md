@@ -59,15 +59,15 @@ If also editing TDML file in Eclipse, repeat the above steps, replacing all inst
 
 #### Add XML Schemas for DFDL to the XML Catalog
 
-Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the ``src/main/resources/edu/illinois/ncsa/daffodil/xsd/`` directory in either ``daffodil-lib/`` or ``daffodil-propgen/``.
+Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the ``src/main/resources/org/apache/daffodil/xsd/`` directory in either ``daffodil-lib/`` or ``daffodil-propgen/``.
 
-*  [datatypes.dtd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/edu/illinois/ncsa/daffodil/xsd/datatypes.dtd)
-*  [tdml.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/edu/illinois/ncsa/daffodil/xsd/tdml.xsd)
-*  [XMLSchema.dtd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/edu/illinois/ncsa/daffodil/xsd/XMLSchema.dtd)
-*  [XMLSchema_for_DFDL.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/edu/illinois/ncsa/daffodil/xsd/XMLSchema_for_DFDL.xsd)
-*  [DFDL_part1_simpletypes.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/edu/illinois/ncsa/daffodil/xsd/DFDL_part1_simpletypes.xsd)
-*  [DFDL_part2_attributes.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/edu/illinois/ncsa/daffodil/xsd/DFDL_part2_attributes.xsd)
-*  [DFDL_part3_model.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/edu/illinois/ncsa/daffodil/xsd/DFDL_part3_model.xsd)
+*  [datatypes.dtd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/datatypes.dtd)
+*  [tdml.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd)
+*  [XMLSchema.dtd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/XMLSchema.dtd)
+*  [XMLSchema_for_DFDL.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/XMLSchema_for_DFDL.xsd)
+*  [DFDL_part1_simpletypes.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/DFDL_part1_simpletypes.xsd)
+*  [DFDL_part2_attributes.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/DFDL_part2_attributes.xsd)
+*  [DFDL_part3_model.xsd](https://raw.githubusercontent.com/apache/incubator-daffodil/master/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/DFDL_part3_model.xsd)
 
 Modify the Eclipse settings to reference these files:
 
