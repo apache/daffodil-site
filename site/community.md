@@ -42,11 +42,11 @@ Get help using Daffodil or contribute to the project on our mailing lists:
 
 [dev@daffodil.apache.org](mailto:dev@daffodil.apache.org) -- [subscribe](mailto:dev-subscribe@daffodil.apache.org?subject=send this email to subscribe), [unsubscribe](mailto:dev-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe), [archives](https://lists.apache.org/list.html?dev@daffodil.apache.org)
 
-  : For those who want to contribute code to Daffodil, join in on design discussions, track issues and Daffodil development, etc.
+  : For those who want to contribute code to Daffodil or join in on design discussions and general Daffodil development conversations.
 
 [commits@daffodil.apache.org](mailto:comits@daffodil.apache.org) -- [subscribe](mailto:commits-subscribe@daffodil.apache.org?subject=send this email to subscribe), [unsubscribe](mailto:commits-unsubcribe@daffodil.apache.org?subject=send this email to unsubscribe), [archives](https://lists.apache.org/list.html?commits@daffodil.apache.org)
 
-  : For tracking new commits to the Daffodil codebase
+  : For tracking new commits, pull requests, review comments, and issues.
 
 
 ### Issue tracker
