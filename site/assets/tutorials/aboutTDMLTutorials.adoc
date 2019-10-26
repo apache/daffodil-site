@@ -1,0 +1,63 @@
+---
+layout: page
+
+---
+== About TDML Tutorials
+:page-layout: page
+:url-asciidoctor: http://asciidoctor.org
+:keywords: TDML Daffodil DFDL
+:tip-caption: 💡
+//
+// This file is asciidoc format.
+//
+// You can get asciidoc plugins for chrome and firefox that let you preview this file
+// directly in your browser. 
+//
+// You will want to change plugin settings to enable diagrams (they're off by default I think.)
+// 
+// Oh, and did I mention, you need to view this with Chrome or Firefox....?
+//
+
+=== Writing Executable Tutorials in TDML
+
+Tutorials can be directly written in link:/tdml[Test Data Markup Language (TDML)], enhanced using TDML's `tdml:tutorial` elements. These look like:
+
+[source,xml]
+....
+<tdml:parserTestCase name="myTest" 
+   description="This is my test, and this would describe it." ...>
+<tdml:tutorial xml:space="preserve"><p>
+Any XHTML you want can go inside tutorial elements. 
+<br />
+The tutorial elements can also appear in numerous locations in the TDML file.
+<br /> 
+The description attributes are also converted into headings of the resulting tutorial
+<br />  
+</p>
+</tdml:tutorial>
+...
+</tdml:parserTestCase>
+....
+
+The tutorial elements can contain any http://www.w3.org/TR/html5/the-xhtml-syntax.html[XHTML] elements. 
+
+The TDML file still runs as a test suite of TDML tests, which insures that the examples contained in the tutorial actually work as described. The TDML is translated into HTML by your web browser. 
+
+TIP: If you https://www.wikihow.com/View-Source-Code[know how to view the source of the web page] from your web browser, you will see the TDML file, not some translation/rendering of it.
+
+
+=== About Graphics/Illustrations in TDML Tutorials
+
+An important characteristic of TDML-based tutorials is that they are self-contained. 
+By using a few HTML techniques and some free tools that run directly in the web browser, we can insure that the images and diagrams needed for a tutorial can be embedded directly in the TDML file.
+
+* https://svg-edit.github.io/svgedit/releases/svg-edit-2.8.1/svg-editor.html[SVG-Edit]
+lets you draw/edit SVG format - which is really the preferred thing for embedding in these tutorials since SVG is part of HTML. 
+Once you have the SVG for your diagram, you can copy it into the XHTML tutorial content of the TDML file.
+However, SVG is very verbose, and this will dilute the content of your TDML file substantially.
+You may prefer to embed the diagram via an img tag. 
+* http://freeonlinetools24.com/base64-image[Base64 image encoder decoder]
+can be used to embed images directly into the TDML file, so you can take images, or draw diagrams with your favorite drawing tool, and embed them in the TDML file while still keeping the TDML file self-contained. This tool can also convert the base64 encoding back into an editable file if you need to edit the image.
+* This http://www.online-image-editor.com[Online graphics editor]
+can edit PNGs JPG, etc.
+

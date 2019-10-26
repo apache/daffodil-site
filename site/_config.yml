@@ -34,3 +34,20 @@ defaults:
 # Used by the JIRA plugin
 jira_base_url: https://issues.apache.org/jira/browse
 jira_key: DAFFODIL
+
+# plugin for asciidoc (.adoc) files
+plugins:
+- jekyll-asciidoc
+- asciidoctor-diagram
+
+keep_files:
+  - images
+
+asciidoc: {}
+
+asciidoctor:
+  base_dir: :docdir
+  safe: unsafe
+  attributes:
+    imagesdir: /images
+    icons: ""

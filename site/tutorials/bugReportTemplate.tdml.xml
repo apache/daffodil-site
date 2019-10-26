@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="DFDLTutorialStylesheet.xsl"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<tdml:testSuite 
+  suiteName="Bug Report TDML Template" 
+  description="Illustration of TDML for bug reporting."
+  xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xml="http://www.w3.org/XML/1998/namespace"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:ex="http://example.com" 
+  xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
+  xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext" 
+  xmlns="http://www.w3.org/1999/xhtml" 
+  xsi:schemaLocation="http://www.ibm.com/xmlns/dfdl/testData tdml.xsd"
+  defaultRoundTrip="false">
+  
+  <!-- 
+  This example TDML file is for a self-contained bug report. 
+  
+  It shows a parse test, and similar unparse test.
+  -->
+
+  <tdml:defineSchema name="bug01Schema" elementFormDefault="unqualified">
+    <xs:include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+
+   <xs:import 
+     namespace="http://www.ibm.com/dfdl/GeneralPurposeFormat" 
+     schemaLocation="IBMdefined/GeneralPurposeFormat.xsd" /> 
+     
+    <dfdl:defineFormat name="myFormat">
+      <dfdl:format  ref="gpf:GeneralPurposeFormat"
+      lengthKind="implicit" 
+        representation="text" 
+        encoding="ASCII" 
+        initiator="" 
+        terminator="" 
+        separator="" />
+    </dfdl:defineFormat>
+ 
+    <dfdl:format ref="ex:myFormat" />
+
+    <xs:element name="myTestRoot" type="xs:dateTime" 
+      dfdl:calendarPattern="MM.dd.yyyy 'at' HH:mm:ssZZZZZ" 
+      dfdl:calendarPatternKind="explicit"
+      dfdl:lengthKind="delimited" 
+      dfdl:terminator="%NL;" />
+ 
+  </tdml:defineSchema>
+  
+  <tdml:parserTestCase name="dateTimeTest" root="myTestRoot" model="bug01Schema" 
+    description="A hypothetical bug illustration about parsing a date time.">
+   
+   <tdml:document>
+     <tdml:documentPart type="text" 
+     replaceDFDLEntities="true"><![CDATA[04.02.2013 at 14:00:56 GMT-05:00%LF;]]></tdml:documentPart>
+   </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:myTestRoot>2013-04-02T14:00:56-05:00</ex:myTestRoot>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+     
+  </tdml:parserTestCase>
+
+  <tdml:unparserTestCase name="unparseDateTimeTest" root="myTestRoot" model="bug01Schema" 
+    description="Another bug illustration, this time unparsing direction.">
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:myTestRoot>2013-04-02T14:00:56-05:00</ex:myTestRoot>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+
+   <tdml:document>
+     <tdml:documentPart type="text" 
+       replaceDFDLEntities="true"><![CDATA[04.02.2013 at 14:00:56-05:00%CR;%LF;]]></tdml:documentPart>
+   </tdml:document>
+       
+   </tdml:unparserTestCase>
+   
+</tdml:testSuite>
