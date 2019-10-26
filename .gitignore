@@ -15,4 +15,5 @@
 
 Gemfile.lock
 target
-.jekyll-cache
+.jekyll-cache/
+

@@ -21,7 +21,7 @@ limitations under the License.
 
 The Apache Daffodil (incubating) web site is based off of the [Apache Website Template](https://github.com/apache/apache-website-template).
 
-The website is generated using [Jekyll](https://jekyllrb.com/).
+The website is generated using [Jekyll](https://jekyllrb.com/) and some plug-ins for it.
 
 # How to deploy this web site
 
@@ -35,12 +35,28 @@ Alternatively, Jekyll can be installed using gem:
 
     $ gem install jekyll
 
+## Install Jekyll Plug-ins for AsciiDoc and Diagram Rendering
+
+Some content is developed using the AsciiDoc Markdown variant, which supports
+embedded diagrams created from diagram-specifying text formats. 
+
+(You probably want to install these as super-user using sudo.)
+
+    $ gem install jekyll-asciidoc
+    $ gem install asciidoctor-diagram
+    $ apt install python-pip
+    $ pip install blockdiag
+    $ pip install seqdiag
+    $ pip install actdiag
+    $ pip install nwdiag
+
+NOTE: `nwdiag` actually supports more than one diagram type. It supports nwdiag, packetdiag, rackdiag, etc.
+
 ## Running locally
 
 Before opening a pull request, you can preview your contributions by
 running from within the directory:
 
-    $ cd site
     $ jekyll serve --watch --source site
 
 Open [http://localhost:4000](http://localhost:4000) to view the site served by Jekyll.
