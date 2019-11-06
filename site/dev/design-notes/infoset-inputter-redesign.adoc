@@ -1,0 +1,235 @@
+---
+layout: page
+
+---
+
+= Infoset Inputters and Runtime 1 Streaming Unparser Changes
+:page-layout: page
+:url-asciidoctor: http://asciidoctor.org
+:keywords: asciidoc markdown diagram
+//
+// This file is written in AsciiDoc.
+//
+// If you can read this comment, your browser is not rendering asciidoc automatically.
+//
+// You need to install the asciidoc plugin to Chrome or Firefox
+// so that this page will be properly rendered for your viewing pleasure.
+//
+// You can get the plugins by searching the web for 'asciidoc plugin'
+//
+// You will want to change plugin settings to enable diagrams (they're off by default I think.)
+// 
+// Oh, and did I mention, you need to view this with Chrome or Firefox....?
+//
+
+== Introduction
+
+In order to fix DAFFODIL-2192, a significant change must be made to the structure of the InfosetInputter trait/classes, and the unparser generally. 
+
+Currently, the InfosetInputter architecture is dependent on being able to take an element name (+ namespace when used), have as a context a current element ElementRuntimeData object, and then given a hash-table which is stored on the element ERD, lookup the name and namespace (when used) to get the next element ERD. 
+This lookup hash table is encapsulated in the NextElementResolver classes. 
+At schema compile time, given each element ERD, it is precomputed what the possible valid set of subsequent following ERDs can be (including the current one again, in case of an array). 
+This set of possibilities is captured in an instance of the NextElementResolver class, and is stored on each ERD. 
+
+This process makes unparsing a self-validating kind of processing. As an external representation of the Infoset is converted into an actual stream of Infoset events, each incoming element event is scrutinized against the schema for whether it is allowed. This scrutiny is built into the fact that the incoming element name+namespace is being looked up in the NextElementResolver, and then once each element is created, a new NextElementResolver object is taken from its ERD for the next infoset event lookup. 
+
+An invariant is that the next element resolution process cannot cross a complex-type element boundary, as an end-element event ends the scope of the possible legal subsequent elements that can arrive next. 
+However, within a complex type, there can be many groups and group references. 
+
+This architecture depends on the fact that the ElementRuntimeData (ERD) objects are unique per element, and per element context - that is, they are depending on the fact that element ERDs are not shared and so they uniquely identify both the element, and the context of that element (nest of all enclosing groups).
+
+As part of the changes to fix our schema compiler speed/space issues (DAFFODIL-1444), this assumption is no longer valid. Elements (specifically DSOM ElementBase objects) can be shared. Groups can be shared. The expected improvement in schema compiler performance and the space reduction is fundamentally driven from this sharing. This sharing is also needed to implement a desirable future feature which is to enable recursive definitions in DFDL.
+
+Ultimately, the required change is from one where an ERD is a unique identifier of an element and all its dynamic context, to one where because ERDs are shared, the Unparser runtime must maintain a stack of the dynamic context information sufficient to perform next-element resolution as each infoset event must be synthesized.  
+
+=== An Aside about a Recursive Future
+
+In a future version of DFDL we plan to allow recursive definitions. It is theoretically possible to define a recursive structure using only reusable groups:
+
+    <xs:element name="r">
+      <xs:complexType>
+        <xs:group ref="g"/>
+      </xs:complexType>
+    </xs:eleemnt>
+
+    <xs:group name="g">
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence>
+          <xs:annotation><xs:appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:assert testKind="pattern" testPattern="."/><!-- there is more data -->
+          </xs:appinfo></xs:annotation>
+          </xs:sequence>
+          <xs:element name="x" type="xs:string" dfdl:length="1" dfdl:lengthKind="explicit"/>
+          <xs:group ref="g"/>
+        </xs:sequence>
+        <xs:sequence/>
+     </xs:choice>
+    <xs:group>
+
+The above example simulates an array using group recursion. 
+
+NOTE: It is not clear that even if DFDL allows recursion it would allow it on groups alone. 
+Requiring recursion to utilize elements would seem to be consistent with DFDL's current restriction which requires repeating/optional things to be elements. 
+Furthermore, it is not clear if the above is allowed in XML Schema. XML Schema's UPA rules may in fact require elements to be used in the formulation of recursive structure.  
+
+Recursion requires evolution of the current Daffodil architecture to one that enables sharing of definitions of groups, elements and types. 
+
+== Design Evolution 
+
+The sections below describe the evolution of the Daffodil schema compiler and runtime to fix the DAFFODIL-2192 issue.
+
+=== DSOM and SequenceChild
+
+In Daffodil, DSOM now enables sharing of ElementBase objects, and ModelGroup objects (SequenceTermBase, ChoiceTermBase). 
+
+A SequenceChild object represents the non-shared aspects of a term that is a child of a sequence. 
+
+There is no corresponding ChoiceChild object. A child of a choice can be a sequence, or some other non-sequencce, in which case the non-sequence is wrapped in an "implied sequence" object so there is an invariant that the child of a choice is always a sequence. 
+
+This makes a SequenceChild object the non-shared part of any term, and the Term object itself the shared part. 
+
+A SequenceChild object therefore represents that Term in context of the enclosing sequence. 
+
+A DSOM class diagram showing an added taxonomy of SequenceChild classes is below:
+
+
+[plantuml, target="dsom-sequence-child-classes", format="png"]     
+....
+abstract class Term
+together { 
+  abstract class SequenceTermBase
+  abstract class ChoiceTermBase
+  abstract class ElementBase
+}
+abstract class SequenceChild
+together { 
+  class ElementSequenceChild
+  class SequenceSequenceChild
+  class ChoiceSequenceChild
+}
+abstract class ModelGroupSequenceChild
+abstract class Term
+abstract class ModelGroup
+
+Term <|-- ElementBase
+Term <|-- ModelGroup
+ModelGroup <|-- SequenceTermBase
+ModelGroup <|-- ChoiceTermBase
+
+SequenceChild <|-- ElementSequenceChild
+SequenceChild <|-- ModelGroupSequenceChild
+ModelGroupSequenceChild <|-- SequenceSequenceChild
+ModelGroupSequenceChild <|-- ChoiceSequenceChild
+ElementBase "1" <-- "1" ElementSequenceChild
+SequenceTermBase "1"  <-- "1" SequenceSequenceChild
+ChoiceTermBase "1" <-- "1" ChoiceSequenceChild
+SequenceChild "*" <-- "1" SequenceTermBase
+ModelGroup "0..1" <-- "1" ElementBase : model group 
+
+....
+
+The above reflects the status quo of objects. However, we introduce new schema-compile-time calculations.  
+For each ElementSequenceChild DSOM object, we compute things that were previously computed on ElementBase. 
+We compute the possible next ElementSequenceChild that can follow it. 
+This is defined inductively on the SequenceChild, and the subsequent ElementSequenceChild objects that can follow it up until the enclosing end-of-element must be encountered. 
+An ElementSequenceChild can follow itself if it is for an array declaration. 
+When an ElementSequenceChild is for an optional element (array or optional), then that element, or the subsequent ElementSequenceChild of the model group, can be subsequent. 
+If an ElementSequenceChild is required, then only that ElementSequnceChild is possible after the prior ElementSequenceChild.
+
+=== Runtime 1 and SequenceChildRuntimeData 
+
+Below is the proposed corresponding data structures used at runtime (in daffodil runtime 1). 
+The SequenceChildRuntimeData class and all derived from it are new, as is the relationship from ERD to the ModelGroupRuntimeData that corresponds to the complex type element's model group. 
+
+[plantuml, target="runtime1-sequence-child-classes", format="png"]     
+....
+abstract class TermRuntimeData
+together { 
+  class SequenceRuntimeData
+  class ChoiceRuntimeData
+  class ElementRuntimeData
+}
+abstract class SequenceChildRuntimeData
+together { 
+  class ElementSequenceChildRuntimeData
+  class SequenceSequenceChildRuntimeData
+  class ChoiceSequenceChildRuntimeData
+}
+abstract class ModelGroupSequenceChildRuntimeData
+abstract class RuntimeData
+abstract class TermRuntimeData
+abstract class ModelGroupRuntimeData
+abstract class NonTermRuntimeData
+
+RuntimeData <|-- TermRuntimeData
+RuntimeData <|-- NonTermRuntimeData
+TermRuntimeData <|-- ElementRuntimeData
+TermRuntimeData <|-- ModelGroupRuntimeData
+ModelGroupRuntimeData <|-- SequenceRuntimeData
+ModelGroupRuntimeData <|-- ChoiceRuntimeData
+
+SequenceChildRuntimeData <|-- ElementSequenceChildRuntimeData
+SequenceChildRuntimeData <|-- ModelGroupSequenceChildRuntimeData
+ModelGroupSequenceChildRuntimeData <|-- SequenceSequenceChildRuntimeData
+ModelGroupSequenceChildRuntimeData <|-- ChoiceSequenceChildRuntimeData
+ElementRuntimeData "1" <-- "1" ElementSequenceChildRuntimeData : erd
+SequenceRuntimeData "1"  <-- "1" SequenceSequenceChildRuntimeData : srd
+ChoiceRuntimeData "1" <-- "1" ChoiceSequenceChildRuntimeData : crd
+SequenceChildRuntimeData "*" <-- "1" SequenceRuntimeData : children
+ModelGroupRuntimeData "0..1" <-- "1" ElementRuntimeData : model group 
+TermRuntimeData "1" <.. "1" SequenceChildRuntimeData : trd
+....
+
+By introducing SequenceChildRuntimeData (SCRD) we now have a place where runtime data associated with individual terms within the context of a sequence can access values needed at runtime. 
+Many pieces of runtime information currently carried on ERD (or SRD, CRD) will move onto the corresponding SCRD. 
+For example alignment-related values should all be on element SCRD (ESCRD) classes. 
+
+=== Next-Element Resolution at Runtime
+
+The existing NextElementResolver class will be renamed PartialNextElementResolver to reflect that the class itself implements only part of the algorithm. 
+Any given PartialNextElementResolver can resolve a name (+ namespace when used) to an ERD, or it can not be able to perform the resolution, which is not an error.
+
+As a whole the next-element resoluiton algorithm requires that the unparser maintain a stack of SequenceChildRuntimeData objects and the resolution algorithm works down the stack using the partial resolver from the most-recently pushed runtime data object first. 
+If that does not resolve the element it moves to the next deeper runtime-data object on the stack having a partial next element resolver, and tries that. 
+This continues until it succeeds, or until an ERD is found on the stack, at which point the resolution fails and an unparse error (fatal) is issued. 
+
+Note that the context of next-element-resolution cannot span the boundary of a complex element. 
+This is because an end-element event must be received before any subsequent element start events. 
+
+The InfosetInputter calls back to a UState method which does resolution using this stack and the above-described algorithm. This requires the InfosetInputter have the ability to call back to a method of the UStateMain object. 
+
+This dynamic-context stack need not be copied to UStates for Suspensions as those only occur after Infoset elements have been created. 
+
+
+=== Schema Compilation of PartialNextElementResolvers
+
+The set of possible subsequent ElementSequenceChild objects that can follow another is compute inductively starting from the last element or group within a sequence. 
+It is limited to the length of the current sequence, since sequences can be shared. 
+
+(Note that unshared i.e., local sequences could in principle be special cased - collapsed together - for purposes of this analysis. 
+We assume here that we will treat all sequence groups as if they were shared via group refs.)
+
+== Some interactions, or non-interactions
+
+* Orthogonal to suspensions - next element resolution is over before a suspension is constructed for the element.
+
+* Orthogonal to choiceBranchMap - next element resolution must be done first, and the result of it is used by the choiceBranchMap to choose which branch of the choice is implied by arrival of that element. 
+
+== Summary of Changes
+
+* Implement the Dynamic context stack (stack of RuntimeData) in UState
+* Modify unparsers to maintain dynamic context stack, pushing and popping as model-groups are processed.
+* Implement new Runtime 1 classes for subtypes derived from SCRD
+* Implement construction of these classes using new resolvers.
+
+* Implement new DSOM classes
+* Implement algorithms on ElementSchemaChild to determine sets of possibly following infoset events. 
+
+
+
+
+
+
+
+
