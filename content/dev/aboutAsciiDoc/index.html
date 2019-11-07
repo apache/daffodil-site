@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | </title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2></h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <div class="sect1">
+<h2 id="about-asciidoc-for-documentation">About AsciiDoc for Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is a trend towards less WYSIWYG for documentation, slides, etc. because it doesn&#8217;t have the useful characteristics of source code in that it cannot be easily diffed. Configuration management is always more ad-hoc and problematic.
+AsciiDoc is a highly regular markdown-style language for creating documentation in the style of Markdown, but it eliminates many drawbacks of the various markdown dialects.</p>
+</div>
+<div class="paragraph">
+<p>This page itself is AsciiDoc. Jekyll converts it to HTML using <a href="http://asciidoctor.org">Asciidoctor</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+When writing asciidoc, or any other markdown, or even html or xml or tdml tutorial, etc.
+The point is to treat this stuff like code - i.e., have line-diffs be useful.
+In order for that to work <strong>really well</strong>, you need to use the <a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line">one sentence-per-line writing technique.</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+Here is an <a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference">asciidoc syntax cheat sheet/quick-reference guide.</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A primary reason to use asciidoc is the support for diagrams created via text. Many kinds are supported directly. <a href="https://asciidoctor.org/docs/asciidoctor-diagram">See Asciidoctor diagram.</a></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at some kinds of content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-of-xml-as-source-code">Example of XML as Source Code</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;xs:schema ...&gt;
+  &lt;!-- hello world from an xml comment --&gt;
+&lt;/xs:schema&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-of-just-slide-like-bulleted-list">Example of Just Slide-like Bulleted List</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should consider using AsciiDoc for slide-ware instead of something like powerpoint.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Slide full of bullets</p>
+</li>
+<li>
+<p>Slide full of bullets</p>
+</li>
+<li>
+<p>Slide full of bullets</p>
+</li>
+<li>
+<p>Slide full of bullets</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-images">Example Images</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Images work in the basic way. Here&#8217;s an inline image
+<span class="image"><a class="image" href="http://daffodil.apache.org"><img src="http://daffodil.apache.org/assets/themes/apache/img/apache-daffodil-logo.png" alt="daffodil logo"></a></span>,
+and here&#8217;s the same image as an image block:</p>
+</div>
+<hr>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="http://daffodil.apache.org"><img src="http://daffodil.apache.org/assets/themes/apache/img/apache-daffodil-logo.png" alt="daffodil logo"></a>
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-diagrams">Example Diagrams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are numerous kinds of diagrams possible.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphviz-record-based-nodes-diagram">GraphViz Record-Based Nodes Diagram</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://graphviz.gitlab.io/documentation/">GraphViz</a> is probably the most powerful of the various diagram tools, but with that power comes complexity that some of the other diagram types are able to overcome by being more restrictive.</p>
+</div>
+<div class="paragraph">
+<p>This is an example of graphViz <a href="https://graphviz.gitlab.io/_pages/doc/info/shapes.html#record">Record-based Nodes</a> which are very useful for box diagrams showing data layouts when a packetdiag is too rigid.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-67c737a775095ab65bc0eea2b6f973e4.png" alt="diag 67c737a775095ab65bc0eea2b6f973e4" width="349" height="201">
+</div>
+</div>
+<div class="sect2">
+<h3 id="plantuml-diagram">PlantUML Diagram</h3>
+<div class="paragraph">
+<p><a href="http://plantuml.com/">PlantUML</a> is a component that allows to quickly write:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sequence diagram</p>
+</li>
+<li>
+<p>Usecase diagram</p>
+</li>
+<li>
+<p>Class diagram</p>
+</li>
+<li>
+<p>Activity diagram (here is the legacy syntax)</p>
+</li>
+<li>
+<p>Component diagram</p>
+</li>
+<li>
+<p>State diagram</p>
+</li>
+<li>
+<p>Object diagram</p>
+</li>
+<li>
+<p>Deployment diagram</p>
+</li>
+<li>
+<p>Timing diagram</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following non-UML diagrams are also supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Wireframe graphical interface</p>
+</li>
+<li>
+<p>Archimate diagram</p>
+</li>
+<li>
+<p>Specification and Description Language (SDL)</p>
+</li>
+<li>
+<p>Ditaa diagram</p>
+</li>
+<li>
+<p>Gantt diagram</p>
+</li>
+<li>
+<p>MindMap diagram</p>
+</li>
+<li>
+<p>Work Breakdown Structure diagram</p>
+</li>
+<li>
+<p>Mathematic with AsciiMath or JLaTeXMath notation</p>
+</li>
+<li>
+<p>Entity Relationship diagram</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is a class diagram example:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diagram-classes.png" alt="diagram classes" width="269" height="282">
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a PlantUML Sequence Diagram:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-0d30d58bcdf5ebb25188b6c2fe72c721.png" alt="diag 0d30d58bcdf5ebb25188b6c2fe72c721" width="382" height="338">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="packet-diagram-easier-but-limited-to-msbf-left-to-right">Packet Diagram - Easier but Limited to MSBF, Left-to-Right</h3>
+<div class="paragraph">
+<p><a href="http://blockdiag.com/en/nwdiag/packetdiag-examples.html">Packet diagrams</a> are useful for any time you want to show data layouts at the level of bits, bytes, and words. It assumes bit order is <em>most significant bit first</em> and that you want to number the bits from left to right.</p>
+</div>
+<div class="paragraph">
+<p>This example supplies a target name for the graphic, which allows it to be reused not just in this document, but in others also. We specify SVG as the format since there appears to be bugs in PNG format for packetdiag.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/test_packet_diagram_1.svg" alt="test packet diagram 1" width="896" height="312">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ditaa-diagram">Ditaa Diagram</h3>
+<div class="paragraph">
+<p>The <a href="http://ditaa.sourceforge.net/">DITAA</a> graphics are ASCII-Art converted into smoother looking drawings. They have the advantage of being visual in the text file, but the challenge of needing to be
+laid out by hand.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-8ac9b322bf3e2e1e7b0df17f6f64d0a6.png" alt="diag 8ac9b322bf3e2e1e7b0df17f6f64d0a6" width="540" height="280">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-block-diagram">Example Block Diagram</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="http://blockdiag.com/en/blockdiag/">blockdiag</a> diagram type is for basic box/arrow diagrams.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+It is not clear how this compares for ease-of-use with PlantUML or GraphViz.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-5ec81af94d1dc3a298a6fd43da5f7a80.png" alt="diag 5ec81af94d1dc3a298a6fd43da5f7a80" width="640" height="200">
+</div>
+</div>
+<div class="sect2">
+<h3 id="sequence-diagram">Sequence Diagram</h3>
+<div class="paragraph">
+<p>The <a href="http://blockdiag.com/en/seqdiag/">seqdiag</a> diagram type creates sequence diagrams.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+It is not clear how this compares for ease-of-use with PlantUML sequence diagrams.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-a533150cad63a03a5be9a7b02fd19671.png" alt="diag a533150cad63a03a5be9a7b02fd19671" width="640" height="374">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="activity-diagram">Activity Diagram</h3>
+<div class="paragraph">
+<p>The <a href="http://blockdiag.com/en/actdiag/">actdiag</a> diagram type creates sequence diagrams.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+It is not clear how this compares for ease-of-use with PlantUML activity diagrams.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-ee13bb3811e9428e06959f035316547b.png" alt="diag ee13bb3811e9428e06959f035316547b" width="448" height="360">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="network-diagram">Network Diagram</h3>
+<div class="paragraph">
+<p>I don&#8217;t know how much call we will have for these, but the
+<a href="http://blockdiag.com/en/nwdiag/">nwdiag</a> diagram type creates network diagrams which are interesting anyway.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+It is not clear how this compares for ease-of-use with PlantUML diagrams.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-033cd46f992147b399df05c38c6cb0cf.png" alt="diag 033cd46f992147b399df05c38c6cb0cf" width="760" height="444">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="more-graphviz-examples">More GraphViz Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="graphviz-ad-hoc-diagram">GraphViz Ad-Hoc Diagram</h3>
+<div class="paragraph">
+<p>Random boxes and ovals and other shapes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-9161b5895c4f12c5eff371d944811204.png" alt="diag 9161b5895c4f12c5eff371d944811204" width="857" height="236">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphviz-digraph">GraphViz Digraph</h3>
+<div class="imageblock">
+<div class="content">
+<img src="/images/cyclic.svg" alt="cyclic" width="118" height="345">
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2019 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
