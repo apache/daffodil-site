@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | </title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2></h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <div class="sect1">
+<h2 id="about-tdml-tutorials">About TDML Tutorials</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="writing-executable-tutorials-in-tdml">Writing Executable Tutorials in TDML</h3>
+<div class="paragraph">
+<p>Tutorials can be directly written in <a href="/tdml">Test Data Markup Language (TDML)</a>, enhanced using TDML&#8217;s <code>tdml:tutorial</code> elements. These look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;tdml:parserTestCase name="myTest"
+   description="This is my test, and this would describe it." ...&gt;
+&lt;tdml:tutorial xml:space="preserve"&gt;&lt;p&gt;
+Any XHTML you want can go inside tutorial elements.
+&lt;br /&gt;
+The tutorial elements can also appear in numerous locations in the TDML file.
+&lt;br /&gt;
+The description attributes are also converted into headings of the resulting tutorial
+&lt;br /&gt;
+&lt;/p&gt;
+&lt;/tdml:tutorial&gt;
+...
+&lt;/tdml:parserTestCase&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tutorial elements can contain any <a href="http://www.w3.org/TR/html5/the-xhtml-syntax.html">XHTML</a> elements.</p>
+</div>
+<div class="paragraph">
+<p>The TDML file still runs as a test suite of TDML tests, which insures that the examples contained in the tutorial actually work as described. The TDML is translated into HTML by your web browser.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/tip.png" alt="💡">
+</td>
+<td class="content">
+If you <a href="https://www.wikihow.com/View-Source-Code">know how to view the source of the web page</a> from your web browser, you will see the TDML file, not some translation/rendering of it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="about-graphicsillustrations-in-tdml-tutorials">About Graphics/Illustrations in TDML Tutorials</h3>
+<div class="paragraph">
+<p>An important characteristic of TDML-based tutorials is that they are self-contained.
+By using a few HTML techniques and some free tools that run directly in the web browser, we can insure that the images and diagrams needed for a tutorial can be embedded directly in the TDML file.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://svg-edit.github.io/svgedit/releases/svg-edit-2.8.1/svg-editor.html">SVG-Edit</a>
+lets you draw/edit SVG format - which is really the preferred thing for embedding in these tutorials since SVG is part of HTML.
+Once you have the SVG for your diagram, you can copy it into the XHTML tutorial content of the TDML file.
+However, SVG is very verbose, and this will dilute the content of your TDML file substantially.
+You may prefer to embed the diagram via an img tag.</p>
+</li>
+<li>
+<p><a href="http://freeonlinetools24.com/base64-image">Base64 image encoder decoder</a>
+can be used to embed images directly into the TDML file, so you can take images, or draw diagrams with your favorite drawing tool, and embed them in the TDML file while still keeping the TDML file self-contained. This tool can also convert the base64 encoding back into an editable file if you need to edit the image.</p>
+</li>
+<li>
+<p>This <a href="http://www.online-image-editor.com">Online graphics editor</a>
+can edit PNGs JPG, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2019 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
