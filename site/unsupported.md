@@ -22,7 +22,7 @@ limitations under the License.
 {% endcomment %}
 -->
 
-Unsupported features and errata of the [DFDL Specification](/docs/dfdl) as of Daffodil 2.3.0 are listed below:
+Unsupported features and errata of the [DFDL Specification](/docs/dfdl) as of Daffodil 2.5.0 are listed below:
 
 #### DFDL Features
 
