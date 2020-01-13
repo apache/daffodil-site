@@ -35,7 +35,6 @@ Unsupported features and errata of the [DFDL Specification](/docs/dfdl) as of Da
 * extended ICU symbols 'u' and 'I' in calendarPattern
 * floating elements in sequences
 * unicodeByteOrderMark
-* unordered sequences
 * validation (unparsing)
 
 #### XML Schema Features
@@ -55,7 +54,6 @@ Unsupported features and errata of the [DFDL Specification](/docs/dfdl) as of Da
 * nilKind="logicalValue"
 * occursCountKind="stopValue"
 * occursStopValue
-* sequenceKind='unordered'
 * textBidi="yes"
 * textBidiNumeralShapes
 * textBidiOrientation
