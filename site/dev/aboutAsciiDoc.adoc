@@ -1,12 +1,7 @@
----
-layout: page
-
----
-
-== About AsciiDoc for Documentation
 :page-layout: page
 :url-asciidoctor: http://asciidoctor.org
 :keywords: asciidoc markdown diagram
+// ///////////////////////////////////////////////////////////////////////////
 //
 // This file is written in AsciiDoc.
 //
@@ -17,10 +12,19 @@ layout: page
 //
 // You can get the plugins by searching the web for 'asciidoc plugin'
 //
-// You will want to change plugin settings to enable diagrams (they're off by default I think.)
+// You will want to change plugin settings to enable diagrams (they're off by default.)
 // 
-// Oh, and did I mention, you need to view this with Chrome or Firefox....?
+// You need to view this page with Chrome or Firefox.
 //
+// ///////////////////////////////////////////////////////////////////////////
+//
+// When editing, please start each sentence on a new line.
+// See https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence-per-line writing technique.]
+// This makes textual diffs of this file useful in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+== About AsciiDoc for Documentation
 
 There is a trend towards less WYSIWYG for documentation, slides, etc. because it doesn't have the useful characteristics of source code in that it cannot be easily diffed. Configuration management is always more ad-hoc and problematic.
 AsciiDoc is a highly regular markdown-style language for creating documentation in the style of Markdown, but it eliminates many drawbacks of the various markdown dialects.
