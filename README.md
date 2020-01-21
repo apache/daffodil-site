@@ -25,15 +25,19 @@ The website is generated using [Jekyll](https://jekyllrb.com/) and some plug-ins
 
 # How to deploy this web site
 
-## Install Jekyll
+## Install Ruby Bundler
 
-Some Linux distributions provide Jekyll via their package managers, for example, for Fedora 25
+Some Linux distributions provide the Ruby Bundler via their package managers, for example, for Fedora:
 
-    $ dnf install rubygem-jekyll
+    $ dnf install rubygem-bundler
 
-Alternatively, Jekyll can be installed using gem:
+## Install or Update Site Dependencies
 
-    $ gem install jekyll
+    $ gem install
+
+or
+
+    $ gem update
 
 ## Install Jekyll Plug-ins for AsciiDoc and Diagram Rendering
 
@@ -42,8 +46,6 @@ embedded diagrams created from diagram-specifying text formats.
 
 (You probably want to install these as super-user using sudo.)
 
-    $ gem install jekyll-asciidoc
-    $ gem install asciidoctor-diagram
     $ apt install python-pip
     $ pip install blockdiag
     $ pip install seqdiag
@@ -52,7 +54,7 @@ embedded diagrams created from diagram-specifying text formats.
 
 NOTE: `nwdiag` actually supports more than one diagram type. It supports nwdiag, packetdiag, rackdiag, etc.
 
-## Running locally
+## Running Locally
 
 Before opening a pull request, you can preview your contributions by
 running from within the directory:
@@ -65,12 +67,10 @@ Once satisfied, create a branch and open a pull request using the Daffodil
 project [Code Conttributor Workflow](https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow)
 but using the website repo instead of the code repo.
 
-## Pushing to the live site
+## Pushing to the Live Site
 
 Daffodil uses [gitpubsub](https://www.apache.org/dev/gitpubsub.html) for
 publishing to the website. The static content served via apache must be served
-in the ``content`` directory on the ``asf-site`` orphan branch. Use the
-``publish.sh`` script script exists to create this content:
-
-    $ ./publish.sh
-    $ git push asf asf-site
+in the ``content`` directory on the ``asf-site`` orphan branch. When the changes
+are merged into the master branch on GitHub, a GitHub action will automatically
+be triggered and it will perform the necessary steps to publish the site.
