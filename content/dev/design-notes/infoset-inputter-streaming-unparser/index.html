@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | </title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2></h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <div class="sect1">
+<h2 id="infoset-inputters-and-runtime-1-streaming-unparser-nextelementresolver">Infoset Inputters and Runtime 1 Streaming Unparser &amp; NextElementResolver</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describes the way the streaming unparser in Runtime 1 works, in particular how
+the unparser resolves the next element - identifying which ERD (Element Runtime Data)
+corresponds to the incoming infoset event.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="design-principles">Design Principles</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Daffodil Runtime 1 keeps track of the nest of dynamic context terms at runtime on a stack which
+is maintained by the Unparsers.</p>
+</div>
+<div class="sect2">
+<h3 id="schema-compilation">Schema Compilation</h3>
+<div class="paragraph">
+<p>At schema compilation time, we compute, for each Term, the set of possible next
+elements that can follow it, but only as far as the end of the <em>lexically
+enclosing</em> model group.</p>
+</div>
+<div class="paragraph">
+<p>This is done in the possibleNextLexicalSiblingElementsInInfoset member of
+the Term class.</p>
+</div>
+<div class="paragraph">
+<p>From this information, we compute a element resolver that handles only this
+partial resolution, which is an instance of class PartialNextElementResolver.
+This is associated with every Term and carried fro runtime on the TermRuntimeData
+objects.</p>
+</div>
+<div class="paragraph">
+<p>This is done in the partialNextElementResolver member of the TermRuntime1Mixin,
+as the PartialNextElementResolver is a Runtime 1 data structure/object.
+This object is serialized as part of the TermRuntimeData.</p>
+</div>
+<div class="paragraph">
+<p>The fact that this is computed using only information going out to the end of the
+single lexically enclosing model-group avoids a combinatorial
+explosion in the schema compiler.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unparser-runtime">Unparser Runtime</h3>
+<div class="paragraph">
+<p>At runtime for the Unparser, element resolving is done by the InfosetInputter.</p>
+</div>
+<div class="paragraph">
+<p>Complete/total element name resolution is done by combining the partial
+next element resolvers from the dynamic nest of terms.
+This is done with a stack in the UState.
+Specifically, the stack, called <code>trdStack</code> is state of the InfosetInputter.
+Unparsers are burdened with having to push/pop TermRuntimeData objects to maintain this stack.</p>
+</div>
+<div class="paragraph">
+<p>The algorithm which iterates down the stack entries to carry out a next element
+resolution for the InfosetInputter, is carried on the NextElementResolver trait,
+which is mixed into the InfosetInputter trait, so is shared by all InfosetInputter
+derived classes.
+Note that no state is shared.
+The stack is private to a given instance of an InfosetInputter class,
+so is private per-thread state just like the rest of the UState.</p>
+</div>
+<div class="paragraph">
+<p>This design incurs runtime overhead to push/pop TRDs on the stack,
+and next element resolution is no longer just a single hash-table lookup, but
+potentially an iteration through multiple such lookups.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="schema-compiler-support-for-dynamic-context-stack">Schema Compiler Support for Dynamic Context Stack</h3>
+<div class="paragraph">
+<p>Now we focus in on just Term, ModelGroup, and ElementBase.
+The diagram below shows the Term class, with the possibleNextLexicalSiblingElementsInInfoset
+member.
+All Terms have as a member their (1-based) position within the enclosing
+lexical model group.</p>
+</div>
+<div class="paragraph">
+<p>The set of possible elements that can follow a given Term can be closed,
+as when a required element is found downstream. If all downstream elements
+in the enclosing lexical model group are optional, then the set of possible
+elements is open ended. The Open/Closed status of the list is
+signified by a PossibleNextElements case class object correspondingly.</p>
+</div>
+<div class="paragraph">
+<p>One final detail is that when compiling the set of possible next elements for
+a choice, there can be elements on branches that are required, but in
+the context of that choice, if any branch has all optional content, then
+all the possible next elements for all branches are optional.</p>
+</div>
+<div class="paragraph">
+<p>The Term itself, if it is an ElementBase, has a isRequiredInInfoset member, which is determined
+based on properties.
+When combined in a choice, we need a way to override
+this, and we encapsulate the ElementBase in a Sibling case class object which
+carries its own isRequiredInInfoset member which can be set to false to
+override the underlying ElementBase&#8217;s isRequiredInInfoset due to that
+corresponding element appearing in a choice branch.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-b16e40e43b31e200e8ad5c32ea7f9f07.png" alt="diag b16e40e43b31e200e8ad5c32ea7f9f07" width="963" height="880">
+</div>
+</div>
+<div class="paragraph">
+<p>The set of possible subsequent ElementBase objects that can
+follow another is computed inductively starting from the last element
+or group within a sequence.
+It is limited to the length of the current sequence, since sequences can be
+shared.</p>
+</div>
+<div class="paragraph">
+<p>(Note that unshared i.e., local sequences could in principle be
+special cased - collapsed together - for purposes of this analysis.
+We assume here that we will treat all sequence groups as if they were
+shared via group refs.)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="runtime-support-for-dynamic-context-stack">Runtime Support for Dynamic Context Stack</h3>
+<div class="paragraph">
+<p>Below we show the runtime 1 objects that implement the next element resolution
+for the streaming unparser.</p>
+</div>
+<div class="paragraph">
+<p>The Unparser has a UState, which has an InfosetInputter.
+The InfosetInputter trait mixes in the implementation of NextElementResolver
+which provides the push/pop API for maintaining the TRD stack, and it
+provides the nextElement method which does complete next element resolving, chaining
+through the PartialNextElementResolvers obtained from the stack of TRDs.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-3d37e77421be37fa6d2e4c726a248b00.png" alt="diag 3d37e77421be37fa6d2e4c726a248b00" width="762" height="350">
+</div>
+</div>
+<div class="paragraph">
+<p>Any given PartialNextElementResolver can resolve a name (+ namespace when used)
+to an ERD, or it can not be able to perform the resolution, which is not
+an error.</p>
+</div>
+<div class="paragraph">
+<p>As a whole the next-element resoluiton algorithm requires that the unparser
+maintain the stack of TermRuntimeData objects and the resolution
+algorithm works down the stack using the partial resolver from the most-
+recently pushed runtime data object first.
+If that does not resolve the element it either fails - because the partial
+resolver knows that the incoming element event <strong>must</strong> be one of the possibilities
+it represents (Closed set of possibles), or it moves to the next deeper runtime-data
+object on the stack having a partial next element resolver (for Open set of possibles),
+and tries that.
+This continues until it succeeds, or until an ERD is found on the stack, at
+which point the resolution fails and an unparse error (fatal) is issued.</p>
+</div>
+<div class="paragraph">
+<p>Note that the context of next-element-resolution cannot span the boundary of a
+complex element.
+This is because an end-element event must be received before any subsequent
+element start events.</p>
+</div>
+<div class="paragraph">
+<p>This dynamic-context TRD stack need not be copied to UStates for Suspensions as
+those only occur after Infoset elements have been created.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="some-interactions-or-non-interactions-with-other-aspects-of-the-unparser">Some interactions, or non-interactions with other aspects of the Unparser</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Orthogonal to suspensions - next element resolution is over before a
+suspension is constructed for the element.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="interaction-with-choicebranchmap">Interaction with ChoiceBranchMap</h4>
+<div class="paragraph">
+<p>Next element resolving for the infoset inputter is orthogonal to
+choiceBranchMap - next element resolution must be done
+first, and the result of it is used by the choiceBranchMap to choose
+which branch of the choice is implied by arrival of that element.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+ChoiceBranchMap: Does it work similarly to next element resolution ???
+This is TBD.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing-and-design-for-test">Testing and Design for Test</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Schema Compiler</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unit tests in scala code for schema compiler methods that compute the <em>possibles</em> object.
+These should cover various combinations of sequences/choices with required
+and optional elements and groups shared using group references.</p>
+</li>
+<li>
+<p>Instrumentation in the schema compiler to measure the amount of work going
+on so that combinatorial explosions are detected earlier.
+This should output a report of the metrics at the end of compilation, or perhaps
+incrementally as compilation proceeds.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Runtime 1</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Faking TRDs so as to test XML InfosetOutputters in unit testing. Only the
+partialNextElementResolver member of the TRD is needed.
+It may be possible to use
+the schema compiler to create the appropriate scenario of TRDs and ERDs and
+then the InfosetOutputter push(trd) method can be called to create a stack
+that matches a test scenario. This allows testing the nextElement resolver
+algorithm in isolation from the push/pop logic that Unparsers must maintain.</p>
+</li>
+<li>
+<p>Unparsers must push/pop appropriately. Possibly built in checking can be
+put in place that detects when a pop is missing? This is TBD as the push/pop
+may or may not be able to be centralized in the code base.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summary-of-features">Summary of Features</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Dynamic context stack (stack of RuntimeData) in UState</p>
+</li>
+<li>
+<p>Unparsers maintain dynamic context stack, pushing and popping TRDs as model-groups are processed.</p>
+</li>
+<li>
+<p>Stack algorithm for NextElementResolver runs down stack trying partial resolutions</p>
+</li>
+<li>
+<p>Algorithms on Term to determine sets of possibly following infoset events.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-review-of-dsom-design">Appendix: Review of DSOM Design</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="dsom-term-classes">DSOM Term Classes</h3>
+<div class="paragraph">
+<p>In Daffodil, DSOM now enables sharing of ModelGroup members, which are instances
+of classes derived from Term.</p>
+</div>
+<div class="paragraph">
+<p>The Term class is central to Daffodil because Terms are the entities that can
+can resolve scoped properties by combining those from an element ref or group ref, to
+and element decl or group def, from element decl to type def, etc.
+Term is the start point for the chains of non-default property providers,
+and for the chains of default property providers, from which scoped properties are resolved.</p>
+</div>
+<div class="paragraph">
+<p>For review, a DSOM class diagram showing the Term class hierarchy is below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-ceaa915a0d1af6f23f03271a51d3452c.png" alt="diag ceaa915a0d1af6f23f03271a51d3452c" width="1296" height="547">
+</div>
+</div>
+<div class="paragraph">
+<p>The above reflects the status quo of objects.
+The concrete classes are all at the bottom (marked with C).</p>
+</div>
+<div class="paragraph">
+<p>Most of organizing principles depend on just the core abstract classes.
+Here&#8217;s the same diagram, but focusing in on just the core abstract classes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-68be4940298d7ecfe80166b53c409621.png" alt="diag 68be4940298d7ecfe80166b53c409621" width="507" height="383">
+</div>
+</div>
+<div class="paragraph">
+<p>The dashed lines from ModelGroup are to illustrate that some ModelGroup classes
+inherit from GroupDefLike, as they define lexically, a surround of their group
+members.
+Other ModelGroup classes inherit GroupRef (SequenceGroupRef and ChoiceGroupRef)
+which share the group definition.
+Ignoring the Root element for a moment, every Term has a lexically enclosing
+ModelGroup which inherits from GroupDefLike. This is the mechanism by which
+ModelGroups and their contents can be shared in multiple distinct contexts.</p>
+</div>
+<div class="paragraph">
+<p>With those classes in mind, we can look into the changes to Daffodil
+to support a <em>dynamic context stack</em>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+Some code in the schema compiler has moved around to prepare for an era where
+Daffodil supports more than one backend/runtime system.
+See the <a href="#appendix-schema-compiler-grammar-and-runtime1-packages">Appendix: Schema Compiler grammar and runtime1 Packages</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-schema-compiler-grammar-and-runtime1-packages">Appendix: Schema Compiler grammar and runtime1 Packages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The basic DSOM object classes are composed by mixin with components coming
+from different packages that separate concerns.</p>
+</div>
+<div class="paragraph">
+<p>Some basic non-function-changing refactoring begins the process of breaking out
+runtime1-specific code and separating that from code that will be in common
+to all runtime backends.</p>
+</div>
+<div class="paragraph">
+<p>The primary packages in the schema compiler (daffodil-core) are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>dsom - The Daffodil Schema Object Model - object corresponding to the parts
+of a DFDL schema. Handles properties, property scoping, include/import,
+namespaces, and all XML-schema-related functionality.</p>
+</li>
+<li>
+<p>grammar - Introduces combinators and primitives of the data syntax grammar.
+Supposed to contain all backend/runtime independent logic.</p>
+</li>
+<li>
+<p>runtime1 - Logic (mixins, methods, members, classes, etc.) specific to the
+<em>Runtime 1</em> backend.
+For example, this includes calculations that create the data structures
+needed to support streaming unparsing, a complex behavior that other Daffodil
+runtime backends are unlikely to implement.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some primary classes and mixins from these packages are shown here:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-db5a8f8925d2b52e29e82cfb0d52f076.png" alt="diag db5a8f8925d2b52e29e82cfb0d52f076" width="1760" height="1193">
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+The grammar.primitives package has not yet been refactored to break
+runtime1-specific methods out into runtime1-package mixins.
+Each Primitive or
+Combinator should mixin a trait for each runtime.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+DPath expressions are another whole area that are not as yet
+refactored to separate specific runtime 1 functionality from general
+functionality.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+Eventually this mixin of runtime should be unmixed and converted
+into a delegation structure so that one can choose a runtime instead of
+having all runtimes mixed in. E.g., today every runtime has to use
+different method names.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-an-aside-about-a-recursive-future">Appendix: An Aside about a Recursive Future</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a future version of DFDL we plan to allow recursive definitions.
+It is theoretically possible to define a recursive structure using
+only reusable groups:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;xs:element name="r"&gt;
+  &lt;xs:complexType&gt;
+    &lt;xs:group ref="g"/&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:eleemnt&gt;</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;xs:group name="g"&gt;
+  &lt;xs:choice&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:sequence&gt;
+      &lt;xs:annotation&gt;&lt;xs:appinfo source="http://www.ogf.org/dfdl/"&gt;
+        &lt;dfdl:assert testKind="pattern" testPattern="."/&gt;&lt;!-- there is more data --&gt;
+      &lt;/xs:appinfo&gt;&lt;/xs:annotation&gt;
+      &lt;/xs:sequence&gt;
+      &lt;xs:element name="x" type="xs:string" dfdl:length="1" dfdl:lengthKind="explicit"/&gt;
+      &lt;xs:group ref="g"/&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:sequence/&gt;
+ &lt;/xs:choice&gt;
+&lt;xs:group&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example simulates an array using group recursion.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+It is not clear that even if DFDL allows recursion it would allow it on
+groups alone.
+Requiring recursion to utilize elements would seem to be consistent with DFDL&#8217;s
+current restriction which requires repeating/optional things to be elements.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+Furthermore, it is not clear if the above is allowed in XML Schema.
+XML Schema&#8217;s UPA rules may in fact require elements to be used in the
+formulation of recursive structure.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Recursion requires evolution of the current Daffodil architecture to one that
+enables sharing of definitions of groups, elements and types.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes-on-rationale-and-evolution-from-earlier-design-points">Notes on Rationale and Evolution from Earlier Design Points</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the implementation prior to the fix to Daffodil-2192, and
+how it evolved. The changes from the prior design were significant.</p>
+</div>
+<div class="paragraph">
+<p>The code design is somewhat simpler in that prior code has two different kinds of
+next element resolvers, one for next-siblings, and one for first children of
+an element of complex type.
+This is simplified in the current design. There is only one PartialNextElementResolver
+per TermRuntimeData object.</p>
+</div>
+<div class="paragraph">
+<p>Note that the prior NextElementResolver class went away and
+its functionality appears in the PartialNextElementResolver to
+reflect that the class itself implements only
+part of the algorithm.</p>
+</div>
+<div class="sect2">
+<h3 id="prior-behavior-flawed-part-1">Prior Behavior (Flawed) Part 1</h3>
+<div class="paragraph">
+<p>Currently, the InfosetInputter architecture is dependent on being able to
+take an element name (+ namespace when used), have as a context a current
+element ElementRuntimeData object, and then given a hash-table which is
+stored on the element ERD, lookup the name and namespace (when used) to
+get the next element ERD.
+This lookup hash table is encapsulated in the NextElementResolver classes.
+At schema compile time, given each element ERD, it is precomputed what the
+possible valid set of subsequent following ERDs can be (including the current
+one again, in case of an array).
+This set of possibilities is captured in an instance of the NextElementResolver
+ class, and is stored on each ERD.</p>
+</div>
+<div class="paragraph">
+<p>This process makes unparsing a self-validating kind of processing.
+As an external representation of the Infoset is converted into an
+actual stream of Infoset events, each incoming element event is
+scrutinized against the schema for whether it is allowed.
+This scrutiny is built into the fact that the incoming element
+name+namespace is being looked up in the NextElementResolver, and then
+once each element is created, a new NextElementResolver object is
+taken from its ERD for the next infoset event lookup.</p>
+</div>
+<div class="paragraph">
+<p>An invariant (which remains true in current behavior and in proposed new
+changes) is that the next element resolution process cannot cross a complex
+-type element boundary, as an end-element event ends the scope of the possible
+legal subsequent elements that can arrive next.
+However, within a complex type, there can be many groups and group references.</p>
+</div>
+<div class="paragraph">
+<p>This architecture depends on the fact that the ElementRuntimeData (ERD) objects
+are unique per element, and per element context - that is, they are depending
+on the fact that element ERDs are not shared and so they uniquely identify both
+the element, and the context of that element (nest of all enclosing groups).</p>
+</div>
+<div class="paragraph">
+<p>As part of the changes to fix our schema compiler speed/space issues
+(DAFFODIL-1444), this assumption is no longer valid.
+Elements (specifically DSOM ElementBase objects) can be shared. Groups
+can be shared.
+The expected improvement in schema compiler performance and the space
+reduction is fundamentally driven from this sharing.
+This sharing is also needed to implement a desirable future feature
+which is to enable recursive definitions in DFDL.</p>
+</div>
+<div class="paragraph">
+<p>Ultimately, the required change is from one where an ERD is a unique
+identifier of an element and all its dynamic context, to one where
+because ERDs are shared, the Unparser runtime must maintain a stack of
+the dynamic context information sufficient to perform next-element
+resolution as each infoset event must be synthesized.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="#appendix-an-aside-about-a-recursive-future">Appendix: An Aside about a Recursive Future</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prior-behavior-flawed-part-2">Prior Behavior (Flawed) Part 2</h3>
+<div class="paragraph">
+<p>As part of changes to <em>eventually</em> improve schema compiler space and speed usage,
+(DAFFODIL-1444) we introduced sharing information to the DSOM objects in the schema.</p>
+</div>
+<div class="paragraph">
+<p>The sharing information is present - every global schema component
+object can examine every context in the schema from which it is shared.</p>
+</div>
+<div class="paragraph">
+<p>This unfortunately creates a situation where we get a combinatorial explosion
+of computation.
+The sharable objects, such as a group definition, are still today NOT being
+shared, they are being copied.
+Yet within each copy, each element in it behaves as if it was being shared.
+So, for example, if you ask the last element of a group definition what possible
+elements can follow it, it responds with a list of every element that can
+follow for every context where the group is referenced.
+What&#8217;s worse, this same thing is calculated repeatedly since the sharable
+group is, in fact, not being shared currently so there are many copies of
+this final element to do this computation on.</p>
+</div>
+<div class="paragraph">
+<p>The result is something which grows in algorithmic complexity very fast.
+If you have a very small schema or wait long enough, then compilation of the
+schema should complete and be correct.
+Hence, most all small tests work fine.
+Larger schemas fail to finish compiling in any reasonable amount of time or
+memory space.</p>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2020 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
