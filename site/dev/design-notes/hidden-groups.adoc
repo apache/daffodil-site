@@ -1,0 +1,95 @@
+:page-layout: page
+:keywords: schema-compiler performance alignment optimization
+// ///////////////////////////////////////////////////////////////////////////
+//
+// This file is written in AsciiDoc.
+//
+// If you can read this comment, your browser is not rendering asciidoc automatically.
+//
+// You need to install the asciidoc plugin to Chrome or Firefox
+// so that this page will be properly rendered for your viewing pleasure.
+//
+// You can get the plugins by searching the web for 'asciidoc plugin'
+//
+// You will want to change plugin settings to enable diagrams (they're off by default.)
+//
+// You need to view this page with Chrome or Firefox.
+//
+// ///////////////////////////////////////////////////////////////////////////
+//
+// When editing, please start each sentence on a new line.
+// See https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence-per-line writing technique.]
+// This makes textual diffs of this file useful in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+== Hidden Groups
+
+=== Introduction
+
+The DFDL language enables groups to be hidden, meaning not part of the logical infoset.
+
+This is achieved by way of _hidden group references_. 
+This implies that a global group definition can be referenced from some group references which are ordinary, non-hidden, group references, and from other hidden group references. 
+Hence, the contents of the group definition are not themselves inherently hidden or not, as the hiddenness is based on how the group is referenced.
+
+Of course if all uses of a particular group definition are hidden group references, then the schema compiler could provide that all elements within that group are always hidden. 
+This is expected to be fairly common, as often hidden groups are designed to contain the hidden reprsentation details of data that has a simpler logical appearance in the infoset. 
+
+Nevertheless, Daffodil must accomodate that the same group definition can be used both in hidden and non-hidden manners. 
+
+=== Static Analysis by the Schema Compiler (i.e., there is none)
+
+The schema compiler could provide information about whether a given term of the schema is always hidden, sometimes hidden, or never hidden. 
+However, the runtime overheads are anticipated to be so small that optimizations based on this information are expected to be unnecessary.
+Hence, no static analysis of whether a term is always/sometimes/never hidden is performed. 
+
+=== Runtime Principles of Operation
+
+The implementation takes advantage of the processor (parser/unparser) traversal of the DFDL schema components following an in-order traversal pattern, so that a stack-discpline can be used when traversing hidden-group references. No actual stack is needed, only a counter. 
+The details are:
+
+* The PState/UState contains a counter (initial value 0) of the number of hidden group references currently in the nest.  
+* When parsing/unparsing a hidden group ref, this counter is incremented. 
+When unwinding from that unparse, the counter is decremented.  
+No action is required for non-hidden group references.
+* When an infoset element is created, the setHidden() method is called if the counter is non-zero. 
+* At the end of processing, the counter should be zero. 
+
+=== Runtime Data Structures - Runtime 1
+
+In Daffodil's "Runtime 1" backend, these are the runtime data structure features to support hidden group references:
+
+* Infoset elements have an isHidden() boolean method, and a setHidden() setter.
+* The PState/UState contains the counter described above.
+* The ModelGroupRuntimeData object contains an isHidden flag that is true if the term corresponds to a hidden group reference. 
+It is this flag that is inspected to determine if the PState/UState counter should be incremented/decremented or not.
+* The increment/decrement logic is centralized in Parser.parse1() method and Unparser.unparse1() method.
+These inspect the current TermRuntimeData object, and when it is a ModelGroupRuntimeData, they check the isHidden flag. 
+* At the end of processing where checking that the various runtime-stacks and pools are properly emptied/restored, an additional check is done to insure the hidden counter of the PState/UState has been returned to zero. 
+This check need only be performed on normal exits. If the processor terminates abnormally, we needn't check. 
+* The debugger/trace should display, as part of the state, whether the current context isHidden (counter > 0) or not. 
+* Parser backtracking must save/restore the counter.
+* Unparser suspended UStates do not need to copy the counter value. That is, this counter need only exist in UStateMain. 
+** This holds because infoset elements are created as part of the state of suspensions, and those infoset elements will have setHidden() called or not depending on the counter. Hence, the counter value of a suspended UState is not needed when evaluating a suspension.  
+
+=== Testing
+
+* Tests cover where the same group definition is used both hidden and non-hidden within the same schema. 
+* Tests cover this for hidden sequences and hidden choices. 
+Note that a hidden group references always uses an xs:sequence element, but the referenced group can be a choice group definition.
+
+
+== Transition Plan From Daffodil 2.5.0
+
+(Delete this section once implementation is complete.)
+
+The existing v2.5.0 isHidden implementation consists of code that populates a member of class ElementRuntimeData (Runtime 1) isHidden member. 
+
+All code for populating that member, and the member itself, can be removed. Anything it calls which is used only for that purpose can be removed. 
+
+Any code that assumes the isHidden characteristic of elements is static information must be removed.
+
+All access to whether an element isHidden must call the isHidden method of InfosetElement (aka DIElement) object instead of on the ERD (ElementRuntimeData) object. 
+
+There is no conversion of existing code to a new design, as the entire old mechanism, and its underlying assumptions, are being removed, and fully replaced by the new mechanism. 

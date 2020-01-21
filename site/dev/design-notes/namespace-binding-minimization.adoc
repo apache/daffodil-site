@@ -1,0 +1,464 @@
+:page-layout: page
+:keywords: schema-compiler performance alignment optimization
+// ///////////////////////////////////////////////////////////////////////////
+//
+// This file is written in AsciiDoc.
+//
+// If you can read this comment, your browser is not rendering asciidoc automatically.
+//
+// You need to install the asciidoc plugin to Chrome or Firefox
+// so that this page will be properly rendered for your viewing pleasure.
+//
+// You can get the plugins by searching the web for 'asciidoc plugin'
+//
+// You will want to change plugin settings to enable diagrams (they're off by default.)
+//
+// You need to view this page with Chrome or Firefox.
+//
+// ///////////////////////////////////////////////////////////////////////////
+//
+// When editing, please start each sentence on a new line.
+// See https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence-per-line writing technique.]
+// This makes textual diffs of this file useful in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+== Namespace Binding Minimization
+
+=== Introduction
+
+DFDL schemas are XML schemas and so DFDL inherits the namespace system of XML and XML Schema for composing large schemas from smaller ones, for reusing schema files, and for managing name conflicts. 
+
+A DFDL Infoset isn't necessarily represented as XML however. 
+Some representations won't have any ability to deal with namespaces (JSON for example), and so Daffodil will sometimes issue warnings when compiling a schema if the namespace usage will not allow unambiguous representation without namespaces. 
+
+Most representations of DFDL Infosets will, like XML, use some representation of the namespaces of elements, and in textual forms this will most commonly be by way of namespace prefixes. 
+XML is not the only representation that uses namespaces, however, so this should not be taken as an entirely XML-specific discussion.
+
+There are these goals for namespace-binding minimization. 
+
+. Clarity: Infosets that have redundant namespace bindings are very hard to read and understand, and require namespace-binding-aware tooling to compare them, or clumsy post-processing to remove the excess bindings. 
+
+. Performance: Attaching an element to the infoset at runtime should take constant time.
+
+. Consistency: The prefix-to-namespace bindings used should be drawn from those expressed on the DFDL schema by the schema author, and the prefixes used and bindings introduced when an element is attached to the infoset should be consistent with the set of namespace prefix definitions in place at the point where the element's declaration lexically appears in the DFDL schema. 
+
+These goals are in some tension. 
+Consider 4 elements named A, B, C, and Q.
+Suppose element A contains element B, which contains element Q.
+Suppose elsewhere in the same infoset element A contains element C which contains element Q. 
+From the perspective of element Q, the set of namespace bindings surrounding it are those from (A, B) or those from (A, C). 
+Suppose element Q requires, and introduces, a namespace with prefix "qns" bound to namespace "urn:Q_Namespace". 
+Suppose element C also introduces this same namespace binding.
+Then when element Q appears inside element B, its namespace binding for "qns" is needed. 
+But when element Q appears inside element C, its namespace binding for "qns" is redundant with one already provided by element C.
+
+The conclusion is that the minmal set of namespace bindings introduced by an element depends on the nesting of elements. 
+
+The basic technique is to store, on the runtime element data structure (DPathElementCompileInfo), the complete set of lexical namespace bindings present for the element declaration in the DFDL schema document. 
+
+==== Namespace Bindings come from the Element Declarations, not Element References
+
+Consider two schema files:
+
+```xml
+<!-- file foo.dfdl.xsd -->
+<schema 
+   xmlns:pre1="namespace1"
+   xmlns:ns1="differentNamespace">
+  <import namespace="namespace1" schemaFileLocation="bar.dfdl.xsd"/>
+  ...
+  <element name="root">
+    <complexType>
+      <sequence>
+        <element ref="pre1:foo" maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+  </element>
+
+</schema>
+
+<!-- file bar.dfdl.xsd -->
+<schema targetNamespace="namespace1"
+   xmlns:ns1="namespace1"
+   xmlns:pre1="someOtherNamespace">
+
+  <element name="foo" ..../>
+</schema>
+```
+In the above we have a conflict over the use of the prefix "pre1".
+Now consider an XML document corresponding to this with element 'foo' inside the 'root' element:
+
+```xml
+<root xmlns:pre1="namespace1"
+      xmlns:ns1="differentNamespace">
+  ...
+  <ns1:foo 
+    xmlns:ns1="namespace1" 
+    xmlns:pre1="someOtherNamespace">
+    ...
+  </ns1:foo>
+  ...
+</root>
+```
+
+Notice that element 'foo' appears inside 'root' using the "ns1" prefix but it also introduces a binding for that prefix which supercedes that of the enclosing environment.
+The prefix "pre1" cannot be used for element 'foo' because in the namespace bindings of the bar.dfdl.xsd schema document, the "pre1" prefix is bound to "someOtherNamespace". 
+
+This example illustrates that each element must use, and introduce, the lexically defined prefixes from the point where the element is declared.
+Not from the point of element reference.
+
+Since element 'foo' is recurring, it's unfortunate, but every single instance will, textualized, carry these namespace bindings.
+E.g.,
+
+```xml
+<root xmlns:pre1="namespace1"
+      xmlns:ns1="differentNamespace">
+  ...
+  <ns1:foo 
+    xmlns:ns1="namespace1" 
+    xmlns:pre1="someOtherNamespace">
+    ...
+  </ns1:foo>
+  <ns1:foo 
+    xmlns:ns1="namespace1" 
+    xmlns:pre1="someOtherNamespace">
+    ...
+  </ns1:foo>
+  <ns1:foo 
+    xmlns:ns1="namespace1" 
+    xmlns:pre1="someOtherNamespace">
+    ...
+  </ns1:foo>
+
+  ...
+</root>
+```
+
+This problem is not one Daffodil strives to solve. 
+The schema author can simply avoid these sorts of name clashes and this problem will not occur.
+Automatic renaming of prefixes to avoid this problem is considered unwarranted, as it will confuse users. 
+
+
+
+=== Namespace Minimization
+
+==== Only Element Namespace Prefix Bindings
+
+Only namespace definitions associated with element declarations need to ever be considered for the infoset.
+Namespace definitions that define prefixes used for type, group, format, or escapeScheme references are not included
+in the namespace definitions carried on infoset elements.
+
+==== Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible
+
+Many DFDL schemas will define prefix "tns" to be that schema document's target namespace. 
+
+This same problem could occur for other prefixes. The "tns" convention is just a common one. 
+
+If the prefix "tns" is ambiguous across the schema set (also used by other schema documents, but for different namespaces), 
+then its use is undesirable. 
+
+If a schema document defines both "tns" and other prefixes for the target namespace, then another prefix is preferred for 
+use as the prefix of elements created from declarations in that schema document.
+
+This situation arises commonly for the default namespace (no prefix, defined by `xmlns="namespaceURI"`). If 
+this is ambiguous across the schema set (highly likely), then an available alternative prefix (from that schema document) 
+is preferred. 
+There is actually no difference between using "tns" and the default namespace. Both are just commonly used, and frequently ambiguous across the schema set.
+
+(This all generalizes to any prefix which is ambiguous across the schema set.)
+
+==== Corner Cases
+
+There are numerous ways schema authors can use and reuse namespace prefixes that can lead to cluttered infosets.
+
+Other than minor heuristics to choose among alternative available prefix definitions, Daffodil does not try to improve on the 
+namespace prefix problem on behalf of schema authors. 
+
+===== No Prefix At All
+A legal schema document can define a target namespace and define no prefix for it at all. 
+
+In this case, the only way elements of that schema document can be used is some other schema document must provide a prefix definition. 
+Daffodil chooses a prefix from those available in the schema set (deterministically - e.g., shortest prefix, with ties resolved by alphanumeric order, avoiding ambiguous prefixes like "tns").
+
+CAUTION: TBD: Should we issue a warning or even make this a schema definition error?
+
+===== Only "tns" or Only the Default Namespace
+A schema defines "tns" (or other very common prefix like "pre" or "p") for its target namespace, but defines no other prefix that can be used as an alternative.
+
+Daffodil does nothing here to improve on the situation where there will be many inner namespace re-bindings of the "tns" like:
+
+```xml
+<tns:foo xmlns:tns="namespace1">
+  <tns:bar xmlns:tns="namespace2">
+    <tns:quux xmlns:tns="namespace3">
+    ...
+    </tns:quux>
+  </tns:bar>
+</tns:foo>
+```
+
+This sort of thing can happen if schema authors make extensive use of the default namespace (no prefix). 
+For example, a schema document can define a target namespace, then define that namespace to be the default, with no other namespace prefix defined.
+In that case you can have infosets like this:
+
+```xml
+<foo xmlns="namespace1">
+  <bar xmlns="namespace2">
+    <quux xmlns="namespace3">
+    ...
+    </quux>
+  </bar>
+</foo>
+```
+
+==== Undefining the Default Namespace
+
+Many schemas will not define the default namespace.
+
+If an element is defined in a schema which defines the default namespace to a URI, and nested with that element are other elements from schemas that 
+do NOT have a definition for the default namespace, then if there are unqualified names in the latter schema that are supposed to be in _no namespace_, 
+the default namespace must be explicitly undefined.
+
+Consider two schema files:
+
+```xml
+<!-- file foo.dfdl.xsd -->
+<xs:schema 
+   xmlns="default1"
+   xmlns:ns2="namespace2" >
+
+  <xs:import namespace="namespace2" schemaFileLocation="bar.dfdl.xsd"/>
+  ...
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns2:foo" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+
+<!-- file bar.dfdl.xsd -->
+<schema targetNamespace="namespace2"
+   xmlns:ns2="namespace2"
+   elementFormDefault="unqualified"
+   xmlns="http://www.w3.org/2001/XMLSchema"> <!-- default namespace used for schema -->
+
+  <element name="foo">
+    <complexType>
+      <sequence>
+        <element name="bar" .../><!-- no namespace -->
+     </sequence>
+   </complexType>
+  </element>
+</schema>
+```
+In this case, an instance of root, containing 'foo' containing 'bar' requires:
+```xml
+<root 
+   xmlns="default1"
+   xmlns:ns2="namespace2">
+  <ns2:foo>
+    <bar xmlns=""> <!-- undefine default -->
+      ...
+    </bar>
+  </ns2:foo>
+</root>
+```
+This undefine shown above is needed even though the bar.dfdl.xsd schem has a default namespace definition, because the local element names are in no-namespace. 
+The default namespace in bar.dfdl.xsd is actually not used for reference to elements. 
+So it is tantamount to not having the default namespace defined in bar.dfdl.xsd at all.
+
+CAUTION: Some of this minimization may happen upon conversion to XML, and may happen automatically depending on XML libraries. 
+That is, an element with no namespace displayed in a context which has a default namespace definition may automatically insert `xmlns=""`.
+
+== Namespace Binding Minimization Algorithm
+
+The technique described here assumes that one needs to render the infoset to XML text using standard printing, i.e., using no special XML library. 
+Hence, every namespace prefix binding must be explicitly represented in the output XML text.
+
+The basics are:
+
+. For every element declaration, capture the lexical namespace scope (`scala.xml.NamespaceBinding`) from its element declaration XML in its schema document.
+Save this on the runtime data structure for the element. In Runtime 1, this would be the DPathElementCompileInfo. (This is longstanding functionality in Daffodil since before version 1.0.0)
+
+. Excepting on the Root, remove any namespace binding that is unambiguous across the schema, and which appears on the root.
+
+. For each element declaration, the remaining namespace bindings and assigned prefix to be used are assigned based on the minimization rules describe above (e.g., about avoiding "tns" when possible.) 
+
+That is all that is done at schema compile time and at parse time up to the point where a textual representation (such as XML) needs to be output.
+
+The DFDL Infoset tree is constructed with InfosetElement nodes that point to this compile time DPathElementCompileInfo structure, and no processing of namespace bindings occurs.
+
+However when converting an infoset element into XML examine the namespace bindings of the element and those of the enclosing parent element.
+
+.. Any that are redundant across the two are dropped. 
+.. New definitions introduced by the child are output as bindings
+.. Redefinitions are output as bindings
+.. If the element has no namespace, and the parent (or any super-parent) has a default namespace binding, then add an undefine binding for the default namespace.
+
+This algorithm requires non-constant-time (worst case) processing at runtime; however, there is no overhead unless there are ambiguities among the namespace bindings and when namespace bindings at nodes beneath the root are required. 
+In addition, the number of such cases in any _real_ schema will be small, so the algorithmic complexity worst-case here is far less important than the constant factor here. 
+Attaching an element to the infoset is a common operation. 
+These namespace binding machinations have the potential to be equally costly, per binding, to the general overhead of attaching the infoset element node. 
+
+Our standard design principle is, however, to not worry about overheads like this which are often not going to occur in real schemas, unless performance profiling shows them to be a hot-spot. 
+
+Sensibly-designed schemas will have no overhead from this namespace-binding combining. 
+
+=== Converting the DFDL Infoset to XML in One Pass (Streaming)
+
+Note that eliminating prefix definitions that are unused in a particular XML document is not compatible with streaming. 
+It requires two passes to determine if a prefix is ever used to decide whether it can be omitted or must be included.
+
+The only alternative to this is to introduce new namespace prefix definitions only at their point of use.
+That would, however, be inconsistent with our goal of clarity and avoiding namespace prefix clutter in the schema. 
+
+It is preferable to output extra namespace bindings on the root element than to litter the document with namespace bindings at 
+interior XML elements.
+
+Daffodil aspires to streaming parsing and unparsing. A streaming parser will output parts of the infoset without waiting to 
+know if children will eventually appear that require the namespace prefix definitions. 
+As a result, all namespace prefix definitions which _may_ be required are included. 
+Most commonly this will result in extra unused namespace prefix definitions having been output on the start tag of the root element.
+
+=== API XML-Fragment Mode - For Clarity: Avoid Namespace Bindings on the Root
+
+When using the message streaming API and converting the parse Infoset to XML, each message is created as XML text by the parser and associated InfosetOutputter, and converting one relatively small message to XML may result in far more characters used to represent the namespace bindings on the root of the message than the rest of the message occupies in XML text.
+
+The API provides a method to enable XML-fragment mode. 
+In this mode a method can be called to retrieve namespace prefix bindings that would appear on the root (i.e, on the root XML element of each message) if a complete XML data document were being created.
+Subsequent calls to parse in XML-Fragment mode create XML which has no namespace bindings on the root element of each message.  
+This is an XML fragment because it lacks the namespace bindings needed for it to be a complete XML document. 
+This is in effect leaving it up to the caller whether and when to append the namespace bindings to the XML text. 
+
+This option is provided because the caller may not want to construct complete XML documents, and the namespace bindings in use for the XML may be well-known by the processing system. 
+
+This is less a performance optimization (XML text is really verbose, and this optimization is only scratching the surface).
+This feature is about clarity and coping with XML when using it for small data documents corresponding to small communications messages.
+Small XML data documents can be overwealmed by the volume of namespace definitions. 
+This is particularly likely if they are for small data messages created from large DFDL schemas with many schema documents and many namespaces. 
+
+As an example consider:
+```xml
+
+<gn:Feature xmlns:cc="http://creativecommons.org/ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gn="http://www.geonames.org/ontology#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"><rdfs:isDefinedBy>sws/3/about.rdf</rdfs:isDefinedBy><gn:name>Zamīn Sūkhteh</gn:name><gn:alternateName><lang>fa</lang><name>Zamīn Sūkhteh</name></gn:alternateName><gn:alternateName><lang>fa</lang><name>زمين سوخته</name></gn:alternateName><gn:featureClass>ontology#S</gn:featureClass><gn:featureCode>ontology#S.CRRL</gn:featurecode><gn:countryCode>IR</gn:countryCode><wgs84_pos:lat>32.45831</wgs84_pos:lat><wgs84_pos:long>48.96335</wgs84_pos:long><gn:parentFeature>sws/3202991/</gn:parentFeature><gn:parentCountry>sws/130758/</gn:parentCountry><gn:parentADM1>sws/127082/</gn:parentADM1><gn:nearbyFeatures>sws/3/nearby.rdf</gn:nearbyFeatures><gn:locationMap>3/zamin-sukhteh.html</gn:locationMap></gn:Feature>
+```
+This is almost impossible to understand, given that the first 1/3 of it is just namespace bindings. 
+
+Without the namespace bindings it is easier. It looks like:
+```xml
+<gn:Feature><rdfs:isDefinedBy>sws/3/about.rdf</rdfs:isDefinedBy><gn:name>Zamīn Sūkhteh</gn:name><gn:alternateName><lang>fa</lang><name>Zamīn Sūkhteh</name></gn:alternateName><gn:alternateName><lang>fa</lang><name>زمين سوخته</name></gn:alternateName><gn:featureClass>ontology#S</gn:featureClass><gn:featureCode>ontology#S.CRRL</gn:featurecode><gn:countryCode>IR</gn:countryCode><wgs84_pos:lat>32.45831</wgs84_pos:lat><wgs84_pos:long>48.96335</wgs84_pos:long><gn:parentFeature>sws/3202991/</gn:parentFeature><gn:parentCountry>sws/130758/</gn:parentCountry><gn:parentADM1>sws/127082/</gn:parentADM1><gn:nearbyFeatures>sws/3/nearby.rdf</gn:nearbyFeatures><gn:locationMap>3/zamin-sukhteh.html</gn:locationMap></gn:Feature>
+```
+
+With line endings after each element end tag, it is quite easy to understand.
+```xml
+<gn:Feature><rdfs:isDefinedBy>sws/3/about.rdf</rdfs:isDefinedBy>
+<gn:name>Zamīn Sūkhteh</gn:name>
+<gn:alternateName><lang>fa</lang><name>Zamīn Sūkhteh</name></gn:alternateName>
+<gn:alternateName><lang>fa</lang><name>زمين سوخته</name></gn:alternateName>
+<gn:featureClass>ontology#S</gn:featureClass>
+<gn:featureCode>ontology#S.CRRL</gn:featurecode>
+<gn:countryCode>IR</gn:countryCode>
+<wgs84_pos:lat>32.45831</wgs84_pos:lat>
+<wgs84_pos:long>48.96335</wgs84_pos:long>
+<gn:parentFeature>sws/3202991/</gn:parentFeature>
+<gn:parentCountry>sws/130758/</gn:parentCountry>
+<gn:parentADM1>sws/127082/</gn:parentADM1>
+<gn:nearbyFeatures>sws/3/nearby.rdf</gn:nearbyFeatures>
+<gn:locationMap>3/zamin-sukhteh.html</gn:locationMap>
+</gn:Feature>
+```
+
+The XML Infoset Inputter also has a feature allowing an API method to supply the root-level namespace bindings once, not on the root element of every XML-fragment delivered for unparsing. 
+
+The symmetry of the API insures that one can unparse the XML output from a parse that is creating XML in this fragment mode. 
+
+The Daffodil CLI has an option to add XML-fragment mode to message streaming behavior for parsing and unparsing. 
+
+== Transition Plan from Daffodil 2.5.0
+
+(Delete this section once implementation is complete.)
+
+The existing design in Daffodil 2.5.0 assumes that every element declaration is unique, not shared, and so the entire path from that element's declaration object to the root element is well known and unique. 
+
+=== QNames and Name Resolution
+
+
+The QNameBase.scala and ResolvesQNames traits do not need modification, but their function needs to be understood to know what *does* have to change. 
+
+Below shows the classes used for reprsenting the names of named things in a DFDL schema, and for referring to named things in a DFDL schema:
+
+[plantuml]
+....
+
+abstract class QNameBase {
+ "shared implementation"
+}
+abstract class NamedQName {
+def matches(RefQNameBase)
+}
+abstract class RefQNameBase {
+def matches(NamedQName)
+}
+class RefQName
+class StepQName
+class LocalDeclQName
+class GlobalQName
+NamedQName -up-|> QNameBase 
+RefQNameBase -up-|> QNameBase
+LocalDeclQName -up-|> NamedQName
+GlobalQName -up-|> NamedQName
+RefQName -up-|> RefQNameBase
+StepQName -up-|> RefQNameBase
+RefQNameBase -right-> NamedQName : "ref"
+
+
+....
+
+We distinguish names given to objects by their definitions/declarations from names referring to those by way of the NamedQName and RefQName distinction. 
+A NamedQName is created for a named thing. A RefQName is created for points of reference to it. The two can never be confused because you can't create a RefQName from a declaration/definition (that would create a NamedQName), and you cannot create a NamedQName from the "ref" property (that will create a RefQName). Furthermore, you can't test two NamedQNames to see if they match, you have to test if a RefQName refers to a NamedQName.
+
+All these objects are created via methods on the singleton QName object. 
+
+==== ResolvesQNames trait
+
+This trait provides the resolveQName(qnString: String) : RefQName method which calls the QName.resolveRef() method supplying the necessary namespace binding information from the XML of the schema component that is needed to resolve QName prefixes to specific namespaces. 
+
+This is done by wau of the public namespaces member. The scala.xml.Node class has a scope member which returns type NamespaceBinding. While singular, this is not a single binding, but a chained data structure where a first namespace binding object is chained to a second and subsequent one. This not an ordinary Seq() style collection.  Hence the ResolvesQNames trait provides member:
+
+```scala
+val namespaces = xml.scope
+```
+
+=== ElementBase Changes
+
+The existing ElementBase class has members, all of which are subject to revision/removal. 
+
+* Outputs  
+** thisElementsNamespace - target namespace of defining schema or no-namespace if a local element  decl with elementFormDefault = "unqualified", or no target namespace. 
+** thisElementsNamespacePrefix - This is the prefix that will be used for this element when converting to XML. This will change to be different from the provided namespace prefix only if we choose a non-"tns" equivalent, or generate a namespace prefix for particular cases. 
+** thisElementsRequiredNamespaceBindings - This will be removed. This can't be statically computed like this anymore. 
+** protected minimizedScope - This will be removed or made optional. Ths can't always be statically computed like this anymore. This will be computed instead at runtime. 
+
+* Minimization algorithm machinery - these members are likely no longer needed. What they were computing statically and probably very inefficiently needs to be done at runtime (sometimes), and far more efficiently. 
+** private emptyNSPairs
+** private myOwnNSPairs
+** private myParentNSPairs
+** private myUniquePairs
+** private def pairsToNSBinding
+** private parentMinimizedScope
+
+=== Runtime 1 changes
+
+* DPathElementCompileInfo
+** Cleanup: `val name: String` should be removed as a constructor argument and be obtained from the namedQName via `def name = namedQName.local`
+
+* ElementRuntimeData 
+** namespaces - should stay the same.
+** targetNamespace - should stay the same
+** targetNamespacePrefix - computation of this may/will change in case of, e.g., choosing one that is not "tns" or other ambiguous prefix. 
+** thisElementsNamespacePrefix - computation of this may/will change similarly to avoid "tns" or other undesriable/ambiguous prefix. 
+** minimizedScope - likely changes per the "namespace binding minimization algorithm" above. Should be renamed to reflect proper usage as a statically computed part of namespaces that must be incorporated at runtime when an infoset element is attached to a parent.  The new name might be "nonRootMovedScopes" or soemthing to reflect that these are bindings which could not be statically just be relocated onto the root element. This will be a primary input to the new runtime algorithm that adds additional namespace bindings for shared elements that can be attached to the infoset as children of more than one differently-declared parent element.
