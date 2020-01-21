@@ -278,9 +278,6 @@ choiceBranchMap - next element resolution must be done
 first, and the result of it is used by the choiceBranchMap to choose
 which branch of the choice is implied by arrival of that element.
 
-NOTE: ChoiceBranchMap: Does it work similarly to next element resolution ???
-This is TBD.
-
 === Testing and Design for Test
 
 * Schema Compiler
