@@ -69,23 +69,9 @@ image::http://daffodil.apache.org/assets/themes/apache/img/apache-daffodil-logo.
 == Example Diagrams
 There are numerous kinds of diagrams possible.
 
-== GraphViz Record-Based Nodes Diagram
-https://graphviz.gitlab.io/documentation/[GraphViz] is probably the most powerful of the various diagram tools, but with that power comes complexity that some of the other diagram types are able to overcome by being more restrictive.
-
-This is an example of graphViz https://graphviz.gitlab.io/_pages/doc/info/shapes.html#record[Record-based Nodes] which are very useful for box diagrams showing data layouts when a packetdiag is too rigid.
-[graphviz]
-....
-digraph structs { 
-  node [shape=record];
-  struct1 [label="<f0> left|<f1> mid&#92; dle|<f2> right"];
-  struct2 [label="<f0> one|<f1> two"]; 
-  struct3 [label="hello&#92;nworld |{ b |{c|<here> d|e}| f}| g | h"];
-  struct1:f1 -> struct2:f0; 
-  struct1:f2 -> struct3:here; 
-}
-....
 
 === PlantUML Diagram
+
 http://plantuml.com/[PlantUML] is a component that allows to quickly write:
 
 * Sequence diagram
@@ -109,6 +95,10 @@ The following non-UML diagrams are also supported:
 * Work Breakdown Structure diagram 
 * Mathematic with AsciiMath or JLaTeXMath notation
 * Entity Relationship diagram
+
+An www.plantuml.com/plantuml/uml[online PlantUML authoring tool] is available.
+Though just saving and refreshing the page in a web browser (usually they auto-refresh 
+after 1 second) is also pretty easy.
 
 Here is a class diagram example:
 
@@ -142,39 +132,10 @@ Foo1 -> Foo5 : To database
 Foo1 -> Foo6 : To collections
 ....
 
-=== Packet Diagram - Easier but Limited to MSBF, Left-to-Right
-http://blockdiag.com/en/nwdiag/packetdiag-examples.html[Packet diagrams] are useful for any time you want to show data layouts at the level of bits, bytes, and words. It assumes bit order is _most significant bit first_ and that you want to number the bits from left to right. 
-
-This example supplies a target name for the graphic, which allows it to be reused not just in this document, but in others also. We specify SVG as the format since there appears to be bugs in PNG format for packetdiag.
-[packetdiag, target="test_packet_diagram_1", format="svg"]
-....
-packetdiag {
-  colwidth = 32
-  node_height = 24
-  0-15: Source Port
-  16-31: Destination Port
-  32-63: Sequence Number
-  64-95: Acknowledgment Number
-  96-99: Data Offset
-  100-105: Reserved
-  106: URG [rotate = 270]
-  107: ACK [rotate = 270]
-  108: PSH [rotate = 270]
-  109: RST [rotate = 270]
-  110: SYN [rotate = 270]
-  111: FIN [rotate = 270]
-  112-127: Window
-  128-143: Checksum
-  144-159: Urgent Pointer
-  160-191: (Options and Padding)
-  192-223: data [colheight = 2]
-}
-....
-
-
 === Ditaa Diagram
-The http://ditaa.sourceforge.net/[DITAA] graphics are ASCII-Art converted into smoother looking drawings. They have the advantage of being visual in the text file, but the challenge of needing to be 
-laid out by hand.
+The http://ditaa.sourceforge.net/[DITAA] graphics are ASCII-Art converted into smoother looking drawings. They have the advantage of being visual in the text file.
+
+These diagrams are quite easily drawn then cut/pasted to/from actual asciidoc digrams using an online tool called http://asciiflow.com/[asciiflow].
 
 [ditaa]
 ....
@@ -196,6 +157,39 @@ laid out by hand.
      +-----------------------------------+
 ....
 
+Note: below is the widest ditaa diagram you can draw that will fit in the line-length that 
+github's code-review/pull-request window can display without line-wrap.
+If the lines wrap in your ditaa diagram you really lose the ability to comment on them 
+in their textual form in the asciidoc:
+
+[ditaa]
+....
++--------------------------------------------------------------------------------------------------------------------+
+| make ditaa diagrams no wider than this box                                                                         |
++--------------------------------------------------------------------------------------------------------------------+
+....
+
+// Here's that as a comment you can cut/paste into an asciidoc file 
+//
+// DITAA max line length (for github) ruler -------------------------------------------------------------------------|
+//
+
+== GraphViz Record-Based Nodes Diagram
+https://graphviz.gitlab.io/documentation/[GraphViz] is probably the most powerful of the various diagram tools, but with that power comes complexity that some of the other diagram types are able to overcome by being more restrictive.
+
+This is an example of graphViz https://graphviz.gitlab.io/_pages/doc/info/shapes.html#record[Record-based Nodes] which are very useful for box diagrams showing data layouts when a packetdiag is too rigid.
+[graphviz]
+....
+digraph structs { 
+  node [shape=record];
+  struct1 [label="<f0> left|<f1> mid&#92; dle|<f2> right"];
+  struct2 [label="<f0> one|<f1> two"]; 
+  struct3 [label="hello&#92;nworld |{ b |{c|<here> d|e}| f}| g | h"];
+  struct1:f1 -> struct2:f0; 
+  struct1:f2 -> struct3:here; 
+}
+....
+
 == Example Block Diagram
 The http://blockdiag.com/en/blockdiag/[blockdiag] diagram type is for basic box/arrow diagrams.
 
@@ -212,6 +206,7 @@ blockdiag {
   "very easy!" [color = "orange"];
 }
 ....
+
 === Sequence Diagram
 The http://blockdiag.com/en/seqdiag/[seqdiag] diagram type creates sequence diagrams. 
 
