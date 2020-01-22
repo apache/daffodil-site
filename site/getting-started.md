@@ -34,7 +34,7 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
    : Examples for using the Java API are available on the [OpenDFDL examples](https://github.com/OpenDFDL/examples.git) repository. Individual [releases](/releases) describe how to include a dependency to Daffodil via Maven and SBT.
 
-[Apache NiFi Processors](https://opensource.ncsa.illinois.edu/bitbucket/projects/DFDL/repos/daffodil-nifi/browse)
+[Apache NiFi Processors](https://github.com/TresysTechnology/nifi-daffodil)
 
    : Provides two [Apache NiFi](https://nifi.apache.org/) processors for parsing and unparsing NiFi FlowFiles.
 
