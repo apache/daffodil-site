@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | </title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2></h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <div class="sect1">
+<h2 id="term-sharing-in-the-schema-compiler">Term Sharing in the Schema Compiler</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="introduction">Introduction</h3>
+<div class="paragraph">
+<p>The DFDL language has a composition property known as <em>referential transparency</em>.
+It is not supposed to matter whether you lift a part of the schema out
+and create a reusable group, reusable type, or reusable element from
+it.</p>
+</div>
+<div class="paragraph">
+<p>Because DFDL (version 1.0) does not allow recursive definitions of any
+kind, it is theoretically possible to implement this by treating all
+reusable definitions in the language like macros.
+I.e., inline-expand all definitions at their point of use.
+This will work for schemas up to some size. However, it leads to an
+unacceptable expansion in schema compilation time and space, as the
+size of the schema once all these inline substitutions have been
+performed can be exponentially larger than the original
+non-substituted schema.</p>
+</div>
+<div class="paragraph">
+<p>To avoid this undesirable combinatorial explosion, the Daffodil schema
+compiler arranges to achieve the same macro-like semantics, while
+still sharing the core parts of the reusable components so they need
+only be compiled once for each unique way the component is used.</p>
+</div>
+<div class="paragraph">
+<p>This is also part of eventually enabling an extension of the DFDL
+language to allow recursive definitions.</p>
+</div>
+<div class="paragraph">
+<p>The dfdl:alignment property is one of the largest contributors to
+complexity in sharing objects by the schema compiler.</p>
+</div>
+<div class="paragraph">
+<p>Alignment will be used as the example in this design note to
+illustrate the schema compiler behavior.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dsom-term-objects">DSOM Term Objects</h3>
+<div class="paragraph">
+<p>DSOM is the Daffodil Schema Object Model.
+Within this model, the components from a DFDL schema that actually have
+representations in the data stream or are computed, are called <em>terms</em> and DSOM models them as
+subclasses of the class/trait Term.
+Terms which are computed (via dfdl:inputValueCalc) are said to have <em>no representation</em> in the data stream.</p>
+</div>
+<div class="paragraph">
+<p>For this discussion we are concerned only with <em>concrete</em> terms, meaning those that do have representation.</p>
+</div>
+<div class="paragraph">
+<p>The classes in Daffodil that are used for concrete terms are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ElementRef</p>
+</li>
+<li>
+<p>Root (A degenerate element ref to the root element)</p>
+</li>
+<li>
+<p>LocalElementDecl</p>
+</li>
+<li>
+<p>the quasi-elements:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PrefixLengthQuasiElementDecl (Fake local element decl used for the
+length fields of Prefixed-length types)</p>
+</li>
+<li>
+<p>RepTypeQuasiElementDecl (Fake local element decl used as the
+representation of elements that are computed via the dfdl:repType
+mechanism.)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sequence</p>
+</li>
+<li>
+<p>SequenceGroupRef</p>
+</li>
+<li>
+<p>ChoiceBranchImpliedSequence (The sequence that is inserted when a
+choice branch is a single element decl/ref)</p>
+</li>
+<li>
+<p>Choice</p>
+</li>
+<li>
+<p>ChoiceGroupRef</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <a href="https://cwiki.apache.org/confluence/display/DAFFODIL/DFDL+Schema+Object+Model+%28DSOM%29+with+UML">UML Diagram</a> is available showing these classes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="term-representation-regions">Term Representation Regions</h3>
+<div class="paragraph">
+<p>Consider the representation of a term, which we call the term&#8217;s
+<em>region</em>, as appearing between two other term regions in the data
+stream as illustrated below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-51b412adf272104af315f2f6958aeb2d.png" alt="diag 51b412adf272104af315f2f6958aeb2d" width="630" height="154">
+</div>
+</div>
+<div class="paragraph">
+<p>In the above, lower position bits are to the left.
+Higher position bits to the right.
+In the diagram, we see that the term&#8217;s region consists of 3
+sub-regions, named <em>unique before</em>, <em>shared</em>, and <em>shared after</em>. Each
+term appears in a context of possible additional terms before it and
+after it which are shown with ellipsis above.</p>
+</div>
+<div class="paragraph">
+<p>A term can be an element or a model-group (sequence or choice).
+By far the most common situation is that a term appears inside a model group.
+There are two exceptions. The <em>root</em>, and the model-group of a complex type.</p>
+</div>
+<div class="paragraph">
+<p>The core idea here is that we are separating the representation of a
+term into unique and shared parts.
+The unique region is affected by the surrounding model group context.
+The shared regions are, in many cases, sharable across instances of
+this term and is independent of the surrounding model-group context.
+So if the term was defined by way of a reusable global definition,
+then the goal is that there need be only one implementation of the
+shared part(s).</p>
+</div>
+<div class="paragraph">
+<p>There are some limits to this sharing.
+A single implementation is not always achievable, but generally one or
+a small number of implementations are possible.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="limits-to-sharing">Limits to Sharing</h3>
+<div class="paragraph">
+<p>Consider if this term above was defined by way of a XSD group
+reference.
+The DFDL properties expressed on the group reference must
+be combined with those expressed on the group definition, to form the
+complete set of properties associated with the term.
+This combining creates situations where a given shared group definition can have
+wildly different representations for different uses.
+Consider this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;group name="g"&gt;
+  &lt;sequence&gt;
+    &lt;element name="a" type="xs:int"/&gt;
+    &lt;element name="b" type="xs:int"/&gt;
+    &lt;element name="c" type="xs:int"/&gt;
+  &lt;/sequence&gt;
+&lt;/group&gt;
+
+....
+
+&lt;element name="e"&gt;
+  &lt;complexType&gt;
+    &lt;sequence&gt;
+      ... some stuff here ...
+      &lt;group ref="tns:g" dfdl:separator="|"/&gt; &lt;!-- separated --&gt;
+      ... more stuff here ...
+      &lt;group ref="tns:g"/&gt; &lt;!-- not separated --&gt;
+      ... yet more stuff here ...
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+&lt;/element&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two uses of the group definition for 'g' are wildly different, in
+that one has separators, the other does not.</p>
+</div>
+<div class="paragraph">
+<p>This is a rather extreme example, but DFDL implementations must allow
+for this.</p>
+</div>
+<div class="paragraph">
+<p>Experience with DFDL schemas to-date (2020-01-21) is that this is very
+rare and appears only in test cases designed to exercise it.
+However, less extreme versions of this are possible, such as different
+uses all being separated and delimited textual data, but where the
+distinct uses do not all use the same separator characters, so the
+separator to be used would be specified differently on each group
+reference. Another expected variation could be separated sequence
+groups where some uses are infix separator and others are prefix or
+postfix separator.</p>
+</div>
+<div class="paragraph">
+<p>Anecdotally, the vast majority of schemas seen to-date reuse groups
+entirely, that is specifying no properties at all on the group
+reference.</p>
+</div>
+<div class="sect3">
+<h4 id="property-environment-or-propenv">Property Environment or PropEnv</h4>
+<div class="paragraph">
+<p>We define the <em>property environment</em> or <em>PropEnv</em> of a term, as the
+complete set of properties for that term, combining them from all the
+schema components that define the term. This can include element
+references, group references, local or global element declarations,
+global group definitions, and local and global type definitions.</p>
+</div>
+<div class="paragraph">
+<p>A key observation is that the PropEnv of a term is entirely defined by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>local properties (including any dfdl:ref property) on the schema component for the term.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>E.g., for an element reference, the local properties expressed on the element reference itself.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>default format object at top level of the schema where the term lexically appears.</p>
+</li>
+<li>
+<p>definition object being referenced.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>E.g., for an element reference, the global element declaration being referenced.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So if two terms, say group references, have the same PropEnv, then we
+can share much about their definitions when implementing them.</p>
+</div>
+<div class="paragraph">
+<p>Hence, when constructing the Daffodil schema compiler&#8217;s representation
+for a term, we can maintain a cache for each global definition, with
+the key of the cache being the PropEnv.
+When a given term uses a global definition, if the point of use has
+the same PropEnv as another, both can share the part of the term that
+is context independent, that is, the shared region.</p>
+</div>
+<div class="paragraph">
+<p>The actual components of the PropEnv of a term are slighly more
+complicated than described above.
+The table below gives the components of the PropEnv for the various
+kinds of terms. Note that the "local properties" below includes any
+dfdl:ref property if it appears, but equality of any property which
+has as its value a QName, like dfdl:ref, the property value is based
+on a resolved QName, not the QName string.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. PropEnv Components</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term Definition (one PropEnv subtype per)</th>
+<th class="tableblock halign-left valign-top">PropEnv Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local Element Decl with type reference</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Local properties expressed on the Local Element Decl (Set of property name + value pairs)</p>
+</li>
+<li>
+<p>Lexically enclosing default format (object ref)</p>
+</li>
+<li>
+<p>Type definition (object ref) or primitive type (object ref)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local Element Decl with anonymous Simple Type Definition</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Combined set of local properties expressed on the Local Element Decl and the anoymous Simple Type definition.</p>
+</li>
+<li>
+<p>Lexically enclosing default format (object ref)</p>
+</li>
+<li>
+<p>Base simple type definition (object ref), or primitive type (object ref)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local Element Decl with anonymous complex type definition</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Local properties expressed on the local element decl</p>
+</li>
+<li>
+<p>Lexically enclosing default format (object ref)</p>
+</li>
+<li>
+<p>Anonymous complex type (object ref)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Element Reference to Global Element Decl</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Local properties expressed on the element reference</p>
+</li>
+<li>
+<p>Lexically enclosing default format (object ref)</p>
+</li>
+<li>
+<p>Global Element Decl (object ref)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Lookups by PropEnv compare sets by equality of members, and object
+references by pointer equality i.e, eq comparison.</p>
+</div>
+<div class="paragraph">
+<p>This definition of PropEnv can be improved by memoizing the
+construction of default format objects, so that equivalent default
+formats from different schema documents are represented by the same
+object.
+That is, so that multiple schema documents each containing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">  &lt;dfdl:format ref="prefix:formatName"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>are instantiated as the same object when the QName resolves to the same format object.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="details-of-unique-and-shared-regions">Details of Unique and Shared Regions</h4>
+<div class="paragraph">
+<p>The division of the reprsentation into the unique part which appears
+before the shared parts indicates where we can share implementation,
+and where we must have unique context-specific implementation for the
+term.</p>
+</div>
+<div class="paragraph">
+<p>To understand this better, the below breaks down the sub-regions of a term further.
+First we look at the details of the unique-before region:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-1313a13d91a6f8c668ade63f72bbb61d.png" alt="diag 1313a13d91a6f8c668ade63f72bbb61d" width="840" height="378">
+</div>
+</div>
+<div class="paragraph">
+<p>The sub-regions within the unique before region are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>prefix infix sep&#8217;r MTA - mandatory text alignment for a separator in infix or prefix position.
+When a separator is defined, this region is populated with up to 7 bits to
+obtain text alignment for the characters of the separator in the specified charset encoding.
+Note that this encoding and that of the term&#8217;s initator/terminator are not necessarily the same encoding.</p>
+</li>
+<li>
+<p>prefix infix sep&#8217;r - separator when defined and in prefix or infix position.
+This consists of text characters.</p>
+</li>
+<li>
+<p>lSkip - leading skip region.
+This is fixed length (commonly 0)</p>
+</li>
+<li>
+<p>alignFill - alignment fill region.
+This dynamically sized region depends on the bit position where it starts.</p>
+</li>
+<li>
+<p>init&#8217;r MTA - mandatory text alignment for initiator.
+When an initiator is defined, this region is populated with up to 7 bits to
+obtain text alignment for the characters of the initiator in specified charset encoding.</p>
+</li>
+<li>
+<p>init&#8217;r - initiator.
+This consists of text characters.</p>
+</li>
+<li>
+<p>prefix length - (element terms only) the prefix length.
+Sub-detail of this region is not shown here.
+The PrefixLengthQuasiElementDecl class is used to represent this subregion in DSOM.</p>
+</li>
+<li>
+<p>value MTA - (element terms only, simple type only) mandatory text alignment for the value.
+When the value has text representation this insures those characters start
+on the right bit-boundary for characters of the specified charset encoding.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The sizes of the alignment regions (alignFill, and the MTA regions) in
+the above all depend on where the start of this term is.
+That depends on where the prior term ends, if there is a prior term.
+That is, the sizes of the alignment regions depend on the enclosing
+model groups, and what can appear before this term in that nest.</p>
+</div>
+<div class="paragraph">
+<p>Now we look at an expansion of the shared regions:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-45bcd5e9c7484340ba070e865b4dd7ed.png" alt="diag 45bcd5e9c7484340ba070e865b4dd7ed" width="920" height="504">
+</div>
+</div>
+<div class="paragraph">
+<p>It is key that the shared region can assume the alignment
+fill and MTA regions have been sized per the requirements of this
+term.
+Hence, the shared region is context independent and its implementation - in schema
+compiler objects and in runtime structure representation, need only be represented once.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/important.png" alt="Important">
+</td>
+<td class="content">
+<div class="title">Corner Case: Interior Alignment</div>
+<div class="paragraph">
+<p>The semantics here aren&#8217;t identical to those of macro expansion, but the difference is hard to
+detect.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://opendfdl.github.io/gwdrp-dfdl-v1.0.5_r11/gwdrp-dfdl-v1.0.5-r11-change-tracking.htm">DFDL Spec (recent draft)</a>
+includes a <a href="https://opendfdl.github.io/gwdrp-dfdl-v1.0.5_r11/gwdrp-dfdl-v1.0.5-r11-change-tracking.htm#\_Toc27061169">section (23.6 in the linked draft)</a> on
+this
+<i>interior alignment problem</i>.</p>
+</div>
+<div class="paragraph">
+<p>The technique for approximating alignment info described here is slighly less precise in its
+analysis because it resets its knowledge of the alignment at each known alignment point.
+Whereas pure macro expansion could carry forward knowledge of alignment and perhaps optimize out more
+alignment fill regions.</p>
+</div>
+<div class="paragraph">
+<p>Hence, it&#8217;s possible that the technique here will leave some alignment fill regions in place and thereby some
+formats will experience circular deadlocks when unparsing due to this variable-length interior-alignment.</p>
+</div>
+<div class="paragraph">
+<p>The Daffodil test suite includes examples of this interior alignment that cause unparser circular deadlocks.
+(see testOutputValueCalcVariableLengthThenAlignmentDeadlock)</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The shared region contains a text or simple binary value, a nil representation, or inductively, a sequence of terms.
+When the term is an element of complex type, an element unused region can follow (depending on the length kind),
+and if the term is a choice with dfdl:choiceLengthKind='explicit' then a choice unused region can follow.</p>
+</div>
+<div class="paragraph">
+<p>Then, after the shared part, the shared-after region has these subregions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>term&#8217;r MTA - mandatory text alignment for the terminator.</p>
+</li>
+<li>
+<p>term&#8217;r - terminator</p>
+</li>
+<li>
+<p>tSkip - trailing skip region. This is fixed length (commonly 0)</p>
+</li>
+<li>
+<p>postfix sep&#8217;r MTA - - mandatory text alignment for a separator in postfix position.
+When a separator is defined, this region is populated with up to 7 bits to
+obtain text alignment for the characters of the separator in the specified charset encoding.
+Note that this encoding and that of the term&#8217;s initator/terminator are not necessarily the same encoding.</p>
+</li>
+<li>
+<p>postfix sep&#8217;r - separator when defined and in postfix position.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The terminator MTA region varies in size based on its starting
+alignment, and so it depends on the size of the shared region.</p>
+</div>
+<div class="paragraph">
+<p>The postfix separator MTA region similarly varies in size based on where the
+tSkip region ended, and so it depends on the size of the shared region, and
+the sizes of the terminator MTA region, terminator, and tSkip regions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+The shared-after region does not have any sub-regions the size
+of which depend on the context.
+However, we separate it from the central shared region in order to
+separate all concerns around alignment and fill into separate regions from the
+central shared region, which could perhaps be called the shared
+content region.
+The central shared region therefore does not deal with alignment at all.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The central idea here is that all the regions to the left (before) the known alignment point are context dependent.
+That is, whether these alignment fill and mandatory text alignment regions can be statically determined
+in size is dependent on where the prior term ended.</p>
+</div>
+<div class="paragraph">
+<p>In contrast, the known alignment point is a fresh start for alignment. The alignment as required by the alignment properties
+will have been achieved at that point. Hence, from there and to the right (after), everything can be assessed relative to
+this new fresh anchor.</p>
+</div>
+<div class="paragraph">
+<p>Inductively, even the context dependent regions are not dependent on terms very far back.
+Let&#8217;s consider the regions in a straddle of two adjacent terms in a sequence:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-e8cdc9d803fb5e074386a0e096177241.png" alt="diag e8cdc9d803fb5e074386a0e096177241" width="1030" height="378">
+</div>
+</div>
+<div class="paragraph">
+<p>The Known Alignment Point 2 is only context dependent on the possible prior terms back to Known Alignment Point 1.
+This is true certaintly when Term 1 is a scalar element or a model-group itself.</p>
+</div>
+<div class="paragraph">
+<p>In reality the induction here is more complex because Term 1 might be an optional element or an array, in which case the prior term before Term 1 may also be involved
+in computing the region sizes for the Term 2 unique-before regions.
+But this never needs to consider anything further back than the prior scalar term, or the start of the shared region of the enclosing model group, which need
+only be considered if Term 2 can be first within its enclosing model group.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+Separators may be present even if terms are not, based on dfdl:separatorSuppressionPolicy and a few other properties.
+The diagrams show sequence before region as if it was part of the term, but really it may appear even if the term is absent.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Given the above, for any term, we can compute its PropEnv, and create
+a distinct shared instance for that term for each unique PropEnv.</p>
+</div>
+<div class="paragraph">
+<p>Since the shared region contains all the children of any
+child-containing term, sharing this insures that the schema
+compilation space/speed is proportional to, roughly, the size of the
+schema without any non-constant multiplicative factor.
+This insures no combinatorial explosion of compilation time.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="optimizing-alignment-regions">Optimizing Alignment Regions</h3>
+<div class="paragraph">
+<p>A primary task of the schema compiler is to eliminate alignment fill
+(and mandatory text alignment aka MTA) regions that are unnecessary
+because the data can be proven to always be properly aligned.</p>
+</div>
+<div class="paragraph">
+<p>This is done by computing, for each region, a compile-time alignment approximation.
+The AlignmentMultipleOf class represents this information.
+AlignmentMultipleOf objects form a mathematical lattice where perfect
+alignment is the bottom of the lattice, no alignment (or alignment
+multiple of 1 bit) is the top of the lattice, and various multiples
+(8, 32, etc.) live in between. For two lattice values a and b, we say
+a &lt; b (a is 'weaker than' b) if a is a multiple of b.</p>
+</div>
+<div class="paragraph">
+<p>A key observation is this: Each time we create an alignment constraint
+for a shared region, this is not dependent on any other constraint.
+That is, the constraints on alignment do not propagate from term to term.
+A shared region can assume it starts at the alignment that is required
+for the term based on the dfdl:alignment property, the initiator MTA
+if there is an initiator, and the value MTA for text-representation
+simple values.</p>
+</div>
+<div class="paragraph">
+<p>Hence, terms that appear down-stream of any shared region do <strong>not</strong>
+depend on any constraints propagating from before the shared region.
+This greatly reduces the complexity and the distance across the schema
+that constraint-changes propagate.
+It also insures there is no need for an iterative contraint solver, since nothing
+about alignment propagates from one term to the next.
+Terms are separated by the fact that the shared region of a term starts from a
+known alignment (specified by its alignment and alignment units
+property).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-context-dependent-computations">Other Context-Dependent Computations</h3>
+<div class="paragraph">
+<p>By dividing up the representation of a term into the unique context-dependent
+and shared context-indepenent parts explicitly we provide a home for the various
+calculations the schema compiler performs in order to do other optimizations.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/unshared-shared.png" alt="unshared shared" width="587" height="237">
+</div>
+</div>
+<div class="paragraph">
+<p>In the above class diagram, members that must be computed on the unshared term object are
+shown in the class.
+This set of things should always be minimized.
+That is, as few things should be computed on unshared term objects as posible.
+It is assumed that everything else is computed on the shared term object, but members
+specifically about regions discussed in sections above are called out.</p>
+</div>
+<div class="paragraph">
+<p>The UnsharedTerm object is effectively state of the enclosing model group DSOM object.
+It exists in 1 to 1 correspondence (aka it is "owned" by the enclosing model group object.)</p>
+</div>
+<div class="paragraph">
+<p>In the Runtime 1 backend, a processor (parser/unparser) is generated for the shared term object,
+and that processor is referenced from the processor generated for the unshared term object.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transition-plan">Transition Plan</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/important.png" alt="Important">
+</td>
+<td class="content">
+Once implemented this section can be deleted as it is describing transition from an older Daffodil version to one that implements the shared objects.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We can examine several of the context-dependent calculations below.</p>
+</div>
+<div class="sect3">
+<h4 id="isalignmentfillneeded-isinitiatormtaneeded-isterminatormtaneeded-isprefixinfixseparatormtaneeded-ispostfixseparatormtaneeded">isAlignmentFillNeeded, isInitiatorMTANeeded, isTerminatorMTANeeded, isPrefixInfixSeparatorMTANeeded, isPostfixSeparatorMTANeeded</h4>
+<div class="paragraph">
+<p>These are the output of the analysis of alignments, and they turn on/off the presence of these regions.
+These are of particular importance to a streaming unparser since they can require suspension of unparsing until alignment can be determined at runtime.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ispotentiallytrailing">isPotentiallyTrailing</h4>
+<div class="paragraph">
+<p>This is context dependent because a given term definition can be reused in multiple contexts, some of which where it is potentially trailing, and others of which where it is not.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="needsbitorderchange">needsBitOrderChange</h4>
+<div class="paragraph">
+<p>This is used to optimize out suspensions in the unparser. It is context dependent because whether the bit order is changing when the processor arrives on a term depends on what preceded it in the processing.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="isscanningfordelimiter">isScanningForDelimiter</h4>
+<div class="paragraph">
+<p>This is used to determine whether a delimiter stack combinator is used as part of the grammar. It is context dependent because a separator or terminator can be defined on an enclosing model group.</p>
+</div>
+<div class="paragraph">
+<p>TBD: It&#8217;s possible we don&#8217;t need to wrap this combinator around elements. Manipulating the delimiter stack should only be necessary when delimiters go into and out of scope. So that would mean once per model group, not per term within the model group.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="isscanningforterminator">isScanningForTerminator</h4>
+<div class="paragraph">
+<p>This determines whether the schema compiler will allow the entity "%ES;" as a runtime value for the expression value of a dfdl:terminator property.
+Specifically if we are scanning for a terminator then the "%ES;" entity is disallowed.</p>
+</div>
+<div class="paragraph">
+<p>This is context dependent because the terminator may be defined on an enclosing model group, not on an element that is within that model group.
+The element may have a position in the model group such that it may be last, and in that case if it has a length kind that does not use the terminator (e.g., dfdl:lengthKind='pattern') then that terminator is not being scanned for, and so it is allowable for it to be empty string at runtime.</p>
+</div>
+<div class="paragraph">
+<p>If this computation is done on the unshared term, it must inquire about many characteristics of the enclosing model group.
+It may be that this computation is best done on the model-group object.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="initiatedcontent-check">initiatedContent Check</h4>
+<div class="paragraph">
+<p>When a model group has the dfdl:initiatedContent="yes" property, all represented term children must have a defined initiator.</p>
+</div>
+<div class="paragraph">
+<p>This is context dependent because a global element declaration or a global group definition may define an initiator, but the model group with initiated content may refer to these via an element reference or group reference.
+That is, the relationship is not one of lexical enclosure.
+The check must be done as part of the unshared term, or on the enclosing model group itself.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="refactoring-of-primary-dsom-classes">Refactoring of Primary DSOM Classes</h3>
+<div class="paragraph">
+<p>Implementing this sharing requires splitting the DSOM Term clases each into a unique and a shared part.</p>
+</div>
+<div class="paragraph">
+<p>This will be done by renaming each Term to SharedTerm, and introducing UniqueTerm.</p>
+</div>
+<div class="paragraph">
+<p>For example ElementBase will be renamed to SharedElementBase, and new abstract class UniqueElementBase will be created.</p>
+</div>
+<div class="paragraph">
+<p>This will occur uniformly across the DSOM Term subclasses/traits.</p>
+</div>
+<div class="paragraph">
+<p>Some of the mixins to these classes will go on only one or the other of the shared or unique parts.</p>
+</div>
+<div class="paragraph">
+<p>Many of the mixins will have to split into a mixin for the shared part and another mixin for the unique part.
+One example of this is the AlignedMixin. This currently deals with alignment regions that are found in unique parts and shared parts, and those
+methods must go on different objects.</p>
+</div>
+<div class="paragraph">
+<p>The unique term classes will utilize a central memoizing factory to allocate or find shared term instances based on having equivalent PropEnvs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing-notes">Testing Notes</h3>
+<div class="sect3">
+<h4 id="compiler-instrumentation">Compiler Instrumentation</h4>
+<div class="paragraph">
+<p>Some standard compiler instrumentation that is dumped out based on options to daffodil compiler, to include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>counters of number of distinct shared terms for each global def/decl.</p>
+</li>
+<li>
+<p>counters of number of inbound references to each shared term.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The point is to have metrics that can be compared and which will make it clear if under maintenance the sharing is somehow lost and we&#8217;re getting bad compile-time behavior again.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2020 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

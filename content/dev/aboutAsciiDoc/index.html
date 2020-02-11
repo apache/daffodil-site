@@ -185,22 +185,6 @@ and here&#8217;s the same image as an image block:</p>
 <div class="paragraph">
 <p>There are numerous kinds of diagrams possible.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="graphviz-record-based-nodes-diagram">GraphViz Record-Based Nodes Diagram</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://graphviz.gitlab.io/documentation/">GraphViz</a> is probably the most powerful of the various diagram tools, but with that power comes complexity that some of the other diagram types are able to overcome by being more restrictive.</p>
-</div>
-<div class="paragraph">
-<p>This is an example of graphViz <a href="https://graphviz.gitlab.io/_pages/doc/info/shapes.html#record">Record-based Nodes</a> which are very useful for box diagrams showing data layouts when a packetdiag is too rigid.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/images/diag-67c737a775095ab65bc0eea2b6f973e4.png" alt="diag 67c737a775095ab65bc0eea2b6f973e4" width="349" height="201">
-</div>
-</div>
 <div class="sect2">
 <h3 id="plantuml-diagram">PlantUML Diagram</h3>
 <div class="paragraph">
@@ -272,6 +256,11 @@ and here&#8217;s the same image as an image block:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>An www.plantuml.com/plantuml/uml[online PlantUML authoring tool] is available.
+Though just saving and refreshing the page in a web browser (usually they auto-refresh
+after 1 second) is also pretty easy.</p>
+</div>
+<div class="paragraph">
 <p>Here is a class diagram example:</p>
 </div>
 <div class="imageblock">
@@ -289,29 +278,44 @@ and here&#8217;s the same image as an image block:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="packet-diagram-easier-but-limited-to-msbf-left-to-right">Packet Diagram - Easier but Limited to MSBF, Left-to-Right</h3>
-<div class="paragraph">
-<p><a href="http://blockdiag.com/en/nwdiag/packetdiag-examples.html">Packet diagrams</a> are useful for any time you want to show data layouts at the level of bits, bytes, and words. It assumes bit order is <em>most significant bit first</em> and that you want to number the bits from left to right.</p>
-</div>
-<div class="paragraph">
-<p>This example supplies a target name for the graphic, which allows it to be reused not just in this document, but in others also. We specify SVG as the format since there appears to be bugs in PNG format for packetdiag.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/images/test_packet_diagram_1.svg" alt="test packet diagram 1" width="896" height="312">
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="ditaa-diagram">Ditaa Diagram</h3>
 <div class="paragraph">
-<p>The <a href="http://ditaa.sourceforge.net/">DITAA</a> graphics are ASCII-Art converted into smoother looking drawings. They have the advantage of being visual in the text file, but the challenge of needing to be
-laid out by hand.</p>
+<p>The <a href="http://ditaa.sourceforge.net/">DITAA</a> graphics are ASCII-Art converted into smoother looking drawings. They have the advantage of being visual in the text file.</p>
+</div>
+<div class="paragraph">
+<p>These diagrams are quite easily drawn then cut/pasted to/from actual asciidoc digrams using an online tool called <a href="http://asciiflow.com/">asciiflow</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="/images/diag-8ac9b322bf3e2e1e7b0df17f6f64d0a6.png" alt="diag 8ac9b322bf3e2e1e7b0df17f6f64d0a6" width="540" height="280">
 </div>
+</div>
+<div class="paragraph">
+<p>Note: below is the widest ditaa diagram you can draw that will fit in the line-length that
+github&#8217;s code-review/pull-request window can display without line-wrap.
+If the lines wrap in your ditaa diagram you really lose the ability to comment on them
+in their textual form in the asciidoc:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-19f9d885d07ef92b8922b13dfaa30484.png" alt="diag 19f9d885d07ef92b8922b13dfaa30484" width="1220" height="98">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphviz-record-based-nodes-diagram">GraphViz Record-Based Nodes Diagram</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://graphviz.gitlab.io/documentation/">GraphViz</a> is probably the most powerful of the various diagram tools, but with that power comes complexity that some of the other diagram types are able to overcome by being more restrictive.</p>
+</div>
+<div class="paragraph">
+<p>This is an example of graphViz <a href="https://graphviz.gitlab.io/_pages/doc/info/shapes.html#record">Record-based Nodes</a> which are very useful for box diagrams showing data layouts when a packetdiag is too rigid.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-67c737a775095ab65bc0eea2b6f973e4.png" alt="diag 67c737a775095ab65bc0eea2b6f973e4" width="349" height="201">
 </div>
 </div>
 </div>

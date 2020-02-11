@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | </title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2></h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <div class="sect1">
+<h2 id="namespace-binding-minimization">Namespace Binding Minimization</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="introduction">Introduction</h3>
+<div class="paragraph">
+<p>DFDL schemas are XML schemas and so DFDL inherits the namespace system of XML and XML Schema for composing large schemas from smaller ones, for reusing schema files, and for managing name conflicts.</p>
+</div>
+<div class="paragraph">
+<p>A DFDL Infoset isn&#8217;t necessarily represented as XML however.
+Some representations won&#8217;t have any ability to deal with namespaces (JSON for example), and so Daffodil will sometimes issue warnings when compiling a schema if the namespace usage will not allow unambiguous representation without namespaces.</p>
+</div>
+<div class="paragraph">
+<p>Most representations of DFDL Infosets will, like XML, use some representation of the namespaces of elements, and in textual forms this will most commonly be by way of namespace prefixes.
+XML is not the only representation that uses namespaces, however, so this should not be taken as an entirely XML-specific discussion.</p>
+</div>
+<div class="paragraph">
+<p>There are these goals for namespace-binding minimization.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clarity: Infosets that have redundant namespace bindings are very hard to read and understand, and require namespace-binding-aware tooling to compare them, or clumsy post-processing to remove the excess bindings.</p>
+</li>
+<li>
+<p>Performance: Attaching an element to the infoset at runtime should take constant time.</p>
+</li>
+<li>
+<p>Consistency: The prefix-to-namespace bindings used should be drawn from those expressed on the DFDL schema by the schema author, and the prefixes used and bindings introduced when an element is attached to the infoset should be consistent with the set of namespace prefix definitions in place at the point where the element&#8217;s declaration lexically appears in the DFDL schema.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>These goals are in some tension.
+Consider 4 elements named A, B, C, and Q.
+Suppose element A contains element B, which contains element Q.
+Suppose elsewhere in the same infoset element A contains element C which contains element Q.
+From the perspective of element Q, the set of namespace bindings surrounding it are those from (A, B) or those from (A, C).
+Suppose element Q requires, and introduces, a namespace with prefix "qns" bound to namespace "urn:Q_Namespace".
+Suppose element C also introduces this same namespace binding.
+Then when element Q appears inside element B, its namespace binding for "qns" is needed.
+But when element Q appears inside element C, its namespace binding for "qns" is redundant with one already provided by element C.</p>
+</div>
+<div class="paragraph">
+<p>The conclusion is that the minmal set of namespace bindings introduced by an element depends on the nesting of elements.</p>
+</div>
+<div class="paragraph">
+<p>The basic technique is to store, on the runtime element data structure (DPathElementCompileInfo), the complete set of lexical namespace bindings present for the element declaration in the DFDL schema document.</p>
+</div>
+<div class="sect3">
+<h4 id="namespace-bindings-come-from-the-element-declarations-not-element-references">Namespace Bindings come from the Element Declarations, not Element References</h4>
+<div class="paragraph">
+<p>Consider two schema files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- file foo.dfdl.xsd --&gt;
+&lt;schema
+   xmlns:pre1="namespace1"
+   xmlns:ns1="differentNamespace"&gt;
+  &lt;import namespace="namespace1" schemaFileLocation="bar.dfdl.xsd"/&gt;
+  ...
+  &lt;element name="root"&gt;
+    &lt;complexType&gt;
+      &lt;sequence&gt;
+        &lt;element ref="pre1:foo" maxOccurs="unbounded"/&gt;
+      &lt;/sequence&gt;
+    &lt;/complexType&gt;
+  &lt;/element&gt;
+
+&lt;/schema&gt;
+
+&lt;!-- file bar.dfdl.xsd --&gt;
+&lt;schema targetNamespace="namespace1"
+   xmlns:ns1="namespace1"
+   xmlns:pre1="someOtherNamespace"&gt;
+
+  &lt;element name="foo" ..../&gt;
+&lt;/schema&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above we have a conflict over the use of the prefix "pre1".
+Now consider an XML document corresponding to this with element 'foo' inside the 'root' element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;root xmlns:pre1="namespace1"
+      xmlns:ns1="differentNamespace"&gt;
+  ...
+  &lt;ns1:foo
+    xmlns:ns1="namespace1"
+    xmlns:pre1="someOtherNamespace"&gt;
+    ...
+  &lt;/ns1:foo&gt;
+  ...
+&lt;/root&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that element 'foo' appears inside 'root' using the "ns1" prefix but it also introduces a binding for that prefix which supercedes that of the enclosing environment.
+The prefix "pre1" cannot be used for element 'foo' because in the namespace bindings of the bar.dfdl.xsd schema document, the "pre1" prefix is bound to "someOtherNamespace".</p>
+</div>
+<div class="paragraph">
+<p>This example illustrates that each element must use, and introduce, the lexically defined prefixes from the point where the element is declared.
+Not from the point of element reference.</p>
+</div>
+<div class="paragraph">
+<p>Since element 'foo' is recurring, it&#8217;s unfortunate, but every single instance will, textualized, carry these namespace bindings.
+E.g.,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;root xmlns:pre1="namespace1"
+      xmlns:ns1="differentNamespace"&gt;
+  ...
+  &lt;ns1:foo
+    xmlns:ns1="namespace1"
+    xmlns:pre1="someOtherNamespace"&gt;
+    ...
+  &lt;/ns1:foo&gt;
+  &lt;ns1:foo
+    xmlns:ns1="namespace1"
+    xmlns:pre1="someOtherNamespace"&gt;
+    ...
+  &lt;/ns1:foo&gt;
+  &lt;ns1:foo
+    xmlns:ns1="namespace1"
+    xmlns:pre1="someOtherNamespace"&gt;
+    ...
+  &lt;/ns1:foo&gt;
+
+  ...
+&lt;/root&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This problem is not one Daffodil strives to solve.
+The schema author can simply avoid these sorts of name clashes and this problem will not occur.
+Automatic renaming of prefixes to avoid this problem is considered unwarranted, as it will confuse users.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="namespace-minimization">Namespace Minimization</h3>
+<div class="sect3">
+<h4 id="only-element-namespace-prefix-bindings">Only Element Namespace Prefix Bindings</h4>
+<div class="paragraph">
+<p>Only namespace definitions associated with element declarations need to ever be considered for the infoset.
+Namespace definitions that define prefixes used for type, group, format, or escapeScheme references are not included
+in the namespace definitions carried on infoset elements.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avoid-prefix-tns-or-other-common-ambiguous-names-when-possible">Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible</h4>
+<div class="paragraph">
+<p>Many DFDL schemas will define prefix "tns" to be that schema document&#8217;s target namespace.</p>
+</div>
+<div class="paragraph">
+<p>This same problem could occur for other prefixes. The "tns" convention is just a common one.</p>
+</div>
+<div class="paragraph">
+<p>If the prefix "tns" is ambiguous across the schema set (also used by other schema documents, but for different namespaces),
+then its use is undesirable.</p>
+</div>
+<div class="paragraph">
+<p>If a schema document defines both "tns" and other prefixes for the target namespace, then another prefix is preferred for
+use as the prefix of elements created from declarations in that schema document.</p>
+</div>
+<div class="paragraph">
+<p>This situation arises commonly for the default namespace (no prefix, defined by <code>xmlns="namespaceURI"</code>). If
+this is ambiguous across the schema set (highly likely), then an available alternative prefix (from that schema document)
+is preferred.
+There is actually no difference between using "tns" and the default namespace. Both are just commonly used, and frequently ambiguous across the schema set.</p>
+</div>
+<div class="paragraph">
+<p>(This all generalizes to any prefix which is ambiguous across the schema set.)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="corner-cases">Corner Cases</h4>
+<div class="paragraph">
+<p>There are numerous ways schema authors can use and reuse namespace prefixes that can lead to cluttered infosets.</p>
+</div>
+<div class="paragraph">
+<p>Other than minor heuristics to choose among alternative available prefix definitions, Daffodil does not try to improve on the
+namespace prefix problem on behalf of schema authors.</p>
+</div>
+<div class="sect4">
+<h5 id="no-prefix-at-all">No Prefix At All</h5>
+<div class="paragraph">
+<p>A legal schema document can define a target namespace and define no prefix for it at all.</p>
+</div>
+<div class="paragraph">
+<p>In this case, the only way elements of that schema document can be used is some other schema document must provide a prefix definition.
+Daffodil chooses a prefix from those available in the schema set (deterministically - e.g., shortest prefix, with ties resolved by alphanumeric order, avoiding ambiguous prefixes like "tns").</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+TBD: Should we issue a warning or even make this a schema definition error?
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="only-tns-or-only-the-default-namespace">Only "tns" or Only the Default Namespace</h5>
+<div class="paragraph">
+<p>A schema defines "tns" (or other very common prefix like "pre" or "p") for its target namespace, but defines no other prefix that can be used as an alternative.</p>
+</div>
+<div class="paragraph">
+<p>Daffodil does nothing here to improve on the situation where there will be many inner namespace re-bindings of the "tns" like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;tns:foo xmlns:tns="namespace1"&gt;
+  &lt;tns:bar xmlns:tns="namespace2"&gt;
+    &lt;tns:quux xmlns:tns="namespace3"&gt;
+    ...
+    &lt;/tns:quux&gt;
+  &lt;/tns:bar&gt;
+&lt;/tns:foo&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This sort of thing can happen if schema authors make extensive use of the default namespace (no prefix).
+For example, a schema document can define a target namespace, then define that namespace to be the default, with no other namespace prefix defined.
+In that case you can have infosets like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;foo xmlns="namespace1"&gt;
+  &lt;bar xmlns="namespace2"&gt;
+    &lt;quux xmlns="namespace3"&gt;
+    ...
+    &lt;/quux&gt;
+  &lt;/bar&gt;
+&lt;/foo&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="undefining-the-default-namespace">Undefining the Default Namespace</h4>
+<div class="paragraph">
+<p>Many schemas will not define the default namespace.</p>
+</div>
+<div class="paragraph">
+<p>If an element is defined in a schema which defines the default namespace to a URI, and nested with that element are other elements from schemas that
+do NOT have a definition for the default namespace, then if there are unqualified names in the latter schema that are supposed to be in <em>no namespace</em>,
+the default namespace must be explicitly undefined.</p>
+</div>
+<div class="paragraph">
+<p>Consider two schema files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- file foo.dfdl.xsd --&gt;
+&lt;xs:schema
+   xmlns="default1"
+   xmlns:ns2="namespace2" &gt;
+
+  &lt;xs:import namespace="namespace2" schemaFileLocation="bar.dfdl.xsd"/&gt;
+  ...
+  &lt;xs:element name="root"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element ref="ns2:foo" maxOccurs="unbounded"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;
+
+&lt;!-- file bar.dfdl.xsd --&gt;
+&lt;schema targetNamespace="namespace2"
+   xmlns:ns2="namespace2"
+   elementFormDefault="unqualified"
+   xmlns="http://www.w3.org/2001/XMLSchema"&gt; &lt;!-- default namespace used for schema --&gt;
+
+  &lt;element name="foo"&gt;
+    &lt;complexType&gt;
+      &lt;sequence&gt;
+        &lt;element name="bar" .../&gt;&lt;!-- no namespace --&gt;
+     &lt;/sequence&gt;
+   &lt;/complexType&gt;
+  &lt;/element&gt;
+&lt;/schema&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, an instance of root, containing 'foo' containing 'bar' requires:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;root
+   xmlns="default1"
+   xmlns:ns2="namespace2"&gt;
+  &lt;ns2:foo&gt;
+    &lt;bar xmlns=""&gt; &lt;!-- undefine default --&gt;
+      ...
+    &lt;/bar&gt;
+  &lt;/ns2:foo&gt;
+&lt;/root&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This undefine shown above is needed even though the bar.dfdl.xsd schem has a default namespace definition, because the local element names are in no-namespace.
+The default namespace in bar.dfdl.xsd is actually not used for reference to elements.
+So it is tantamount to not having the default namespace defined in bar.dfdl.xsd at all.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<img src="/images/icons/caution.png" alt="Caution">
+</td>
+<td class="content">
+Some of this minimization may happen upon conversion to XML, and may happen automatically depending on XML libraries.
+That is, an element with no namespace displayed in a context which has a default namespace definition may automatically insert <code>xmlns=""</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="namespace-binding-minimization-algorithm">Namespace Binding Minimization Algorithm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The technique described here assumes that one needs to render the infoset to XML text using standard printing, i.e., using no special XML library.
+Hence, every namespace prefix binding must be explicitly represented in the output XML text.</p>
+</div>
+<div class="paragraph">
+<p>The basics are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For every element declaration, capture the lexical namespace scope (<code>scala.xml.NamespaceBinding</code>) from its element declaration XML in its schema document.
+Save this on the runtime data structure for the element. In Runtime 1, this would be the DPathElementCompileInfo. (This is longstanding functionality in Daffodil since before version 1.0.0)</p>
+</li>
+<li>
+<p>Excepting on the Root, remove any namespace binding that is unambiguous across the schema, and which appears on the root.</p>
+</li>
+<li>
+<p>For each element declaration, the remaining namespace bindings and assigned prefix to be used are assigned based on the minimization rules describe above (e.g., about avoiding "tns" when possible.)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>That is all that is done at schema compile time and at parse time up to the point where a textual representation (such as XML) needs to be output.</p>
+</div>
+<div class="paragraph">
+<p>The DFDL Infoset tree is constructed with InfosetElement nodes that point to this compile time DPathElementCompileInfo structure, and no processing of namespace bindings occurs.</p>
+</div>
+<div class="paragraph">
+<p>However when converting an infoset element into XML examine the namespace bindings of the element and those of the enclosing parent element.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Any that are redundant across the two are dropped.</p>
+</li>
+<li>
+<p>New definitions introduced by the child are output as bindings</p>
+</li>
+<li>
+<p>Redefinitions are output as bindings</p>
+</li>
+<li>
+<p>If the element has no namespace, and the parent (or any super-parent) has a default namespace binding, then add an undefine binding for the default namespace.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This algorithm requires non-constant-time (worst case) processing at runtime; however, there is no overhead unless there are ambiguities among the namespace bindings and when namespace bindings at nodes beneath the root are required.
+In addition, the number of such cases in any <em>real</em> schema will be small, so the algorithmic complexity worst-case here is far less important than the constant factor here.
+Attaching an element to the infoset is a common operation.
+These namespace binding machinations have the potential to be equally costly, per binding, to the general overhead of attaching the infoset element node.</p>
+</div>
+<div class="paragraph">
+<p>Our standard design principle is, however, to not worry about overheads like this which are often not going to occur in real schemas, unless performance profiling shows them to be a hot-spot.</p>
+</div>
+<div class="paragraph">
+<p>Sensibly-designed schemas will have no overhead from this namespace-binding combining.</p>
+</div>
+<div class="sect2">
+<h3 id="converting-the-dfdl-infoset-to-xml-in-one-pass-streaming">Converting the DFDL Infoset to XML in One Pass (Streaming)</h3>
+<div class="paragraph">
+<p>Note that eliminating prefix definitions that are unused in a particular XML document is not compatible with streaming.
+It requires two passes to determine if a prefix is ever used to decide whether it can be omitted or must be included.</p>
+</div>
+<div class="paragraph">
+<p>The only alternative to this is to introduce new namespace prefix definitions only at their point of use.
+That would, however, be inconsistent with our goal of clarity and avoiding namespace prefix clutter in the schema.</p>
+</div>
+<div class="paragraph">
+<p>It is preferable to output extra namespace bindings on the root element than to litter the document with namespace bindings at
+interior XML elements.</p>
+</div>
+<div class="paragraph">
+<p>Daffodil aspires to streaming parsing and unparsing. A streaming parser will output parts of the infoset without waiting to
+know if children will eventually appear that require the namespace prefix definitions.
+As a result, all namespace prefix definitions which <em>may</em> be required are included.
+Most commonly this will result in extra unused namespace prefix definitions having been output on the start tag of the root element.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="api-xml-fragment-mode-for-clarity-avoid-namespace-bindings-on-the-root">API XML-Fragment Mode - For Clarity: Avoid Namespace Bindings on the Root</h3>
+<div class="paragraph">
+<p>When using the message streaming API and converting the parse Infoset to XML, each message is created as XML text by the parser and associated InfosetOutputter, and converting one relatively small message to XML may result in far more characters used to represent the namespace bindings on the root of the message than the rest of the message occupies in XML text.</p>
+</div>
+<div class="paragraph">
+<p>The API provides a method to enable XML-fragment mode.
+In this mode a method can be called to retrieve namespace prefix bindings that would appear on the root (i.e, on the root XML element of each message) if a complete XML data document were being created.
+Subsequent calls to parse in XML-Fragment mode create XML which has no namespace bindings on the root element of each message.
+This is an XML fragment because it lacks the namespace bindings needed for it to be a complete XML document.
+This is in effect leaving it up to the caller whether and when to append the namespace bindings to the XML text.</p>
+</div>
+<div class="paragraph">
+<p>This option is provided because the caller may not want to construct complete XML documents, and the namespace bindings in use for the XML may be well-known by the processing system.</p>
+</div>
+<div class="paragraph">
+<p>This is less a performance optimization (XML text is really verbose, and this optimization is only scratching the surface).
+This feature is about clarity and coping with XML when using it for small data documents corresponding to small communications messages.
+Small XML data documents can be overwealmed by the volume of namespace definitions.
+This is particularly likely if they are for small data messages created from large DFDL schemas with many schema documents and many namespaces.</p>
+</div>
+<div class="paragraph">
+<p>As an example consider:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;gn:Feature xmlns:cc="http://creativecommons.org/ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gn="http://www.geonames.org/ontology#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"&gt;&lt;rdfs:isDefinedBy&gt;sws/3/about.rdf&lt;/rdfs:isDefinedBy&gt;&lt;gn:name&gt;Zamīn Sūkhteh&lt;/gn:name&gt;&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;Zamīn Sūkhteh&lt;/name&gt;&lt;/gn:alternateName&gt;&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;زمين سوخته&lt;/name&gt;&lt;/gn:alternateName&gt;&lt;gn:featureClass&gt;ontology#S&lt;/gn:featureClass&gt;&lt;gn:featureCode&gt;ontology#S.CRRL&lt;/gn:featurecode&gt;&lt;gn:countryCode&gt;IR&lt;/gn:countryCode&gt;&lt;wgs84_pos:lat&gt;32.45831&lt;/wgs84_pos:lat&gt;&lt;wgs84_pos:long&gt;48.96335&lt;/wgs84_pos:long&gt;&lt;gn:parentFeature&gt;sws/3202991/&lt;/gn:parentFeature&gt;&lt;gn:parentCountry&gt;sws/130758/&lt;/gn:parentCountry&gt;&lt;gn:parentADM1&gt;sws/127082/&lt;/gn:parentADM1&gt;&lt;gn:nearbyFeatures&gt;sws/3/nearby.rdf&lt;/gn:nearbyFeatures&gt;&lt;gn:locationMap&gt;3/zamin-sukhteh.html&lt;/gn:locationMap&gt;&lt;/gn:Feature&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is almost impossible to understand, given that the first 1/3 of it is just namespace bindings.</p>
+</div>
+<div class="paragraph">
+<p>Without the namespace bindings it is easier. It looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;gn:Feature&gt;&lt;rdfs:isDefinedBy&gt;sws/3/about.rdf&lt;/rdfs:isDefinedBy&gt;&lt;gn:name&gt;Zamīn Sūkhteh&lt;/gn:name&gt;&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;Zamīn Sūkhteh&lt;/name&gt;&lt;/gn:alternateName&gt;&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;زمين سوخته&lt;/name&gt;&lt;/gn:alternateName&gt;&lt;gn:featureClass&gt;ontology#S&lt;/gn:featureClass&gt;&lt;gn:featureCode&gt;ontology#S.CRRL&lt;/gn:featurecode&gt;&lt;gn:countryCode&gt;IR&lt;/gn:countryCode&gt;&lt;wgs84_pos:lat&gt;32.45831&lt;/wgs84_pos:lat&gt;&lt;wgs84_pos:long&gt;48.96335&lt;/wgs84_pos:long&gt;&lt;gn:parentFeature&gt;sws/3202991/&lt;/gn:parentFeature&gt;&lt;gn:parentCountry&gt;sws/130758/&lt;/gn:parentCountry&gt;&lt;gn:parentADM1&gt;sws/127082/&lt;/gn:parentADM1&gt;&lt;gn:nearbyFeatures&gt;sws/3/nearby.rdf&lt;/gn:nearbyFeatures&gt;&lt;gn:locationMap&gt;3/zamin-sukhteh.html&lt;/gn:locationMap&gt;&lt;/gn:Feature&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With line endings after each element end tag, it is quite easy to understand.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;gn:Feature&gt;&lt;rdfs:isDefinedBy&gt;sws/3/about.rdf&lt;/rdfs:isDefinedBy&gt;
+&lt;gn:name&gt;Zamīn Sūkhteh&lt;/gn:name&gt;
+&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;Zamīn Sūkhteh&lt;/name&gt;&lt;/gn:alternateName&gt;
+&lt;gn:alternateName&gt;&lt;lang&gt;fa&lt;/lang&gt;&lt;name&gt;زمين سوخته&lt;/name&gt;&lt;/gn:alternateName&gt;
+&lt;gn:featureClass&gt;ontology#S&lt;/gn:featureClass&gt;
+&lt;gn:featureCode&gt;ontology#S.CRRL&lt;/gn:featurecode&gt;
+&lt;gn:countryCode&gt;IR&lt;/gn:countryCode&gt;
+&lt;wgs84_pos:lat&gt;32.45831&lt;/wgs84_pos:lat&gt;
+&lt;wgs84_pos:long&gt;48.96335&lt;/wgs84_pos:long&gt;
+&lt;gn:parentFeature&gt;sws/3202991/&lt;/gn:parentFeature&gt;
+&lt;gn:parentCountry&gt;sws/130758/&lt;/gn:parentCountry&gt;
+&lt;gn:parentADM1&gt;sws/127082/&lt;/gn:parentADM1&gt;
+&lt;gn:nearbyFeatures&gt;sws/3/nearby.rdf&lt;/gn:nearbyFeatures&gt;
+&lt;gn:locationMap&gt;3/zamin-sukhteh.html&lt;/gn:locationMap&gt;
+&lt;/gn:Feature&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The XML Infoset Inputter also has a feature allowing an API method to supply the root-level namespace bindings once, not on the root element of every XML-fragment delivered for unparsing.</p>
+</div>
+<div class="paragraph">
+<p>The symmetry of the API insures that one can unparse the XML output from a parse that is creating XML in this fragment mode.</p>
+</div>
+<div class="paragraph">
+<p>The Daffodil CLI has an option to add XML-fragment mode to message streaming behavior for parsing and unparsing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transition-plan-from-daffodil-2-5-0">Transition Plan from Daffodil 2.5.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Delete this section once implementation is complete.)</p>
+</div>
+<div class="paragraph">
+<p>The existing design in Daffodil 2.5.0 assumes that every element declaration is unique, not shared, and so the entire path from that element&#8217;s declaration object to the root element is well known and unique.</p>
+</div>
+<div class="sect2">
+<h3 id="qnames-and-name-resolution">QNames and Name Resolution</h3>
+<div class="paragraph">
+<p>The QNameBase.scala and ResolvesQNames traits do not need modification, but their function needs to be understood to know what <strong>does</strong> have to change.</p>
+</div>
+<div class="paragraph">
+<p>Below shows the classes used for reprsenting the names of named things in a DFDL schema, and for referring to named things in a DFDL schema:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/diag-a233f3edc65e7c991774d9233c23f186.png" alt="diag a233f3edc65e7c991774d9233c23f186" width="613" height="310">
+</div>
+</div>
+<div class="paragraph">
+<p>We distinguish names given to objects by their definitions/declarations from names referring to those by way of the NamedQName and RefQName distinction.
+A NamedQName is created for a named thing. A RefQName is created for points of reference to it. The two can never be confused because you can&#8217;t create a RefQName from a declaration/definition (that would create a NamedQName), and you cannot create a NamedQName from the "ref" property (that will create a RefQName). Furthermore, you can&#8217;t test two NamedQNames to see if they match, you have to test if a RefQName refers to a NamedQName.</p>
+</div>
+<div class="paragraph">
+<p>All these objects are created via methods on the singleton QName object.</p>
+</div>
+<div class="sect3">
+<h4 id="resolvesqnames-trait">ResolvesQNames trait</h4>
+<div class="paragraph">
+<p>This trait provides the resolveQName(qnString: String) : RefQName method which calls the QName.resolveRef() method supplying the necessary namespace binding information from the XML of the schema component that is needed to resolve QName prefixes to specific namespaces.</p>
+</div>
+<div class="paragraph">
+<p>This is done by wau of the public namespaces member. The scala.xml.Node class has a scope member which returns type NamespaceBinding. While singular, this is not a single binding, but a chained data structure where a first namespace binding object is chained to a second and subsequent one. This not an ordinary Seq() style collection.  Hence the ResolvesQNames trait provides member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">val namespaces = xml.scope</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="elementbase-changes">ElementBase Changes</h3>
+<div class="paragraph">
+<p>The existing ElementBase class has members, all of which are subject to revision/removal.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Outputs</p>
+<div class="ulist">
+<ul>
+<li>
+<p>thisElementsNamespace - target namespace of defining schema or no-namespace if a local element  decl with elementFormDefault = "unqualified", or no target namespace.</p>
+</li>
+<li>
+<p>thisElementsNamespacePrefix - This is the prefix that will be used for this element when converting to XML. This will change to be different from the provided namespace prefix only if we choose a non-"tns" equivalent, or generate a namespace prefix for particular cases.</p>
+</li>
+<li>
+<p>thisElementsRequiredNamespaceBindings - This will be removed. This can&#8217;t be statically computed like this anymore.</p>
+</li>
+<li>
+<p>protected minimizedScope - This will be removed or made optional. Ths can&#8217;t always be statically computed like this anymore. This will be computed instead at runtime.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Minimization algorithm machinery - these members are likely no longer needed. What they were computing statically and probably very inefficiently needs to be done at runtime (sometimes), and far more efficiently.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>private emptyNSPairs</p>
+</li>
+<li>
+<p>private myOwnNSPairs</p>
+</li>
+<li>
+<p>private myParentNSPairs</p>
+</li>
+<li>
+<p>private myUniquePairs</p>
+</li>
+<li>
+<p>private def pairsToNSBinding</p>
+</li>
+<li>
+<p>private parentMinimizedScope</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="runtime-1-changes">Runtime 1 changes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>DPathElementCompileInfo</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cleanup: <code>val name: String</code> should be removed as a constructor argument and be obtained from the namedQName via <code>def name = namedQName.local</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>ElementRuntimeData</p>
+<div class="ulist">
+<ul>
+<li>
+<p>namespaces - should stay the same.</p>
+</li>
+<li>
+<p>targetNamespace - should stay the same</p>
+</li>
+<li>
+<p>targetNamespacePrefix - computation of this may/will change in case of, e.g., choosing one that is not "tns" or other ambiguous prefix.</p>
+</li>
+<li>
+<p>thisElementsNamespacePrefix - computation of this may/will change similarly to avoid "tns" or other undesriable/ambiguous prefix.</p>
+</li>
+<li>
+<p>minimizedScope - likely changes per the "namespace binding minimization algorithm" above. Should be renamed to reflect proper usage as a statically computed part of namespaces that must be incorporated at runtime when an infoset element is attached to a parent.  The new name might be "nonRootMovedScopes" or soemthing to reflect that these are bindings which could not be statically just be relocated onto the root element. This will be a primary input to the new runtime algorithm that adds additional namespace bindings for shared elements that can be attached to the infoset as children of more than one differently-declared parent element.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2020 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
