@@ -387,10 +387,7 @@ The semantics here aren't identical to those of macro expansion, but the differe
 detect. 
 
 The https://opendfdl.github.io/gwdrp-dfdl-v1.0.5_r11/gwdrp-dfdl-v1.0.5-r11-change-tracking.htm[DFDL Spec (recent draft)]
-//
-// IN URL below, had to escape the underscore with a \ which is not part of the actual URL.
-//
-includes a link:https://opendfdl.github.io/gwdrp-dfdl-v1.0.5_r11/gwdrp-dfdl-v1.0.5-r11-change-tracking.htm#\_Toc27061169[section (23.6 in the linked draft)] on 
+includes a link:https://opendfdl.github.io/gwdrp-dfdl-v1.0.5_r11/gwdrp-dfdl-v1.0.5-r11-change-tracking.htm#_Toc27061169[section (23.6 in the linked draft)] on 
 this 
 // Hmmm. just writing _interior alignment problem_ didn't work. This passthrough to HTML will work for sure.
 pass:[<i>interior alignment problem</i>].
