@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil (incubating) | Test Data Markup Language (TDML)</title>
+    <meta name="description" content="Test Data Markup Language">
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Apache Software Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2>Test Data Markup Language (TDML)</h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<p>Test Data Markup Language (TDML) it is a way of specifying a DFDL schema, input
+test data, and expected result or expected error/diagnostic messages, all
+self-contained in an XML file. IBM created TDML to capture tests for their own
+DFDL implementation. Daffodil latched onto this and has since extended it a
+bit, though there is an effort to reconcile TDML dialects so that all
+implementations can run the same tests.</p>
+
+<p>A TDML file is often useful just to ask a question about how something in DFDL
+works, for example, to get a clarification. It allows for a level of precision
+that is often lacking, but also often required when discussing complex data
+format issues. As such, providing a TDML file along with a bug report is the
+absolutely best way to demonstrate a problem.</p>
+
+<p>By convention, a TDML file uses the file extension <code class="highlighter-rouge">.tdml</code>, or <code class="highlighter-rouge">.tdml.xml</code>
+when used with the TDML “tutorial” feature.</p>
+
+<p>The schema for a TDML file is available on <a href="https://github.com/apache/incubator-daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd">GitHub</a>.</p>
+
+<p>Below is an annotated TDML file for a very simple example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ASCII"?&gt;</span>
+ 
+<span class="nt">&lt;tdml:testSuite</span>
+  <span class="na">suiteName=</span><span class="s">"Bug Report TDML Template"</span>
+  <span class="na">description=</span><span class="s">"Illustration of TDML for bug reporting."</span>
+  <span class="na">xmlns:tdml=</span><span class="s">"http://www.ibm.com/xmlns/dfdl/testData"</span>
+  <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="na">xmlns:xml=</span><span class="s">"http://www.w3.org/XML/1998/namespace"</span>
+  <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
+  <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span>
+  <span class="na">xmlns:gpf=</span><span class="s">"http://www.ibm.com/dfdl/GeneralPurposeFormat"</span>
+  <span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span>
+  <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.ibm.com/xmlns/dfdl/testData tdml.xsd"</span>
+  <span class="na">defaultRoundTrip=</span><span class="s">"none"</span><span class="nt">&gt;</span>
+   
+  <span class="c">&lt;!--
+    This example TDML file is for a self-contained bug report.
+   
+    It shows the definition of an inline schema and parse test and unparse test that use that schema.
+  --&gt;</span>
+
+  <span class="c">&lt;!-- 
+    A DFDL schema is defined inside the tdml:defineSchema element. The contents
+    are similar to a normal DFDL schema, allowing for imports, defining a
+    global format via dfdl:defineFormat and dfdl:format, and defining schema
+    xs:elements/groups/types/etc.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:defineSchema</span> <span class="na">name=</span><span class="s">"bug01Schema"</span> <span class="na">elementFormDefault=</span><span class="s">"unqualified"</span><span class="nt">&gt;</span>
+ 
+    <span class="nt">&lt;xs:import</span>
+      <span class="na">namespace=</span><span class="s">"http://www.ibm.com/dfdl/GeneralPurposeFormat"</span>
+      <span class="na">schemaLocation=</span><span class="s">"IBMdefined/GeneralPurposeFormat.xsd"</span> <span class="nt">/&gt;</span>
+      
+    <span class="nt">&lt;dfdl:defineFormat</span> <span class="na">name=</span><span class="s">"myFormat"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;dfdl:format</span> <span class="na">ref=</span><span class="s">"gpf:GeneralPurposeFormat"</span>
+        <span class="na">lengthKind=</span><span class="s">"implicit"</span>
+        <span class="na">representation=</span><span class="s">"text"</span>
+        <span class="na">encoding=</span><span class="s">"ASCII"</span>
+        <span class="na">initiator=</span><span class="s">""</span>
+        <span class="na">terminator=</span><span class="s">""</span>
+        <span class="na">separator=</span><span class="s">""</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/dfdl:defineFormat&gt;</span>
+  
+    <span class="nt">&lt;dfdl:format</span> <span class="na">ref=</span><span class="s">"ex:myFormat"</span> <span class="nt">/&gt;</span>
+ 
+    <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"myTestRoot"</span> <span class="na">type=</span><span class="s">"xs:dateTime"</span>
+      <span class="na">dfdl:calendarPattern=</span><span class="s">"MM.dd.yyyy 'at' HH:mm:ssZZZZZ"</span>
+      <span class="na">dfdl:calendarPatternKind=</span><span class="s">"explicit"</span>
+      <span class="na">dfdl:lengthKind=</span><span class="s">"delimited"</span>
+      <span class="na">dfdl:terminator=</span><span class="s">"%NL;"</span> <span class="nt">/&gt;</span>
+  
+  <span class="nt">&lt;/tdml:defineSchema&gt;</span>
+ 
+  <span class="c">&lt;!--
+    Define a parse test case, using the above schema and root element. Input
+    data is defined along with the expected infoset.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:parserTestCase</span> <span class="na">name=</span><span class="s">"dateTimeTest"</span> <span class="na">root=</span><span class="s">"myTestRoot"</span> <span class="na">model=</span><span class="s">"bug01Schema"</span>
+    <span class="na">description=</span><span class="s">"A hypothetical bug illustration about parsing a date time."</span><span class="nt">&gt;</span>
+    
+   <span class="nt">&lt;tdml:document&gt;</span>
+     <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"text"</span>
+       <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[04.02.2013 at 14:00:56 GMT-05:00%LF;]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
+   <span class="nt">&lt;/tdml:document&gt;</span>
+ 
+   <span class="nt">&lt;tdml:infoset&gt;</span>
+     <span class="nt">&lt;tdml:dfdlInfoset&gt;</span>
+       <span class="nt">&lt;ex:myTestRoot&gt;</span>2013-04-02T14:00:56.000000-05:00<span class="nt">&lt;/ex:myTestRoot&gt;</span>
+     <span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
+   <span class="nt">&lt;/tdml:infoset&gt;</span>
+      
+  <span class="nt">&lt;/tdml:parserTestCase&gt;</span>
+
+  <span class="c">&lt;!--
+    Define an unparse test case, using the above schema and root element. An
+    input infoset is defined along with the expected unparsed data.
+  --&gt;</span>
+ 
+  <span class="nt">&lt;tdml:unparserTestCase</span> <span class="na">name=</span><span class="s">"unparseDateTimeTest"</span> <span class="na">root=</span><span class="s">"myTestRoot"</span> <span class="na">model=</span><span class="s">"bug01Schema"</span>
+    <span class="na">description=</span><span class="s">"Another bug illustration, this time unparsing direction."</span><span class="nt">&gt;</span>
+ 
+    <span class="nt">&lt;tdml:infoset&gt;</span>
+      <span class="nt">&lt;tdml:dfdlInfoset&gt;</span>
+        <span class="nt">&lt;ex:myTestRoot&gt;</span>2013-04-02T14:00:56.000000-05:00<span class="nt">&lt;/ex:myTestRoot&gt;</span>
+      <span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
+    <span class="nt">&lt;/tdml:infoset&gt;</span>
+ 
+    <span class="nt">&lt;tdml:document&gt;</span>
+      <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"text"</span>
+        <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[04.02.2013 at 14:00:56-05:00%CR;%LF;]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
+   <span class="nt">&lt;/tdml:document&gt;</span>
+        
+  <span class="nt">&lt;/tdml:unparserTestCase&gt;</span>
+    
+<span class="nt">&lt;/tdml:testSuite&gt;</span>
+</code></pre></div></div>
+
+<p>Suppose you save the above out as a file <code class="highlighter-rouge">myDateTimeBug.tdml</code>. You can then run
+it using the <code class="highlighter-rouge">test</code> subcommand of the <a href="/cli">Daffodil Command Line Interface</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
+</code></pre></div></div>
+
+<h3 id="specifying-test-data">Specifying Test Data</h3>
+
+<p>Test data can be specified in text, hexadecimal, individual bits, or in an
+external file by setting the <code class="highlighter-rouge">type</code> attribute in the <code class="highlighter-rouge">tdml:documentPart</code>
+element. Multiple <code class="highlighter-rouge">tdml:documentPart</code> elements are combined to create the
+test data. The different documentPart types are illustrated below.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:document&gt;</span>
+  <span class="c">&lt;!--
+    A document part with type="text" is text. It is often a good idea to use
+    CDATA to avoid whitespace changes made by some autoindenting IDE's.
+
+    So in the example below, the line ending after '250;' and after '967;' are
+    intentional parts of the data so as to illustrate that the whitespace is
+    preserved.
+
+    If you care exactly which kind of line ending is used, then you can use
+    DFDL character entities to insert a %CR; %LF; or both. In this example,
+    because the whitespace is expressed as whitespace, it depends on the
+    platform where you edit this file whether the line ending is a LF (Unix
+    convention), or a CRLF (MS Windows convention). By convention, it is
+    usually recommended to use Unix style line-endings in TDML files and use
+    character entities if explicit line endings are being tested.
+
+    If you want to use DFDL character entities, you must turn on the
+    replaceDFDLEntities="true" feature of the documentPart element.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[quantity:250;
+hardnessRating:967;
+]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
+
+  <span class="c">&lt;!--
+    In 'text' both XML character entities, and DFDL's own character entities
+    are interpreted.
+
+    So here is a NUL terminated string that contains a date with some Japanese
+    Kanji characters. The Japanese characters are expressed using XML numeric
+    character entities. The NUL termination is expressed using a DFDL character
+    entity.
+
+    In this example one has no choice but to use a DFDL character entity. The
+    NUL character (which has character code zero), is not allowed in XML
+    documents, not even using an XML character entity. So you have to write
+    '%NUL;' or '%#x00;' to express it using DFDL character entities.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"text"</span>
+    <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[1987&amp;#x5E74;10&amp;#x6708;&amp;#x65e5; BCE%NUL;]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
+
+  <span class="c">&lt;!--
+    Type 'byte' means use hexadecimal to specify the data. Freeform whitespace
+    is allowed and  any character that is not a-zA-Z0-9 is ignored. So you can
+    use "." or "-" to separate groups of hex digits if you like.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span>
+    9Abf e4c3
+    A5-E9-FF-00
+  <span class="nt">&lt;/tdml:documentPart&gt;</span>
+
+  <span class="c">&lt;!--
+    Type 'bits' allows you to specify individual 0 and 1. Any character other
+    than 0 or 1 is ignored.
+
+    The number of bits does not have to be a multiple of 8. That is, whole
+    bytes are not required.
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"bits"</span><span class="nt">&gt;</span>
+    1.110 0.011 1   First 5 bit fields.
+  <span class="nt">&lt;/tdml:documentPart&gt;</span>
+
+  <span class="c">&lt;!--
+    Type 'file' means the content is a file name where to get the data
+  --&gt;</span>
+
+  <span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"file"</span><span class="nt">&gt;</span>/some/directory/testData.in.dat<span class="nt">&lt;/tdml:documentPart&gt;</span>
+
+<span class="nt">&lt;/tdml:document&gt;</span>
+</code></pre></div></div>
+<p>Note that in order for a test to be considered successful, it must consume all
+the data defined in the <code class="highlighter-rouge">tdml:document</code> element. Otherwise the test will fail
+with a message about “left over data”.</p>
+
+<h3 id="specifying-the-infoset">Specifying the Infoset</h3>
+
+<p>The infoset can be provided either as an inline XML infoset or as a path to an
+external file by setting the <code class="highlighter-rouge">type</code> attribute on the <code class="highlighter-rouge">tdml:dfdlInfoset</code>
+element. If not provided, the type defaults to inline XML. For example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:infoset&gt;</span>
+  <span class="nt">&lt;tdml:dfdlInfoset</span> <span class="na">type=</span><span class="s">"infoset"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ex:myTestRoot&gt;</span>2013-04-02T14:00:56.000000-05:00<span class="nt">&lt;/ex:myTestRoot&gt;</span>
+  <span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
+<span class="nt">&lt;/tdml:infoset&gt;</span>
+
+<span class="nt">&lt;tdml:infoset&gt;</span>
+  <span class="nt">&lt;tdml:dfdlInfoset</span> <span class="na">type=</span><span class="s">"file"</span><span class="nt">&gt;</span>/some/directory/testData.in.xml<span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
+<span class="nt">&lt;/tdml:infoset&gt;</span>
+</code></pre></div></div>
+
+<p>Note that the <code class="highlighter-rouge">tdml:dfdlInfoset</code> may need to contain characters that are not
+legal in XML documents. Daffodil remaps these characters into legal XML
+characters in the Unicode Private Use Areas (PUA). See <a href="/infoset#xml-illegal-characters">XML Illegal
+Characters</a> for details.</p>
+
+<h3 id="negative-tests-expecting-errorswarnings">Negative Tests: Expecting Errors/Warnings</h3>
+
+<p>A poor or missing diagnostic message is a bug just as much as a broken feature.
+TDML allows for creating negative tests to expect errors and warnings. To do
+expect errors, replace the <code class="highlighter-rouge">tdml:infoset</code> element with a <code class="highlighter-rouge">tdml:errors</code>
+element:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:errors&gt;</span>
+  <span class="nt">&lt;tdml:error&gt;</span>Schema Definition Error<span class="nt">&lt;/tdml:error&gt;</span>
+  <span class="nt">&lt;tdml:error&gt;</span>testElementName<span class="nt">&lt;/tdml:error&gt;</span>
+<span class="nt">&lt;/tdml:errors&gt;</span>
+</code></pre></div></div>
+
+<p>Each <code class="highlighter-rouge">tdml:error</code> child element contains a sub-string which must be found
+somewhere in the set of diagnostic messages that come out of the test. The
+comparison is case-insensitive.</p>
+
+<p>The <code class="highlighter-rouge">tdml:warnings</code> and <code class="highlighter-rouge">tdml:warning</code> elements behave just like the error
+counterparts to define warnings that should be created during the test. Note
+that warnings are considered non-fatal and so can appear alongside
+<code class="highlighter-rouge">tdml:errors</code> and <code class="highlighter-rouge">tdml:infoset</code> elements.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:warnings&gt;</span>
+  <span class="nt">&lt;tdml:warning&gt;</span>Schema Definition Warning<span class="nt">&lt;/tdml:warning&gt;</span>
+  <span class="nt">&lt;tdml:warning&gt;</span>'http://www.ogf.org/dfdl/dfdl-1.0/' should be 'http://www.ogf.org/dfdl/'<span class="nt">&lt;/tdml:warning&gt;</span>
+<span class="nt">&lt;/tdml:warnings&gt;</span>
+</code></pre></div></div>
+
+<h3 id="using-cdata-regions">Using CDATA Regions</h3>
+
+<p>XML CDATA regions indicate XML data that should not be interpreted as XML.
+Although in general is it used to easily include XML special characters in XML
+data, its use has other benefits in TDML files as well. Below are examples of
+what scenarios when CDATA regions should and should not be used.</p>
+
+<h4 id="-as-a-clear-way-represent-xml-special-characters"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  As a clear way represent XML special characters</h4>
+
+<p>The characters <code class="highlighter-rouge">&lt;</code>, <code class="highlighter-rouge">&gt;</code>, <code class="highlighter-rouge">&amp;</code>, <code class="highlighter-rouge">'</code>, and <code class="highlighter-rouge">"</code> must be represented in XML
+with <code class="highlighter-rouge">&amp;lt;</code>, <code class="highlighter-rouge">&amp;gt;</code>, <code class="highlighter-rouge">&amp;amp;</code>, <code class="highlighter-rouge">&amp;apos;</code>, and <code class="highlighter-rouge">&amp;quot;</code>, respectively.
+These special characters are not escaped when used in CDATA tags, which can
+make the data more clear. For example, the following are equivalent:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;foo&gt;</span>abc<span class="ni">&amp;amp;&amp;amp;&amp;amp;</span>&gt;def<span class="nt">&lt;/foo&gt;</span>
+<span class="nt">&lt;foo&gt;</span>abc<span class="cp">&lt;![CDATA[&amp;&amp;&amp;]]&gt;</span>def<span class="nt">&lt;/foo&gt;</span>
+</code></pre></div></div>
+
+<h4 id="-to-preserve-textual-formatting-within-tdml---for-clarity-reasons"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To preserve textual formatting within TDML - for clarity reasons</h4>
+
+<p>Often times IDE’s and XML editors will indent, wrap, and remove redundant
+whitespace in XML data. However, sometimes it is desired that such formatting
+is maintained for readability purposes. Many tools  refuse to perform
+modifications on CDATA regions, so they can be used as a way to maintain
+formatting. For example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[
+00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f
+20 21    23 24 25    27 28 29 2a 2b 2c 2d 2e 2f
+30 31 32 33 34 35 36 37 38 39 3a 3b    3d    3f
+40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f
+50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f
+]]&gt;</span><span class="nt">&lt;/tdml:documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>The data holes in the above matrix of hex would be hard to understand without
+the formatting. But logically, the whitespace is irrelevant when the
+documentPart type is “byte”. In effect, we have CDATA here so that tooling like
+IDEs, XML editor, etc. will not mess with the formatting of the content.</p>
+
+<h4 id="-to-avoid-insertion-of-whitespace-that-would-make-things-incorrect"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To avoid insertion of whitespace that would make things incorrect</h4>
+
+<p>Let us assume that the input document should contain exactly two letters:
+<code class="highlighter-rouge">a年</code>. This might be represented as the following in a TDML file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+  <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>a年<span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;/document&gt;</span>
+</code></pre></div></div>
+
+<p>The problem is that it is possible that an XML tool might reformat the XML as
+this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+  <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>
+    a年
+  <span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;/document&gt;</span>
+</code></pre></div></div>
+
+<p>But this is a text documentPart containing some letters with surrounding
+whitespace. Our test, in this case, expects data of length exactly 2
+characters, so could cause a failure. CDATA can be used to prevent many XML
+tools from reformatting and inserting whitespace that could affect the test
+input data:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
+  <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[a年]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;/document&gt;</span>
+</code></pre></div></div>
+<h4 id="-to-preserve-specific-line-endings"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i>  To preserve specific line endings</h4>
+
+<p>Using CDATA does NOT necessarily preserve line endings. So if you had a test
+where you have this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF
+]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>If you edit that on a windows machine, where CRLF is the usual text line
+ending, then the file will actually have a CRLF line ending in that text. If
+the test has say, <code class="highlighter-rouge">dfdl:terminator="%CR;%LF;"</code>, then this should fail
+because, no matter what, XML always standardizes line endings to just one
+character: LF. XML replaces CRLF with LF, and isolated CR with LF. The net
+result: by the time a program is reading the XML data, it should only see LF
+line endings.</p>
+
+<p>It is possible to get a literal CR character into XML content, but ONLY by
+using the numeric character entity notation, i.e., <code class="highlighter-rouge">&amp;#xD;</code>. So one might try to
+write the above test as:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="ni">&amp;#xD;&amp;#xA;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>Even this, however, is not a sure thing, because re-indenting the XML might
+cause you to get:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>
+   <span class="ni">&amp;#xD;&amp;#xA;</span>
+<span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>Which would be broken because of the whitespace insertions around the
+<code class="highlighter-rouge">&amp;#xD;&amp;#xA;</code>.</p>
+
+<p>There are two good solutions to this problem. First one can use type=”byte”
+document parts:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span>0D 0A<span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>This will always create exactly the bytes <code class="highlighter-rouge">0D</code> and <code class="highlighter-rouge">0A</code>, and documentParts
+are concatenated together with nothing between. However, this will break if the
+documentPart has an encoding where CR and LF are not exactly represented by the
+bytes 0D and 0A. For example currently we support
+<code class="highlighter-rouge">encoding="us-ascii-7-bit-packed"</code>. In that encoding, CR and LF each take up
+only 7 bits, resulting in 14 bits rather than 2 full bytes.</p>
+
+<p>The best way to handle this problem is to use the documentPart
+replaceDFDLEntities attribute:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>The line gets kind of long, but those <code class="highlighter-rouge">%CR;</code> and <code class="highlighter-rouge">%LF;</code> are DFDL entities
+syntax for those Unicode characters. These are translated into whatever
+encoding the documentPart specifies, so this will be robust even if the
+encoding is say, UTF-16 or the 7-bit encoding.</p>
+
+<p>If you have a multi-line piece of data and need CRLFs in it, then this does get
+a bit clumsy as you have to do it like this where each text line gets its own
+documentPart:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[In all the towns in the world%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[She walked into mine%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>So the general rule is that CDATA regions cannot be used to ensure that
+specific kinds of line endings will be preserved in a file.</p>
+
+<p>Some tests, however, are insensitive to the presence of whitespace. This is
+true of many tests for delimited text formats. In those cases you may want
+CDATA to preserve formatting of text (so it won’t be re-indented), and to
+preserve <em>some</em> line endings. If this same test example was instead using
+<code class="highlighter-rouge">dfdl:terminator="%NL;"</code>, the NL entity matches CRLF, CR, or LF, and even
+some other obscure Unicode line ending characters. In that case, the original
+documentPart XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints
+In all the towns of the world
+She walked into mine
+]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+</code></pre></div></div>
+
+<p>is fine, and will work and be robust.</p>
+
+<h3 id="round-trip-testing">Round-Trip Testing</h3>
+
+<p>Round-trip testing is using a single test case for testing both parse and unparse directions.</p>
+
+<p>The <code class="highlighter-rouge">tdml:testSuite</code> has a <code class="highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="highlighter-rouge">roundTrip</code> attribute which overrides the default.</p>
+
+<p>The default behavior if nothing is specified in either the <code class="highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="highlighter-rouge">onePass</code>. The values of these attributes can be:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">none</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">onePass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect match. Unparse infoset, compare to given data.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data, expect match. Parse data to infoset, compare to expected infoset, expect match.</p>
+  </dd>
+  <dt><code class="highlighter-rouge">twoPass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset, compare to given data, expect failure. Parse output data to a second infoset. Compare to first infoset, expect success.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Invalid</p>
+  </dd>
+  <dt><code class="highlighter-rouge">threePass</code></dt>
+  <dd>
+    <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset to first output data, compare to given data, expect failure. Parse first output data to second infoset. Compare to expected infoset, expect failure. Unparse second infoset to second output data, compare to first output data, expect success.</p>
+  </dd>
+  <dd>
+    <p><em>tdml:unparserTestCase:</em> Invalid</p>
+  </dd>
+  <dt><code class="highlighter-rouge">false</code></dt>
+  <dd>
+    <p>Same as <code class="highlighter-rouge">none</code>, used for backwards compatability</p>
+  </dd>
+  <dt><code class="highlighter-rouge">true</code></dt>
+  <dd>
+    <p>Same as <code class="highlighter-rouge">onePass</code>, used for backwards compatability</p>
+  </dd>
+</dl>
+
+<p>A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="highlighter-rouge">twoPass</code> must fail in <code class="highlighter-rouge">onePass</code> in order to succeed with the second pass. A test designated <code class="highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="highlighter-rouge">twoPass</code> and especially <code class="highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</p>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-3" style="margin-top: 15px;">
+                        <a href="https://incubator.apache.org"><img src="/assets/themes/apache/img/incubator_feather_egg_logo.png"
+                                                                   alt="Apache Incubator" style="width:100%;"/></a>
+                    </div>
+                    <div class="col-xs-9">
+                        Apache Daffodil is an effort undergoing <a href="https://incubator.apache.org/index.html">Incubation</a>
+                        at The Apache Software Foundation (ASF), sponsored by the Incubator. Incubation is required of all newly
+                        accepted projects until a further review indicates that the infrastructure, communications, and decision
+                        making process have stabilized in a manner consistent with other successful ASF projects. While incubation
+                        status is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+                        the project has yet to be fully endorsed by the ASF.
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2020 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, the Apache Incubator project logo, Apache Daffodil, Daffodil, and the
+                    Apache Daffodil logo are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
