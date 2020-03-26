@@ -120,11 +120,11 @@ The details are:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The PState/UState contains a counter (initial value 0) of the number of hidden group references currently in the nest.</p>
+<p>The PState/UState contains a hiddenDepth counter (initial value 0) that represents the number of hidden group references currently in the nest.</p>
 </li>
 <li>
 <p>When parsing/unparsing a hidden group ref, this counter is incremented.
-When unwinding from that unparse, the counter is decremented.
+When unwinding from that parse/unparse, the counter is decremented.
 No action is required for non-hidden group references.</p>
 </li>
 <li>
@@ -150,12 +150,7 @@ No action is required for non-hidden group references.</p>
 <p>The PState/UState contains the counter described above.</p>
 </li>
 <li>
-<p>The ModelGroupRuntimeData object contains an isHidden flag that is true if the term corresponds to a hidden group reference.
-It is this flag that is inspected to determine if the PState/UState counter should be incremented/decremented or not.</p>
-</li>
-<li>
-<p>The increment/decrement logic is centralized in Parser.parse1() method and Unparser.unparse1() method.
-These inspect the current TermRuntimeData object, and when it is a ModelGroupRuntimeData, they check the isHidden flag.</p>
+<p>The increment/decrement logic is centralized in a HiddenGroupCombinatorParser/Unparser. This is wrapped around the gram in the ModelGroupGrammarMixin trait, if the gram is a hidden group ref.</p>
 </li>
 <li>
 <p>At the end of processing where checking that the various runtime-stacks and pools are properly emptied/restored, an additional check is done to insure the hidden counter of the PState/UState has been returned to zero.
@@ -191,31 +186,11 @@ This check need only be performed on normal exits. If the processor terminates a
 <p>Tests cover this for hidden sequences and hidden choices.
 Note that a hidden group references always uses an xs:sequence element, but the referenced group can be a choice group definition.</p>
 </li>
+<li>
+<p>Tests cover the cases of nested hidden group refs</p>
+</li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="transition-plan-from-daffodil-2-5-0">Transition Plan From Daffodil 2.5.0</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>(Delete this section once implementation is complete.)</p>
-</div>
-<div class="paragraph">
-<p>The existing v2.5.0 isHidden implementation consists of code that populates a member of class ElementRuntimeData (Runtime 1) isHidden member.</p>
-</div>
-<div class="paragraph">
-<p>All code for populating that member, and the member itself, can be removed. Anything it calls which is used only for that purpose can be removed.</p>
-</div>
-<div class="paragraph">
-<p>Any code that assumes the isHidden characteristic of elements is static information must be removed.</p>
-</div>
-<div class="paragraph">
-<p>All access to whether an element isHidden must call the isHidden method of InfosetElement (aka DIElement) object instead of on the ERD (ElementRuntimeData) object.</p>
-</div>
-<div class="paragraph">
-<p>There is no conversion of existing code to a new design, as the entire old mechanism, and its underlying assumptions, are being removed, and fully replaced by the new mechanism.</p>
 </div>
 </div>
 </div>
