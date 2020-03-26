@@ -172,6 +172,10 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
      : Display the current group index. Abbreviation: ``gi``
 
+     ``hidden``
+
+     : Display whether or not we're within the nesting context of a hidden group. Abbreviation: ``h``
+
      ``infoset``
 
      : Display the current infoset. Abbreviation: ``i``

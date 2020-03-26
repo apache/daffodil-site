@@ -49,9 +49,9 @@ Hence, no static analysis of whether a term is always/sometimes/never hidden is 
 The implementation takes advantage of the processor (parser/unparser) traversal of the DFDL schema components following an in-order traversal pattern, so that a stack-discpline can be used when traversing hidden-group references. No actual stack is needed, only a counter. 
 The details are:
 
-* The PState/UState contains a counter (initial value 0) of the number of hidden group references currently in the nest.  
+* The PState/UState contains a hiddenDepth counter (initial value 0) that represents the number of hidden group references currently in the nest.
 * When parsing/unparsing a hidden group ref, this counter is incremented. 
-When unwinding from that unparse, the counter is decremented.  
+When unwinding from that parse/unparse, the counter is decremented.
 No action is required for non-hidden group references.
 * When an infoset element is created, the setHidden() method is called if the counter is non-zero. 
 * At the end of processing, the counter should be zero. 
@@ -62,10 +62,7 @@ In Daffodil's "Runtime 1" backend, these are the runtime data structure features
 
 * Infoset elements have an isHidden() boolean method, and a setHidden() setter.
 * The PState/UState contains the counter described above.
-* The ModelGroupRuntimeData object contains an isHidden flag that is true if the term corresponds to a hidden group reference. 
-It is this flag that is inspected to determine if the PState/UState counter should be incremented/decremented or not.
-* The increment/decrement logic is centralized in Parser.parse1() method and Unparser.unparse1() method.
-These inspect the current TermRuntimeData object, and when it is a ModelGroupRuntimeData, they check the isHidden flag. 
+* The increment/decrement logic is centralized in a HiddenGroupCombinatorParser/Unparser. This is wrapped around the gram in the ModelGroupGrammarMixin trait, if the gram is a hidden group ref.
 * At the end of processing where checking that the various runtime-stacks and pools are properly emptied/restored, an additional check is done to insure the hidden counter of the PState/UState has been returned to zero. 
 This check need only be performed on normal exits. If the processor terminates abnormally, we needn't check. 
 * The debugger/trace should display, as part of the state, whether the current context isHidden (counter > 0) or not. 
@@ -78,18 +75,4 @@ This check need only be performed on normal exits. If the processor terminates a
 * Tests cover where the same group definition is used both hidden and non-hidden within the same schema. 
 * Tests cover this for hidden sequences and hidden choices. 
 Note that a hidden group references always uses an xs:sequence element, but the referenced group can be a choice group definition.
-
-
-== Transition Plan From Daffodil 2.5.0
-
-(Delete this section once implementation is complete.)
-
-The existing v2.5.0 isHidden implementation consists of code that populates a member of class ElementRuntimeData (Runtime 1) isHidden member. 
-
-All code for populating that member, and the member itself, can be removed. Anything it calls which is used only for that purpose can be removed. 
-
-Any code that assumes the isHidden characteristic of elements is static information must be removed.
-
-All access to whether an element isHidden must call the isHidden method of InfosetElement (aka DIElement) object instead of on the ERD (ElementRuntimeData) object. 
-
-There is no conversion of existing code to a new design, as the entire old mechanism, and its underlying assumptions, are being removed, and fully replaced by the new mechanism. 
+* Tests cover the cases of nested hidden group refs
