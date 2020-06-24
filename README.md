@@ -61,6 +61,10 @@ running from within the directory:
 
     $ jekyll serve --watch --source site
 
+If that fails to work due to missing jekyll plugin versions, try:
+
+    $ bundle exec jekyll serve --watch --source site
+
 Open [http://localhost:4000](http://localhost:4000) to view the site served by Jekyll.
 
 Once satisfied, create a branch and open a pull request using the Daffodil
