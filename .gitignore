@@ -16,4 +16,5 @@
 Gemfile.lock
 target
 .jekyll-cache/
-
+.idea/
+daffodil-site.iml
