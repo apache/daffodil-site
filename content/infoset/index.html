@@ -565,7 +565,7 @@ XML infoset, so to be consistent with XML we map CR and CRLF to LF.</p>
 characters in the parts of the PUA used by this mapping for illegal XML
 codepoints. When unparsing, the characters such as #xE000 found in the infoset string values are mapped back to the corresponding illegal character code points (#xE000 becomes #x0, aka NUL).</p>
 
-<p>The XML for an infoset can embed the #xE000 character or any of the other “illegal” characters mapped into the PUA conveniently by use of XSD numeric character entities such as “”. This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL).</p>
+<p>The XML for an infoset can embed the #xE000 character or any of the other “illegal” characters mapped into the PUA conveniently by use of XSD numeric character entities such as “&amp;#xE000;”. This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL).</p>
 
 <p>It is a processing error if any DFDL infoset string character is created with a
 character code greater than <code class="highlighter-rouge">#x10FFFF</code>.</p>

@@ -87,77 +87,68 @@
 
 -->
 
-<p>Unsupported features and errata of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 2.5.0 are listed below:</p>
+<p>Unsupported features and errata of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 2.7.0 are listed below:</p>
 
 <h4 id="dfdl-features">DFDL Features</h4>
 
 <ul>
-  <li>“type” component of DFDL infoset</li>
-  <li>“unionMemberSchema” component of DFDL infoset</li>
-  <li>“valid” component of DFDL infoset</li>
-  <li>bi-directional text</li>
-  <li>byte-value entities (aka raw-byte entities)</li>
-  <li>defaulting of values for required elements</li>
-  <li>extended ICU symbols ‘u’ and ‘I’ in calendarPattern</li>
-  <li>floating elements in sequences</li>
-  <li>unicodeByteOrderMark</li>
-  <li>validation (unparsing)</li>
+  <li>“type” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-182">DAFFODIL-182</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1852">DAFFODIL-1852</a>]</li>
+  <li>“unionMemberSchema” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1633">DAFFODIL-1633</a>]</li>
+  <li>“valid” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-813">DAFFODIL-813</a>]</li>
+  <li>bi-directional text (Note this is being removed from the DFDL 
+Specification v1.0 per Erratum 5.43, 
+but may return as an experimental feature, or in a 
+future version of the DFDL spec.)</li>
+  <li>byte-value entities (aka raw-byte entities)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-258">DAFFODIL-258</a>]</li>
+  <li>defaulting of values for required elements - when unparsing [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>]</li>
+  <li>extended ICU symbol ‘I’ in calendarPattern [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1462">DAFFODIL-1462</a>]</li>
+  <li>floating elements in sequences [<a href="https://issues.apache.org/jira/browse/DAFFODIL-643">DAFFODIL-643</a>]</li>
+  <li>unicodeByteOrderMark (Note this is being removed from the DFDL Specification v1.0 per Erratum 5.50)</li>
+  <li>validation (when unparsing) [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1582">DAFFODIL-1582</a>]</li>
 </ul>
 
 <h4 id="xml-schema-features">XML Schema Features</h4>
 
 <ul>
-  <li>fixed</li>
-  <li>default</li>
+  <li>fixed [<a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>]</li>
+  <li>default [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>]</li>
 </ul>
 
 <h4 id="properties-and-property-enumerations">Properties and Property Enumerations</h4>
 
 <ul>
-  <li>binaryFloatRep=”ibm390Hex”</li>
-  <li>documentFinalTerminatorCanBeMissing=”yes”</li>
-  <li>encodingErrorPolicy=”error”</li>
-  <li>failureType=”recoverableError”</li>
-  <li>floating=”yes”</li>
-  <li>lengthKind=”endOfParent”</li>
-  <li>nilKind=”literalCharacter”</li>
-  <li>nilKind=”logicalValue”</li>
-  <li>occursCountKind=”stopValue”</li>
-  <li>occursStopValue</li>
-  <li>textBidi=”yes”</li>
-  <li>textBidiNumeralShapes</li>
-  <li>textBidiOrientation</li>
-  <li>textBidiSymmetric</li>
-  <li>textBidiTextOrdering</li>
-  <li>textBidiTextShaped</li>
-  <li>textStandardBase (behaves as 10)</li>
-  <li>useNilForDefault</li>
-  <li>utf16Width=”variable”</li>
-</ul>
-
-<h4 id="annotations">Annotations</h4>
-
-<ul>
-  <li>newVariableInstance</li>
+  <li>binaryFloatRep=”ibm390Hex” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-244">DAFFODIL-244</a>]</li>
+  <li>documentFinalTerminatorCanBeMissing=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-230">DAFFODIL-230</a>]</li>
+  <li>encodingErrorPolicy=”error” (Note: this is accepted, but behaves as “replace”)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-935">DAFFODIL-935</a>]</li>
+  <li>floating=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-643">DAFFODIL-643</a>]</li>
+  <li>lengthKind=”endOfParent” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-238">DAFFODIL-238</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-567">DAFFODIL-567</a>]</li>
+  <li>nilKind=”logicalValue” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-201">DAFFODIL-201</a>]</li>
+  <li>occursCountKind=”stopValue”, occursStopValue [<a href="https://issues.apache.org/jira/browse/DAFFODIL-501">DAFFODIL-501</a>]</li>
+  <li>utf16Width=”variable” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-551">DAFFODIL-551</a>]</li>
 </ul>
 
 <h4 id="miscellaneous">Miscellaneous</h4>
 
 <ul>
-  <li>XPath query-style expressions</li>
+  <li>XPath query-style expressions [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1118">DAFFODIL-1118</a>]</li>
 </ul>
 
 <h4 id="errata-minor-technical-fixes">Errata (Minor Technical Fixes)</h4>
 
-<p>Items 5.1 through 5.38 of the <a href="https://redmine.ogf.org/dmsf_files/13384?download=">DFDL v1.0 Spec Errata</a> are implemented, except for those listed below:</p>
+<p>Items 5.1 through 5.63 of the <a href="https://redmine.ogf.org/dmsf_files/13384?download=">DFDL v1.0 Spec Errata</a> are implemented, except for those listed below:</p>
 
 <ul>
-  <li>Erratum 5.1 - Test for escapeEscapeCharacter in escape block data</li>
-  <li>Erratum 5.3 - dfdl:escapeCharacterPolicy property</li>
-  <li>Erratum 5.6 - “form” attribute (“elementFormDefault” is supported)</li>
-  <li>Erratum 5.14 - Check range of binaryDecimalVirtualPoint at runtime</li>
-  <li>Erratum 5.29 - Intersect and except operators, dfdl:checkRangeInclusive, dfdl:checkRangeExclusive functions</li>
-  <li>Erratum 5.30 - Character-level scanning insufficient due to raw byte entities</li>
+  <li>Erratum 5.1 - Test for escapeEscapeCharacter in escape block data [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2421">DAFFODIL-2421</a>]</li>
+  <li>Erratum 5.3 - dfdl:escapeCharacterPolicy property [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2415">DAFFODIL-2415</a>]</li>
+  <li>Erratum 5.6 - “form” attribute (note that “elementFormDefault” is supported) [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2416">DAFFODIL-2416</a>]</li>
+  <li>Erratum 5.14 - Check range of binaryDecimalVirtualPoint at runtime [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2417">DAFFODIL-2417</a>]</li>
+  <li>Erratum 5.29 - Intersect and except operators, dfdl:checkRangeInclusive, dfdl:checkRangeExclusive functions 
+[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2379">DAFFODIL-2379</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1515">DAFFODIL-1515</a>]</li>
+  <li>Erratum 5.30 - Character-level scanning insufficient due to raw byte entities [<a href="https://issues.apache.org/jira/browse/DAFFODIL-258">DAFFODIL-258</a>]</li>
+  <li>Erratum 5.39 - Choice branches that are zero-occurrence arrays are missing. [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2420">DAFFODIL-2420</a>]</li>
+  <li>Erratum 5.40 - complex type cannot have hiddenGroupRef as its model group [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2419">DAFFODIL-2419</a>]</li>
+  <li>Erratum 5.47 - Encoding/Decoding errors - dfdl:encodingErrorPolicy=”error” not implemented.[<a href="https://issues.apache.org/jira/browse/DAFFODIL-935">DAFFODIL-935</a>]</li>
+  <li>Erratum 5.62 - documentFinalTerminatorCanBeMissing - property is not implemented.[<a href="https://issues.apache.org/jira/browse/DAFFODIL-230">DAFFODIL-230</a>]</li>
 </ul>
 
   </div>
