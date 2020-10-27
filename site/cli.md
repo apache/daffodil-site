@@ -96,7 +96,7 @@ Parse a file, using either a DFDL schema or a saved parser.
 
 ``-I, --infoset-type TYPE``
 
-   : Infoset type to output. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, or ``null``. Defaults to ``xml`` if not provided.
+   : Infoset type to output. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, ``sax``, or ``null``. Defaults to ``xml`` if not provided.
 
 ``-o, --output FILE``
 
@@ -166,7 +166,7 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 
 ``-I, --infoset-type TYPE``
 
-   : Infoset type to unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, or ``jdom``. Defaults to ``xml`` if not provided.
+   : Infoset type to unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, or ``sax``. Defaults to ``xml`` if not provided.
 
 ``-o, --output FILE``
 
@@ -325,7 +325,7 @@ Run a performance test (parse or unparse), using either a DFDL schema or a saved
 
 ``-I, --infoset-type TYPE``
 
-   : Infoset type to parse/unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, or ``null``. Defaults to ``xml`` if not provided. Note that ``null`` is not valid if the ``--unparse`` option is provided.
+   : Infoset type to parse/unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, ``sax``, or ``null``. Defaults to ``xml`` if not provided. Note that ``null`` is not valid if the ``--unparse`` option is provided.
 
 ``-N, --number NUMBER``
 
