@@ -37,6 +37,7 @@ Infoset to the supported representations.
   <li><a data-toggle="tab" href="#scalanode">Scala Node</a></li>
   <li><a data-toggle="tab" href="#xmltext">XML Text</a></li>
   <li><a data-toggle="tab" href="#json">JSON</a></li>
+  <li><a data-toggle="tab" href="#sax">SAX</a></li>
 </ul>
 
 <div class="tab-content">
@@ -218,7 +219,7 @@ Infoset to the supported representations.
       </tr>
       <tr>
         <td class="col-md-3">root</td>
-        <td class="col-md-9"><i>not supported</i></td>
+        <td class="col-md-9">root element of the node</td>
       </tr>
       <tr>
         <td class="col-md-3">dfdlVersion</td>
@@ -388,7 +389,7 @@ Infoset to the supported representations.
       </tr>
       <tr>
         <td class="col-md-3">root</td>
-        <td class="col-md-9">The first (and only) JSON string in the doucment object.</td>
+        <td class="col-md-9">The first (and only) JSON string in the document object.</td>
       </tr>
       <tr>
         <td class="col-md-3">dfdlVersion</td>
@@ -464,6 +465,97 @@ Infoset to the supported representations.
       </tr>
     </table>
   </div>
+  <div id="sax" class="tab-pane fade">
+      <table class="table">
+        <tr>
+          <td class="col-md-3">Document Information Item</td>
+          <td class="col-md-9">All callbacks between (inclusive) org.xml.sax.ContentHandler#startDocument and endDocument</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">root</td>
+          <td class="col-md-9">startElement callback</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">dfdlVersion</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">schema (reserved for future use)</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">unicodeByteOrderMark</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">Element Information Item</td>
+          <td class="col-md-9">StartElement event</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">namespace</td>
+          <td class="col-md-9">Accessible three ways: 
+            <ul>
+              <li>uri parameter of StartElement/EndElement callbacks</li>
+              <li>qName parameter together with StartPrefixMapping/EndPrefixMapping callbacks</li>
+              <li>qName and Attribute parameter of StartElement callback</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-3">name</td>
+          <td class="col-md-9">localName or qName parameter of startElement callback</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">document</td>
+          <td class="col-md-9">not yet implemented</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">datatype</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">dataValue</td>
+          <td class="col-md-9">
+            For simple types other than xs:string, the canonical
+            XML representation of the value from the characters callback. 
+            See <a href="#xml-illegal-characters">XML Illegal Characters</a> 
+            for xs:string types containing XML illegal characters.
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-3">nilled</td>
+          <td class="col-md-9">Using the getIndex method of the Attributes parameter of startElement with the XSI uri and the "nil" localName as arguments.</td>
+        </tr>
+        <tr>
+          <td class="col-md-3">children</td>
+          <td class="col-md-9"><i>not supported</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">parent</td>
+          <td class="col-md-9"><i>not supported</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">schema</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">valid</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">unionMemberSchema</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">"No Value"</td>
+          <td class="col-md-9"><i>not supported</i></td>
+        </tr>
+        <tr>
+          <td class="col-md-3">Augmented Infoset</td>
+          <td class="col-md-9"><i>not yet implemented</i></td>
+        </tr>
+      </table>
+    </div>
 </div>
 
 ### XML Illegal Characters
