@@ -55,6 +55,7 @@ future version of the DFDL spec.)
 * nilKind="logicalValue" {% jira 201 %}
 * occursCountKind="stopValue", occursStopValue {% jira 501 %}
 * utf16Width="variable" {% jira 551 %}
+* calendarObserveDST {% jira 521 %}
 
 #### Miscellaneous
 
