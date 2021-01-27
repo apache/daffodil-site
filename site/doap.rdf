@@ -29,17 +29,19 @@
     <asfext:pmc rdf:resource="https://incubator.apache.org" />
 
     <shortdesc>Apache Daffodil is an open-source implementation of the
-        Data Format Description Language to convert between fixed
-        format data and XML/JSON.</shortdesc>
+        Data Format Description Language to convert between fixed format
+        data and XML, JSON, or other data structures.</shortdesc>
     <description>Apache Daffodil is an open-source implementation of
         the DFDL specification that uses DFDL data descriptions to parse
-        fixed format data into an infoset, which is most commonly
-        represented as either XML or JSON. This allows the use of
+        fixed format data into an infoset. This infoset is commonly converted
+        into XML or JSON to enable the use of
         well-established XML or JSON technologies and libraries to
         consume, inspect, and manipulate fixed format data in existing
-        solutions. Daffodil is also capable of the reverse by
-        serializing or "unparsing" an XML or JSON infoset back to the
-        original data format.</description>
+        solutions. Daffodil is also capable of serializing or "unparsing"
+        data back to the original data format.
+        The DFDL infoset can also be converted directly to/from the 
+        data structures carried by data processing frameworks so as to bypass any
+        XML/JSON overheads. </description>
     
     <homepage rdf:resource="https://daffodil.apache.org" />
     <download-page rdf:resource="https://daffodil.apache.org/releases/"/>
