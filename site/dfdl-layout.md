@@ -51,51 +51,54 @@ organizing projects so as to achieve the above benefits.
 
 ### Conventions
 
-Let's assume the DFDL schema contains two files named main.dfdl.xsd, and
-format.dfdl.xsd, and that our format is named RFormat with an organization of
-example.com.
+Let's assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
+format.dfdl.xsd, and that our format is named RFormat (rfmt) with an
+organization web identity of example.com.
 
 The standard file tree would be:
 
-    RFormat/
-    ├── src/
-    │   ├── main/
-    │   │   └── resources/
-    │   │       └── com/
-    │   │           └── example/
-    │   │               └── RFormat/
-    │   │                   ├── xsd/
-    │   │                   │   ├── main.dfdl.xsd    - Main DFDL schema file
-    │   │                   │   └── format.dfdl.xsd  - DFDL schema file imported/included from main
-    │   │                   └── xsl/
-    │   │                       └── xforms.xsl       - Resources other than XSD go in other directories
-    │   └── test/
-    │       ├── resources/
-    │       │   └── com/
-    │       │       └── example/
-    │       │           └── RFormat/
-    │       │               └── tests1.tdml    - TDML test files
-    │       └── scala/
-    │           └── com/
-    │               └── example/
-    │                   └── RFormat/
-    │                       └── Tests1.scala   - Scala test driver file
-    ├── project/
-    │   └── build.properties   - Defines the sbt version
+    rfmt/
+    ├── .gitattributes         - Git revision control system 'attributes' (see below)
+    ├── .gitignore             - Git revision control system 'ignore' file (should contain
+    │                            'target' and 'lib_managed' entries)
     ├── build.sbt              - Simple Build Tool (sbt) specification file. Edit to change version
     │                            of Daffodil needed, or versions of other DFDL schemas needed
     ├── README.md              - Documentation about the DFDL schema in Markdown file format
-    ├── .classpath             - Eclipse classpath file (optional)
-    ├── .project               - Eclipse project file (optional)
-    └── .gitignore             - Git revision control system 'ignore' file (should contain
-                                'target' and 'lib_managed' entries)
+    ├── project/
+    │   └── build.properties   - Defines the sbt version
+    └── src/
+        ├── main/
+        │   └── resources/
+        │       └── com/
+        │           └── example/
+        │               └── rfmt/
+        │                   ├── xsd/
+        │                   │   ├── rfmt.dfdl.xsd    - Primary RFormat DFDL schema file
+        │                   │   └── format.dfdl.xsd  - DFDL schema file imported/included from rfmt.dfdl.xsd
+        │                   └── xsl/
+        │                       └── xforms.xsl       - Resources other than XSD go in other directories
+        └── test/
+            ├── resources/
+            │   └── com/
+            │       └── example/
+            │           └── rfmt/
+            │               ├── Tests1.tdml          - TDML test files
+            │               ├── data/                - Test data files not embedded in a TDML file
+            │               │   └── test01.rfmt      - or .bin, .dat, .txt, etc.
+            │               └── infosets/            - Test infoset files not embedded in a TDML file
+            │                   └── test01.rfmt.xml
+            └── scala/
+                └── com/
+                    └── example/
+                        └── rfmt/
+                            └── Tests1.scala   - Scala test driver file
 
 ### build.sbt
 
 Use the below template for the build.sbt file:
 
 ``` scala
-name := "dfdl-RFormat"
+name := "dfdl-rfmt"
  
 organization := "com.example"
  
@@ -104,17 +107,32 @@ version := "0.0.1"
 scalaVersion := "2.12.11"
  
 libraryDependencies ++= Seq(
-  "org.apache.daffodil" %% "daffodil-tdml-processor" % "2.6.0" % "test",
+  "org.apache.daffodil" %% "daffodil-tdml-processor" % "3.0.0" % "test",
   "com.novocode" % "junit-interface" % "0.11" % "test",
   "junit" % "junit" % "4.12" % "test",
 )
 
-testOptions in ThisBuild += Tests.Argument(TestFrameworks.JUnit, "-v")
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 
 crossPaths := false
 ```
 
 Edit the version of daffodil-tdml above to match the version you are using. 
+
+### .gitattributes
+
+In some cases, git may mangle line endings of files so that they match the line
+ending of the system. In most cases, this is done in such a way that it you may
+never notice. However, in cases where file formats require specific line
+endings, this mangling of test data can lead to test failures. To prevent this,
+we recommend that a .gitattributes file be created in the root of the format
+directory with the following content to disabling the mangline:
+
+```
+/src/test/resources/**/data/** text=false
+```
+The above tells git that any test files in the data directory should be treated
+as if they were binary, and thus not to mangle newlines.
 
 ### Eclipse IDE
 
@@ -140,7 +158,7 @@ The ``xs:include`` or ``xs:import`` elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:
 
 ``` xml
-<xs:import namespace="urn:example.com/RFormat" schemaLocation="com/example/RFormat/xsd/main.dfdl.xsd"/>
+<xs:import namespace="urn:example.com/rfmt" schemaLocation="com/example/rfmt/xsd/rfmt.dfdl.xsd"/>
 ```
 
 The above is for using a DFDL schema as a library, from another different DFDL
@@ -153,16 +171,16 @@ appears in the same directory (the src/main/resources/.../xsd directory) via:
 <xs:include schemaLocation="format.dfdl.xsd"/>
 ```
 
-That is, peer files need not carry the long ``com/example/RFormat/xsd/`` prefix
+That is, peer files need not carry the long ``com/example/rfmt/xsd/`` prefix
 that makes the reference globally unique.
 
 However, if one schema wants to include another different schema, then this
 standard way of organizing schema projects ensures that when packaged into jar
 files, the ``/src/main/resources`` directory contents are at the "root" of the
 jar file so that the ``schemaLocation`` of the ``xs:import`` or ``xs:include``
-containing the fully qualified path (``com/example/RFormat/xsd/main.dfdl.xsd``)
+containing the fully qualified path (``com/example/rfmt/xsd/rfmt.dfdl.xsd``)
 will be found on the ``CLASSPATH`` unambiguously. This convention is what
-allows the schema files themselves to have short names like main.dfdl.xsd, and
+allows the schema files themselves to have short names like rfmt.dfdl.xsd, and
 format.dfdl.xsd. Those names only need to be unique within a single schema
 project. Across schema projects our standard DFDL schema project layout insures
 unambiguous qualification is available.
@@ -197,10 +215,10 @@ jar. If this jar is on the classpath, then other schemas containing XSD import
 or include statements will search the jar with the schema location.
 
 That enables a different schema's ``build.sbt`` to contain a library dependency
-on our hypthetical dfdl-RFormat schema using a dependency like this:
+on our hypthetical dfdl-rfmt schema using a dependency like this:
 
 ``` scala
-"com.example" % "dfdl-RFormat" % "0.0.1" % "test"
+"com.example" % "dfdl-rfmt" % "0.0.1" % "test"
 ```
 
 That will result in the contents of the ``src/main/resources`` directory above
