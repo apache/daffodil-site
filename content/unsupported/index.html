@@ -87,7 +87,10 @@
 
 -->
 
-<p>Unsupported features of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 3.0.0 are listed below:</p>
+<p>Unsupported features of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 3.0.0 are listed below.
+Note that this doesn’t include just plain bugs in Daffodil, any of which could affect
+support for a feature, but rather the below is a list of features
+that there has been no intention to support as of this release.</p>
 
 <h4 id="dfdl-features">DFDL Features</h4>
 
@@ -97,6 +100,9 @@
   <li>defaulting of values for required elements - when unparsing [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>]</li>
   <li>validation (when unparsing) [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1582">DAFFODIL-1582</a>]</li>
   <li>byte-value entities (aka raw-byte entities)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-258">DAFFODIL-258</a>]</li>
+  <li>regular expressions allow features beyond those in Java 7 [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2001">DAFFODIL-2001</a>]</li>
+  <li>nested prefix lengths [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2030">DAFFODIL-2030</a>]</li>
+  <li>XPath query-style expressions [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1118">DAFFODIL-1118</a>]</li>
   <li>“type” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-182">DAFFODIL-182</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1852">DAFFODIL-1852</a>]</li>
   <li>“unionMemberSchema” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1633">DAFFODIL-1633</a>]</li>
   <li>“valid” component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-813">DAFFODIL-813</a>]</li>
@@ -106,45 +112,36 @@
   <li>unicodeByteOrderMark (Note this has been removed from the DFDL Specification v1.0)</li>
   <li>bi-directional text (Note this has been removed from the DFDL Specification v1.0,
 but may return in a future version of the DFDL spec.)</li>
+  <li>dfdl:contentLength() and dfdl:valueLength() with ‘characters’ units and variable-width encodings [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1516">DAFFODIL-1516</a>]</li>
 </ul>
 
 <h4 id="xml-schema-features">XML Schema Features</h4>
 
 <ul>
   <li>fixed [<a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>]</li>
-  <li>default [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>]</li>
+  <li>default [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>] [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1277">DAFFODIL-1277</a>]</li>
 </ul>
 
 <h4 id="properties-and-property-enumerations">Properties and Property Enumerations</h4>
 
 <ul>
-  <li>binaryFloatRep=”ibm390Hex” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-244">DAFFODIL-244</a>]</li>
-  <li>documentFinalTerminatorCanBeMissing=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-230">DAFFODIL-230</a>]</li>
-  <li>encodingErrorPolicy=”error” (Note: this is accepted, but behaves as “replace”)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-935">DAFFODIL-935</a>]</li>
-  <li>floating=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-643">DAFFODIL-643</a>]</li>
-  <li>lengthKind=”endOfParent” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-238">DAFFODIL-238</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-567">DAFFODIL-567</a>]</li>
-  <li>nilKind=”logicalValue” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-201">DAFFODIL-201</a>]</li>
-  <li>occursCountKind=”stopValue”, occursStopValue [<a href="https://issues.apache.org/jira/browse/DAFFODIL-501">DAFFODIL-501</a>]</li>
-  <li>utf16Width=”variable” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-551">DAFFODIL-551</a>]</li>
-  <li>calendarObserveDST [<a href="https://issues.apache.org/jira/browse/DAFFODIL-521">DAFFODIL-521</a>]</li>
+  <li>dfdl:lengthUnits ‘characters’ with dfdl:lengthKind ‘prefixed’ [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2029">DAFFODIL-2029</a>]</li>
+  <li>dfdl:binaryFloatRep=”ibm390Hex” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-244">DAFFODIL-244</a>]</li>
+  <li>dfdl:documentFinalTerminatorCanBeMissing=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-230">DAFFODIL-230</a>]</li>
+  <li>dfdl:encodingErrorPolicy=”error” (Note: this is accepted, but behaves as “replace”)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-935">DAFFODIL-935</a>]</li>
+  <li>dfdl:floating=”yes” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-643">DAFFODIL-643</a>]</li>
+  <li>dfdl:lengthKind=”endOfParent” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-238">DAFFODIL-238</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-567">DAFFODIL-567</a>]</li>
+  <li>dfdl:nilKind=”logicalValue” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-201">DAFFODIL-201</a>]</li>
+  <li>dfdl:nilKind=’literalValue’ with dfdl:representation=’binary’ [<a href="https://issues.apache.org/jira/browse/DAFFODIL-638">DAFFODIL-638</a>]</li>
+  <li>dfdl:occursCountKind=”stopValue”, dfdl:occursStopValue [<a href="https://issues.apache.org/jira/browse/DAFFODIL-501">DAFFODIL-501</a>]</li>
+  <li>dfdl:utf16Width=”variable” [<a href="https://issues.apache.org/jira/browse/DAFFODIL-551">DAFFODIL-551</a>]</li>
+  <li>dfdl:calendarObserveDST [<a href="https://issues.apache.org/jira/browse/DAFFODIL-521">DAFFODIL-521</a>]</li>
+  <li>dfdl:calendarCenturyStart [<a href="https://issues.apache.org/jira/browse/DAFFODIL-519">DAFFODIL-519</a>]</li>
   <li>dfdl:escapeCharacterPolicy [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2415">DAFFODIL-2415</a>]</li>
+  <li>dfdl:encoding using CCSIDs [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2000">DAFFODIL-2000</a>]</li>
+  <li>dfdl:useNilForDefault [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1412">DAFFODIL-1412</a>]</li>
 </ul>
 
-<h4 id="miscellaneous">Miscellaneous</h4>
-
-<ul>
-  <li>XPath query-style expressions [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1118">DAFFODIL-1118</a>]</li>
-</ul>
-
-<h4 id="minor-technical-issuesnon-conformances">Minor Technical Issues/Non-Conformances</h4>
-
-<ul>
-  <li>Test for escapeEscapeCharacter in escape block data [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2421">DAFFODIL-2421</a>]</li>
-  <li>Check range of binaryDecimalVirtualPoint at runtime [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2417">DAFFODIL-2417</a>]</li>
-  <li>Character-level scanning insufficient due to raw byte entities [<a href="https://issues.apache.org/jira/browse/DAFFODIL-258">DAFFODIL-258</a>]</li>
-  <li>Choice branches that are zero-occurrence arrays are missing. [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2420">DAFFODIL-2420</a>]</li>
-  <li>Complex type cannot have hiddenGroupRef as its model group [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2419">DAFFODIL-2419</a>]</li>
-</ul>
 
   </div>
 </div>
