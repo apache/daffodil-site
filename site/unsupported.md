@@ -22,7 +22,10 @@ limitations under the License.
 {% endcomment %}
 -->
 
-Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.0.0 are listed below:
+Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.0.0 are listed below.
+Note that this doesn't include just plain bugs in Daffodil, any of which could affect
+support for a feature, but rather the below is a list of features
+that there has been no intention to support as of this release. 
 
 #### DFDL Features
 
@@ -31,6 +34,9 @@ Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.0.
 * defaulting of values for required elements - when unparsing {% jira 115 %}
 * validation (when unparsing) {% jira 1582 %}
 * byte-value entities (aka raw-byte entities){% jira 258 %}
+* regular expressions allow features beyond those in Java 7 {% jira 2001 %} 
+* nested prefix lengths {% jira 2030 %}
+* XPath query-style expressions {% jira 1118 %}
 * "type" component of DFDL infoset {% jira 182 %}, {% jira 1852 %}
 * "unionMemberSchema" component of DFDL infoset {% jira 1633 %}
 * "valid" component of DFDL infoset {% jira 813 %}
@@ -40,33 +46,28 @@ Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.0.
 * unicodeByteOrderMark (Note this has been removed from the DFDL Specification v1.0)
 * bi-directional text (Note this has been removed from the DFDL Specification v1.0,
   but may return in a future version of the DFDL spec.)
-  
+* dfdl:contentLength() and dfdl:valueLength() with 'characters' units and variable-width encodings {% jira 1516 %}
+
 #### XML Schema Features
 
 * fixed {% jira 117 %}
-* default {% jira 115 %}
+* default {% jira 115 %} {% jira 1277 %}
 
 #### Properties and Property Enumerations
 
-* binaryFloatRep="ibm390Hex" {% jira 244 %}
-* documentFinalTerminatorCanBeMissing="yes" {% jira 230 %}
-* encodingErrorPolicy="error" (Note: this is accepted, but behaves as "replace"){% jira 935 %}
-* floating="yes" {% jira 643 %}
-* lengthKind="endOfParent" {% jira 238 %}, {% jira 567 %}
-* nilKind="logicalValue" {% jira 201 %}
-* occursCountKind="stopValue", occursStopValue {% jira 501 %}
-* utf16Width="variable" {% jira 551 %}
-* calendarObserveDST {% jira 521 %}
+* dfdl:lengthUnits 'characters' with dfdl:lengthKind 'prefixed' {% jira 2029 %}
+* dfdl:binaryFloatRep="ibm390Hex" {% jira 244 %}
+* dfdl:documentFinalTerminatorCanBeMissing="yes" {% jira 230 %}
+* dfdl:encodingErrorPolicy="error" (Note: this is accepted, but behaves as "replace"){% jira 935 %}
+* dfdl:floating="yes" {% jira 643 %}
+* dfdl:lengthKind="endOfParent" {% jira 238 %}, {% jira 567 %}
+* dfdl:nilKind="logicalValue" {% jira 201 %}
+* dfdl:nilKind='literalValue' with dfdl:representation='binary' {% jira 638 %}
+* dfdl:occursCountKind="stopValue", dfdl:occursStopValue {% jira 501 %}
+* dfdl:utf16Width="variable" {% jira 551 %}
+* dfdl:calendarObserveDST {% jira 521 %}
+* dfdl:calendarCenturyStart {% jira 519 %}  
 * dfdl:escapeCharacterPolicy {% jira 2415 %}
+* dfdl:encoding using CCSIDs {% jira 2000 %}
+* dfdl:useNilForDefault {% jira 1412 %}
 
-#### Miscellaneous
-
-* XPath query-style expressions {% jira 1118 %}
-
-#### Minor Technical Issues/Non-Conformances
-
-* Test for escapeEscapeCharacter in escape block data {% jira 2421 %}
-* Check range of binaryDecimalVirtualPoint at runtime {% jira 2417 %}
-* Character-level scanning insufficient due to raw byte entities {% jira 258 %}
-* Choice branches that are zero-occurrence arrays are missing. {% jira 2420 %}
-* Complex type cannot have hiddenGroupRef as its model group {% jira 2419 %}
