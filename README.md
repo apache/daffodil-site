@@ -17,9 +17,9 @@ limitations under the License.
 {% endcomment %}
 -->
 
-# Apache Daffodil (incubating) Website
+# Apache Daffodil Website
 
-The Apache Daffodil (incubating) web site is based off of the [Apache Website Template](https://github.com/apache/apache-website-template).
+The Apache Daffodil website is based off of the [Apache Website Template](https://github.com/apache/apache-website-template).
 
 The website is generated using [Jekyll](https://jekyllrb.com/) and some plug-ins for it.
 
