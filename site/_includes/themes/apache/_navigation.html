@@ -27,7 +27,7 @@
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
                 <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
-                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fincubator-daffodil+repo%3Aapache%2Fincubator-daffodil-site&type=Repositories">GitHub</a></li>
+                <li><a class="external" href="https://github.com/search?q=repo%3Aapache%2Fdaffodil+repo%3Aapache%2Fdaffodil-site&type=Repositories">GitHub</a></li>
                 <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
               </ul>
             </li>
@@ -50,8 +50,8 @@
 {% if page.title == "Home" %}
 <div class="title jumbotron">
   <div class="container">
-    <h1>Apache Daffodil <small>(incubating)</small></h1>
-    <p>Open-source implementation of the Data Format Description Language to convert between fixed format data and XML/JSON.</p>
+    <h1>Apache Daffodil</h1>
+    <p>Open-source implementation of the Data Format Description Language to convert between fixed format data and XML, JSON, and other data structures.</p>
 
     {% assign latest = site.releases  | where: 'released', 'true' | sort: 'date' | last %}
     <a href="{{ latest.url }}" class="btn btn-primary btn-lg bigFingerButton" role="button">

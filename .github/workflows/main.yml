@@ -54,7 +54,7 @@ jobs:
           jekyll build --source site
 
       - name: Publish
-        if: github.repository == 'apache/incubator-daffodil-site'
+        if: github.repository == 'apache/daffodil-site'
         run: |
           git checkout asf-site
           rm -rf content

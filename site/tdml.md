@@ -40,7 +40,7 @@ absolutely best way to demonstrate a problem.
 By convention, a TDML file uses the file extension ``.tdml``, or ``.tdml.xml``
 when used with the TDML "tutorial" feature.
 
-The schema for a TDML file is available on [GitHub](https://github.com/apache/incubator-daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd).
+The schema for a TDML file is available on [GitHub](https://github.com/apache/daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd).
 
 Below is an annotated TDML file for a very simple example:
 

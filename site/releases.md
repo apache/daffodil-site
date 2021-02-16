@@ -54,7 +54,7 @@ No official Apache releases have been made yet. <a href="/community">Get involve
 
 <div class="alert alert-warning">
     All releases below are from prior to Daffodil's acceptance into
-    the Incubator. They are not Apache Software Foundation releases,
+    the Apache Software Foundation. They are not Apache Software Foundation releases,
     and are licensed under the <a href="https://opensource.org/licenses/NCSA">NCSA license</a>.
 </div>
 

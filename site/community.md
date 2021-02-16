@@ -76,8 +76,8 @@ Enhancement requests for new features are also welcome. The more concrete and ra
 
 ### Source Code
 
-The project sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil.git).
+The project sources are accessible via [GitHub](https://github.com/apache/daffodil) and [ASF](https://gitbox.apache.org/repos/asf?p=daffodil.git).
 
 ### Website Source Code
 
-The project website sources are accessible via [GitHub](https://github.com/apache/incubator-daffodil-site) and [ASF](https://gitbox.apache.org/repos/asf?p=incubator-daffodil-site.git).
+The project website sources are accessible via [GitHub](https://github.com/apache/daffodil-site) and [ASF](https://gitbox.apache.org/repos/asf?p=daffodil-site.git).
