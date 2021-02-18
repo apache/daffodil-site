@@ -17,76 +17,76 @@
   last: Adams
   apacheId: jadams
   githubId: jadams-tresys
-  role: PPMC
+  role: PMC
 
 - first: Mike
   last: Beckerle
   apacheId: mbeckerle
   githubId: mbeckerle
-  role: PPMC
+  role: PMC (Chair)
 
 - first: Beth
   last: Fahl
   apacheId: efinnegan
   githubId: efinnegan
-  role: PPMC
+  role: Committer
 
 - first: Dave
   last: Fisher
   apacheId: wave
-  githubId:
-  role: Mentor
+  githubId: dave2wave
+  role: PMC
 
 - first: Steve
   last: Lawrence
   apacheId: slawrence
   githubId: stevedlawrence
-  role: PPMC
+  role: PMC
 
 - first: Brandon
   last: Sloane
   apacheId: btsloane
   githubId: bsloane1650
-  role: PPMC
+  role: PMC
 
 - first: Dave
   last: Thompson
   apacheId: dthompson
   githubId: dfthompson
-  role: PPMC
+  role: PMC
 
 - first: Taylor
   last: Wise
   apacheId: vtguy08
   githubId: VTGuy
-  role: PPMC
+  role: PMC
 
 - first: Christofer
   last: Dutz
   apacheId: cdutz
   githubId: chrisdutz
-  role: Mentor
+  role: PMC
 
 - first: Olabusayo
   last: Kilo
   apacheId: olabusayo
   githubId: olabusayoT
-  role: Committer
+  role: PMC
 
 - first: John
   last: Interrante
   apacheId: jinterrante
   githubId: tuxji
-  role: PPMC
+  role: PMC
 
 - first: Kevin
   last: Ratnasekera
   apacheId: djkevincr
   githubId: djkevincr
-  role: Mentor
+  role: PMC
 
 - first: John
   last: Wass
   apacheId: jw3
   githubId: jw3
-  role: PPMC
+  role: PMC
