@@ -26,7 +26,7 @@
     <name>Apache Daffodil</name>
     <created>2017-08-27</created>
     <license rdf:resource="http://spdx.org/licenses/Apache-2.0" />
-    <asfext:pmc rdf:resource="https://incubator.apache.org" />
+    <asfext:pmc rdf:resource="https://daffodil.apache.org" />
 
     <shortdesc>Apache Daffodil is an open-source implementation of the
         Data Format Description Language to convert between fixed format
@@ -57,14 +57,14 @@
 
     <repository>
       <GitRepository>
-        <location rdf:resource="https://github.com/apache/incubator-daffodil"/>
-        <browse rdf:resource="https://github.com/apache/incubator-daffodil"/>
+        <location rdf:resource="https://github.com/apache/daffodil"/>
+        <browse rdf:resource="https://github.com/apache/daffodil"/>
       </GitRepository>
     </repository>
     <repository>
       <GitRepository>
-        <location rdf:resource="https://github.com/apache/incubator-daffodil-site"/>
-        <browse rdf:resource="https://github.com/apache/incubator-daffodil-site"/>
+        <location rdf:resource="https://github.com/apache/daffodil-site"/>
+        <browse rdf:resource="https://github.com/apache/daffodil-site"/>
       </GitRepository>
     </repository>
 
