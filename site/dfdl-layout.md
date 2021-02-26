@@ -25,8 +25,24 @@ limitations under the License.
 There is a specific way of organizing a DFDL schema project that has been found
 to be helpful. It uses specific directory naming conventions and tree structure
 to manage name conflicts in a manner similar to how Java package names
-correspond to directory names. This set of conventions provides a number of
-benefits:
+correspond to directory names.
+
+### Quick Start
+
+To quickly get started and generate this directory structure, you can install
+[SBT](https://www.scala-sbt.org/) and run the following command:
+
+```
+sbt new apache/daffodil-schema.g8
+```
+
+This prompts for various properties and creates the directory structure
+described below, including git and sbt configuration files, a basic DFDL schema
+file, and TDML and test files.
+
+### Conventions
+
+This set of conventions provides a number of benefits:
 
 * No name conflicts or ambiguity on classpath if multiple DFDL schemas are used
   together
@@ -49,7 +65,7 @@ These conventions are actually usable for regular XML-schema projects, that is,
 they're not really DFDL-specific conventions. They're general conventions for
 organizing projects so as to achieve the above benefits.
 
-### Conventions
+### Standard File Tree
 
 Let's assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
 format.dfdl.xsd, and that our format is named RFormat (rfmt) with an
