@@ -1,0 +1,304 @@
+:page-layout: page
+:keywords: dfdl-to-c backend code-generator runtime2
+// ///////////////////////////////////////////////////////////////////////////
+//
+// This file is written in https://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc]
+// with https://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds].
+//
+// When editing, please start each sentence on a new line.
+// This makes textual diffs of this file useful
+// in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+== Runtime2 ToDos
+
+=== Overview
+
+We have built an initial DFDL-to-C backend
+and code generator for Apache Daffodil.
+Currently the C code generator can support
+binary boolean, integer, and real numbers,
+arrays of simple and complex elements,
+choice groups using dispatch/branch keys,
+validation of "fixed" attributes,
+and padding of explicit length complex elements with fill bytes.
+We plan to continue building out the C code generator
+until it supports a minimal subset of the DFDL 1.0 specification
+for embedded devices.
+
+We are using this document
+to keep track of some changes
+requested by reviewers
+so we don't forget to make these changes.
+If someone wants to help
+(which would be appreciated),
+please let the mailto:dev@daffodil.apache.org[dev] list know
+in order to avoid duplication.
+
+=== Error struct instead of error message
+
+To make internationalized error messages
+easier to construct when an error happens,
+we should return an error struct with some fields
+nstead of an entire error message string.
+It is easier to interpolate values into messages
+in the same function which also prints the messages.
+We still would check for errors
+by doing a null pointer check,
+although we might consider moving that check
+from parser/unparser functions to their callers
+to skip over all remaining function calls:
+
+[source,c]
+----
+    unparse_be_float(instance->be_float[0], ustate); 
+    if (ustate->error) return;
+    unparse_be_float(instance->be_float[1], ustate); 
+    if (ustate->error) return;
+    ...
+----
+
+=== Validation errors
+
+We should handle three types of errors differently:
+runtime schema definition errors,
+parser/unparser errors,
+and validation errors.
+Schema definition errors should abort parsing immediately.
+Parser errors may need to allow backtracking in future.
+Validation errors should be gathered up
+without stopping parsing or unparsing.
+We should be able to successfully parse data
+that is "well formed"
+even though it has invalid values,
+report the invalid values,
+and allow users to analyze the data.
+We probably should gather up validation errors
+in a separate PState/UState member field
+pointing to a validation struct with some fields.
+
+=== DSOM "fixed" getter
+
+We need to add DSOM support for the "fixed" attribute
+so runtimes don't have to know about the underlying XML.
+DSOM abstracts the underying XML stuff away
+so we can update the DSOM
+if we ever change the XML stuff
+and all runtimes get schema info the same way.
+
+To give runtimes access to the "fixed" attribute,
+we want to add new members to the DSOM
+to extract the "fixed" value from the schema.
+We would do it very similar to the "default" attribute
+with code like this in ElementDeclMixin.scala:
+
+[source,scala]
+----
+  final lazy val fixedAttr = xml.attribute("fixed")
+
+  final def hasFixedValue: Boolean = fixedAttr.isDefined
+
+  final lazy val fixedValueAsString = {
+     ...
+  }
+----
+
+We also would convert the string value
+to a value with the correct primitive type
+with code like this in ElementBase.scala:
+
+[source,scala]
+----
+  final lazy val fixedValue = {
+     ...
+  }
+----
+
+Note: If we change runtime1 to validate "fixed" values,
+then we can close https://issues.apache.org/jira/browse/DAFFODIL-117[DAFFODIL-117].
+
+=== DRY for duplicate code
+
+Refactor duplicate code in
+BinaryBooleanCodeGenerator.scala,
+BinaryFloatCodeGenerator.scala,
+and BinaryIntegerKnownLengthCodeGenerator.scala
+into common code in one place.
+
+=== Count of parserStatements/unparserStatements
+
+In CodeGeneratorState.scala,
+current code checks count of only parserStatements.
+Code should check count of both
+parserStatements and unparserStatements:
+
+[source,scala]
+----
+  val hasParserStatements = structs.top.parserStatements.nonEmpty
+  val hasUnparserStatements = structs.top.unparserStatements.nonEmpty
+  if (hasParserStatements) { ... } else { ... }
+  if (hasUnparserStatements) { ... } else { ... }
+----
+
+=== Update to TDML Runner
+
+We want to update the TDML Runner
+to make it easier to run TDML tests
+with both runtime1 and runtime2.
+We want to eliminate the need
+to configure a `daf:tdmlImplementation` tunable
+in the TDML test using 12 lines of code.
+The TDML Runner should configure itself
+to run both/either runtime1 and/or runtime2
+just from seeing a root attribute
+saying `defaultImplementations="daffodil runtime2"`
+or a parser/unparseTestCase attribute saying `implementations="runtime2"`.
+Maybe we also want to add an implementation attribute
+to tdml:errors/warnings elements
+saying which implementation they are for too.
+If we do that,
+we should tell the TDML Runner
+runtime2 tests are not cross tests
+so it will check their errors/warnings.
+
+=== C struct/field name collisions
+
+To avoid possible name collisions,
+we should prepend struct names and field names with namespace prefixes
+if their infoset elements have non-null namespace prefixes.
+Alternatively, we may need to use enclosing elements' names
+as prefixes to avoid name collisions without namespaces.
+
+=== Anonymous/multiple choice groups
+
+We already handle elements having xs:choice complex types.
+In addition, we should support anonymous/multiple choice groups.
+We may need to refine the choice runtime structure
+in order to allow multiple choice groups
+to be inlined into parent elements.
+Here is an example schema
+and corresponding C code to demonstrate:
+
+[source,xml]
+----
+  <xs:complexType name="NestedUnionType">
+    <xs:sequence>
+      <xs:element name="first_tag" type="idl:int32"/>
+      <xs:choice dfdl:choiceDispatchKey="{xs:string(./first_tag)}">
+        <xs:element name="foo" type="idl:FooType" dfdl:choiceBranchKey="1 2"/>
+        <xs:element name="bar" type="idl:BarType" dfdl:choiceBranchKey="3 4"/>
+      </xs:choice>
+      <xs:element name="second_tag" type="idl:int32"/>
+      <xs:choice dfdl:choiceDispatchKey="{xs:string(./second_tag)}">
+        <xs:element name="fie" type="idl:FieType" dfdl:choiceBranchKey="1"/>
+        <xs:element name="fum" type="idl:FumType" dfdl:choiceBranchKey="2"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+----
+
+[source,c]
+----
+typedef struct NestedUnion
+{
+    InfosetBase _base;
+    int32_t     first_tag;
+    size_t      _choice_1; // choice of which union field to use
+    union
+    {
+        foo foo;
+        bar bar;
+    };
+    int32_t     second_tag;
+    size_t      _choice_2; // choice of which union field to use
+    union
+    {
+        fie fie;
+        fum fum;
+    };
+} NestedUnion;
+----
+
+=== Choice dispatch key expressions
+
+We currently support only a very restricted
+and simple subset of choice dispatch key expressions.
+We would like to refactor the DPath expression compiler
+and make it generate C code
+in order to support arbitrary choice dispatch key expressions.
+
+=== No match between choice dispatch key and choice branch keys
+
+Right now c-daffodil is more strict than scala-daffodil
+when unparsing infoset XML files with no matches (or mismatches)
+between choice dispatch keys and branch keys.
+Perhaps c-daffodil should load such an XML file
+without a no match processing error
+and unparse the infoset to a binary data file
+without a no match processing error.
+We would have to code and call a choice branch resolver in C
+which peeks at the next XML element,
+figures out which branch
+does that element indicate exists
+inside the choice group,
+and initializes the choice and element runtime data
+(_choice and childNode->erd member fields) accordingly.
+We probably would replace the initChoice() call in walkInfosetNode()
+with a call to that choice branch resolver
+and we might not need to call initChoice() in unparseSelf().
+When I called initChoice() in all these parse, walk, and unparse places,
+I was pondering removing the _choice member field
+and calling initChoice() as a function
+to tell us which element to visit next,
+but we probably should have a mutable choice runtime data structure
+that applications can override if they want to.
+
+=== Floating point numbers
+
+Right now runtime2 prints floating point numbers
+in XML infosets slightly differently than runtime1 does.
+This means we may need to use different XML infosets
+in TDML tests depending on the runtime implementation.
+In order to use the same XML infoset in TDML tests,
+we should make the TDML Runner
+compare floating point numbers numerically, not textually,
+as discussed in https://issues.apache.org/jira/browse/DAFFODIL-2402[DAFFODIL-2402].
+
+=== Arrays
+
+Instead of expanding arrays inline within childrenERDs,
+we may want to store a single entry
+for an array in childrenERDs
+giving the array's offset and size of all its elements.
+We would have to write code
+for special case treatment of array member fields
+versus scalar member fields
+but we could save space/memory in childrenERDs
+for use cases with very large arrays.
+An array element's ERD should have minOccurs and maxOccurs
+where minOccurs is unsigned
+and maxOccurs is signed with -1 meaning "unbounded".
+The actual number of children in an array instance
+would have to be stored with the array instance
+in the C struct or the ERD.
+An array node has to be a different kind of infoset node
+with a place for this number of actual children to be stored.
+Probably all ERDs should just get minOccurs and maxOccurs
+and a scalar is just one with 1, 1 as those values,
+an optional element is 0, 1,
+and an array is all other legal combinations
+like N, -1 and N, and M with N<=M.
+A restriction that minOccurs is 0, 1,
+or equal to maxOccurs (which is not -1)
+is acceptable.
+A restriction that maxOccurs is 1, -1,
+or equal to minOccurs
+is also fine
+(means variable-length arrays always have unbounded number of elements).
+
+=== Daffodil module/subdirectory names
+
+When Daffodil is ready to move from a 3.x to a 4.x release,
+rename the modules to have shorter and easier to understand names
+as discussed in https://issues.apache.org/jira/browse/DAFFODIL-2406[DAFFODIL-2406].
