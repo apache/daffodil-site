@@ -156,10 +156,6 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
      : Display the differences from the previous state.
 
-     ``discriminator``
-
-     : Display whether or not a discriminator is set. Abbreviation: ``dis``
-
      ``displays``
 
      : Display the current ``display`` expressions. Abbreviation: ``di``
@@ -167,6 +163,10 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
      ``foundDelimiter``
 
      : Display the most recently found delimiter. Abbreviation: ``fd``
+
+     ``foundField``
+
+     : Display the most recently found field. Abbreviation: ``ff``
 
      ``groupIndex``
 
@@ -192,9 +192,21 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
 
      : Display the current schema component designator/path.
 
+     ``pointsOfUncertainty``
+
+	 : Display the list of unresolved points of uncertainty. Abbreviation: ``pou``
+
+     ``suspensions``
+
+	 : Display the list of suspensions. Abbreviation: ``sus``
+
      ``unparser``
 
      : Display the current unparser. Abbreviation: ``u``
+
+     ``variables``
+
+     : Display in-scope state of variables. Abbreviation: ``v``
 
 ``quit``
 
@@ -222,6 +234,10 @@ Enabling the debugger displays a ``(debug)`` prompt, at which point various comm
      ``dataLength <integer>``
 
         : Set the number of bytes to display when displaying input data. If negative, display all input data. This only affects the ``info data`` command. Defaults to ``70``.
+
+     ``diffExcludes <strings...>``
+
+        : Set info comamnds to exclude in the 'info diff' command. Multiple arguments separated by a space excludes multiple commands. Zero arguments excludes no commands.
 
      ``infosetLines <integer>``
 
