@@ -244,10 +244,6 @@ eval /ex:file/line[1]
       <dd>
         <p>Display the differences from the previous state.</p>
       </dd>
-      <dt><code class="highlighter-rouge">discriminator</code></dt>
-      <dd>
-        <p>Display whether or not a discriminator is set. Abbreviation: <code class="highlighter-rouge">dis</code></p>
-      </dd>
       <dt><code class="highlighter-rouge">displays</code></dt>
       <dd>
         <p>Display the current <code class="highlighter-rouge">display</code> expressions. Abbreviation: <code class="highlighter-rouge">di</code></p>
@@ -255,6 +251,10 @@ eval /ex:file/line[1]
       <dt><code class="highlighter-rouge">foundDelimiter</code></dt>
       <dd>
         <p>Display the most recently found delimiter. Abbreviation: <code class="highlighter-rouge">fd</code></p>
+      </dd>
+      <dt><code class="highlighter-rouge">foundField</code></dt>
+      <dd>
+        <p>Display the most recently found field. Abbreviation: <code class="highlighter-rouge">ff</code></p>
       </dd>
       <dt><code class="highlighter-rouge">groupIndex</code></dt>
       <dd>
@@ -280,9 +280,21 @@ eval /ex:file/line[1]
       <dd>
         <p>Display the current schema component designator/path.</p>
       </dd>
+      <dt><code class="highlighter-rouge">pointsOfUncertainty</code></dt>
+      <dd>
+        <p>Display the list of unresolved points of uncertainty. Abbreviation: <code class="highlighter-rouge">pou</code></p>
+      </dd>
+      <dt><code class="highlighter-rouge">suspensions</code></dt>
+      <dd>
+        <p>Display the list of suspensions. Abbreviation: <code class="highlighter-rouge">sus</code></p>
+      </dd>
       <dt><code class="highlighter-rouge">unparser</code></dt>
       <dd>
         <p>Display the current unparser. Abbreviation: <code class="highlighter-rouge">u</code></p>
+      </dd>
+      <dt><code class="highlighter-rouge">variables</code></dt>
+      <dd>
+        <p>Display in-scope state of variables. Abbreviation: <code class="highlighter-rouge">v</code></p>
       </dd>
     </dl>
   </dd>
@@ -315,6 +327,10 @@ set removeHidden true
       <dt><code class="highlighter-rouge">dataLength &lt;integer&gt;</code></dt>
       <dd>
         <p>Set the number of bytes to display when displaying input data. If negative, display all input data. This only affects the <code class="highlighter-rouge">info data</code> command. Defaults to <code class="highlighter-rouge">70</code>.</p>
+      </dd>
+      <dt><code class="highlighter-rouge">diffExcludes &lt;strings...&gt;</code></dt>
+      <dd>
+        <p>Set info comamnds to exclude in the ‘info diff’ command. Multiple arguments separated by a space excludes multiple commands. Zero arguments excludes no commands.</p>
       </dd>
       <dt><code class="highlighter-rouge">infosetLines &lt;integer&gt;</code></dt>
       <dd>
