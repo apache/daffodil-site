@@ -115,119 +115,48 @@ in order to avoid duplication.</p>
 <div class="sect2">
 <h3 id="error-struct-instead-of-error-message">Error struct instead of error message</h3>
 <div class="paragraph">
-<p>To make internationalized error messages
-easier to construct when an error happens,
-we should return an error struct with some fields
-nstead of an entire error message string.
-It is easier to interpolate values into messages
-in the same function which also prints the messages.
-We still would check for errors
-by doing a null pointer check,
-although we might consider moving that check
-from parser/unparser functions to their callers
-to skip over all remaining function calls:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">    unparse_be_float(instance-&gt;be_float[0], ustate);
-    if (ustate-&gt;error) return;
-    unparse_be_float(instance-&gt;be_float[1], ustate);
-    if (ustate-&gt;error) return;
-    ...</code></pre>
-</div>
+<p>This change is almost complete.
+We have replaced error message strings
+with error structs everywhere now.
+However, we should support passing
+a schema location and/or data position
+through the error struct as well as
+an error code, an integer, and a string.
+We may need to store schema locations
+(filenames and line numbers) in ERD objects
+and pass an ERD in the error struct.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="validation-errors">Validation errors</h3>
+<h3 id="different-types-of-errors">Different types of errors</h3>
 <div class="paragraph">
-<p>We should handle three types of errors differently:
-runtime schema definition errors,
-parser/unparser errors,
-and validation errors.
-Schema definition errors should abort parsing immediately.
-Parser errors may need to allow backtracking in future.
-Validation errors should be gathered up
-without stopping parsing or unparsing.
-We should be able to successfully parse data
-that is "well formed"
-even though it has invalid values,
-report the invalid values,
-and allow users to analyze the data.
-We probably should gather up validation errors
-in a separate PState/UState member field
-pointing to a validation struct with some fields.</p>
+<p>When runtime2 grows larger,
+we may need to distinguish &amp; handle
+more types of errors.
+Right now we handle only
+fatal errors and validation errors.
+Fatal errors stop the program immediately.
+Validation errors are collected in an array
+and printed after parsing or unparsing.
+Later we may need to handle
+parser/unparser warnings and errors
+and allow backtracking after these errors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="javadoc-like-tool-for-c-code">Javadoc-like tool for C code</h3>
+<div class="paragraph">
+<p>We should consider adopting
+one of the javadoc-like tools for C code
+and structuring our comments that way.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="dsom-fixed-getter">DSOM "fixed" getter</h3>
 <div class="paragraph">
-<p>We need to add DSOM support for the "fixed" attribute
-so runtimes don&#8217;t have to know about the underlying XML.
-DSOM abstracts the underying XML stuff away
-so we can update the DSOM
-if we ever change the XML stuff
-and all runtimes get schema info the same way.</p>
-</div>
-<div class="paragraph">
-<p>To give runtimes access to the "fixed" attribute,
-we want to add new members to the DSOM
-to extract the "fixed" value from the schema.
-We would do it very similar to the "default" attribute
-with code like this in ElementDeclMixin.scala:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">  final lazy val fixedAttr = xml.attribute("fixed")
-
-  final def hasFixedValue: Boolean = fixedAttr.isDefined
-
-  final lazy val fixedValueAsString = {
-     ...
-  }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We also would convert the string value
-to a value with the correct primitive type
-with code like this in ElementBase.scala:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">  final lazy val fixedValue = {
-     ...
-  }</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note: If we change runtime1 to validate "fixed" values,
-then we can close <a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="dry-for-duplicate-code">DRY for duplicate code</h3>
-<div class="paragraph">
-<p>Refactor duplicate code in
-BinaryBooleanCodeGenerator.scala,
-BinaryFloatCodeGenerator.scala,
-and BinaryIntegerKnownLengthCodeGenerator.scala
-into common code in one place.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="count-of-parserstatementsunparserstatements">Count of parserStatements/unparserStatements</h3>
-<div class="paragraph">
-<p>In CodeGeneratorState.scala,
-current code checks count of only parserStatements.
-Code should check count of both
-parserStatements and unparserStatements:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">  val hasParserStatements = structs.top.parserStatements.nonEmpty
-  val hasUnparserStatements = structs.top.unparserStatements.nonEmpty
-  if (hasParserStatements) { ... } else { ... }
-  if (hasUnparserStatements) { ... } else { ... }</code></pre>
-</div>
+<p>Note: If we change runtime1 to validate "fixed" values
+like runtime2 does, then
+we can close <a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>.</p>
 </div>
 </div>
 <div class="sect2">
