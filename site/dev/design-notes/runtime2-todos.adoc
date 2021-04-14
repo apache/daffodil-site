@@ -36,110 +36,77 @@ If someone wants to help
 please let the mailto:dev@daffodil.apache.org[dev] list know
 in order to avoid duplication.
 
-=== Error struct instead of error message
+=== Reporting errors using structs, not strings
 
-To make internationalized error messages
-easier to construct when an error happens,
-we should return an error struct with some fields
-nstead of an entire error message string.
-It is easier to interpolate values into messages
-in the same function which also prints the messages.
-We still would check for errors
-by doing a null pointer check,
-although we might consider moving that check
-from parser/unparser functions to their callers
-to skip over all remaining function calls:
+We have replaced error message strings
+with error structs everywhere now.
+However, we may need to expand the error struct
+to include a pointer (pstate/ustate for data position)
+and another pointer (ERD or static context object
+for schema filename/line number).
 
-[source,c]
-----
-    unparse_be_float(instance->be_float[0], ustate); 
-    if (ustate->error) return;
-    unparse_be_float(instance->be_float[1], ustate); 
-    if (ustate->error) return;
-    ...
-----
+We also may want to implement error logging variants
+that both do and don't humanize the errors,
+e.g., a hardware/FPGA-type implementation might just output numbers
+and an external tool might have to "humanize" these numbers
+using knowledge of the schema and runtime data objects,
+like an offline log processor does.
 
-=== Validation errors
+=== Recovering after errors
 
-We should handle three types of errors differently:
-runtime schema definition errors,
-parser/unparser errors,
-and validation errors.
-Schema definition errors should abort parsing immediately.
-Parser errors may need to allow backtracking in future.
-Validation errors should be gathered up
-without stopping parsing or unparsing.
-We should be able to successfully parse data
-that is "well formed"
-even though it has invalid values,
-report the invalid values,
-and allow users to analyze the data.
-We probably should gather up validation errors
-in a separate PState/UState member field
-pointing to a validation struct with some fields.
+As we continue to build out runtime2,
+we may need to distinguish more types of errors
+and allow backtracking and retrying.
+Right now we handle only parse/unparse and
+validation errors in limited ways.
+Parse/unparse errors abort the parsing/unparsing
+and return to the caller immediately
+without resetting the stream's position.
+Validation errors are collected in an array
+and printed after parsing or unparsing.
+The only places where there are calls to stop the program
+are in daffodil_main.c (top-level error handling)
+and stack.c (empty, overflow, underflow errors which should never happen).
+
+Most of the parse functions set pstate->error
+only if they couldn't read data into their buffer
+due to an I/O error or EOF,
+which doesn't seem recoverable to me.
+Likewise, the unparse functions set ustate->error
+only if they couldn't write data from their buffer
+due to an I/O error, which doesn't seem recoverable to me.
+
+Only the parse_endian_bool functions set pstate->error
+if they read an integer which doesn't match either true_rep or false_rep
+when an exact match to either is required.
+If we decide to implement backtracking and retrying,
+they should call fseek to reset the stream's position
+back to where they started reading the integer
+before they return to their callers.
+Right now all parse calls are followed by
+if statements to check for error and return immediately.
+The code generator would have to generate code
+which can advance the stream's position by some byte(s)
+and try the parse call again as an attempt
+to resynchronize with a correct data stream
+after a bunch of failures.
+
+Note that we actually run the generated code in an embedded processor
+and call our own fread/frwrite functions
+which replace the stdio fread/fwrite functions
+since the C code runs bare metal without OS functions.
+We can implement fseek but we should have a good use case.
+
+=== Javadoc-like tool for C code
+
+We should consider adopting
+one of the javadoc-like tools for C code
+and structuring our comments that way.
 
 === DSOM "fixed" getter
 
-We need to add DSOM support for the "fixed" attribute
-so runtimes don't have to know about the underlying XML.
-DSOM abstracts the underying XML stuff away
-so we can update the DSOM
-if we ever change the XML stuff
-and all runtimes get schema info the same way.
-
-To give runtimes access to the "fixed" attribute,
-we want to add new members to the DSOM
-to extract the "fixed" value from the schema.
-We would do it very similar to the "default" attribute
-with code like this in ElementDeclMixin.scala:
-
-[source,scala]
-----
-  final lazy val fixedAttr = xml.attribute("fixed")
-
-  final def hasFixedValue: Boolean = fixedAttr.isDefined
-
-  final lazy val fixedValueAsString = {
-     ...
-  }
-----
-
-We also would convert the string value
-to a value with the correct primitive type
-with code like this in ElementBase.scala:
-
-[source,scala]
-----
-  final lazy val fixedValue = {
-     ...
-  }
-----
-
-Note: If we change runtime1 to validate "fixed" values,
-then we can close https://issues.apache.org/jira/browse/DAFFODIL-117[DAFFODIL-117].
-
-=== DRY for duplicate code
-
-Refactor duplicate code in
-BinaryBooleanCodeGenerator.scala,
-BinaryFloatCodeGenerator.scala,
-and BinaryIntegerKnownLengthCodeGenerator.scala
-into common code in one place.
-
-=== Count of parserStatements/unparserStatements
-
-In CodeGeneratorState.scala,
-current code checks count of only parserStatements.
-Code should check count of both
-parserStatements and unparserStatements:
-
-[source,scala]
-----
-  val hasParserStatements = structs.top.parserStatements.nonEmpty
-  val hasUnparserStatements = structs.top.unparserStatements.nonEmpty
-  if (hasParserStatements) { ... } else { ... }
-  if (hasUnparserStatements) { ... } else { ... }
-----
+Note: If we change runtime1 to validate "fixed" values
+like runtime2 does, then we can resolve {% jira 117 %}.
 
 === Update to TDML Runner
 
