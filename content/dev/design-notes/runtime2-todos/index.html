@@ -113,6 +113,41 @@ in order to avoid duplication.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="remove-dependence-on-argp-and-gcc">Remove dependence on argp and gcc</h3>
+<div class="paragraph">
+<p>Update BUILD.md and the github actions to use clang instead of gcc.
+Will have to find the correct steps on Fedora / Linux / Windows
+and check they work (e.g., install clang-10 package on Ubuntu
+and set CC=clang-10 and AR=llvm-ar-10 environment variables).</p>
+</div>
+<div class="paragraph">
+<p>Likewise, replace argp calls with getopt calls
+in daffodil_main.c and daffodil_argp.c
+even though it means giving up long options
+and other nice features that argp has.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="report-hanging-problem-running-sbt-really-dev-dirs-from-msys2-on-windows">Report hanging problem running sbt (really dev.dirs) from MSYS2 on Windows</h3>
+<div class="paragraph">
+<p>We need to open a issue with a reproducible test case
+in the dev.dirs/directories-jvm project on GitHub.
+Note that dev.dirs exhibits the problem
+but they may or may not be responsible for it.
+Their code which tries to run a Windows PowerShell script
+using a Java subprocess call hangs
+when run from MSYS2 on Windows
+although it works fine when run from CMD on Windows.
+Then we need to wait until
+the hanging problem is fixed in the directories library,
+coursier picks up the new directories version,
+sbt picks up the new coursier version,
+and daffodil picks up the new sbt version,
+before we can remove the "echo &gt;&gt; $GITHUB_ENV" lines
+from .github/workflows/main.yml.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="reporting-errors-using-structs-not-strings">Reporting errors using structs, not strings</h3>
 <div class="paragraph">
 <p>We have replaced error message strings
@@ -184,8 +219,7 @@ We can implement fseek but we should have a good use case.</p>
 <div class="sect2">
 <h3 id="javadoc-like-tool-for-c-code">Javadoc-like tool for C code</h3>
 <div class="paragraph">
-<p>We should consider adopting
-one of the javadoc-like tools for C code
+<p>We should consider adopting one of the javadoc-like tools for C code
 and structuring our comments that way.</p>
 </div>
 </div>
@@ -193,30 +227,59 @@ and structuring our comments that way.</p>
 <h3 id="dsom-fixed-getter">DSOM "fixed" getter</h3>
 <div class="paragraph">
 <p>Note: If we change runtime1 to validate "fixed" values
-like runtime2 does, then we can resolve {% jira 117 %}.</p>
+like runtime2 does, then we can resolve
+<a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="update-to-tdml-runner">Update to TDML Runner</h3>
+<h3 id="improve-tdml-runner">Improve TDML Runner</h3>
 <div class="paragraph">
-<p>We want to update the TDML Runner
+<p>We want to improve the TDML Runner
 to make it easier to run TDML tests
 with both runtime1 and runtime2.
 We want to eliminate the need
 to configure a <code>daf:tdmlImplementation</code> tunable
-in the TDML test using 12 lines of code.
-The TDML Runner should configure itself
-to run both/either runtime1 and/or runtime2
-just from seeing a root attribute
-saying <code>defaultImplementations="daffodil runtime2"</code>
-or a parser/unparseTestCase attribute saying <code>implementations="runtime2"</code>.
-Maybe we also want to add an implementation attribute
+in the TDML test using 12 lines of code.</p>
+</div>
+<div class="paragraph">
+<p>I had an initial idea which was that
+the TDML Runner could run both runtime1 and runtime2
+automatically (in parallel or serially)
+if it sees a TDML root attribute
+saying <code>defaultImplementations="daffodil daffodil-runtime2"</code>
+or a parser/unparseTestCase attribute
+saying <code>implementations="daffodil daffodil-runtime2"</code>.
+To make running the same test on runtime1/runtime2 easier
+we also could add an implementation attribute
 to tdml:errors/warnings elements
-saying which implementation they are for too.
-If we do that,
-we should tell the TDML Runner
-runtime2 tests are not cross tests
-so it will check their errors/warnings.</p>
+saying which implementation they are for
+and tell the TDML Runner to check errors/warnings
+for runtime2 as well as runtime1.</p>
+</div>
+<div class="paragraph">
+<p>Then I had another idea which might be easier to implement.
+If we could find a way to set Daffodil&#8217;s tdmlImplementation tunable
+using a command line option or environment variable
+or some other way to change TDML Runner&#8217;s behavior
+when running both "sbt test" and "daffodil test"
+then we could simply run "sbt test" or "daffodil test" twice
+(first using runtime1 and then using runtime2)
+in order to verify all the cross tests work on both.
+I think this way would be easier than making TDML Runner
+automatically run all the implementations it can find
+in parallel or serially when running cross tests.</p>
+</div>
+<div class="paragraph">
+<p>If the second idea works as I hope it does,
+then we can start the process of adding "daffodil-runtime2"
+to some of the cross tests we have for daffodil and ibm.
+We also chould change ibm&#8217;s ProcessFactory class
+to have a different name than daffodil&#8217;s ProcessFactory class
+and update TDML Runner&#8217;s match expression to use the new class name.
+Then some developers could add the ibmDFDLCrossTester plugin
+to their daffodil checkout permanently
+instead of having to do &amp; undo that change
+each time they want to run daffodil/ibm cross tests.</p>
 </div>
 </div>
 <div class="sect2">
