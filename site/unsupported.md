@@ -47,6 +47,8 @@ that there has been no intention to support as of this release.
 * bi-directional text (Note this has been removed from the DFDL Specification v1.0,
   but may return in a future version of the DFDL spec.)
 * dfdl:contentLength() and dfdl:valueLength() with 'characters' units and variable-width encodings {% jira 1516 %}
+* dfdl:outputValueCalc calling dfdl:valueLength() for string with dfdl:truncateSpecifiedLengthString 'yes' {% jira 1598 %}
+* Statement order of evaluation not per DFDL spec. {% jira 1971 %}
 
 #### XML Schema Features
 
@@ -70,4 +72,5 @@ that there has been no intention to support as of this release.
 * dfdl:escapeCharacterPolicy {% jira 2415 %}
 * dfdl:encoding using CCSIDs {% jira 2000 %}
 * dfdl:useNilForDefault {% jira 1412 %}
+* dfdl:separatorSuppressionPolicy 'never' {% jira 2499 %}
 
