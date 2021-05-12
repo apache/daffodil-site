@@ -43,6 +43,9 @@ plugins:
 keep_files:
   - images
 
+kramdown:
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+
 asciidoc: {}
 
 asciidoctor:
