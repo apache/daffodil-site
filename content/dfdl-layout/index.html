@@ -97,7 +97,7 @@ correspond to directory names.</p>
 <p>To quickly get started and generate this directory structure, you can install
 <a href="https://www.scala-sbt.org/">SBT</a> and run the following command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new apache/daffodil-schema.g8
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new apache/daffodil-schema.g8
 </code></pre></div></div>
 
 <p>This prompts for various properties and creates the directory structure
@@ -118,7 +118,7 @@ no conflicts of file names</li>
       <li>Package the schema into a jar, which can then be on a classpath, become
 part of a larger application, etc.</li>
       <li>Auto-download all dependencies of the schema, including Daffodil itself.</li>
-      <li>Run a suite of tests via ‘sbt test’</li>
+      <li>Run a suite of tests via 'sbt test'</li>
       <li>Publish a local version of the schema for use in other projects that also
 follow this layout.</li>
     </ul>
@@ -134,18 +134,18 @@ a library of pieces to be included/imported by other formats.</li>
 </ul>
 
 <p>These conventions are actually usable for regular XML-schema projects, that is,
-they’re not really DFDL-specific conventions. They’re general conventions for
+they're not really DFDL-specific conventions. They're general conventions for
 organizing projects so as to achieve the above benefits.</p>
 
 <h3 id="standard-file-tree">Standard File Tree</h3>
 
-<p>Let’s assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
+<p>Let's assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
 format.dfdl.xsd, and that our format is named RFormat (rfmt) with an
 organization web identity of example.com.</p>
 
 <p>The standard file tree would be:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rfmt/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rfmt/
 ├── .gitattributes         - Git revision control system 'attributes' (see below)
 ├── .gitignore             - Git revision control system 'ignore' file (should contain
 │                            'target' and 'lib_managed' entries)
@@ -216,7 +216,7 @@ endings, this mangling of test data can lead to test failures. To prevent this,
 we recommend that a .gitattributes file be created in the root of the format
 directory with the following content to disabling the mangline:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/src/test/resources/**/data/** text=false
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/src/test/resources/**/data/** text=false
 </code></pre></div></div>
 <p>The above tells git that any test files in the data directory should be treated
 as if they were binary, and thus not to mangle newlines.</p>
@@ -224,24 +224,24 @@ as if they were binary, and thus not to mangle newlines.</p>
 <h3 id="eclipse-ide">Eclipse IDE</h3>
 
 <p>If you organize your DFDL schema project using the above conventions, and then
-run <code class="highlighter-rouge">sbt compile</code>, the <code class="highlighter-rouge">lib_managed</code> directory will be populated. Then if
+run <code class="language-plaintext highlighter-rouge">sbt compile</code>, the <code class="language-plaintext highlighter-rouge">lib_managed</code> directory will be populated. Then if
 you create a new Eclipse scala project from the directory tree, Eclipse will
-see the <code class="highlighter-rouge">lib_managed</code> directory and construct a classpath containing all
+see the <code class="language-plaintext highlighter-rouge">lib_managed</code> directory and construct a classpath containing all
 those jars.</p>
 
 <h3 id="xsd-conventions">XSD Conventions</h3>
 
-<p>DFDL schemas should have the <code class="highlighter-rouge">.dfdl.xsd</code> suffix to distinguish them from
+<p>DFDL schemas should have the <code class="language-plaintext highlighter-rouge">.dfdl.xsd</code> suffix to distinguish them from
 ordinary XML Schema files.</p>
 
 <p>A DFDL schema should have a target namespace.</p>
 
-<p>Stylistically, the XSD <code class="highlighter-rouge">elementFormDefault="unqualified"</code> is the preferred
+<p>Stylistically, the XSD <code class="language-plaintext highlighter-rouge">elementFormDefault="unqualified"</code> is the preferred
 style for DFDL schemas.</p>
 
 <h3 id="using-a-dfdl-schema">Using a DFDL Schema</h3>
 
-<p>The <code class="highlighter-rouge">xs:include</code> or <code class="highlighter-rouge">xs:import</code> elements of a DFDL Schema can
+<p>The <code class="language-plaintext highlighter-rouge">xs:include</code> or <code class="language-plaintext highlighter-rouge">xs:import</code> elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:example.com/rfmt"</span> <span class="na">schemaLocation=</span><span class="s">"com/example/rfmt/xsd/rfmt.dfdl.xsd"</span><span class="nt">/&gt;</span>
@@ -256,15 +256,15 @@ appears in the same directory (the src/main/resources/…/xsd directory) via:</p
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:include</span> <span class="na">schemaLocation=</span><span class="s">"format.dfdl.xsd"</span><span class="nt">/&gt;</span>
 </code></pre></div></div>
 
-<p>That is, peer files need not carry the long <code class="highlighter-rouge">com/example/rfmt/xsd/</code> prefix
+<p>That is, peer files need not carry the long <code class="language-plaintext highlighter-rouge">com/example/rfmt/xsd/</code> prefix
 that makes the reference globally unique.</p>
 
 <p>However, if one schema wants to include another different schema, then this
 standard way of organizing schema projects ensures that when packaged into jar
-files, the <code class="highlighter-rouge">/src/main/resources</code> directory contents are at the “root” of the
-jar file so that the <code class="highlighter-rouge">schemaLocation</code> of the <code class="highlighter-rouge">xs:import</code> or <code class="highlighter-rouge">xs:include</code>
-containing the fully qualified path (<code class="highlighter-rouge">com/example/rfmt/xsd/rfmt.dfdl.xsd</code>)
-will be found on the <code class="highlighter-rouge">CLASSPATH</code> unambiguously. This convention is what
+files, the <code class="language-plaintext highlighter-rouge">/src/main/resources</code> directory contents are at the "root" of the
+jar file so that the <code class="language-plaintext highlighter-rouge">schemaLocation</code> of the <code class="language-plaintext highlighter-rouge">xs:import</code> or <code class="language-plaintext highlighter-rouge">xs:include</code>
+containing the fully qualified path (<code class="language-plaintext highlighter-rouge">com/example/rfmt/xsd/rfmt.dfdl.xsd</code>)
+will be found on the <code class="language-plaintext highlighter-rouge">CLASSPATH</code> unambiguously. This convention is what
 allows the schema files themselves to have short names like rfmt.dfdl.xsd, and
 format.dfdl.xsd. Those names only need to be unique within a single schema
 project. Across schema projects our standard DFDL schema project layout insures
@@ -272,7 +272,7 @@ unambiguous qualification is available.</p>
 
 <h3 id="git-revision-control">Git Revision Control</h3>
 
-<p>You don’t have to use Git version control, but many people do, and github.com
+<p>You don't have to use Git version control, but many people do, and github.com
 is one of the reasons for this popularity.</p>
 
 <p>Each DFDL schema should have its own Git repository if it is going to be
@@ -298,13 +298,13 @@ sbt publishLocal <span class="c"># puts it into local .ivy2 cache where other ma
 jar. If this jar is on the classpath, then other schemas containing XSD import
 or include statements will search the jar with the schema location.</p>
 
-<p>That enables a different schema’s <code class="highlighter-rouge">build.sbt</code> to contain a library dependency
+<p>That enables a different schema's <code class="language-plaintext highlighter-rouge">build.sbt</code> to contain a library dependency
 on our hypthetical dfdl-rfmt schema using a dependency like this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"com.example"</span> <span class="o">%</span> <span class="s">"dfdl-rfmt"</span> <span class="o">%</span> <span class="s">"0.0.1"</span> <span class="o">%</span> <span class="s">"test"</span>
 </code></pre></div></div>
 
-<p>That will result in the contents of the <code class="highlighter-rouge">src/main/resources</code> directory above
+<p>That will result in the contents of the <code class="language-plaintext highlighter-rouge">src/main/resources</code> directory above
 being on the classpath. XSD include and import statements search the classpath
 directories.</p>
 

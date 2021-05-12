@@ -224,9 +224,9 @@
 and unparse operations.</p>
 
 <p>The most visible change is the addition of a new SAX API for both parsing and
-unparsing. A new <code class="highlighter-rouge">DaffodilParseXMLReader</code> can be used to parse data and provide
-infoset events to a SAX <code class="highlighter-rouge">ContentHandler</code>. And a new <code class="highlighter-rouge">DaffodilUnparseContentHandler</code>
-can be used to unparse SAX events from a SAX <code class="highlighter-rouge">XMLReader</code>. See the Javadoc and
+unparsing. A new <code class="language-plaintext highlighter-rouge">DaffodilParseXMLReader</code> can be used to parse data and provide
+infoset events to a SAX <code class="language-plaintext highlighter-rouge">ContentHandler</code>. And a new <code class="language-plaintext highlighter-rouge">DaffodilUnparseContentHandler</code>
+can be used to unparse SAX events from a SAX <code class="language-plaintext highlighter-rouge">XMLReader</code>. See the Javadoc and
 Scaladoc for examples of creating and using the new SAX Daffodil objects.</p>
 
 <p>For both the new SAX API or original Daffodil API, infoset events are now created
@@ -247,7 +247,7 @@ including those with blobs.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-934">DAFFODIL-934</a>] Streaming parser: Need to stream input data in, and infoset out to handle arbitrarily large data.</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1272">DAFFODIL-1272</a>] Unparsing - Optimizing pruning of infoset elements that aren’t needed by any future expressions</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1272">DAFFODIL-1272</a>] Unparsing - Optimizing pruning of infoset elements that aren't needed by any future expressions</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2383">DAFFODIL-2383</a>] Implement SAX API</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2389">DAFFODIL-2389</a>] Implement OutputStream/Writer writing ContentHandler for SAX Parsing</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2395">DAFFODIL-2395</a>] Cannot have complex or simple types with a specified length larger than 256MB</li>
@@ -267,8 +267,8 @@ external tools.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2372">DAFFODIL-2372</a>] Add API to walk DSOM</li>
 </ul>
 
-<p>A new <code class="highlighter-rouge">withExternalVariables</code> function is added to the Java API that accepts a Java
-<code class="highlighter-rouge">AbstractMap</code>. Previously, the only available function used a Scala <code class="highlighter-rouge">Map</code>, which
+<p>A new <code class="language-plaintext highlighter-rouge">withExternalVariables</code> function is added to the Java API that accepts a Java
+<code class="language-plaintext highlighter-rouge">AbstractMap</code>. Previously, the only available function used a Scala <code class="language-plaintext highlighter-rouge">Map</code>, which
 is difficult to use from a Java application.</p>
 
 <ul>
@@ -285,7 +285,7 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-879">DAFFODIL-879</a>] Warn when using an expression in a property that does not accept expressions</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1025">DAFFODIL-1025</a>] InputValueCalc should not cause a circular reference or refer to its element</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1032">DAFFODIL-1032</a>] Choice with no branches should cause SDE</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1035">DAFFODIL-1035</a>] Lone “.” in a dfdl:inputValueCalc expression should be an error</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1035">DAFFODIL-1035</a>] Lone "." in a dfdl:inputValueCalc expression should be an error</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1043">DAFFODIL-1043</a>] Bad diagnostic message: The type Complex cannot be converted to ….</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2277">DAFFODIL-2277</a>] Warning needed for misplaced discriminators</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2375">DAFFODIL-2375</a>] Warn when it is impossible to unparse a choice branch</li>
@@ -300,8 +300,8 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
     <table>
       <tbody>
         <tr>
-          <td>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2122">DAFFODIL-2122</a>] default=”0</td>
-          <td>1” causes exception for xs:boolean types</td>
+          <td>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2122">DAFFODIL-2122</a>] default="0</td>
+          <td>1" causes exception for xs:boolean types</td>
         </tr>
       </tbody>
     </table>
@@ -323,7 +323,7 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2216">DAFFODIL-2216</a>] thread-unsafe Logging trait usage</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2269">DAFFODIL-2269</a>] Update to latest dependencies</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2337">DAFFODIL-2337</a>] Update unsupported features and errata page for 2.6.0 and 2.7.0</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2363">DAFFODIL-2363</a>] pattern facet can’t use  notation. Makes validating NUL very hard.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2363">DAFFODIL-2363</a>] pattern facet can't use  notation. Makes validating NUL very hard.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2365">DAFFODIL-2365</a>] LICENSE file correction</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2367">DAFFODIL-2367</a>] Add tests for nested choice message-dispatch scenarios</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2368">DAFFODIL-2368</a>] API docs do not include UDF</li>
@@ -346,18 +346,18 @@ upgrade to Scala 2.12.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2404">DAFFODIL-2404</a>] Drop support for Scala 2.11</li>
 </ul>
 
-<p>The <code class="highlighter-rouge">dfdl:fillByte</code> property is now always required in DFDL Schemas, even if it may
-not be needed. This change does not affect any schemas that use <code class="highlighter-rouge">DFDLGeneralFormat.dfdl.xsd</code>
+<p>The <code class="language-plaintext highlighter-rouge">dfdl:fillByte</code> property is now always required in DFDL Schemas, even if it may
+not be needed. This change does not affect any schemas that use <code class="language-plaintext highlighter-rouge">DFDLGeneralFormat.dfdl.xsd</code>
 for providing default arguments, since this provides the property. Schemas that do
-	not specify the <code class="highlighter-rouge">fillByte</code> property now result in a Schema Definition Error.</p>
+	not specify the <code class="language-plaintext highlighter-rouge">fillByte</code> property now result in a Schema Definition Error.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2377">DAFFODIL-2377</a>] Abort instead of diagnostic message</li>
 </ul>
 
-<p>The <code class="highlighter-rouge">withExternalVariables</code> function in the Java API that accepts a Scala <code class="highlighter-rouge">Map</code>
+<p>The <code class="language-plaintext highlighter-rouge">withExternalVariables</code> function in the Java API that accepts a Scala <code class="language-plaintext highlighter-rouge">Map</code>
 has been deprecated. When using the Java API, the same function name that accepts a
-Java <code class="highlighter-rouge">AbstractMap</code> should be used instead.</p>
+Java <code class="language-plaintext highlighter-rouge">AbstractMap</code> should be used instead.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2382">DAFFODIL-2382</a>] JAPI withExternalVariables requires Scala Map</li>

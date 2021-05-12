@@ -100,8 +100,8 @@ that is often lacking, but also often required when discussing complex data
 format issues. As such, providing a TDML file along with a bug report is the
 absolutely best way to demonstrate a problem.</p>
 
-<p>By convention, a TDML file uses the file extension <code class="highlighter-rouge">.tdml</code>, or <code class="highlighter-rouge">.tdml.xml</code>
-when used with the TDML “tutorial” feature.</p>
+<p>By convention, a TDML file uses the file extension <code class="language-plaintext highlighter-rouge">.tdml</code>, or <code class="language-plaintext highlighter-rouge">.tdml.xml</code>
+when used with the TDML "tutorial" feature.</p>
 
 <p>The schema for a TDML file is available on <a href="https://github.com/apache/daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd">GitHub</a>.</p>
 
@@ -208,17 +208,17 @@ when used with the TDML “tutorial” feature.</p>
 <span class="nt">&lt;/tdml:testSuite&gt;</span>
 </code></pre></div></div>
 
-<p>Suppose you save the above out as a file <code class="highlighter-rouge">myDateTimeBug.tdml</code>. You can then run
-it using the <code class="highlighter-rouge">test</code> subcommand of the <a href="/cli">Daffodil Command Line Interface</a>:</p>
+<p>Suppose you save the above out as a file <code class="language-plaintext highlighter-rouge">myDateTimeBug.tdml</code>. You can then run
+it using the <code class="language-plaintext highlighter-rouge">test</code> subcommand of the <a href="/cli">Daffodil Command Line Interface</a>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
 </code></pre></div></div>
 
 <h3 id="specifying-test-data">Specifying Test Data</h3>
 
 <p>Test data can be specified in text, hexadecimal, individual bits, or in an
-external file by setting the <code class="highlighter-rouge">type</code> attribute in the <code class="highlighter-rouge">tdml:documentPart</code>
-element. Multiple <code class="highlighter-rouge">tdml:documentPart</code> elements are combined to create the
+external file by setting the <code class="language-plaintext highlighter-rouge">type</code> attribute in the <code class="language-plaintext highlighter-rouge">tdml:documentPart</code>
+element. Multiple <code class="language-plaintext highlighter-rouge">tdml:documentPart</code> elements are combined to create the
 test data. The different documentPart types are illustrated below.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:document&gt;</span>
@@ -296,13 +296,13 @@ hardnessRating:967;
 <span class="nt">&lt;/tdml:document&gt;</span>
 </code></pre></div></div>
 <p>Note that in order for a test to be considered successful, it must consume all
-the data defined in the <code class="highlighter-rouge">tdml:document</code> element. Otherwise the test will fail
-with a message about “left over data”.</p>
+the data defined in the <code class="language-plaintext highlighter-rouge">tdml:document</code> element. Otherwise the test will fail
+with a message about "left over data".</p>
 
 <h3 id="specifying-the-infoset">Specifying the Infoset</h3>
 
 <p>The infoset can be provided either as an inline XML infoset or as a path to an
-external file by setting the <code class="highlighter-rouge">type</code> attribute on the <code class="highlighter-rouge">tdml:dfdlInfoset</code>
+external file by setting the <code class="language-plaintext highlighter-rouge">type</code> attribute on the <code class="language-plaintext highlighter-rouge">tdml:dfdlInfoset</code>
 element. If not provided, the type defaults to inline XML. For example:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:infoset&gt;</span>
@@ -316,7 +316,7 @@ element. If not provided, the type defaults to inline XML. For example:</p>
 <span class="nt">&lt;/tdml:infoset&gt;</span>
 </code></pre></div></div>
 
-<p>Note that the <code class="highlighter-rouge">tdml:dfdlInfoset</code> may need to contain characters that are not
+<p>Note that the <code class="language-plaintext highlighter-rouge">tdml:dfdlInfoset</code> may need to contain characters that are not
 legal in XML documents. Daffodil remaps these characters into legal XML
 characters in the Unicode Private Use Areas (PUA). See <a href="/infoset#xml-illegal-characters">XML Illegal
 Characters</a> for details.</p>
@@ -325,7 +325,7 @@ Characters</a> for details.</p>
 
 <p>A poor or missing diagnostic message is a bug just as much as a broken feature.
 TDML allows for creating negative tests to expect errors and warnings. To do
-expect errors, replace the <code class="highlighter-rouge">tdml:infoset</code> element with a <code class="highlighter-rouge">tdml:errors</code>
+expect errors, replace the <code class="language-plaintext highlighter-rouge">tdml:infoset</code> element with a <code class="language-plaintext highlighter-rouge">tdml:errors</code>
 element:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:errors&gt;</span>
@@ -334,14 +334,14 @@ element:</p>
 <span class="nt">&lt;/tdml:errors&gt;</span>
 </code></pre></div></div>
 
-<p>Each <code class="highlighter-rouge">tdml:error</code> child element contains a sub-string which must be found
+<p>Each <code class="language-plaintext highlighter-rouge">tdml:error</code> child element contains a sub-string which must be found
 somewhere in the set of diagnostic messages that come out of the test. The
 comparison is case-insensitive.</p>
 
-<p>The <code class="highlighter-rouge">tdml:warnings</code> and <code class="highlighter-rouge">tdml:warning</code> elements behave just like the error
+<p>The <code class="language-plaintext highlighter-rouge">tdml:warnings</code> and <code class="language-plaintext highlighter-rouge">tdml:warning</code> elements behave just like the error
 counterparts to define warnings that should be created during the test. Note
 that warnings are considered non-fatal and so can appear alongside
-<code class="highlighter-rouge">tdml:errors</code> and <code class="highlighter-rouge">tdml:infoset</code> elements.</p>
+<code class="language-plaintext highlighter-rouge">tdml:errors</code> and <code class="language-plaintext highlighter-rouge">tdml:infoset</code> elements.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:warnings&gt;</span>
   <span class="nt">&lt;tdml:warning&gt;</span>Schema Definition Warning<span class="nt">&lt;/tdml:warning&gt;</span>
@@ -358,8 +358,8 @@ what scenarios when CDATA regions should and should not be used.</p>
 
 <h4 id="-as-a-clear-way-represent-xml-special-characters"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  As a clear way represent XML special characters</h4>
 
-<p>The characters <code class="highlighter-rouge">&lt;</code>, <code class="highlighter-rouge">&gt;</code>, <code class="highlighter-rouge">&amp;</code>, <code class="highlighter-rouge">'</code>, and <code class="highlighter-rouge">"</code> must be represented in XML
-with <code class="highlighter-rouge">&amp;lt;</code>, <code class="highlighter-rouge">&amp;gt;</code>, <code class="highlighter-rouge">&amp;amp;</code>, <code class="highlighter-rouge">&amp;apos;</code>, and <code class="highlighter-rouge">&amp;quot;</code>, respectively.
+<p>The characters <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">'</code>, and <code class="language-plaintext highlighter-rouge">"</code> must be represented in XML
+with <code class="language-plaintext highlighter-rouge">&amp;lt;</code>, <code class="language-plaintext highlighter-rouge">&amp;gt;</code>, <code class="language-plaintext highlighter-rouge">&amp;amp;</code>, <code class="language-plaintext highlighter-rouge">&amp;apos;</code>, and <code class="language-plaintext highlighter-rouge">&amp;quot;</code>, respectively.
 These special characters are not escaped when used in CDATA tags, which can
 make the data more clear. For example, the following are equivalent:</p>
 
@@ -369,7 +369,7 @@ make the data more clear. For example, the following are equivalent:</p>
 
 <h4 id="-to-preserve-textual-formatting-within-tdml---for-clarity-reasons"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To preserve textual formatting within TDML - for clarity reasons</h4>
 
-<p>Often times IDE’s and XML editors will indent, wrap, and remove redundant
+<p>Often times IDE's and XML editors will indent, wrap, and remove redundant
 whitespace in XML data. However, sometimes it is desired that such formatting
 is maintained for readability purposes. Many tools  refuse to perform
 modifications on CDATA regions, so they can be used as a way to maintain
@@ -387,13 +387,13 @@ formatting. For example:</p>
 
 <p>The data holes in the above matrix of hex would be hard to understand without
 the formatting. But logically, the whitespace is irrelevant when the
-documentPart type is “byte”. In effect, we have CDATA here so that tooling like
+documentPart type is "byte". In effect, we have CDATA here so that tooling like
 IDEs, XML editor, etc. will not mess with the formatting of the content.</p>
 
 <h4 id="-to-avoid-insertion-of-whitespace-that-would-make-things-incorrect"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To avoid insertion of whitespace that would make things incorrect</h4>
 
 <p>Let us assume that the input document should contain exactly two letters:
-<code class="highlighter-rouge">a年</code>. This might be represented as the following in a TDML file:</p>
+<code class="language-plaintext highlighter-rouge">a年</code>. This might be represented as the following in a TDML file:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;document&gt;</span>
   <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>a年<span class="nt">&lt;/documentPart&gt;</span>
@@ -431,14 +431,14 @@ where you have this:</p>
 
 <p>If you edit that on a windows machine, where CRLF is the usual text line
 ending, then the file will actually have a CRLF line ending in that text. If
-the test has say, <code class="highlighter-rouge">dfdl:terminator="%CR;%LF;"</code>, then this should fail
+the test has say, <code class="language-plaintext highlighter-rouge">dfdl:terminator="%CR;%LF;"</code>, then this should fail
 because, no matter what, XML always standardizes line endings to just one
 character: LF. XML replaces CRLF with LF, and isolated CR with LF. The net
 result: by the time a program is reading the XML data, it should only see LF
 line endings.</p>
 
 <p>It is possible to get a literal CR character into XML content, but ONLY by
-using the numeric character entity notation, i.e., <code class="highlighter-rouge">&amp;#xD;</code>. So one might try to
+using the numeric character entity notation, i.e., <code class="language-plaintext highlighter-rouge">&amp;#xD;</code>. So one might try to
 write the above test as:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
@@ -455,20 +455,20 @@ cause you to get:</p>
 </code></pre></div></div>
 
 <p>Which would be broken because of the whitespace insertions around the
-<code class="highlighter-rouge">&amp;#xD;&amp;#xA;</code>.</p>
+<code class="language-plaintext highlighter-rouge">&amp;#xD;&amp;#xA;</code>.</p>
 
-<p>There are two good solutions to this problem. First one can use type=”byte”
+<p>There are two good solutions to this problem. First one can use type="byte"
 document parts:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"byte"</span><span class="nt">&gt;</span>0D 0A<span class="nt">&lt;/documentPart&gt;</span>
 </code></pre></div></div>
 
-<p>This will always create exactly the bytes <code class="highlighter-rouge">0D</code> and <code class="highlighter-rouge">0A</code>, and documentParts
+<p>This will always create exactly the bytes <code class="language-plaintext highlighter-rouge">0D</code> and <code class="language-plaintext highlighter-rouge">0A</code>, and documentParts
 are concatenated together with nothing between. However, this will break if the
 documentPart has an encoding where CR and LF are not exactly represented by the
 bytes 0D and 0A. For example currently we support
-<code class="highlighter-rouge">encoding="us-ascii-7-bit-packed"</code>. In that encoding, CR and LF each take up
+<code class="language-plaintext highlighter-rouge">encoding="us-ascii-7-bit-packed"</code>. In that encoding, CR and LF each take up
 only 7 bits, resulting in 14 bits rather than 2 full bytes.</p>
 
 <p>The best way to handle this problem is to use the documentPart
@@ -477,7 +477,7 @@ replaceDFDLEntities attribute:</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Text followed by a CR LF%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 </code></pre></div></div>
 
-<p>The line gets kind of long, but those <code class="highlighter-rouge">%CR;</code> and <code class="highlighter-rouge">%LF;</code> are DFDL entities
+<p>The line gets kind of long, but those <code class="language-plaintext highlighter-rouge">%CR;</code> and <code class="language-plaintext highlighter-rouge">%LF;</code> are DFDL entities
 syntax for those Unicode characters. These are translated into whatever
 encoding the documentPart specifies, so this will be robust even if the
 encoding is say, UTF-16 or the 7-bit encoding.</p>
@@ -496,9 +496,9 @@ specific kinds of line endings will be preserved in a file.</p>
 
 <p>Some tests, however, are insensitive to the presence of whitespace. This is
 true of many tests for delimited text formats. In those cases you may want
-CDATA to preserve formatting of text (so it won’t be re-indented), and to
+CDATA to preserve formatting of text (so it won't be re-indented), and to
 preserve <em>some</em> line endings. If this same test example was instead using
-<code class="highlighter-rouge">dfdl:terminator="%NL;"</code>, the NL entity matches CRLF, CR, or LF, and even
+<code class="language-plaintext highlighter-rouge">dfdl:terminator="%NL;"</code>, the NL entity matches CRLF, CR, or LF, and even
 some other obscure Unicode line ending characters. In that case, the original
 documentPart XML:</p>
 
@@ -514,50 +514,50 @@ She walked into mine
 
 <p>Round-trip testing is using a single test case for testing both parse and unparse directions.</p>
 
-<p>The <code class="highlighter-rouge">tdml:testSuite</code> has a <code class="highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="highlighter-rouge">roundTrip</code> attribute which overrides the default.</p>
+<p>The <code class="language-plaintext highlighter-rouge">tdml:testSuite</code> has a <code class="language-plaintext highlighter-rouge">defaultRoundTrip</code> attribute, and each test case can have a <code class="language-plaintext highlighter-rouge">roundTrip</code> attribute which overrides the default.</p>
 
-<p>The default behavior if nothing is specified in either the <code class="highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="highlighter-rouge">onePass</code>. The values of these attributes can be:</p>
+<p>The default behavior if nothing is specified in either the <code class="language-plaintext highlighter-rouge">tdml:testSuite</code> or the test case itself, is <code class="language-plaintext highlighter-rouge">onePass</code>. The values of these attributes can be:</p>
 
 <dl>
-  <dt><code class="highlighter-rouge">none</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">none</code></dt>
   <dd>
     <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset.</p>
   </dd>
   <dd>
     <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data.</p>
   </dd>
-  <dt><code class="highlighter-rouge">onePass</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">onePass</code></dt>
   <dd>
     <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect match. Unparse infoset, compare to given data.</p>
   </dd>
   <dd>
     <p><em>tdml:unparserTestCase:</em> Unparse given infoset, compare output data to expected data, expect match. Parse data to infoset, compare to expected infoset, expect match.</p>
   </dd>
-  <dt><code class="highlighter-rouge">twoPass</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">twoPass</code></dt>
   <dd>
     <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset, compare to given data, expect failure. Parse output data to a second infoset. Compare to first infoset, expect success.</p>
   </dd>
   <dd>
     <p><em>tdml:unparserTestCase:</em> Invalid</p>
   </dd>
-  <dt><code class="highlighter-rouge">threePass</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">threePass</code></dt>
   <dd>
     <p><em>tdml:parserTestCase:</em> Parse given data, compare to expected infoset, expect failure. Unparse infoset to first output data, compare to given data, expect failure. Parse first output data to second infoset. Compare to expected infoset, expect failure. Unparse second infoset to second output data, compare to first output data, expect success.</p>
   </dd>
   <dd>
     <p><em>tdml:unparserTestCase:</em> Invalid</p>
   </dd>
-  <dt><code class="highlighter-rouge">false</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">false</code></dt>
   <dd>
-    <p>Same as <code class="highlighter-rouge">none</code>, used for backwards compatability</p>
+    <p>Same as <code class="language-plaintext highlighter-rouge">none</code>, used for backwards compatability</p>
   </dd>
-  <dt><code class="highlighter-rouge">true</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">true</code></dt>
   <dd>
-    <p>Same as <code class="highlighter-rouge">onePass</code>, used for backwards compatability</p>
+    <p>Same as <code class="language-plaintext highlighter-rouge">onePass</code>, used for backwards compatability</p>
   </dd>
 </dl>
 
-<p>A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="highlighter-rouge">twoPass</code> must fail in <code class="highlighter-rouge">onePass</code> in order to succeed with the second pass. A test designated <code class="highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="highlighter-rouge">twoPass</code> and especially <code class="highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</p>
+<p>A test must be designated as (or default to) requiring a specific number of passes. A test designated as <code class="language-plaintext highlighter-rouge">twoPass</code> must fail in <code class="language-plaintext highlighter-rouge">onePass</code> in order to succeed with the second pass. A test designated <code class="language-plaintext highlighter-rouge">threePass</code> must fail both the first pass, and second pass in order to succeed on the third pass. The <code class="language-plaintext highlighter-rouge">twoPass</code> and especially <code class="language-plaintext highlighter-rouge">threePass</code> modes must be used with caution as they can mask errors; hence, tests should be designed to need them when they are used.</p>
 
   </div>
 </div>

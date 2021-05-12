@@ -220,20 +220,20 @@
 
 <h4 id="explicit-length-choices">Explicit Length Choices</h4>
 
-<p>Support is added for the property <code class="highlighter-rouge">dfdl:choiceLengthKind="explicit"</code> and
-<code class="highlighter-rouge">dfdl:choiceLength</code>. Previously, Daffodil ignored the <code class="highlighter-rouge">choiceLengthKind</code>
-property, always acting as if it had the value of <code class="highlighter-rouge">implicit</code>. The property is
+<p>Support is added for the property <code class="language-plaintext highlighter-rouge">dfdl:choiceLengthKind="explicit"</code> and
+<code class="language-plaintext highlighter-rouge">dfdl:choiceLength</code>. Previously, Daffodil ignored the <code class="language-plaintext highlighter-rouge">choiceLengthKind</code>
+property, always acting as if it had the value of <code class="language-plaintext highlighter-rouge">implicit</code>. The property is
 now required to be defined in scope for all choices.</p>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-640">DAFFODIL-640</a>] choiceLengthKind=’explicit’</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-640">DAFFODIL-640</a>] choiceLengthKind='explicit'</li>
 </ul>
 
 <h4 id="extension-namespace">Extension Namespace</h4>
 
-<p>A new <code class="highlighter-rouge">dfdlx</code> namespace (<code class="highlighter-rouge">http://www.ogf.org/dfdl/dfdl-1.0/extensions</code>) was
+<p>A new <code class="language-plaintext highlighter-rouge">dfdlx</code> namespace (<code class="language-plaintext highlighter-rouge">http://www.ogf.org/dfdl/dfdl-1.0/extensions</code>) was
 created to support Daffodil extensions to the DFDL specification. The existing
-<code class="highlighter-rouge">daf</code> namespace is deprecated and all uses should be switched to <code class="highlighter-rouge">dfdlx</code>.
+<code class="language-plaintext highlighter-rouge">daf</code> namespace is deprecated and all uses should be switched to <code class="language-plaintext highlighter-rouge">dfdlx</code>.
 Some properties, such as the layering extension properties are also moved to
 this namespace with backwards compatibility supported for now. Extensions
 should be considered experimental–support may change or be removed in a
@@ -245,7 +245,7 @@ future release.</p>
 
 <h4 id="extension-empty-element-parse-policy-proposal">Extension: Empty Element Parse Policy [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+dfdlx%3AemptyElementParsePolicy+Property">Proposal</a>]</h4>
 
-<p>A new DFDL property named <code class="highlighter-rouge">dfdlx:emptyElementParsePolicy</code> is added to
+<p>A new DFDL property named <code class="language-plaintext highlighter-rouge">dfdlx:emptyElementParsePolicy</code> is added to
 control the behavior of empty string and hexBinary elements. This property
 allows one to switch between different behaviors for empty elements which
 correspond to currently described behavior in the DFDL v1.0 specification
@@ -261,7 +261,7 @@ v1.0 specification which also increase compatibility with IBM DFDL.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1976">DAFFODIL-1976</a>] Incorrect creation of empty-string element</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2134">DAFFODIL-2134</a>] emptyElementParsePolicyError not accepted as warning ID in TDML define config.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2135">DAFFODIL-2135</a>] Array index not maintained properly. Causes nillable failures among others.</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2143">DAFFODIL-2143</a>] dfdl:initiatedContent=”yes” on sequence should only affect optional children</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2143">DAFFODIL-2143</a>] dfdl:initiatedContent="yes" on sequence should only affect optional children</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2154">DAFFODIL-2154</a>] nilled element of zero length inside optional complex element is deleted</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2162">DAFFODIL-2162</a>] direct dispatch choice that has an array branch causes abort during compilation</li>
 </ul>
@@ -280,7 +280,7 @@ enumeration values.</p>
 
 <h4 id="extension-ranged-direct-dispatch-proposal">Extension: Ranged Direct Dispatch [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+choiceBranchKeyRanges">Proposal</a>]</h4>
 
-<p>A new property named <code class="highlighter-rouge">dfdlx:choiceBranchKeyRanges</code> is added to support direct
+<p>A new property named <code class="language-plaintext highlighter-rouge">dfdlx:choiceBranchKeyRanges</code> is added to support direct
 dispatch based on a range of numeric values.</p>
 
 <ul>
@@ -289,7 +289,7 @@ dispatch based on a range of numeric values.</p>
 
 <h4 id="extension-lookahead-expression-function-proposal">Extension: Lookahead Expression Function [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+DFDLX+lookAhead">Proposal</a>]</h4>
 
-<p>A new DFDL expression function named <code class="highlighter-rouge">dfdlx:lookAhead()</code> is added to support a
+<p>A new DFDL expression function named <code class="language-plaintext highlighter-rouge">dfdlx:lookAhead()</code> is added to support a
 simple way to consider data that occurs at a future point in the bitstream.</p>
 
 <ul>
@@ -301,8 +301,8 @@ simple way to consider data that occurs at a future point in the bitstream.</p>
 <p>Daffodil now does a better job at validating attribute-, short-, and
 element-form DFDL properties, which will now result in an error if unknown
 properties are used, mostly commonly caused by typos. Additionally, if DFDL
-properties are ignored (e.g. <code class="highlighter-rouge">dfdl:textPattern</code> is provided when
-<code class="highlighter-rouge">dfdl:lengthKind</code> is not “pattern”), Daffodil will now provide a warning.</p>
+properties are ignored (e.g. <code class="language-plaintext highlighter-rouge">dfdl:textPattern</code> is provided when
+<code class="language-plaintext highlighter-rouge">dfdl:lengthKind</code> is not "pattern"), Daffodil will now provide a warning.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-598">DAFFODIL-598</a>] No validation of short-form DFDL properties</li>
@@ -321,12 +321,12 @@ properties are ignored (e.g. <code class="highlighter-rouge">dfdl:textPattern</c
 specification, which enables more DFDL schemas to work without Daffodil
 specific modifications. Schemas that relied on the previous non-comformant
 behavior may require changes.</li>
-  <li>The <code class="highlighter-rouge">dfdl:choiceLengthKind</code> property must now be defined in scope of all
-<code class="highlighter-rouge">xs:choice</code>’s. Allowed values are either <code class="highlighter-rouge">implicit</code> or <code class="highlighter-rouge">explicit</code>. The
+  <li>The <code class="language-plaintext highlighter-rouge">dfdl:choiceLengthKind</code> property must now be defined in scope of all
+<code class="language-plaintext highlighter-rouge">xs:choice</code>'s. Allowed values are either <code class="language-plaintext highlighter-rouge">implicit</code> or <code class="language-plaintext highlighter-rouge">explicit</code>. The
 previous behavior always treated the property as if it had the value of
-<code class="highlighter-rouge">implicit</code>.</li>
-  <li>The <code class="highlighter-rouge">daf</code> namespace has been deprecated and replaced with the <code class="highlighter-rouge">dfdlx</code>
-namespace. Some properties were also moved to the new <code class="highlighter-rouge">dfdlx</code> namespace.
+<code class="language-plaintext highlighter-rouge">implicit</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">daf</code> namespace has been deprecated and replaced with the <code class="language-plaintext highlighter-rouge">dfdlx</code>
+namespace. Some properties were also moved to the new <code class="language-plaintext highlighter-rouge">dfdlx</code> namespace.
 The following properties/functions should be updated to use the new
 namespace, with backwards compatibility supported for now:
     <ul>
@@ -357,10 +357,10 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-828">DAFFODIL-828</a>] IBM Compatibility - Test out HL7 schemas</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1639">DAFFODIL-1639</a>] IBM Compatibility - EDIFACT</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1720">DAFFODIL-1720</a>] missing properties not reported</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1853">DAFFODIL-1853</a>] ipfix data format parse and unparse tests for “Schema Definition Error”</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1886">DAFFODIL-1886</a>] TLOG: Delimited parsing with occursCountKind=”implicit” with separators is not handling missing optional elements correctly</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1853">DAFFODIL-1853</a>] ipfix data format parse and unparse tests for "Schema Definition Error"</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1886">DAFFODIL-1886</a>] TLOG: Delimited parsing with occursCountKind="implicit" with separators is not handling missing optional elements correctly</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1916">DAFFODIL-1916</a>] Properties leadingSkip alignment alignmentUnits trailingSkip should not be required by text formats.</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2121">DAFFODIL-2121</a>] occursStopValue=”-1” in test schemas is non-portable (currently)</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2121">DAFFODIL-2121</a>] occursStopValue="-1" in test schemas is non-portable (currently)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2156">DAFFODIL-2156</a>] daffodil-test-ibm1-crossTest now fails</li>
 </ul>
 
@@ -396,10 +396,10 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1475">DAFFODIL-1475</a>] Runtime terminator containing isolated %ES; provides poor diagnostic.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1477">DAFFODIL-1477</a>] ES now allowed in terminator - causes a test to fail now.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1478">DAFFODIL-1478</a>] Debugger uses the term arrayIndex. Really should be occursIndex to match the function of the same name.</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1493">DAFFODIL-1493</a>] %ES; delimiter doesn’t work right</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1493">DAFFODIL-1493</a>] %ES; delimiter doesn't work right</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1525">DAFFODIL-1525</a>] Determine if there is a better way to convert an XML String to a date/time</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1701">DAFFODIL-1701</a>] dfdl:outputValueCalc on a complex element causes a ClassCastException</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1931">DAFFODIL-1931</a>] Debug/trace - prints spurious error message about “..”</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1931">DAFFODIL-1931</a>] Debug/trace - prints spurious error message about ".."</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1955">DAFFODIL-1955</a>] Missing closing dfdl:format tag causes FatalError exception</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1956">DAFFODIL-1956</a>] Terminator with leading space causes assertion failure</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2058">DAFFODIL-2058</a>] Some CLI tests do not work cleanly on the Windows platform.</li>
@@ -412,8 +412,8 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2076">DAFFODIL-2076</a>] fn:ceiling does not work on xs:decimal</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2078">DAFFODIL-2078</a>] Unexpected exception with dfdl:contentLength</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2083">DAFFODIL-2083</a>] abort in parser runtime - invariant failed with dynamic separator test</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2084">DAFFODIL-2084</a>] attributeFormDefault=”unqualified” appears in SchemaUtils used by TDML - generates spurious warning</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2089">DAFFODIL-2089</a>] Unparser escaping doesn’t escape all the delimiters</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2084">DAFFODIL-2084</a>] attributeFormDefault="unqualified" appears in SchemaUtils used by TDML - generates spurious warning</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2089">DAFFODIL-2089</a>] Unparser escaping doesn't escape all the delimiters</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2092">DAFFODIL-2092</a>] Bad diagnostic when using dynamic separator the value of which is NUL (ascii 0)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2097">DAFFODIL-2097</a>] Non-thread safe code related to EvCalendar</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2099">DAFFODIL-2099</a>] Original errors being surpressed in doParse loop</li>
@@ -425,7 +425,7 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2123">DAFFODIL-2123</a>] Exception on error when parsing hex data with trace on</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2125">DAFFODIL-2125</a>] Incorrect unsparse with suspensions and changing bitOrder</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2126">DAFFODIL-2126</a>] XML Catalog uri should use the same semantics as import/include schemaLocation</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2128">DAFFODIL-2128</a>] XML preamble encoding ignored when CLI unparsing with “xml” infoset type</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2128">DAFFODIL-2128</a>] XML preamble encoding ignored when CLI unparsing with "xml" infoset type</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2130">DAFFODIL-2130</a>] Error on schema with large numbers of files</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2136">DAFFODIL-2136</a>] Fix whitespace spurious changes.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2155">DAFFODIL-2155</a>] Add support for Link16 Charset DFI311:DUI002</li>

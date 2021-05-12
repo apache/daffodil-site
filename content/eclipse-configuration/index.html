@@ -91,11 +91,11 @@
 
 <p>DFDL extends a subset of XML Schema. Note however: an XML Schema is an XML document.</p>
 
-<p>Now, turns out there is an XML Schema for DFDL Schemas. It was created by taking the XML Schema for XML Schemas, and subsetting it to just what DFDL uses, and then adding into it the XML Schema for DFDL’s annotation objects.</p>
+<p>Now, turns out there is an XML Schema for DFDL Schemas. It was created by taking the XML Schema for XML Schemas, and subsetting it to just what DFDL uses, and then adding into it the XML Schema for DFDL's annotation objects.</p>
 
 <h3 id="installing-eclipse-xml-plugin">Installing Eclipse XML Plugin</h3>
 
-<p>The XML settings all assume you have installed Eclipse’s XML support. If not already installed, the “Eclipse XML Editors and Tools” plugin can be Eclipse’s update site.</p>
+<p>The XML settings all assume you have installed Eclipse's XML support. If not already installed, the "Eclipse XML Editors and Tools" plugin can be Eclipse's update site.</p>
 
 <h3 id="eclipse-xml-settings">Eclipse XML Settings</h3>
 
@@ -114,7 +114,7 @@
           <li>Click Add Rule</li>
           <li>Select File Extension</li>
           <li>Click Next</li>
-          <li>Add extension: <code class="highlighter-rouge">dfdl.xsd</code></li>
+          <li>Add extension: <code class="language-plaintext highlighter-rouge">dfdl.xsd</code></li>
           <li>Click Finish</li>
         </ol>
       </li>
@@ -124,7 +124,7 @@
     <ol>
       <li>Select Text &gt; XML</li>
       <li>Click Add…</li>
-      <li>Set Content type to <code class="highlighter-rouge">*.dfdl.xsd</code></li>
+      <li>Set Content type to <code class="language-plaintext highlighter-rouge">*.dfdl.xsd</code></li>
     </ol>
   </li>
   <li>Window &gt; Preferences &gt; XML &gt; XML Files &gt; Editor
@@ -134,11 +134,11 @@
   </li>
 </ol>
 
-<p>If also editing TDML file in Eclipse, repeat the above steps, replacing all instances of <code class="highlighter-rouge">dfdl.xsd</code> with <code class="highlighter-rouge">tdml</code>.</p>
+<p>If also editing TDML file in Eclipse, repeat the above steps, replacing all instances of <code class="language-plaintext highlighter-rouge">dfdl.xsd</code> with <code class="language-plaintext highlighter-rouge">tdml</code>.</p>
 
 <h4 id="add-xml-schemas-for-dfdl-to-the-xml-catalog">Add XML Schemas for DFDL to the XML Catalog</h4>
 
-<p>Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the <code class="highlighter-rouge">src/main/resources/org/apache/daffodil/xsd/</code> directory in either <code class="highlighter-rouge">daffodil-lib/</code> or <code class="highlighter-rouge">daffodil-propgen/</code>.</p>
+<p>Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the <code class="language-plaintext highlighter-rouge">src/main/resources/org/apache/daffodil/xsd/</code> directory in either <code class="language-plaintext highlighter-rouge">daffodil-lib/</code> or <code class="language-plaintext highlighter-rouge">daffodil-propgen/</code>.</p>
 
 <ul>
   <li><a href="https://raw.githubusercontent.com/apache/daffodil/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/datatypes.dtd">datatypes.dtd</a></li>
@@ -155,7 +155,7 @@
 <ol>
   <li>Windows &gt; Preferences &gt; XML &gt; XML Catalog</li>
   <li>
-    <p>For each of the following files, select ‘Add..’ and provide the location on the ‘File System…’ or ‘Workspace…’, along with the key and key type</p>
+    <p>For each of the following files, select 'Add..' and provide the location on the 'File System…' or 'Workspace…', along with the key and key type</p>
 
     <table class="table">
   <tr>

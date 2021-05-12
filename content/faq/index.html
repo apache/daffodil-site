@@ -100,7 +100,7 @@
   Q: When should I use an XSD facet like maxLength, and when should I use the DFDL length property?
 </a></p>
 <div id="faq1" class="collapse">
-  <p>Here’s part of an example from the DFDL tutorial of a street address:</p>
+  <p>Here's part of an example from the DFDL tutorial of a street address:</p>
 
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"houseNumber"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"explicit"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
 </code></pre></div>  </div>
@@ -109,7 +109,7 @@
 
   <p>When should you used XSD to do this, and when should you use DFDL?  Should you ever use both?</p>
 
-  <p>You must use the dfdl:length property, because it can’t parse the data without it. You may use the XSD facets to check further, and it often makes sense to use both.</p>
+  <p>You must use the dfdl:length property, because it can't parse the data without it. You may use the XSD facets to check further, and it often makes sense to use both.</p>
 
   <p>Consider</p>
 
@@ -127,9 +127,9 @@
 <span class="nt">&lt;/xs:element&gt;</span>
 </code></pre></div>  </div>
 
-  <p>Not too bad actually. And if you can reuse some simple type definitions it’s not bad at all.</p>
+  <p>Not too bad actually. And if you can reuse some simple type definitions it's not bad at all.</p>
 
-  <p>One further point. Suppose you want to parse the string using the header-supplied length, but it’s flat out a parse error if the length turns out to be greater than 140. You can ask the DFDL processor to check the facet maxLength at parse time using an assertion like this:</p>
+  <p>One further point. Suppose you want to parse the string using the header-supplied length, but it's flat out a parse error if the length turns out to be greater than 140. You can ask the DFDL processor to check the facet maxLength at parse time using an assertion like this:</p>
 
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"article"</span> <span class="na">dfdl:length=</span><span class="s">"{ ../header/articleLength }"</span> <span class="na">dfdl:lengthKind=</span><span class="s">'explicit'</span><span class="nt">&gt;</span>
   <span class="nt">&lt;xs:simpleType&gt;</span>
@@ -161,9 +161,9 @@
 
   <p>so that the parser will validate as it parses, and will fail to parse values that do not satisfy the facet constraints.</p>
 
-  <p>Don’t do this. Your schema will not be as useful because it will not be able to be used for some applications, for example, applications that want to accept well-formed, but invalid data and analyze, act,  or report on the invalid aspects.</p>
+  <p>Don't do this. Your schema will not be as useful because it will not be able to be used for some applications, for example, applications that want to accept well-formed, but invalid data and analyze, act,  or report on the invalid aspects.</p>
 
-  <p>In some sense, embedding checks like this into a DFDL schema is second-guessing the application’s needs, and assuming the application does not even want to successfully parse and create an infoset from data that does not obey the facet constraints.</p>
+  <p>In some sense, embedding checks like this into a DFDL schema is second-guessing the application's needs, and assuming the application does not even want to successfully parse and create an infoset from data that does not obey the facet constraints.</p>
 </div>
 
 <p><a class="question" data-toggle="collapse" data-target="#faq3">
@@ -188,12 +188,12 @@
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span> *<span class="nt">&lt;/dfdl:assert&gt;</span>
 </code></pre></div>  </div>
 
-  <p>Now the contents of that element is “ *”, i.e., a single space, and the “*” character. That means zero or more spaces in regex language. If you don’t want your XML tooling to mess with the whitespace do this instead:</p>
+  <p>Now the contents of that element is " *", i.e., a single space, and the "*" character. That means zero or more spaces in regex language. If you don't want your XML tooling to mess with the whitespace do this instead:</p>
 
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:assert</span> <span class="na">testKind=</span><span class="s">"pattern"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[ *]]&gt;</span><span class="nt">&lt;/dfdl:assert&gt;</span>
 </code></pre></div>  </div>
 
-  <p>CDATA informs XML processors that you very much care about this. Any decent XML tooling/editor will see this and decide it cannot line-wrap this or in any way mess with the whitespace. Also useful if you want to write a complex DFDL expression in the expression language, and you want indentation and lines to be respected. Here’s an example:</p>
+  <p>CDATA informs XML processors that you very much care about this. Any decent XML tooling/editor will see this and decide it cannot line-wrap this or in any way mess with the whitespace. Also useful if you want to write a complex DFDL expression in the expression language, and you want indentation and lines to be respected. Here's an example:</p>
 
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dfdl:discriminator&gt;</span><span class="cp">&lt;![CDATA[{
     if (daf:trace((daf:trace(../../ex:presenceBit,"presenceBit") = 0),"pbIsZero")) then false()
@@ -211,16 +211,16 @@
 
   <p>If you get done writing something very deeply nested like this (and XPath style languages require this all the time), then you do NOT want anything messing with the whitespace.</p>
 
-  <p>About the xml:space=’preserve’ attribute: According to <a href="http://www.xmlplease.com/xml/xmlspace/">this page</a>, xml:space is only about whitespace-only nodes, not nodes that are part whitespace. Within element-only content, the text nodes found between the elements are whitespace-only nodes. Unless you use xml:space=’preserve’, those are eliminated. None of the above discussion is about whitespace-only nodes. It’s about value nodes containing text strings with surrounding whitespace.</p>
+  <p>About the xml:space='preserve' attribute: According to <a href="http://www.xmlplease.com/xml/xmlspace/">this page</a>, xml:space is only about whitespace-only nodes, not nodes that are part whitespace. Within element-only content, the text nodes found between the elements are whitespace-only nodes. Unless you use xml:space='preserve', those are eliminated. None of the above discussion is about whitespace-only nodes. It's about value nodes containing text strings with surrounding whitespace.</p>
 </div>
 
 <p><a class="question" data-toggle="collapse" data-target="#faq4">
-  Q: Why doesn’t DFDL allow me to express my format using offsets into a file, instead of lengths?
+  Q: Why doesn't DFDL allow me to express my format using offsets into a file, instead of lengths?
 </a></p>
 <div id="faq4" class="collapse">
   <p>With some study, the DFDL workgroup concluded that these formats nearly always require the full complexity of a transformation system AND a data format description system. DFDL is only about the latter problem.</p>
 
-  <p>In other words, it was left out for complexity reasons, not because we didn’t think there were examples.</p>
+  <p>In other words, it was left out for complexity reasons, not because we didn't think there were examples.</p>
 
   <p>It is a much more complex issue than people think. As we got into it we kept falling down the slippery slope of needing rich transformations to express such things.</p>
 
@@ -228,15 +228,15 @@
 
   <p>DFDL requires one to recast such a specification as lengths.</p>
 
-  <p>It is not a “either or” scenario where lengths and offsets are equivalent so you can pick one.</p>
+  <p>It is not a "either or" scenario where lengths and offsets are equivalent so you can pick one.</p>
 
-  <p>Use of lengths is simply a superior and more precise way of expressing the format because use of offsets can obscure aliasing, which is the term for when there are two elements (or more) that describe the same part of the data representation. With lengths, it’s clear what every bit means, and that every bit is in fact described or explicitly skipped. You can’t just use an offset to skip past a bunch of data leaving it not described at all. You can’t have aliasing of the same data.</p>
+  <p>Use of lengths is simply a superior and more precise way of expressing the format because use of offsets can obscure aliasing, which is the term for when there are two elements (or more) that describe the same part of the data representation. With lengths, it's clear what every bit means, and that every bit is in fact described or explicitly skipped. You can't just use an offset to skip past a bunch of data leaving it not described at all. You can't have aliasing of the same data.</p>
 
   <p>Aliasing is a difficult issue when parsing. When unparsing it is a nightmare, as it introduces non-determinacy in what the data written actually comes out like. It depends on who writes it last with what alias.</p>
 
   <p>Structures like</p>
 
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;offset to start&gt;&lt;length of thing&gt;
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;offset to start&gt;&lt;length of thing&gt;
 &lt;offset to start2&gt;&lt;length of thing2&gt;
 ...
 &lt;offset to startN&gt;&lt;length of thingN&gt;
@@ -248,16 +248,16 @@ thingN
 
   <p>So long as the things and the corresponding descriptor pairs are in order, these can be described. The lengths need not even be there as they are redundant. If present they can be checked for validity. Overlap can be checked for and deemed invalid.</p>
 
-  <p>But, in DFDL the above <em>must</em> be represented as two vectors. One of the offsets table, the other of the things. If you want an array of things and then want DFDL to convert that into the offsets and things separately, well DFDL doesn’t do transformations of that sort. Do that first in XSLT or other transformation system when unparsing. When parsing, you first parse with DFDL, then transform the data into the logical single vector using XSLT (or other).</p>
+  <p>But, in DFDL the above <em>must</em> be represented as two vectors. One of the offsets table, the other of the things. If you want an array of things and then want DFDL to convert that into the offsets and things separately, well DFDL doesn't do transformations of that sort. Do that first in XSLT or other transformation system when unparsing. When parsing, you first parse with DFDL, then transform the data into the logical single vector using XSLT (or other).</p>
 
   <div class="alert alert-warning">
 XProc is a language for expressing chains of XML-oriented transformations like this. Calabash is an open-source XProc implementation, and the daffodil-calabash-extension provides Daffodil stages that have been created to enable creation of XProc pipelines that glue together transformations like XSLT with DFDL parse/unparse steps. This can be used to create a unit that runs both DFDL and an XSLT together for parse or for unparse (they would be different XSLTs).
 If the things are potentially out of order, especially if the lengths are not stored, but just implied by "from this offset to the start of the next one, whichever one that is", that is simply too complex a transformation for DFDL. 
 </div>
 
-  <p>If you think about what is required mentally to decode this efficiently, you must grab all the entries, sort them by offset, and then compute lengths, etc.  Shy of building a real programming language (e.g., XQuery) into DFDL there has to be a limit to what level of complexity we allow DFDL to express directly.   And unparsing is entirely non-deterministic… you have to stage an array/blob filled with fill bytes, write pieces to it one by one, potentially overwriting sections. It’s really quite hard. Even if you supported this in DFDL somehow, would it in fact write these things out in the order an application does? So will you even be able to re-create data?</p>
+  <p>If you think about what is required mentally to decode this efficiently, you must grab all the entries, sort them by offset, and then compute lengths, etc.  Shy of building a real programming language (e.g., XQuery) into DFDL there has to be a limit to what level of complexity we allow DFDL to express directly.   And unparsing is entirely non-deterministic… you have to stage an array/blob filled with fill bytes, write pieces to it one by one, potentially overwriting sections. It's really quite hard. Even if you supported this in DFDL somehow, would it in fact write these things out in the order an application does? So will you even be able to re-create data?</p>
 
-  <p>There is a sense in which formats expressed as these sorts of “potentially overlapping regions” are simply not adequately specified unless they specify the exact order things are to be written so that the contents of overlap regions is deterministic.</p>
+  <p>There is a sense in which formats expressed as these sorts of "potentially overlapping regions" are simply not adequately specified unless they specify the exact order things are to be written so that the contents of overlap regions is deterministic.</p>
 
   <p>There could be formats where there are offset tables like this, where in principle things could be out of order, or overlapping/aliased, but they simply never are, and allowing them to be is effectively a bad idea as it allows people to do very obscure things - information hiding, polyglot files, etc. PDF is heavily criticized for this. It may be an unstated principle that such formats <em>do not</em> do this sort of out-of-order or aliasing stuff.</p>
 
@@ -276,9 +276,9 @@ If the things are potentially out of order, especially if the lengths are not st
 
   <p>Or you can parse the data with a generic schema where your tag names will be in element values someplace, and do a transformation outside of DFDL to convert them to element names.</p>
 
-  <p>Consider the common “comma separated values” or  CSV formats. If you have</p>
+  <p>Consider the common "comma separated values" or  CSV formats. If you have</p>
 
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name, Address, Phone
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name, Address, Phone
 Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
 </code></pre></div>  </div>
 
@@ -295,7 +295,7 @@ Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
   <span class="nt">&lt;col&gt;</span>888-888-8888<span class="nt">&lt;/col&gt;</span>
 <span class="nt">&lt;/row&gt;</span>
 </code></pre></div>  </div>
-  <p>That’s what you would get from a generic CSV DFDL schema. If you want this:</p>
+  <p>That's what you would get from a generic CSV DFDL schema. If you want this:</p>
 
   <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;row&gt;</span>
   <span class="nt">&lt;Name&gt;</span>Mike<span class="nt">&lt;/Name&gt;</span>
@@ -304,13 +304,13 @@ Mike, 8840 Standford Blvd\, Columbia MD, 888-888-8888
 <span class="nt">&lt;/row&gt;</span>
 </code></pre></div>  </div>
 
-  <p>That’s a specific-to-exactly-these-column-names CSV DFDL schema that is required. If you have lots of files with this exact structure you would create this DFDL schema once.</p>
+  <p>That's a specific-to-exactly-these-column-names CSV DFDL schema that is required. If you have lots of files with this exact structure you would create this DFDL schema once.</p>
 
   <p>If you have no idea what CSV is coming at you, but want this sort of XML elements anyway, then you have to generate a DFDL schema on the fly from the data (parse just the headers with a generic DFDL schema first - then use that to create the DFDL schema.</p>
 
   <p>Or you parse using the generic schema, then use XSLT or something to convert the result of the generic parse.</p>
 
-  <p>Keep in mind that this problem has little to do with DFDL. Given an XML document like the generic one above, but you didn’t want that XML, you wanted the specific style XML. Well you have the same problem. You need to grab the column names first, then transform the data using them as the element names.</p>
+  <p>Keep in mind that this problem has little to do with DFDL. Given an XML document like the generic one above, but you didn't want that XML, you wanted the specific style XML. Well you have the same problem. You need to grab the column names first, then transform the data using them as the element names.</p>
 </div>
 
 <!---

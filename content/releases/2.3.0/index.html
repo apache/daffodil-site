@@ -222,8 +222,8 @@
 
 <p>It is now possible to use the TDML runner with tests with different DFDL implementations, including
 the IBM DFDL implementation. DFDL implementations must create a class named
-<code class="highlighter-rouge">TDMLDFDLProcessorFactory</code> and implement the abstract functions. A new <code class="highlighter-rouge">implementation</code>
-attribute is added to the <code class="highlighter-rouge">tdml:parserTestCase</code> and <code class="highlighter-rouge">tdml:unparserTestCase</code> elements to define
+<code class="language-plaintext highlighter-rouge">TDMLDFDLProcessorFactory</code> and implement the abstract functions. A new <code class="language-plaintext highlighter-rouge">implementation</code>
+attribute is added to the <code class="language-plaintext highlighter-rouge">tdml:parserTestCase</code> and <code class="language-plaintext highlighter-rouge">tdml:unparserTestCase</code> elements to define
 which tests an implementation is known to work with.</p>
 
 <ul>
@@ -231,7 +231,7 @@ which tests an implementation is known to work with.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2032">DAFFODIL-2032</a>] Improve Eclipse setup for cross testing</li>
 </ul>
 
-<p>New in the TDML runner is type-aware infoset comparisons. One can now provide an <code class="highlighter-rouge">xsi:type</code>
+<p>New in the TDML runner is type-aware infoset comparisons. One can now provide an <code class="language-plaintext highlighter-rouge">xsi:type</code>
 attribute in infoset elements, allowing the TDML runner to determine if two elements are logically
 the same even if there infoset values may differ.</p>
 
@@ -241,8 +241,8 @@ the same even if there infoset values may differ.</p>
 
 <h4 id="prefixed-length-kind">Prefixed Length Kind</h4>
 
-<p>Support is added for <code class="highlighter-rouge">dfdl:lengthKind="prefixed"</code> and the properties
-<code class="highlighter-rouge">dfdl:prefixIncludesPrefixLength</code> and <code class="highlighter-rouge">dfdl:prefixLengthType</code>.</p>
+<p>Support is added for <code class="language-plaintext highlighter-rouge">dfdl:lengthKind="prefixed"</code> and the properties
+<code class="language-plaintext highlighter-rouge">dfdl:prefixIncludesPrefixLength</code> and <code class="language-plaintext highlighter-rouge">dfdl:prefixLengthType</code>.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-114">DAFFODIL-114</a>] LengthKind Prefixed</li>
@@ -253,7 +253,7 @@ the same even if there infoset values may differ.</p>
 
 <p>The following changes have been made which affect compatibility with past releases:</p>
 
-<p>Infoset elements with type <code class="highlighter-rouge">xs:dateTime</code> and <code class="highlighter-rouge">xs:time</code> no longer contain
+<p>Infoset elements with type <code class="language-plaintext highlighter-rouge">xs:dateTime</code> and <code class="language-plaintext highlighter-rouge">xs:time</code> no longer contain
 milliseconds precision if the milliseconds value is 0.</p>
 
 <ul>
@@ -272,12 +272,12 @@ change to a schema definition error in a future release.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2054">DAFFODIL-2054</a>] Change coerecion errors to warnings and eventually deprecate</li>
 </ul>
 
-<p>Elements with a type of <code class="highlighter-rouge">xs:hexBinary</code> now ignore the <code class="highlighter-rouge">dfdl:byteOrder</code> property and always parse
-data as if it were <code class="highlighter-rouge">bigEndian</code>. The result is that hexBinary bytes where
-<code class="highlighter-rouge">dfdl:byteOrder="littleEndian"</code> now appear reversed when compared to previous releases.</p>
+<p>Elements with a type of <code class="language-plaintext highlighter-rouge">xs:hexBinary</code> now ignore the <code class="language-plaintext highlighter-rouge">dfdl:byteOrder</code> property and always parse
+data as if it were <code class="language-plaintext highlighter-rouge">bigEndian</code>. The result is that hexBinary bytes where
+<code class="language-plaintext highlighter-rouge">dfdl:byteOrder="littleEndian"</code> now appear reversed when compared to previous releases.</p>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2019">DAFFODIL-2019</a>] daf extension property to turn on/off “hexBinary with bits” lengthUnits behavior</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2019">DAFFODIL-2019</a>] daf extension property to turn on/off "hexBinary with bits" lengthUnits behavior</li>
 </ul>
 
 <p>Official support for Java 7 has been removed.</p>
@@ -294,13 +294,13 @@ data as if it were <code class="highlighter-rouge">bigEndian</code>. The result 
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-20">DAFFODIL-20</a>] obtain and integrate/run IBM test cases (even if they all break)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-559">DAFFODIL-559</a>] TDML runner needs feature to tolerate left-over data for IBM test compatibilitiy</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-565">DAFFODIL-565</a>] tolerate attributeFormDefault on xs:schema</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-999">DAFFODIL-999</a>] IBM’s ISO8583 format not currently compatible with Daffodil</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-999">DAFFODIL-999</a>] IBM's ISO8583 format not currently compatible with Daffodil</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1441">DAFFODIL-1441</a>] Implement examples for DFDLSchemas</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1616">DAFFODIL-1616</a>] textOutputMinLength required when it shouldn’t be needed</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1965">DAFFODIL-1965</a>] dfdl:assert and dfdl:discriminator “message” attribute does not work for DFDL Expressions</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1616">DAFFODIL-1616</a>] textOutputMinLength required when it shouldn't be needed</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1965">DAFFODIL-1965</a>] dfdl:assert and dfdl:discriminator "message" attribute does not work for DFDL Expressions</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1986">DAFFODIL-1986</a>] Expression comparison of date/time w/o timezone defined causes abort</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1988">DAFFODIL-1988</a>] textOutputMinLength - incorrect code found by inspection</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1989">DAFFODIL-1989</a>] lengthKind ‘explicit’ with expression should not use minLength nor textOutputMinLength</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1989">DAFFODIL-1989</a>] lengthKind 'explicit' with expression should not use minLength nor textOutputMinLength</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2006">DAFFODIL-2006</a>] DFDLGeneralFormat missing binaryCalendarEpoch.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2015">DAFFODIL-2015</a>] Accept textStandardExponentCharacter (Old property name)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2017">DAFFODIL-2017</a>] Non-portable date/time test_simple_type_properties_text_calendar_13_02</li>
@@ -328,23 +328,23 @@ made available for releases.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-809">DAFFODIL-809</a>] assert with testKind pattern on simple element not executed sometimes.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-947">DAFFODIL-947</a>] Warn when space separated fields start or end with a space</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1221">DAFFODIL-1221</a>] Abort: Invariant Broken when XPath expression moves past root</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1287">DAFFODIL-1287</a>] Vague “assertion failed” error when expression with whitespace used as separator</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1287">DAFFODIL-1287</a>] Vague "assertion failed" error when expression with whitespace used as separator</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1324">DAFFODIL-1324</a>] Unparse: Sequences need way to skip over optional branches</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1427">DAFFODIL-1427</a>] Use scala 2.11 options to clean up dead-code, unused imports, unused methods, unused local vals, etc.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1440">DAFFODIL-1440</a>] JAPI/SAPI DataProcessor should be serializable</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1476">DAFFODIL-1476</a>] Line numbers in error messages off by size of comments above</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1840">DAFFODIL-1840</a>] dfdl:initiator=”%” does not cause a error or warning</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1840">DAFFODIL-1840</a>] dfdl:initiator="%" does not cause a error or warning</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1946">DAFFODIL-1946</a>] Dates with out of range years will overflow to a valid value</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1953">DAFFODIL-1953</a>] CLI treats OutOfMemoryError as a bug</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1954">DAFFODIL-1954</a>] Java version greater than 1.8 cause failure</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1996">DAFFODIL-1996</a>] LICENSE has typo in “Open Grid Format”</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1996">DAFFODIL-1996</a>] LICENSE has typo in "Open Grid Format"</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2002">DAFFODIL-2002</a>] javadoc for java api fails on JDK10+</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2010">DAFFODIL-2010</a>] binarySeconds/milliSeconds missing length check, leaking exception and mark</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2011">DAFFODIL-2011</a>] CLI should always use UTF-8 encoding when outputting the infoset</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2012">DAFFODIL-2012</a>] “charaters” typo in entity replacer error message</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2012">DAFFODIL-2012</a>] "charaters" typo in entity replacer error message</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2020">DAFFODIL-2020</a>] Infinite loop if the dfdl:hiddenGroupRef reference does not exist</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2022">DAFFODIL-2022</a>] infinite loops when using dfdl:property extra-long form for property values</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2034">DAFFODIL-2034</a>] Pool leaks if encodingErrorPolicy=”error” globally</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2034">DAFFODIL-2034</a>] Pool leaks if encodingErrorPolicy="error" globally</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2036">DAFFODIL-2036</a>] poor diagnostic - choice with sequences as branches with all optional content.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2038">DAFFODIL-2038</a>] computed elements inside choices - alignment-related abort</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2043">DAFFODIL-2043</a>] fn:round-half-to-even returns decimal string</li>

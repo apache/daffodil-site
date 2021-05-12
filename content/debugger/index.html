@@ -87,228 +87,228 @@
 
 -->
 
-<p>The Daffodil <a href="/cli">Command Line Interface</a> (CLI) comes with a built-in interactive debugger that pauses parsing/unparsing and allows for user inspection of some internal state. To start Daffodil in debugger mode, provide the global <code class="highlighter-rouge">--debug</code> option, for example:</p>
+<p>The Daffodil <a href="/cli">Command Line Interface</a> (CLI) comes with a built-in interactive debugger that pauses parsing/unparsing and allows for user inspection of some internal state. To start Daffodil in debugger mode, provide the global <code class="language-plaintext highlighter-rouge">--debug</code> option, for example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil --debug parse --schema schema.dfdl.xsd input.dat
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil --debug parse --schema schema.dfdl.xsd input.dat
 </code></pre></div></div>
 
-<p>Enabling the debugger displays a <code class="highlighter-rouge">(debug)</code> prompt, at which point various commands can be entered to control parsing and inspect Daffodil state. Note that you can optionally provide a file to the <code class="highlighter-rouge">--debug</code> option. Each line in the file is provided to the debugger as if it were typed by the user. Below is the list of commands accepted by the debugger and their descriptions.</p>
+<p>Enabling the debugger displays a <code class="language-plaintext highlighter-rouge">(debug)</code> prompt, at which point various commands can be entered to control parsing and inspect Daffodil state. Note that you can optionally provide a file to the <code class="language-plaintext highlighter-rouge">--debug</code> option. Each line in the file is provided to the debugger as if it were typed by the user. Below is the list of commands accepted by the debugger and their descriptions.</p>
 
 <dl>
-  <dt><code class="highlighter-rouge">break &lt;element_id&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">break &lt;element_id&gt;</code></dt>
   <dd>
-    <p>Create a breakpoint, causing the debugger to stop when the element with the <code class="highlighter-rouge">&lt;element_id&gt;</code> name is created.</p>
+    <p>Create a breakpoint, causing the debugger to stop when the element with the <code class="language-plaintext highlighter-rouge">&lt;element_id&gt;</code> name is created.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>break foo
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>break foo
 </code></pre></div>    </div>
 
-    <p>Abbreviation: <code class="highlighter-rouge">b</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">b</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">clear</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">clear</code></dt>
   <dd>
     <p>Clear the screen.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">c</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">c</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">complete</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">complete</code></dt>
   <dd>
     <p>Continue parsing the input data until parsing is complete. All breakpoints are ignored.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">comp</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">comp</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">condition &lt;breakpoint_id&gt; &lt;dfdl_expression&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">condition &lt;breakpoint_id&gt; &lt;dfdl_expression&gt;</code></dt>
   <dd>
-    <p>Set a condition on a specified breakpoint. When a breakpoint is encountered, the debugger only pauses if the DFDL expression evaluates to <code class="highlighter-rouge">true</code>. If the result of the DFDL expressions is not a boolean value, it is treated as false.</p>
+    <p>Set a condition on a specified breakpoint. When a breakpoint is encountered, the debugger only pauses if the DFDL expression evaluates to <code class="language-plaintext highlighter-rouge">true</code>. If the result of the DFDL expressions is not a boolean value, it is treated as false.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">cond</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">cond</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>condition 1 dfdl:occursIndex() eq 3
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>condition 1 dfdl:occursIndex() eq 3
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">continue</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">continue</code></dt>
   <dd>
     <p>Continue parsing the input data until a breakpoint is encountered. At which point, pause parsing and display a debugger console to the user.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">c</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">c</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">delete &lt;type&gt; &lt;id&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">delete &lt;type&gt; &lt;id&gt;</code></dt>
   <dd>
-    <p>Remove a breakpoint or display. Valid values for <code class="highlighter-rouge">&lt;type&gt;</code> are <code class="highlighter-rouge">breakpoint</code> and <code class="highlighter-rouge">display</code>.</p>
+    <p>Remove a breakpoint or display. Valid values for <code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> are <code class="language-plaintext highlighter-rouge">breakpoint</code> and <code class="language-plaintext highlighter-rouge">display</code>.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">d</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">d</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>delete breakpoint 1
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>delete breakpoint 1
 delete display 1
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">disable &lt;type&gt; &lt;id&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">disable &lt;type&gt; &lt;id&gt;</code></dt>
   <dd>
-    <p>Disable a breakpoint or display. Valid values for <code class="highlighter-rouge">&lt;type&gt;</code> are <code class="highlighter-rouge">breakpoint</code> and <code class="highlighter-rouge">display</code>.</p>
+    <p>Disable a breakpoint or display. Valid values for <code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> are <code class="language-plaintext highlighter-rouge">breakpoint</code> and <code class="language-plaintext highlighter-rouge">display</code>.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">dis</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">dis</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>disable breakpoint 1
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>disable breakpoint 1
 disable display 1
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">display &lt;debugger_command&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">display &lt;debugger_command&gt;</code></dt>
   <dd>
     <p>Execute a debugger command every time a debugger console is displayed to the user.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">di</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">di</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>display info infoset
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>display info infoset
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">enable &lt;type&gt; &lt;id&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">enable &lt;type&gt; &lt;id&gt;</code></dt>
   <dd>
-    <p>Enable a breakpoint or display. Valid values for <code class="highlighter-rouge">&lt;type&gt;</code> are <code class="highlighter-rouge">breakpoint</code> and <code class="highlighter-rouge">display</code>.</p>
+    <p>Enable a breakpoint or display. Valid values for <code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> are <code class="language-plaintext highlighter-rouge">breakpoint</code> and <code class="language-plaintext highlighter-rouge">display</code>.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">e</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">e</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enable breakpoint 1
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enable breakpoint 1
 enable display 1
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">eval &lt;dfdl_expression&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">eval &lt;dfdl_expression&gt;</code></dt>
   <dd>
     <p>Evaluate a DFDL expression. If the expression evaluates to a complex element, then the XML representation for the complex element is displayed. If the expression evaluates to a simple type, then the value of the simple type is display.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">ev</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">ev</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval dfdl:occursIndex()
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval dfdl:occursIndex()
 eval /ex:file/line[1]
 </code></pre></div>    </div>
   </dd>
-  <dt><code class="highlighter-rouge">help [command]</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">help [command]</code></dt>
   <dd>
     <p>Display help. If a command is given, display help information specific to that command and its subcommands.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">h</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">h</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">history [outfile]</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">history [outfile]</code></dt>
   <dd>
     <p>Display the history of commands. If an argument is given, write the history to the specified file rather then printing it to the screen.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">hi</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">hi</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">info &lt;item&gt;...</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">info &lt;item&gt;...</code></dt>
   <dd>
-    <p>Print internal information to the console. <code class="highlighter-rouge">&lt;item&gt;</code> can be specified multiple times to display multiple pieces of information.</p>
+    <p>Print internal information to the console. <code class="language-plaintext highlighter-rouge">&lt;item&gt;</code> can be specified multiple times to display multiple pieces of information.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">i</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">i</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info data infoset
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info data infoset
 </code></pre></div>    </div>
 
     <p>The valid items are:</p>
 
     <dl>
-      <dt><code class="highlighter-rouge">bitLimit</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">bitLimit</code></dt>
       <dd>
-        <p>Display the current bit limit. Abbreviation: <code class="highlighter-rouge">bl</code></p>
+        <p>Display the current bit limit. Abbreviation: <code class="language-plaintext highlighter-rouge">bl</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">bitPosition</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">bitPosition</code></dt>
       <dd>
-        <p>Display the current bit position. Abbreviation: <code class="highlighter-rouge">bp</code></p>
+        <p>Display the current bit position. Abbreviation: <code class="language-plaintext highlighter-rouge">bp</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">breakpoints</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">breakpoints</code></dt>
       <dd>
-        <p>Display the list of breakpoints. Abbreviation: <code class="highlighter-rouge">b</code></p>
+        <p>Display the list of breakpoints. Abbreviation: <code class="language-plaintext highlighter-rouge">b</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">childIndex</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">childIndex</code></dt>
       <dd>
-        <p>Display the child index. Abbreviation: <code class="highlighter-rouge">ci</code></p>
+        <p>Display the child index. Abbreviation: <code class="language-plaintext highlighter-rouge">ci</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">data</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">data</code></dt>
       <dd>
-        <p>Display the input data. Abbreviation: <code class="highlighter-rouge">d</code></p>
+        <p>Display the input data. Abbreviation: <code class="language-plaintext highlighter-rouge">d</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">delimiterStack</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">delimiterStack</code></dt>
       <dd>
-        <p>Display the current delimiter stack. Abbreviation: <code class="highlighter-rouge">ds</code></p>
+        <p>Display the current delimiter stack. Abbreviation: <code class="language-plaintext highlighter-rouge">ds</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">diff</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">diff</code></dt>
       <dd>
         <p>Display the differences from the previous state.</p>
       </dd>
-      <dt><code class="highlighter-rouge">displays</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">displays</code></dt>
       <dd>
-        <p>Display the current <code class="highlighter-rouge">display</code> expressions. Abbreviation: <code class="highlighter-rouge">di</code></p>
+        <p>Display the current <code class="language-plaintext highlighter-rouge">display</code> expressions. Abbreviation: <code class="language-plaintext highlighter-rouge">di</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">foundDelimiter</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">foundDelimiter</code></dt>
       <dd>
-        <p>Display the most recently found delimiter. Abbreviation: <code class="highlighter-rouge">fd</code></p>
+        <p>Display the most recently found delimiter. Abbreviation: <code class="language-plaintext highlighter-rouge">fd</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">foundField</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">foundField</code></dt>
       <dd>
-        <p>Display the most recently found field. Abbreviation: <code class="highlighter-rouge">ff</code></p>
+        <p>Display the most recently found field. Abbreviation: <code class="language-plaintext highlighter-rouge">ff</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">groupIndex</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">groupIndex</code></dt>
       <dd>
-        <p>Display the current group index. Abbreviation: <code class="highlighter-rouge">gi</code></p>
+        <p>Display the current group index. Abbreviation: <code class="language-plaintext highlighter-rouge">gi</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">hidden</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">hidden</code></dt>
       <dd>
-        <p>Display whether or not we’re within the nesting context of a hidden group. Abbreviation: <code class="highlighter-rouge">h</code></p>
+        <p>Display whether or not we're within the nesting context of a hidden group. Abbreviation: <code class="language-plaintext highlighter-rouge">h</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">infoset</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">infoset</code></dt>
       <dd>
-        <p>Display the current infoset. Abbreviation: <code class="highlighter-rouge">i</code></p>
+        <p>Display the current infoset. Abbreviation: <code class="language-plaintext highlighter-rouge">i</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">occursIndex</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">occursIndex</code></dt>
       <dd>
-        <p>Display the current array limit. Abbreviation: <code class="highlighter-rouge">oi</code></p>
+        <p>Display the current array limit. Abbreviation: <code class="language-plaintext highlighter-rouge">oi</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">parser</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">parser</code></dt>
       <dd>
-        <p>Display the current parser. Abbreviation: <code class="highlighter-rouge">p</code></p>
+        <p>Display the current parser. Abbreviation: <code class="language-plaintext highlighter-rouge">p</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">path</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">path</code></dt>
       <dd>
         <p>Display the current schema component designator/path.</p>
       </dd>
-      <dt><code class="highlighter-rouge">pointsOfUncertainty</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">pointsOfUncertainty</code></dt>
       <dd>
-        <p>Display the list of unresolved points of uncertainty. Abbreviation: <code class="highlighter-rouge">pou</code></p>
+        <p>Display the list of unresolved points of uncertainty. Abbreviation: <code class="language-plaintext highlighter-rouge">pou</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">suspensions</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">suspensions</code></dt>
       <dd>
-        <p>Display the list of suspensions. Abbreviation: <code class="highlighter-rouge">sus</code></p>
+        <p>Display the list of suspensions. Abbreviation: <code class="language-plaintext highlighter-rouge">sus</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">unparser</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">unparser</code></dt>
       <dd>
-        <p>Display the current unparser. Abbreviation: <code class="highlighter-rouge">u</code></p>
+        <p>Display the current unparser. Abbreviation: <code class="language-plaintext highlighter-rouge">u</code></p>
       </dd>
-      <dt><code class="highlighter-rouge">variables</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">variables</code></dt>
       <dd>
-        <p>Display in-scope state of variables. Abbreviation: <code class="highlighter-rouge">v</code></p>
+        <p>Display in-scope state of variables. Abbreviation: <code class="language-plaintext highlighter-rouge">v</code></p>
       </dd>
     </dl>
   </dd>
-  <dt><code class="highlighter-rouge">quit</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">quit</code></dt>
   <dd>
     <p>Immediately abort all processing.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">q</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">q</code></p>
   </dd>
-  <dt><code class="highlighter-rouge">set &lt;setting&gt; &lt;value&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">set &lt;setting&gt; &lt;value&gt;</code></dt>
   <dd>Change a debugger setting.
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set dataLength -1
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set dataLength -1
 set wrapLength 50
 set removeHidden true
 </code></pre></div>    </div>
@@ -316,41 +316,41 @@ set removeHidden true
     <p>Valid settings are:</p>
 
     <dl>
-      <dt><code class="highlighter-rouge">breakOnFailure &lt;boolean&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">breakOnFailure &lt;boolean&gt;</code></dt>
       <dd>
-        <p>Set whether or not the debugger should break on failures. If set to <code class="highlighter-rouge">false</code> the normal processing occurs. If set to <code class="highlighter-rouge">true</code>, any errors cause a break. Note that due to the backtracking behavior, not all failures are fatal. Defaults to <code class="highlighter-rouge">false</code>.</p>
+        <p>Set whether or not the debugger should break on failures. If set to <code class="language-plaintext highlighter-rouge">false</code> the normal processing occurs. If set to <code class="language-plaintext highlighter-rouge">true</code>, any errors cause a break. Note that due to the backtracking behavior, not all failures are fatal. Defaults to <code class="language-plaintext highlighter-rouge">false</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">breakOnlyOnCreation &lt;boolean&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">breakOnlyOnCreation &lt;boolean&gt;</code></dt>
       <dd>
-        <p>Set whether or not breakpoints should only be evaluated on element creation. Must be either <code class="highlighter-rouge">true</code>/<code class="highlighter-rouge">false</code> or <code class="highlighter-rouge">1</code>/<code class="highlighter-rouge">0</code>. If <code class="highlighter-rouge">true</code>, breakpoints only stop on element creation. If <code class="highlighter-rouge">false</code>, breakpoints stop anytime a parser interacts with an element. Defaults to <code class="highlighter-rouge">true</code>.</p>
+        <p>Set whether or not breakpoints should only be evaluated on element creation. Must be either <code class="language-plaintext highlighter-rouge">true</code>/<code class="language-plaintext highlighter-rouge">false</code> or <code class="language-plaintext highlighter-rouge">1</code>/<code class="language-plaintext highlighter-rouge">0</code>. If <code class="language-plaintext highlighter-rouge">true</code>, breakpoints only stop on element creation. If <code class="language-plaintext highlighter-rouge">false</code>, breakpoints stop anytime a parser interacts with an element. Defaults to <code class="language-plaintext highlighter-rouge">true</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">dataLength &lt;integer&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">dataLength &lt;integer&gt;</code></dt>
       <dd>
-        <p>Set the number of bytes to display when displaying input data. If negative, display all input data. This only affects the <code class="highlighter-rouge">info data</code> command. Defaults to <code class="highlighter-rouge">70</code>.</p>
+        <p>Set the number of bytes to display when displaying input data. If negative, display all input data. This only affects the <code class="language-plaintext highlighter-rouge">info data</code> command. Defaults to <code class="language-plaintext highlighter-rouge">70</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">diffExcludes &lt;strings...&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">diffExcludes &lt;strings...&gt;</code></dt>
       <dd>
-        <p>Set info comamnds to exclude in the ‘info diff’ command. Multiple arguments separated by a space excludes multiple commands. Zero arguments excludes no commands.</p>
+        <p>Set info comamnds to exclude in the 'info diff' command. Multiple arguments separated by a space excludes multiple commands. Zero arguments excludes no commands.</p>
       </dd>
-      <dt><code class="highlighter-rouge">infosetLines &lt;integer&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">infosetLines &lt;integer&gt;</code></dt>
       <dd>
-        <p>Set the maximum number of lines to display when displaying the infoset. This only affects the <code class="highlighter-rouge">info infoset</code> command. This shows the last number of lines of the infoset. If the number is less than or equal to zero, the entire infoset is printed. Defaults to <code class="highlighter-rouge">-1</code>.</p>
+        <p>Set the maximum number of lines to display when displaying the infoset. This only affects the <code class="language-plaintext highlighter-rouge">info infoset</code> command. This shows the last number of lines of the infoset. If the number is less than or equal to zero, the entire infoset is printed. Defaults to <code class="language-plaintext highlighter-rouge">-1</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">infosetParents &lt;integer&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">infosetParents &lt;integer&gt;</code></dt>
       <dd>
-        <p>Set the number of parent elements to show when displaying the infoset. This only affects the <code class="highlighter-rouge">info infoset</code> command. A value of zero will only show the current infoset element. A value of <code class="highlighter-rouge">-1</code> will show the entire infoset. Defaults to <code class="highlighter-rouge">-1</code>.</p>
+        <p>Set the number of parent elements to show when displaying the infoset. This only affects the <code class="language-plaintext highlighter-rouge">info infoset</code> command. A value of zero will only show the current infoset element. A value of <code class="language-plaintext highlighter-rouge">-1</code> will show the entire infoset. Defaults to <code class="language-plaintext highlighter-rouge">-1</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">removeHidden &lt;boolean&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">removeHidden &lt;boolean&gt;</code></dt>
       <dd>
-        <p>Set whether or not hidden elements (e.g through the use of dfdl:hiddenGroupRef) should be displayed. This effects the <code class="highlighter-rouge">eval</code> and <code class="highlighter-rouge">info infoset</code> commands. Must be either <code class="highlighter-rouge">true</code>/<code class="highlighter-rouge">false</code> or <code class="highlighter-rouge">1</code>/<code class="highlighter-rouge">0</code>. Defaults to <code class="highlighter-rouge">false</code>.</p>
+        <p>Set whether or not hidden elements (e.g through the use of dfdl:hiddenGroupRef) should be displayed. This effects the <code class="language-plaintext highlighter-rouge">eval</code> and <code class="language-plaintext highlighter-rouge">info infoset</code> commands. Must be either <code class="language-plaintext highlighter-rouge">true</code>/<code class="language-plaintext highlighter-rouge">false</code> or <code class="language-plaintext highlighter-rouge">1</code>/<code class="language-plaintext highlighter-rouge">0</code>. Defaults to <code class="language-plaintext highlighter-rouge">false</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">representation &lt;string&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">representation &lt;string&gt;</code></dt>
       <dd>
-        <p>Set the output when displaying data. Must be either <code class="highlighter-rouge">text</code> or <code class="highlighter-rouge">binary</code>. Defaults to <code class="highlighter-rouge">text</code>.</p>
+        <p>Set the output when displaying data. Must be either <code class="language-plaintext highlighter-rouge">text</code> or <code class="language-plaintext highlighter-rouge">binary</code>. Defaults to <code class="language-plaintext highlighter-rouge">text</code>.</p>
       </dd>
-      <dt><code class="highlighter-rouge">wrapLength &lt;integer&gt;</code></dt>
+      <dt><code class="language-plaintext highlighter-rouge">wrapLength &lt;integer&gt;</code></dt>
       <dd>
-        <p>Set the number of characters at which point output wraps. This only affects the <code class="highlighter-rouge">info data</code> and <code class="highlighter-rouge">info infoset</code> commands. A length less than or equal to zero disables wrapping. Defaults to <code class="highlighter-rouge">80</code>.</p>
+        <p>Set the number of characters at which point output wraps. This only affects the <code class="language-plaintext highlighter-rouge">info data</code> and <code class="language-plaintext highlighter-rouge">info infoset</code> commands. A length less than or equal to zero disables wrapping. Defaults to <code class="language-plaintext highlighter-rouge">80</code>.</p>
       </dd>
     </dl>
   </dd>
@@ -359,14 +359,14 @@ set removeHidden true
     <p>Perform a single parse action, pause parsing, and display a debugger prompt.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">s</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">s</code></p>
   </dd>
   <dt>trace</dt>
   <dd>
     <p>Continue parsing the input data until a breakpoint is encountered, while running display commands after every parse step. When a breakpoint is encountered, pause parsing and display a debugger console to the user.</p>
   </dd>
   <dd>
-    <p>Abbreviation: <code class="highlighter-rouge">t</code></p>
+    <p>Abbreviation: <code class="language-plaintext highlighter-rouge">t</code></p>
   </dd>
 </dl>
 

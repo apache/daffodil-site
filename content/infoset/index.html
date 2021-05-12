@@ -632,35 +632,35 @@ documents that contain only the mapped PUA corresponding characters.</p>
 
 <p>These are the legal XML characters (for XML v1.0):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] 
 </code></pre></div></div>
 <p>All other characters are illegal.
-Illegal characters from <code class="highlighter-rouge">#x00</code> to <code class="highlighter-rouge">#x1F</code> are mapped to the PUA
-by adding <code class="highlighter-rouge">#xE000</code> to their character code. Hence, the NUL (#x0) character code becomes #xE000.</p>
+Illegal characters from <code class="language-plaintext highlighter-rouge">#x00</code> to <code class="language-plaintext highlighter-rouge">#x1F</code> are mapped to the PUA
+by adding <code class="language-plaintext highlighter-rouge">#xE000</code> to their character code. Hence, the NUL (#x0) character code becomes #xE000.</p>
 
-<p>Illegal characters from <code class="highlighter-rouge">#xD800</code> to <code class="highlighter-rouge">#xDFFF</code> are mapped to the PUA by adding
-<code class="highlighter-rouge">#x1000</code> to their character code. So <code class="highlighter-rouge">#xD800</code> maps to <code class="highlighter-rouge">#xE800</code>, and
-<code class="highlighter-rouge">#xDFFF</code> maps to <code class="highlighter-rouge">#xEFFF</code>.</p>
+<p>Illegal characters from <code class="language-plaintext highlighter-rouge">#xD800</code> to <code class="language-plaintext highlighter-rouge">#xDFFF</code> are mapped to the PUA by adding
+<code class="language-plaintext highlighter-rouge">#x1000</code> to their character code. So <code class="language-plaintext highlighter-rouge">#xD800</code> maps to <code class="language-plaintext highlighter-rouge">#xE800</code>, and
+<code class="language-plaintext highlighter-rouge">#xDFFF</code> maps to <code class="language-plaintext highlighter-rouge">#xEFFF</code>.</p>
 
-<p>Illegal characters <code class="highlighter-rouge">#xFFFE</code> and <code class="highlighter-rouge">#xFFFF</code> are mapped to the PUA by
-subtracting <code class="highlighter-rouge">#x0F00</code> from their character code, so to characters <code class="highlighter-rouge">#xF0FE</code>
-and <code class="highlighter-rouge">#xF0FF</code>.</p>
+<p>Illegal characters <code class="language-plaintext highlighter-rouge">#xFFFE</code> and <code class="language-plaintext highlighter-rouge">#xFFFF</code> are mapped to the PUA by
+subtracting <code class="language-plaintext highlighter-rouge">#x0F00</code> from their character code, so to characters <code class="language-plaintext highlighter-rouge">#xF0FE</code>
+and <code class="language-plaintext highlighter-rouge">#xF0FF</code>.</p>
 
-<p>The legal character <code class="highlighter-rouge">#xD</code> (Carriage Return or CR) is mapped to <code class="highlighter-rouge">#xA</code> (Line Feed, or
+<p>The legal character <code class="language-plaintext highlighter-rouge">#xD</code> (Carriage Return or CR) is mapped to <code class="language-plaintext highlighter-rouge">#xA</code> (Line Feed, or
 LF). The CR character is allowed in the textual representation of XML
 documents, but is always converted to LF in the XML Infoset. That is, it is
 read by XML processors, but CRLF is converted to just LF, and CR alone is
-converted to LF. Daffodil is in a sense a different ‘reader’ of data into the
+converted to LF. Daffodil is in a sense a different 'reader' of data into the
 XML infoset, so to be consistent with XML we map CR and CRLF to LF.</p>
 
 <p>It is a processing error when parsing if the data-stream contains
 characters in the parts of the PUA used by this mapping for illegal XML
 codepoints. When unparsing, the characters such as #xE000 found in the infoset string values are mapped back to the corresponding illegal character code points (#xE000 becomes #x0, aka NUL).</p>
 
-<p>The XML for an infoset can embed the #xE000 character or any of the other “illegal” characters mapped into the PUA conveniently by use of XSD numeric character entities such as “&amp;#xE000;”. This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL).</p>
+<p>The XML for an infoset can embed the #xE000 character or any of the other "illegal" characters mapped into the PUA conveniently by use of XSD numeric character entities such as "&amp;#xE000;". This is turned into the #xE000 code point when the XML document is loaded. Daffodil will then map this when unparsing, to #x0 (aka NUL).</p>
 
 <p>It is a processing error if any DFDL infoset string character is created with a
-character code greater than <code class="highlighter-rouge">#x10FFFF</code>.</p>
+character code greater than <code class="language-plaintext highlighter-rouge">#x10FFFF</code>.</p>
 
   </div>
 </div>

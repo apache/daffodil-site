@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | 3.1.0</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2>Apache Daffodil 3.1.0</h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      
+  <div class="alert alert-warning">
+    Apache Daffodil 3.1.0 has not yet been released! The artifacts
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil which has not yet occurred.
+  </div>
+
+
+
+
+<div class="row">
+  <div class="col-md-3 text-right" style="float: right; z-index: 3;">
+    <h3>Documentation</h3>
+    <a href="/docs/3.1.0/javadoc/">Javadoc</a> | <a href="/docs/3.1.0/scaladoc/">Scaladoc</a>
+  </div>
+
+  <div class="col-md-12">
+    <h3>Get Release</h3>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
+      <li><a data-toggle="tab" href="#maven">Maven</a></li>
+      <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="download" class="tab-pane fade in active">
+        
+          
+          <h4>Source</h4>
+          <p>
+          
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/src/apache-daffodil-3.1.0-incubating-src.zip">apache-daffodil-3.1.0-incubating-src.zip</a>
+  </div>
+  <div class="col-sm-6">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/src/apache-daffodil-3.1.0-incubating-src.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/src/apache-daffodil-3.1.0-incubating-src.zip.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+
+          </p>
+        
+
+        
+          
+          <h4>Binaries</h4>
+          <p>
+          
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.tgz">apache-daffodil-3.1.0-incubating-bin.tgz</a>
+  </div>
+  <div class="col-sm-6">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.tgz.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.tgz.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.zip">apache-daffodil-3.1.0-incubating-bin.zip</a>
+  </div>
+  <div class="col-sm-6">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.zip.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.msi">apache-daffodil-3.1.0-incubating-bin.msi</a>
+  </div>
+  <div class="col-sm-6">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.msi.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0-incubating-bin.msi.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0.incubating-1.noarch.rpm">apache-daffodil-3.1.0.incubating-1.noarch.rpm</a>
+  </div>
+  <div class="col-sm-6">
+    
+      
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0.incubating-1.noarch.rpm.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/3.1.0-rc1/bin/apache-daffodil-3.1.0.incubating-1.noarch.rpm.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+
+          </p>
+        
+
+        
+          <hr />
+          <p>
+            <i>
+              The above release files should be verified using the PGP signatures and the
+              <a href='https://downloads.apache.org/daffodil/KEYS'>project release KEYS</a>. See
+              <a href='https://www.apache.org/dyn/closer.cgi#verify'>verification instructions</a>
+              for a description of using the PGP and KEYS files for
+              verification. A SHA512 checksum is also provided as
+              an alternative verification method.
+            </i>
+          </p>
+        
+      </div>
+
+      <div id="maven" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.daffodil<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>daffodil-japi_2.12<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>3.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
+
+      </div>
+      <div id="sbt" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-sapi"</span> <span class="o">%</span> <span class="s">"3.1.0"</span></code></pre></figure>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="release-notes">Release Notes</h3>
+
+<h4 id="code-generation-backend-runtime2">Code Generation Backend (runtime2)</h4>
+
+<p>A new code generation back-end, called <code class="language-plaintext highlighter-rouge">runtime2</code>, is added supporting generating
+C code with limited parse and unparse capabilities. See the <a href="/cli">Command Line
+Interface</a> page for commands and options to generate code. Visit
+<a href="/dev/design-notes/runtime2-todos/">Runtime2 ToDos</a> for a list of limitations
+and planned future work.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2202">DAFFODIL-2202</a>] Code Gen Framework</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2500">DAFFODIL-2500</a>] Remove dependence on argp and gcc</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2505">DAFFODIL-2505</a>] README says Mini-XML 3.2 is required, but everything seems to work with 3.1</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2507">DAFFODIL-2507</a>] Unable to build/stage daffodil-cli with gcc version 4.8.2 on CentOS 7</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2508">DAFFODIL-2508</a>] Missing LICENSE and NOTICE files in daffodil-runtime2</li>
+</ul>
+
+<h4 id="pluggable-validation">Pluggable Validation</h4>
+
+<p>A new capability allowing pluggable infoset validation mechanisms is added. A
+Schematron validator is now available, which allows for validating the infoset
+against Schematron rules, either external or embedded in the DFDL schema. The
+CLI <code class="language-plaintext highlighter-rouge">--validate</code> option now allows for specifying a pluggable validator, in
+addition to the <code class="language-plaintext highlighter-rouge">off</code>/<code class="language-plaintext highlighter-rouge">limited</code>/<code class="language-plaintext highlighter-rouge">full</code> options. A new
+<code class="language-plaintext highlighter-rouge">DataProcessor.withValidator()</code> function is added to specify a new validator
+via the Java/Scala API.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1685">DAFFODIL-1685</a>] Full validation should create and initialize the validator before parsing/unparsing begins</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1807">DAFFODIL-1807</a>] schematron validation</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2409">DAFFODIL-2409</a>] Custom Infoset validators with SPI</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2446">DAFFODIL-2446</a>] Embedded Schematron</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2482">DAFFODIL-2482</a>] Output SVRL from Schematron Validator</li>
+</ul>
+
+<h4 id="dfdl-variables">DFDL Variables</h4>
+
+<p>Multiple bugs have been fixed to improve conformance with the DFDL
+specification related to DFDL <code class="language-plaintext highlighter-rouge">newVariableInstance</code> and <code class="language-plaintext highlighter-rouge">setVariable</code>
+properties, primarily related to defaults and external values. A new
+<code class="language-plaintext highlighter-rouge">dfdlx:direction</code> extension property is also added to specify that certain
+variables should only be evaluated during parse, unparse, or both.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1520">DAFFODIL-1520</a>] Unset variables referenced from dfdl:outputValueCalc expression should block/delay until they get a value.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2352">DAFFODIL-2352</a>] dfdl:newVariableInstance with non-constant defaultValue fails</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2385">DAFFODIL-2385</a>] newVariableInstance has issues with suspensions during unparse</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2429">DAFFODIL-2429</a>] newVariableInstance and setVariable require 'direction' property</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2481">DAFFODIL-2481</a>] newVariableInstance does not use external values when defaultValue is not defined</li>
+</ul>
+
+<h4 id="sax-updates">SAX Updates</h4>
+
+<p>The SAX API has been updated, including improved conformance with SAX API
+namespace/prefix properties and improved unparse performance.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2422">DAFFODIL-2422</a>] Implement  allowed features for DaffodilXMLReader/DaffodilOutputContentHandler</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2427">DAFFODIL-2427</a>] Batch SAX Unparse Coroutine Events</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2457">DAFFODIL-2457</a>] xmlns="" incorrectly introduced due to prefixOrNull</li>
+</ul>
+
+<h4 id="bug-fixes">Bug Fixes</h4>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-774">DAFFODIL-774</a>] Improve detection of disallowed entities in property values</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-900">DAFFODIL-900</a>] dfdl:ref format reference not found - fails silently</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1007">DAFFODIL-1007</a>] Leftover Data Check not Working as Expected with No Trailing Newline</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1299">DAFFODIL-1299</a>] TDML Runner not checking uniqueness constraints on test case names</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1420">DAFFODIL-1420</a>] Error when unparsing an apostrophe (scala XMLEventReader bug)</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1580">DAFFODIL-1580</a>] SimpleTypes - Roundtrip Fail - Calendar Bugs</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1865">DAFFODIL-1865</a>] Should identify an invalid index (-1)</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1928">DAFFODIL-1928</a>] TDMLRunner removes apostrophes from expected when ' is used in infoset</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1945">DAFFODIL-1945</a>] Failures in Calendar tests</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2332">DAFFODIL-2332</a>] Javadoc fails to build with openjdk 13.0.2</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2348">DAFFODIL-2348</a>] Debugger breaks with prefixed lengths</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2399">DAFFODIL-2399</a>] Error diagnostics output even though there is an infoset</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2431">DAFFODIL-2431</a>] CSV data causes abort</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2432">DAFFODIL-2432</a>] Need validation of tunable values</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2455">DAFFODIL-2455</a>] Large CSV file causes "Attempting to backtrack too far" exception</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2461">DAFFODIL-2461</a>] Intermittant test failure in schematron CLI tests</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2468">DAFFODIL-2468</a>] Uparsing an infoset for an 800mb csv file runs out of memory</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2487">DAFFODIL-2487</a>] parser hangs on row with initial empty field in CSV-like data</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2492">DAFFODIL-2492</a>] Test fails on non-US locale</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2494">DAFFODIL-2494</a>] Fix user unfriendly issues with recent jline upgrade</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2498">DAFFODIL-2498</a>] anyEmpty with minOccurs="0" and initial empty element - fails</li>
+</ul>
+
+<h4 id="miscellaneous-changes">Miscellaneous Changes</h4>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-817">DAFFODIL-817</a>] CLI: Remove –validation from save-parser options</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-823">DAFFODIL-823</a>] Need clear error message when using string with maxOccurs="unbounded" occursCountKind="implicit" w/o maxLength specified</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1271">DAFFODIL-1271</a>] OutputValueCalc - evaluation is allowed as early as possible</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1494">DAFFODIL-1494</a>] Remove Dynamic and CachedDynamic mechanism - redundant now</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1503">DAFFODIL-1503</a>] Warning needed for length="0" being ignored.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1605">DAFFODIL-1605</a>] Update Wiki based on CII best practices review</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2144">DAFFODIL-2144</a>] Standard schema project layout - suggested build.sbt is outdated</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2360">DAFFODIL-2360</a>] Comitted files that match .gitignore patterns</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2430">DAFFODIL-2430</a>] ratCheck fails when run from the sbt console</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2434">DAFFODIL-2434</a>] Update sbt-rat plugin to 0.7.0</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2435">DAFFODIL-2435</a>] Prepare for 3.1.0</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2436">DAFFODIL-2436</a>] Ensure Daffodil works with newer versions of Java</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2440">DAFFODIL-2440</a>] TDML Runner must provide root namespace to processor</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2442">DAFFODIL-2442</a>] daffodil-site link to DFDL specification is to very obsolete old one</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2453">DAFFODIL-2453</a>] Debugger: support for displaying variable information</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2454">DAFFODIL-2454</a>] Eclipse - Not able to Compile or Daffodil/stage daffodil 3.0.0</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2463">DAFFODIL-2463</a>] Update Daffodil Incubator Status file/page</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2464">DAFFODIL-2464</a>] Document Apache Daffodil Maturity Model Assesment</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2465">DAFFODIL-2465</a>] Remove requirement of DAFFODIL_HOME for eclipse setup</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2467">DAFFODIL-2467</a>] Bump copyright years to 2021</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2469">DAFFODIL-2469</a>] Need to update unsupported features page</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2470">DAFFODIL-2470</a>] Remove instances of incubating</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2472">DAFFODIL-2472</a>] Add .asf.yml file to configure daffodil and daffodil-site github</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2474">DAFFODIL-2474</a>] how to deal with Control chars and newlines in pattern.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2477">DAFFODIL-2477</a>] –validate option requires parameter</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2484">DAFFODIL-2484</a>] Upgrade CI to Java 16</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2491">DAFFODIL-2491</a>] Allow custom Debuggers through API</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2495">DAFFODIL-2495</a>] Need way to dry-run release candidates from repos/branches other than apache/daffodil@master</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2503">DAFFODIL-2503</a>] Add back missing unit tests for Coroutines library</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2506">DAFFODIL-2506</a>] Remove bintray.com</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2514">DAFFODIL-2514</a>] Prepare for 3.1.0 Release</li>
+</ul>
+
+<h4 id="known-issues">Known Issues</h4>
+
+<p>A number of issues remain open that have been marked as critical, and are
+expected to be fixed in the next release. These issues are:</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1422">DAFFODIL-1422</a>] disallow doctype decls in all XML &amp; XSD that we read in</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2400">DAFFODIL-2400</a>] New SAX API causes performance degredations.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2512">DAFFODIL-2512</a>] Unordered sequences with initiated content or discriminators does not parse correctly</li>
+</ul>
+
+<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+
+<p>The use of the <code class="language-plaintext highlighter-rouge">ParseResult.isAtEnd()</code> function has been deprecated, because it
+can cause unexpected blocking in some cases. Instead, the final bit position
+should be accessed via the <code class="language-plaintext highlighter-rouge">ParseResult.bitPos1b()</code> function, and the result
+compared with the expected data length. Alternatively, a new
+<code class="language-plaintext highlighter-rouge">InputSourceDataInputStream.hasData(</code>) function is added, which blocks until at
+least 1 byte of data is available to parse, or end-of-file is reached.</p>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2502">DAFFODIL-2502</a>] Parse must behave properly for reading data from TCP sockets</li>
+</ul>
+
+<h4 id="dependency-changes">Dependency Changes</h4>
+
+<p>The following dependencies have been added or updated</p>
+
+<p><strong>Core</strong></p>
+
+<ul>
+  <li>FasterXML Jackson Core 2.12.3 <small>(update)</small></li>
+  <li>FasterXML Woodstox Core 6.2.6 <small>(update)</small></li>
+  <li>ICU4J 69.1 <small>(update)</small></li>
+  <li>Xerces 2.12.1 <small>(update)</small></li>
+</ul>
+
+<p><strong>Command Line Interface</strong></p>
+
+<ul>
+  <li>JLine 3.20.0 <small>(update)</small></li>
+  <li>Jansi 2.3.2 <small>(update)</small></li>
+  <li>Scallop 4.0.2 <small>(update)</small></li>
+</ul>
+
+<p><strong>Code Generator (runtime2)</strong></p>
+
+<ul>
+  <li>OS-Lib 0.7.6 <small>(new)</small></li>
+  <li>Lightbend Config 1.4.1 <small>(new)</small></li>
+</ul>
+
+<p><strong>Schematron Validator</strong></p>
+
+<ul>
+  <li>Saxon-HE 10.5 <small>(new)</small></li>
+</ul>
+
+<p><strong>Test</strong></p>
+
+<ul>
+  <li>JUnit 4.13.2 <small>(update)</small></li>
+  <li>ScalaCheck 1.15.4 <small>(update)</small></li>
+</ul>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2021 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

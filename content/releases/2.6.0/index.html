@@ -224,7 +224,7 @@
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1444">DAFFODIL-1444</a>] Performance - schema compilation</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2281">DAFFODIL-2281</a>] isHidden - can’t have a group that is both hidden and not hidden</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2281">DAFFODIL-2281</a>] isHidden - can't have a group that is both hidden and not hidden</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2280">DAFFODIL-2280</a>] Clean up DSOM backpointers and object-factory clutter</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2299">DAFFODIL-2299</a>] Perfromance for nightly unparse tests for csvMixedNarrow format has degraded more than 30%</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2304">DAFFODIL-2304</a>] hiddenGroupRef in group is dropped during unparse</li>
@@ -255,7 +255,7 @@
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2294">DAFFODIL-2294</a>] Sign RPM as part of release container</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2315">DAFFODIL-2315</a>] DISCLAIMER file is not included in built jars</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2316">DAFFODIL-2316</a>] Remove SHA256 hashes from releases</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2317">DAFFODIL-2317</a>] README mentions /etc/sbt/sbtopts, but this likely doesn’t work for Windows/Mac</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2317">DAFFODIL-2317</a>] README mentions /etc/sbt/sbtopts, but this likely doesn't work for Windows/Mac</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2321">DAFFODIL-2321</a>] Jars need separate/custom license/notices</li>
 </ul>
 
@@ -273,7 +273,7 @@
 <p>Improvements were made to the TDML runner.</p>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2302">DAFFODIL-2302</a>] TDML Runner remembers external variable bindings even on subsequent test suites that don’t use them.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2302">DAFFODIL-2302</a>] TDML Runner remembers external variable bindings even on subsequent test suites that don't use them.</li>
 </ul>
 
 <h4 id="miscellaneous-changes-and-bug-fixes">Miscellaneous Changes and Bug Fixes</h4>
@@ -283,7 +283,7 @@
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2293">DAFFODIL-2293</a>] Too many bits in xs:string</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2306">DAFFODIL-2306</a>] Abort: NadaParsers are all supposed to optimize out!</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2004">DAFFODIL-2004</a>] daffodil site should have tutorials area</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2296">DAFFODIL-2296</a>] NACHA failing some tests with “Abort: NadaUnparsers are all supposed to optimize out”</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2296">DAFFODIL-2296</a>] NACHA failing some tests with "Abort: NadaUnparsers are all supposed to optimize out"</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2283">DAFFODIL-2283</a>] ATO and HL7 saved parsers fail with Stack Overflow errors during generation on commit 7e8e1b3e</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2284">DAFFODIL-2284</a>] Non-thread safe failures with JSON schema</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2290">DAFFODIL-2290</a>] Change download links to downloads.apache.org</li>
@@ -307,19 +307,19 @@
 <ul>
   <li>The following setters were deprecated in favor of these withXYZ functions
     <ul>
-      <li><code class="highlighter-rouge">setValidateDFDLSchemas</code> -&gt; <code class="highlighter-rouge">None</code></li>
-      <li><code class="highlighter-rouge">setCheckAllTopLevel</code> -&gt; <code class="highlighter-rouge">withCheckAllTopLevel</code></li>
-      <li><code class="highlighter-rouge">setTunable</code> -&gt; <code class="highlighter-rouge">withTunable</code></li>
-      <li><code class="highlighter-rouge">setTunables</code> -&gt; <code class="highlighter-rouge">withTunables</code></li>
-      <li><code class="highlighter-rouge">setExternalDFDLVariable</code> -&gt; <code class="highlighter-rouge">DataProcessor.setExternalVariable</code></li>
-      <li><code class="highlighter-rouge">setExternalDFDLVariables</code> -&gt; <code class="highlighter-rouge">DataProcessor.setExternalVariables or TDMLDFDLProcessor.withExternalDFDLVariables</code></li>
-      <li><code class="highlighter-rouge">setDistinguishedRootNode</code> -&gt; <code class="highlighter-rouge">withDistinguishedRootNode or arguments to getProcessor, compileSource, or compileFile</code></li>
-      <li><code class="highlighter-rouge">setDebugger</code> -&gt; <code class="highlighter-rouge">withDebugger</code></li>
-      <li><code class="highlighter-rouge">setDebugging</code> -&gt; <code class="highlighter-rouge">withDebugging</code></li>
-      <li><code class="highlighter-rouge">setTracing</code> -&gt; <code class="highlighter-rouge">withTracing</code></li>
-      <li><code class="highlighter-rouge">setValidationMode</code> -&gt; <code class="highlighter-rouge">withValidationMode</code></li>
-      <li><code class="highlighter-rouge">setExternalDFDLVariables</code> -&gt; <code class="highlighter-rouge">withExternalDFDLVariables</code></li>
-      <li><code class="highlighter-rouge">setExternalVariables</code> -&gt; <code class="highlighter-rouge">withExternalVariables</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setValidateDFDLSchemas</code> -&gt; <code class="language-plaintext highlighter-rouge">None</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setCheckAllTopLevel</code> -&gt; <code class="language-plaintext highlighter-rouge">withCheckAllTopLevel</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setTunable</code> -&gt; <code class="language-plaintext highlighter-rouge">withTunable</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setTunables</code> -&gt; <code class="language-plaintext highlighter-rouge">withTunables</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setExternalDFDLVariable</code> -&gt; <code class="language-plaintext highlighter-rouge">DataProcessor.setExternalVariable</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setExternalDFDLVariables</code> -&gt; <code class="language-plaintext highlighter-rouge">DataProcessor.setExternalVariables or TDMLDFDLProcessor.withExternalDFDLVariables</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setDistinguishedRootNode</code> -&gt; <code class="language-plaintext highlighter-rouge">withDistinguishedRootNode or arguments to getProcessor, compileSource, or compileFile</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setDebugger</code> -&gt; <code class="language-plaintext highlighter-rouge">withDebugger</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setDebugging</code> -&gt; <code class="language-plaintext highlighter-rouge">withDebugging</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setTracing</code> -&gt; <code class="language-plaintext highlighter-rouge">withTracing</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setValidationMode</code> -&gt; <code class="language-plaintext highlighter-rouge">withValidationMode</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setExternalDFDLVariables</code> -&gt; <code class="language-plaintext highlighter-rouge">withExternalDFDLVariables</code></li>
+      <li><code class="language-plaintext highlighter-rouge">setExternalVariables</code> -&gt; <code class="language-plaintext highlighter-rouge">withExternalVariables</code></li>
     </ul>
   </li>
 </ul>

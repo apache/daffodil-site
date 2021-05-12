@@ -224,7 +224,7 @@
 Java or Scala. To add new functions, the UserDefinedFunctionProvider and
 UserDefinedFunction interfaces must be implemented, compiled into a jar, and
 added to the classpath. Once defined, the function can then be called just like
-a normal DFDL expression function, such as <code class="highlighter-rouge">pre:myUserDefinedFunction(args)</code>.
+a normal DFDL expression function, such as <code class="language-plaintext highlighter-rouge">pre:myUserDefinedFunction(args)</code>.
 For more information on usage, see the <a href="https://github.com/apache/incubator-daffodil/tree/master/daffodil-udf">User Defined Function</a>
 page.</p>
 
@@ -237,10 +237,10 @@ page.</p>
 <h4 id="extension-binary-large-objects-proposal">Extension: Binary Large Objects [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Binary+Large+Objects">Proposal</a>]</h4>
 
 <p>A new extension is added to support Binary Large Objects. Setting an element
-type to <code class="highlighter-rouge">xs:anyURI</code> and setting the DFDL property
-<code class="highlighter-rouge">dfdlx:objectKind="bytes"</code> will cause Daffodil to write the bytes associated
+type to <code class="language-plaintext highlighter-rouge">xs:anyURI</code> and setting the DFDL property
+<code class="language-plaintext highlighter-rouge">dfdlx:objectKind="bytes"</code> will cause Daffodil to write the bytes associated
 with the element to a file rather than to the infoset. The URI to the file is
-stored in the infoset. The function <code class="highlighter-rouge">setBlobAttributes</code> is added to the
+stored in the infoset. The function <code class="language-plaintext highlighter-rouge">setBlobAttributes</code> is added to the
 InfosetOutputter to support changing the directory and name of these BLOB
 files.</p>
 
@@ -250,7 +250,7 @@ files.</p>
 
 <h4 id="unordered-sequences">Unordered Sequences</h4>
 
-<p>Add support for unordered sequences via the <code class="highlighter-rouge">dfdl:sequenceKind="unordered"</code>
+<p>Add support for unordered sequences via the <code class="language-plaintext highlighter-rouge">dfdl:sequenceKind="unordered"</code>
 property. See section 14.3 of the DFDL specification for more information on
 the behavior of unordered sequences.</p>
 
@@ -258,7 +258,7 @@ the behavior of unordered sequences.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-918">DAFFODIL-918</a>] Unordered sequence cannot have empty content.</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1010">DAFFODIL-1010</a>] Re-enable checks for unordered seq and choice branch violations</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1091">DAFFODIL-1091</a>] NumberFormatException when Unbounded element in unordered sequence</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1100">DAFFODIL-1100</a>] Unordered sequence with dfdl:format value of occursCountKind != “parsed” fails to compile</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1100">DAFFODIL-1100</a>] Unordered sequence with dfdl:format value of occursCountKind != "parsed" fails to compile</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1120">DAFFODIL-1120</a>] DPath: fn:exists() Abort: Invariant Broken (unordered sequence)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1151">DAFFODIL-1151</a>] Test failing due to a slotIndexInParent error. (unordered sequences)</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1159">DAFFODIL-1159</a>] Reimplement sequenceKind unordered feature</li>
@@ -280,11 +280,11 @@ trying to backtrack to the discarded data.</p>
 <p>During unparsing, in some circumstances it was possible for Daffodil to cache
 unparsed data that could reach a 2GB+ limit and cause an out of memory error.
 To prevent this error, each unparse cache will store a maximum amount in memory
-(defined by the <code class="highlighter-rouge">maxByteArrayOutputStreamBufferSizeInBytes</code> tunable). When
+(defined by the <code class="language-plaintext highlighter-rouge">maxByteArrayOutputStreamBufferSizeInBytes</code> tunable). When
 this maximum value is reached, Daffodil will switch to writing to a temporary
-file (defined by the <code class="highlighter-rouge">tempFilePath</code> tunable). Eventually, the contents of the
+file (defined by the <code class="language-plaintext highlighter-rouge">tempFilePath</code> tunable). Eventually, the contents of the
 file will be written to the unparse data stream in chunks (defined by the
-<code class="highlighter-rouge">outputStreamChunkSizeInBytes</code> tunable).</p>
+<code class="language-plaintext highlighter-rouge">outputStreamChunkSizeInBytes</code> tunable).</p>
 
 <p>With these changes and BLOB support, handling large files, including those
 greater than 2GB is possible.</p>
@@ -299,9 +299,9 @@ greater than 2GB is possible.</p>
 and improved output on failures.</p>
 
 <ul>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2204">DAFFODIL-2204</a>] unparserTestCase should dump hex data not just iso-8859-1 when mixed text/binary TDML doesn’t compare</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2204">DAFFODIL-2204</a>] unparserTestCase should dump hex data not just iso-8859-1 when mixed text/binary TDML doesn't compare</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2209">DAFFODIL-2209</a>] TDML Improperly handles MAC Style (CR) line endings</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2229">DAFFODIL-2229</a>] TDML Runner Class doesn’t have access to simple constructors</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2229">DAFFODIL-2229</a>] TDML Runner Class doesn't have access to simple constructors</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2241">DAFFODIL-2241</a>] Java Junit Test TDML not working</li>
 </ul>
 
@@ -359,8 +359,8 @@ miscellaneous improvements.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2224">DAFFODIL-2224</a>] Unable to unparse bitmap schema</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2230">DAFFODIL-2230</a>] Various cleanups - non-functional changes</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2259">DAFFODIL-2259</a>] unparse of choices not working properly - eventUnparserMap</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2262">DAFFODIL-2262</a>] occursCountKind ‘expression’ should avoid separator suppression, but does not.</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2263">DAFFODIL-2263</a>] separatorSuppressionPolicy=”never” in nested array causes abort</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2262">DAFFODIL-2262</a>] occursCountKind 'expression' should avoid separator suppression, but does not.</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2263">DAFFODIL-2263</a>] separatorSuppressionPolicy="never" in nested array causes abort</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2265">DAFFODIL-2265</a>] Update copyright dates to 2020</li>
 </ul>
 
