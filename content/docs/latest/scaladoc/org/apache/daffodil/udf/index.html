@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil (incubating) 3.0.0 Scala API  - org.apache.daffodil.udf</title>
-          <meta name="description" content="Apache Daffodil incubating 3.0.0 Scala API - org.apache.daffodil.udf" />
-          <meta name="keywords" content="Apache Daffodil incubating 3.0.0 Scala API org.apache.daffodil.udf" />
+          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.udf</title>
+          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.udf" />
+          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.udf" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil (incubating) 3.0.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the documentation for the Apache Daffodil (incubating) Scala API." href="../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the documentation for the Apache Daffodil Scala API." href="../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil (incubating) Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil (incubating) Scala API.</p><h5> Package structure </h5><p><a href="../sapi/index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil Scala API.</p><h5> Package structure </h5><p><a href="../sapi/index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.org" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="org"></a><a id="org:org"></a>
       <span class="permalink">
@@ -183,11 +183,11 @@ files.foreach { f <span class="kw">=&gt;</span> {
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   scalaOutputter.reset()
   <span class="kw">val</span> pr = dp.parse(is, jdomOutputter)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> SAX Parse </h6><p>The <a href="../sapi/DaffodilParseXMLReader.html#parse(isdis:org.apache.daffodil.sapi.io.InputSourceDataInputStream):Unit" class="extmbr" name="org.apache.daffodil.sapi.DaffodilParseXMLReader#parse">DaffodilParseXMLReader.parse</a> method accepts input data to parse in the form of a
 <a href="../sapi/io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a>. The output representation of the
 infoset, as well as how parse errors are handled, are dependent on the content handler and the
@@ -210,17 +210,20 @@ files.foreach { f <span class="kw">=&gt;</span> {
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   <span class="kw">val</span> doc = saxHandler.getDocument
-}</pre><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
+}</pre><p>The value of the supported features cannot be changed during a parse, and the parse will run
+with the value of the features as they were when the parse was kicked off. To run a parse with
+different feature values, one must wait until the running parse finishes, set the feature values
+using the XMLReader's setFeature and run the parse again.</p><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> contentHandler = <span class="kw">new</span> SAXHandler()
 xmlReader.setContentHandler(contentHandler)
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   contentHandler.reset()
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> Unparse </h6><h6> Dataprocessor Unparse </h6><p>The same <a href="../sapi/DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
 via the <a href="../sapi/DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method. An
 <a href="../sapi/infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> provides the infoset to unparse, with the unparsed
@@ -374,8 +377,11 @@ xmlReader.parse(data)
 UserDefinedFunctionIdentification annotation applied and filled in with the
 values to be used in the schema.</p><p>It must also have an evaluate method that contains the functionality it is
 offering</p><p>Any &quot;state&quot; variables should be passed in during overloaded
-UserDefinedFunctionProvider initialization</p></div></div>
-    </li><li name="org.apache.daffodil.udf.UserDefinedFunctionIdentification" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+UserDefinedFunctionProvider initialization</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="UserDefinedFunctionIdentification.html" class="extype" name="org.apache.daffodil.udf.UserDefinedFunctionIdentification">UserDefinedFunctionIdentification</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="org.apache.daffodil.udf.UserDefinedFunctionIdentification" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="UserDefinedFunctionIdentificationextendsAnnotationwithAnnotationwithClassfileAnnotation"></a><a id="UserDefinedFunctionIdentification:UserDefinedFunctionIdentification"></a>
       <span class="permalink">
       <a href="../../../../org/apache/daffodil/udf/UserDefinedFunctionIdentification.html" title="Permalink">
@@ -390,7 +396,12 @@ UserDefinedFunctionProvider initialization</p></div></div>
         <a title="" href="UserDefinedFunctionIdentification.html"><span class="name">UserDefinedFunctionIdentification</span></a><span class="result"> extends <span class="extype" name="scala.annotation.Annotation">Annotation</span> with <span class="extype" name="java.lang.annotation.Annotation">Annotation</span> with <span class="extype" name="scala.annotation.ClassfileAnnotation">ClassfileAnnotation</span></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@Retention</span><span class="args">()</span>
+              
+                <span class="name">@Target</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="org.apache.daffodil.udf.UserDefinedFunctionProvider" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="UserDefinedFunctionProviderextendsObject"></a><a id="UserDefinedFunctionProvider:UserDefinedFunctionProvider"></a>
       <span class="permalink">

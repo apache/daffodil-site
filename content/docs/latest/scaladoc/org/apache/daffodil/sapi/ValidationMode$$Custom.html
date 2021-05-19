@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.ProcessorFactory</title>
-          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.ProcessorFactory" />
-          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.ProcessorFactory" />
+          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.ValidationMode.Custom</title>
+          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.ValidationMode.Custom" />
+          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.ValidationMode.Custom" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -138,7 +138,7 @@ parsing diagnostics</p><div class="fullcomment"><div class="comment cmt"><p>Prov
 unparse files using the compiled objects, and retrieve results and
 parsing diagnostics</p><h5> Overview </h5><p>The <a href="Daffodil$.html" class="extype" name="org.apache.daffodil.sapi.Daffodil">Daffodil</a> object is a factory object to create a <a href="Compiler.html" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a>. The
 <a href="Compiler.html" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> provides a method to compile a provided DFDL schema into a
-<a href="" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>, which creates a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>:</p><pre><span class="kw">val</span> c = Daffodil.compiler()
+<a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>, which creates a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>:</p><pre><span class="kw">val</span> c = Daffodil.compiler()
 <span class="kw">val</span> pf = c.compileFile(file)
 <span class="kw">val</span> dp = pf.onPath(<span class="lit">"/"</span>)</pre><p>The <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> provides the necessary functions to parse and unparse
 data, returning a <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a> or <a href="UnparseResult.html" class="extype" name="org.apache.daffodil.sapi.UnparseResult">UnparseResult</a>, respectively. These
@@ -255,7 +255,7 @@ will return null.</p><pre><span class="kw">try</span> {
   <span class="kw">case</span> _: DaffodilUnparseErrorSAXException <span class="kw">=&gt;</span> ...
 }
 <span class="kw">val</span> ur = unparseContentHandler.getUnparseResult</pre><h5> Failures and Diagnostics </h5><p>It is possible that failures could occur during the creation of the
-<a href="" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>, <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>, or <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a>. However, rather than
+<a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>, <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>, or <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a>. However, rather than
 throwing an exception on error (e.g. invalid DFDL schema, parse
 error, etc), these classes extend <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a>, which is used to
 determine if an error occurred, and any diagnostic information (see
@@ -275,152 +275,40 @@ dp.save(saveFile);</pre><p>And to restore a saved <a href="DataProcessor.html" c
 ... <span class="cmt">// setting appropriate handlers</span>
 xmlReader.parse(data)
 <span class="kw">val</span> pr = xmlReader.getProperty(<span class="lit">"...ParseResult"</span>)</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil">daffodil</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.debugger" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="debugger"></a><a id="debugger:debugger"></a>
+    </li><li name="org.apache.daffodil.sapi.ValidationMode" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ValidationMode"></a><a id="ValidationMode:ValidationMode"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/debugger/index.html" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">package</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Provides the classes necessary to perform parse tracing or create a custom debugger" href="debugger/index.html"><span class="name">debugger</span></a>
+        <a title="Validation modes for validating the resulting infoset against the DFDL schema" href="ValidationMode$.html"><span class="name">ValidationMode</span></a><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
       </span>
       
-      <p class="shortcomment cmt">Provides the classes necessary to perform parse tracing or create a custom debugger</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to perform parse tracing or create a custom debugger</p><h5> Overview </h5><p>Daffodil comes with one prebuilt debugger, the <a href="debugger/TraceDebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.TraceDebuggerRunner">TraceDebuggerRunner</a>, which outputs
-verbose information during the parsing processes, which can be used to aid
-in debugging a DFDL schema. For example, the <a href="debugger/TraceDebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.TraceDebuggerRunner">TraceDebuggerRunner</a> can be use like so:</p><pre><span class="kw">val</span> tdr = <span class="kw">new</span> TraceDebuggerRunner()
-Daffodil.setDebugger(tdr)</pre><p>Additionally, one may create their own debugger runner by implementing the
-methods in the <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a>.</p><p>Once the debugger is set, it must then be turned on, like so:</p><pre>Daffodil.setDebugging(<span class="kw">true</span>);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.infoset" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="infoset"></a><a id="infoset:infoset"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/infoset/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="Defines various classes used control the representation of the infoset for parse and unparse." href="infoset/index.html"><span class="name">infoset</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Defines various classes used control the representation of the infoset for parse and unparse.</p><div class="fullcomment"><div class="comment cmt"><p>Defines various classes used control the representation of the infoset for parse and unparse.
-Classes that extend <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> are provided to the <a href="DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a>
-method to deteremine how to output an infoset. These classes are not
-guaranteed to be thread-safe. Classes that extend <a href="infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> are
-provided to the <a href="DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method to determine how to read in
-an infoset. A new InfosetOutputter is required for each call to unparse().
+      <p class="shortcomment cmt">Validation modes for validating the resulting infoset against the DFDL schema
+</p><div class="fullcomment"><div class="comment cmt"><p>Validation modes for validating the resulting infoset against the DFDL schema
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.io" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="io"></a><a id="io:io"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/io/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="io/index.html"><span class="name">io</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="logger"></a><a id="logger:logger"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/logger/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="Provides the classes necessary to receive logging messages from Daffodil." href="logger/index.html"><span class="name">logger</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Provides the classes necessary to receive logging messages from Daffodil.</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to receive logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="logger/ConsoleLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="logger/FileLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="logger/NullLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
-<a href="Daffodil$.html#setLogWriter(lw:org.apache.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code>/var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
-Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="Daffodil$.html#setLoggingLevel(lvl:org.apache.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
-defaults to <a href="logger/LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel.Info</a> if not set. For example, to change the log
-level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel.Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li class="current-entities indented4">
+    </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
-                        <a href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's.">Compiler</a>
-                      </li><li class="current-entities indented4">
+                        <a class="class" href="" title=""></a>
+                        <a href="" title="">Custom</a>
+                      </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Daffodil$.html" title="Factory object to create a Compiler and set global configurations"></a>
-                        <a href="Daffodil$.html" title="Factory object to create a Compiler and set global configurations">Daffodil</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="DaffodilParseXMLReader$.html" title="The full URIs needed for setting/getting properties for the DaffodilParseXMLReader"></a>
-                        <a class="class" href="DaffodilParseXMLReader.html" title="SAX Method of parsing schema and getting the DFDL Infoset via designated org.xml.sax.ContentHandler, based on the org.xml.sax.XMLReader interface"></a>
-                        <a href="DaffodilParseXMLReader.html" title="SAX Method of parsing schema and getting the DFDL Infoset via designated org.xml.sax.ContentHandler, based on the org.xml.sax.XMLReader interface">DaffodilParseXMLReader</a>
-                      </li><li class="current-entities indented4">
+                        <a class="class" href="ValidationMode$$Val.html" title=""></a>
+                        <a href="ValidationMode$$Val.html" title="">Val</a>
+                      </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="DaffodilUnhandledSAXException.html" title="This exception will be thrown when an unexpected error occurs during the SAX unparse"></a>
-                        <a href="DaffodilUnhandledSAXException.html" title="This exception will be thrown when an unexpected error occurs during the SAX unparse">DaffodilUnhandledSAXException</a>
-                      </li><li class="current-entities indented4">
+                        <a class="class" href="ValidationMode$$Value.html" title=""></a>
+                        <a href="ValidationMode$$Value.html" title="">Value</a>
+                      </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="DaffodilUnparseContentHandler.html" title="Accepts SAX callback events from any SAX XMLReader for unparsing"></a>
-                        <a href="DaffodilUnparseContentHandler.html" title="Accepts SAX callback events from any SAX XMLReader for unparsing">DaffodilUnparseContentHandler</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse"></a>
-                        <a href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse">DaffodilUnparseErrorSAXException</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="DataLocation.html" title="Information related to a location in data"></a>
-                        <a href="DataLocation.html" title="Information related to a location in data">DataLocation</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="DataProcessor.html" title="Compiled version of a DFDL Schema, used to parse data and get the DFDL infoset"></a>
-                        <a href="DataProcessor.html" title="Compiled version of a DFDL Schema, used to parse data and get the DFDL infoset">DataProcessor</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="Diagnostic.html" title="Class containing diagnostic information"></a>
-                        <a href="Diagnostic.html" title="Class containing diagnostic information">Diagnostic</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="InvalidParserException.html" title="This exception will be thrown as a result of attempting to reload a saved parser that is invalid (not a parser file, corrupt, etc.) or is not in the GZIP format."></a>
-                        <a href="InvalidParserException.html" title="This exception will be thrown as a result of attempting to reload a saved parser that is invalid (not a parser file, corrupt, etc.) or is not in the GZIP format.">InvalidParserException</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="InvalidUsageException.html" title="This exception will be thrown as a result of an invalid usage of the Daffodil API"></a>
-                        <a href="InvalidUsageException.html" title="This exception will be thrown as a result of an invalid usage of the Daffodil API">InvalidUsageException</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="LocationInSchemaFile.html" title="Information related to locations in DFDL schema files"></a>
-                        <a href="LocationInSchemaFile.html" title="Information related to locations in DFDL schema files">LocationInSchemaFile</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="ParseResult.html" title="Result of calling DataProcessor.parse, containing any diagnostic information, and the final data location"></a>
-                        <a href="ParseResult.html" title="Result of calling DataProcessor.parse, containing any diagnostic information, and the final data location">ParseResult</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="" title="Factory to create DataProcessor's, used for parsing data"></a>
-                        <a href="" title="Factory to create DataProcessor's, used for parsing data">ProcessorFactory</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="UnparseResult.html" title="Result of calling DataProcessor.unparse, containing diagnostic information"></a>
-                        <a href="UnparseResult.html" title="Result of calling DataProcessor.unparse, containing diagnostic information">UnparseResult</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="object" href="ValidationMode$.html" title="Validation modes for validating the resulting infoset against the DFDL schema"></a>
-                        <a href="ValidationMode$.html" title="Validation modes for validating the resulting infoset against the DFDL schema">ValidationMode</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="WithDiagnostics.html" title="Abstract class that adds diagnostic information to classes that extend it."></a>
-                        <a href="WithDiagnostics.html" title="Abstract class that adds diagnostic information to classes that extend it.">WithDiagnostics</a>
+                        <a class="class" href="ValidationMode$$ValueSet.html" title=""></a>
+                        <a href="ValidationMode$$ValueSet.html" title="">ValueSet</a>
                       </li>
               </ul>
             </div>
@@ -429,9 +317,9 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
             <body class="class type">
       <div id="definition">
         <div class="big-circle class">c</div>
-        <p id="owner"><a href="../../../index.html" class="extype" name="org">org</a>.<a href="../../index.html" class="extype" name="org.apache">apache</a>.<a href="../index.html" class="extype" name="org.apache.daffodil">daffodil</a>.<a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></p>
-        <h1>ProcessorFactory<span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html" title="Permalink">
+        <p id="owner"><a href="../../../index.html" class="extype" name="org">org</a>.<a href="../../index.html" class="extype" name="org.apache">apache</a>.<a href="../index.html" class="extype" name="org.apache.daffodil">daffodil</a>.<a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a>.<a href="ValidationMode$.html" class="extype" name="org.apache.daffodil.sapi.ValidationMode">ValidationMode</a></p>
+        <h1>Custom<span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
@@ -441,20 +329,19 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ProcessorFactory</span><span class="result"> extends <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></span>
+        <span class="name">Custom</span><span class="params">(<span name="v">v: <span class="extype" name="org.apache.daffodil.api.Validator">Validator</span></span>)</span><span class="result"> extends <a href="ValidationMode$.html#ValidationMode=org.apache.daffodil.sapi.ValidationMode.Value" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.ValidationMode">ValidationMode</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Factory to create <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>'s, used for parsing data
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a>, <span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a>, <span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.math.Ordered">Ordered</span>[<a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a>], <span class="extype" name="java.lang.Comparable">Comparable</span>[<a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -480,7 +367,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.ProcessorFactory"><span>ProcessorFactory</span></li><li class="in" name="org.apache.daffodil.sapi.WithDiagnostics"><span>WithDiagnostics</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.apache.daffodil.sapi.ValidationMode.Custom"><span>Custom</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.Enumeration.Value"><span>Value</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.math.Ordered"><span>Ordered</span></li><li class="in" name="java.lang.Comparable"><span>Comparable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -498,7 +385,26 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
 
       <div id="template">
         <div id="allMembers">
-        
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="org.apache.daffodil.sapi.ValidationMode.Custom#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(v:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.ValidationMode.Custom"></a><a id="&lt;init&gt;:Custom"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#&lt;init&gt;(v:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.ValidationMode.Custom" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Custom</span><span class="params">(<span name="v">v: <span class="extype" name="org.apache.daffodil.api.Validator">Validator</span></span>)</span>
+      </span>
+      
+      
+    </li></ol>
+            </div>
 
         
 
@@ -510,7 +416,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -526,7 +432,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html###():Int" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -539,10 +445,58 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Enumeration.Value#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(v:Enumeration.this.Value):Enumeration.this.ValueSet"></a><a id="+(ValidationMode.Value):ValidationMode.ValueSet"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#+(v:Enumeration.this.Value):Enumeration.this.ValueSet" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="v">v: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <a href="ValidationMode$.html#ValueSetextendsAbstractSet[Enumeration.this.Value]withSortedSet[Enumeration.this.Value]withSortedSetLike[Enumeration.this.Value,Enumeration.this.ValueSet]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.ValueSet">ValidationMode.ValueSet</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Value</dd></dl></div>
+    </li><li name="scala.math.Ordered#&lt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;(that:A):Boolean"></a><a id="&lt;(ValidationMode.Value):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#&lt;(that:A):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $less" class="name">&lt;</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Ordered</dd></dl></div>
+    </li><li name="scala.math.Ordered#&lt;=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;=(that:A):Boolean"></a><a id="&lt;=(ValidationMode.Value):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#&lt;=(that:A):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $less$eq" class="name">&lt;=</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Ordered</dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -555,10 +509,42 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.math.Ordered#&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&gt;(that:A):Boolean"></a><a id="&gt;(ValidationMode.Value):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#&gt;(that:A):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $greater" class="name">&gt;</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Ordered</dd></dl></div>
+    </li><li name="scala.math.Ordered#&gt;=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&gt;=(that:A):Boolean"></a><a id="&gt;=(ValidationMode.Value):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#&gt;=(that:A):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $greater$eq" class="name">&gt;=</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Ordered</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -574,7 +560,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#clone():Object" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -595,10 +581,42 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="scala.Enumeration.Value#compare" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="compare(that:Enumeration.this.Value):Int"></a><a id="compare(ValidationMode.Value):Int"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#compare(that:Enumeration.this.Value):Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">compare</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Value → Ordered</dd></dl></div>
+    </li><li name="scala.math.Ordered#compareTo" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="compareTo(that:A):Int"></a><a id="compareTo(ValidationMode.Value):Int"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#compareTo(that:A):Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">compareTo</span><span class="params">(<span name="that">that: <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Ordered → Comparable</dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -611,10 +629,10 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+    </li><li name="scala.Enumeration.Value#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(other:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#equals(other:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -623,14 +641,14 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="other">other: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Value → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#finalize():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -652,7 +670,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -668,28 +686,10 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.WithDiagnostics#getDiagnostics" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getDiagnostics:Seq[org.apache.daffodil.sapi.Diagnostic]"></a><a id="getDiagnostics:Seq[Diagnostic]"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#getDiagnostics:Seq[org.apache.daffodil.sapi.Diagnostic]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">getDiagnostics</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Get the list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s created during the construction of the parent object
-</p><div class="fullcomment"><div class="comment cmt"><p>Get the list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s created during the construction of the parent object
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>list of <a href="Diagnostic.html" class="extype" name="org.apache.daffodil.sapi.Diagnostic">Diagnostic</a>'s. May contain errors or warnings, and so may be non-empty even if <a href="WithDiagnostics.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.WithDiagnostics#isError">WithDiagnostics.isError</a> is false.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scala.Enumeration.Value#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#hashCode():Int" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -701,31 +701,27 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.WithDiagnostics#isError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isError():Boolean"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Value → AnyRef → Any</dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.ValidationMode.Custom#id" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="id:Int"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#isError():Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#id:Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">isError</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">id</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <p class="shortcomment cmt">Determine if any errors occurred in the creation of the parent object.</p><div class="fullcomment"><div class="comment cmt"><p>Determine if any errors occurred in the creation of the parent object.
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>true if no errors occurred, false otherwise</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.ValidationMode.Custom">Custom</a> → Value</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -741,7 +737,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -757,7 +753,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#notify():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -776,7 +772,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -792,28 +788,10 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.ProcessorFactory#onPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="onPath(path:String):org.apache.daffodil.sapi.DataProcessor"></a><a id="onPath(String):DataProcessor"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#onPath(path:String):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">onPath</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Create a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>
-</p><div class="fullcomment"><div class="comment cmt"><p>Create a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>
-</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>path to an element to use as the parsing root, relative to the distinguished root node. Currently, must be set to &quot;/&quot;</p></dd><dt>returns</dt><dd class="cmt"><p><a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used to parse data. Must check <a href="DataProcessor.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#isError">DataProcessor.isError</a> before using it.</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -826,26 +804,26 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
+    </li><li name="org.apache.daffodil.sapi.ValidationMode.Custom#v" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="v:org.apache.daffodil.api.Validator"></a><a id="v:Validator"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#toString():String" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#v:org.apache.daffodil.api.Validator" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+        <span class="name">v</span><span class="result">: <span class="extype" name="org.apache.daffodil.api.Validator">Validator</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#wait():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -867,7 +845,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -889,7 +867,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/ValidationMode$$Custom.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -910,104 +888,30 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.ProcessorFactory#withDistinguishedRootNode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withDistinguishedRootNode(name:String,namespace:String):org.apache.daffodil.sapi.ProcessorFactory"></a><a id="withDistinguishedRootNode(String,String):ProcessorFactory"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#withDistinguishedRootNode(name:String,namespace:String):org.apache.daffodil.sapi.ProcessorFactory" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withDistinguishedRootNode</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Get a new <a href="" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a> having a global element specified as the root of DFDL Schema to start parsing.</p><div class="fullcomment"><div class="comment cmt"><p>Get a new <a href="" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a> having a global element specified as the root of DFDL Schema to start parsing.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the root node</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>namespace of the root node. Set to empty string to specify
-                 no namespace. Set to to NULL to figure out the namespace.</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.ProcessorFactory.experimental" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="experimental"></a><a id="experimental:experimental"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory$experimental$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Exposes the RootView object corresponding to this ProcessorFactory." href="ProcessorFactory$experimental$.html"><span class="name">experimental</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Exposes the RootView object corresponding to this ProcessorFactory.</p><div class="fullcomment"><div class="comment cmt"><p>Exposes the RootView object corresponding to this ProcessorFactory.  This can
-be used to start a walk using the walkFromRoot method in a DSOM Walker.
-</p></div></div>
     </li>
               </ol>
             </div>
 
         
 
-        <div class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="org.apache.daffodil.sapi.WithDiagnostics#canProceed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="canProceed():Boolean"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#canProceed():Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.0.0) Use !isError() to determine if it is safe to proceed">canProceed</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Determine if this object can be used in any future parse activities
-</p><div class="fullcomment"><div class="comment cmt"><p>Determine if this object can be used in any future parse activities
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>true it is safe to proceed, false otherwise</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd><dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0.0)</i> Use !isError() to determine if it is safe to proceed</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.ProcessorFactory#setDistinguishedRootNode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setDistinguishedRootNode(name:String,namespace:String):Unit"></a><a id="setDistinguishedRootNode(String,String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/ProcessorFactory.html#setDistinguishedRootNode(name:String,namespace:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDistinguishedRootNode.">setDistinguishedRootNode</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Specify a global element to be the root of DFDL Schema to start parsing
-</p><div class="fullcomment"><div class="comment cmt"><p>Specify a global element to be the root of DFDL Schema to start parsing
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the root node</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>namespace of the root node. Set to empty string to specify
-                 no namespace. Set to to NULL to figure out the namespace.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withDistinguishedRootNode.</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="org.apache.daffodil.sapi.WithDiagnostics">
-              <h3>Inherited from <a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></h3>
+        <div class="parent" name="scala.Product">
+              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+            </div><div class="parent" name="scala.Equals">
+              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+            </div><div class="parent" name="scala.Enumeration.Value">
+              <h3>Inherited from <a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a></h3>
             </div><div class="parent" name="scala.Serializable">
               <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.math.Ordered">
+              <h3>Inherited from <span class="extype" name="scala.math.Ordered">Ordered</span>[<a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a>]</h3>
+            </div><div class="parent" name="java.lang.Comparable">
+              <h3>Inherited from <span class="extype" name="java.lang.Comparable">Comparable</span>[<a href="ValidationMode$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.Value">ValidationMode.Value</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

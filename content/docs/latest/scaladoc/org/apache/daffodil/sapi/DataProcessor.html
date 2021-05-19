@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil (incubating) 3.0.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
-          <meta name="description" content="Apache Daffodil incubating 3.0.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
-          <meta name="keywords" content="Apache Daffodil incubating 3.0.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
+          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
+          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
+          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil (incubating) 3.0.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the documentation for the Apache Daffodil (incubating) Scala API." href="../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the documentation for the Apache Daffodil Scala API." href="../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil (incubating) Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil (incubating) Scala API.</p><h5> Package structure </h5><p><a href="index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil Scala API.</p><h5> Package structure </h5><p><a href="index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.org" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="org"></a><a id="org:org"></a>
       <span class="permalink">
@@ -183,11 +183,11 @@ files.foreach { f <span class="kw">=&gt;</span> {
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   scalaOutputter.reset()
   <span class="kw">val</span> pr = dp.parse(is, jdomOutputter)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> SAX Parse </h6><p>The <a href="DaffodilParseXMLReader.html#parse(isdis:org.apache.daffodil.sapi.io.InputSourceDataInputStream):Unit" class="extmbr" name="org.apache.daffodil.sapi.DaffodilParseXMLReader#parse">DaffodilParseXMLReader.parse</a> method accepts input data to parse in the form of a
 <a href="io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a>. The output representation of the
 infoset, as well as how parse errors are handled, are dependent on the content handler and the
@@ -210,17 +210,20 @@ files.foreach { f <span class="kw">=&gt;</span> {
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   <span class="kw">val</span> doc = saxHandler.getDocument
-}</pre><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
+}</pre><p>The value of the supported features cannot be changed during a parse, and the parse will run
+with the value of the features as they were when the parse was kicked off. To run a parse with
+different feature values, one must wait until the running parse finishes, set the feature values
+using the XMLReader's setFeature and run the parse again.</p><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> contentHandler = <span class="kw">new</span> SAXHandler()
 xmlReader.setContentHandler(contentHandler)
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   contentHandler.reset()
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> Unparse </h6><h6> Dataprocessor Unparse </h6><p>The same <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
 via the <a href="#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method. An
 <a href="infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> provides the infoset to unparse, with the unparsed
@@ -972,9 +975,9 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
               
         </dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#withDebugger" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor"></a><a id="withDebugger(DebuggerRunner):DataProcessor"></a>
+      <a id="withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor"></a><a id="withDebugger(Debugger):DataProcessor"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -983,7 +986,24 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withDebugger</span><span class="params">(<span name="dr">dr: <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
+        <span class="name">withDebugger</span><span class="params">(<span name="dbg">dbg: <span class="extype" name="org.apache.daffodil.debugger.Debugger">Debugger</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger.
+</p></div><dl class="paramcmts block"><dt class="param">dbg</dt><dd class="cmt"><p>debugger</p></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor"></a><a id="withDebuggerRunner(DebuggerRunner):DataProcessor"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withDebuggerRunner</span><span class="params">(<span name="dr">dr: <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
       </span>
       
       <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger runner.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger runner.
@@ -1003,7 +1023,8 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="name">withDebugging</span><span class="params">(<span name="flag">flag: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
       </span>
       
-      <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><p>Before enabling, <a href="#withDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> must be called to obtain a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a non-null debugger.
+      <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><p>Before enabling, <a href="#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> or <a href="#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner">DataProcessor#withDebuggerRunner</a> must be called to obtain
+a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a non-null debugger.
 </p></div><dl class="paramcmts block"><dt class="param">flag</dt><dd class="cmt"><p>true to enable debugging, false to disabled</p></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#withExternalVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="withExternalVariables(extVars:Map[String,String]):org.apache.daffodil.sapi.DataProcessor"></a><a id="withExternalVariables(Map[String,String]):DataProcessor"></a>
@@ -1069,6 +1090,22 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
     </span>)</span>
               
         </dd><dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="InvalidUsageException.html" class="extype" name="org.apache.daffodil.sapi.InvalidUsageException"><code>InvalidUsageException</code></a> if mode is not a valid ValidateMode value</p></span></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.DataProcessor#withValidator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="withValidator(validator:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.DataProcessor"></a><a id="withValidator(Validator):DataProcessor"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withValidator(validator:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withValidator</span><span class="params">(<span name="validator">validator: <span class="extype" name="org.apache.daffodil.api.Validator">Validator</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
+      </span>
+      
+      
     </li>
               </ol>
             </div>
@@ -1193,7 +1230,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDebugger.">setDebugger</span><span class="params">(<span name="dr">dr: <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDebuggerRunner.">setDebugger</span><span class="params">(<span name="dr">dr: <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
       <p class="shortcomment cmt">Set the debugger runner
@@ -1201,7 +1238,7 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
 </p></div><dl class="paramcmts block"><dt class="param">dr</dt><dd class="cmt"><p>debugger runner</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@deprecated</span>
               
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withDebugger.</p></dd></dl></div>
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withDebuggerRunner.</p></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#setDebugging" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="setDebugging(flag:Boolean):Unit"></a><a id="setDebugging(Boolean):Unit"></a>
       <span class="permalink">
@@ -1217,7 +1254,8 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
         <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDebugging.">setDebugging</span><span class="params">(<span name="flag">flag: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      <p class="shortcomment cmt">Enable/disable debugging.</p><div class="fullcomment"><div class="comment cmt"><p>Enable/disable debugging.</p><p>Before enabling, <a href="#setDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):Unit" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#setDebugger">DataProcessor#setDebugger</a> must be called with a non-null debugger.
+      <p class="shortcomment cmt">Enable/disable debugging.</p><div class="fullcomment"><div class="comment cmt"><p>Enable/disable debugging.</p><p>Before enabling, <a href="#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> or <a href="#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner">DataProcessor#withDebuggerRunner</a> must be called with a
+non-null debugger.
 </p></div><dl class="paramcmts block"><dt class="param">flag</dt><dd class="cmt"><p>true to enable debugging, false to disabled</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@deprecated</span>
               

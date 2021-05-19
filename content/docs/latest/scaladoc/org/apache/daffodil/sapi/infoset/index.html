@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil (incubating) 3.0.0 Scala API  - org.apache.daffodil.sapi.infoset</title>
-          <meta name="description" content="Apache Daffodil incubating 3.0.0 Scala API - org.apache.daffodil.sapi.infoset" />
-          <meta name="keywords" content="Apache Daffodil incubating 3.0.0 Scala API org.apache.daffodil.sapi.infoset" />
+          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.infoset</title>
+          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.infoset" />
+          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.infoset" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil (incubating) 3.0.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the documentation for the Apache Daffodil (incubating) Scala API." href="../../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the documentation for the Apache Daffodil Scala API." href="../../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil (incubating) Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil (incubating) Scala API.</p><h5> Package structure </h5><p><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil Scala API.</p><h5> Package structure </h5><p><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.org" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="org"></a><a id="org:org"></a>
       <span class="permalink">
@@ -183,11 +183,11 @@ files.foreach { f <span class="kw">=&gt;</span> {
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   scalaOutputter.reset()
   <span class="kw">val</span> pr = dp.parse(is, jdomOutputter)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> SAX Parse </h6><p>The <a href="../DaffodilParseXMLReader.html#parse(isdis:org.apache.daffodil.sapi.io.InputSourceDataInputStream):Unit" class="extmbr" name="org.apache.daffodil.sapi.DaffodilParseXMLReader#parse">DaffodilParseXMLReader.parse</a> method accepts input data to parse in the form of a
 <a href="../io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a>. The output representation of the
 infoset, as well as how parse errors are handled, are dependent on the content handler and the
@@ -210,17 +210,20 @@ files.foreach { f <span class="kw">=&gt;</span> {
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   <span class="kw">val</span> doc = saxHandler.getDocument
-}</pre><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
+}</pre><p>The value of the supported features cannot be changed during a parse, and the parse will run
+with the value of the features as they were when the parse was kicked off. To run a parse with
+different feature values, one must wait until the running parse finishes, set the feature values
+using the XMLReader's setFeature and run the parse again.</p><p>One can repeat calls to parse() using the same InputSourceDataInputStream to continue parsing
 where the previous parse ended. For example:</p><pre><span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(dataStream)
 <span class="kw">val</span> contentHandler = <span class="kw">new</span> SAXHandler()
 xmlReader.setContentHandler(contentHandler)
 <span class="kw">val</span> keepParsing = <span class="kw">true</span>
-<span class="kw">while</span> (keepParsing) {
+<span class="kw">while</span> (keepParsing &amp;&amp; is.hasData()) {
   contentHandler.reset()
   xmlReader.parse(is)
   <span class="kw">val</span> pr = xmlReader.getProperty(DaffodilParseXMLReader.DAFFODIL_SAX_URN_PARSERESULT)
   ...
-  keepParsing = !pr.location().isAtEnd() &amp;&amp; !pr.isError()
+  keepParsing = !pr.isError()
 }</pre><h6> Unparse </h6><h6> Dataprocessor Unparse </h6><p>The same <a href="../DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
 via the <a href="../DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method. An
 <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> provides the infoset to unparse, with the unparsed
@@ -320,60 +323,60 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                         <a href="InfosetInputter.html" title="Abstract class used to determine how the infoset representation should be input from a call to DataProcessor.unparse.">InfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="InfosetInputterProxy.html" title=""></a>
-                        <a href="InfosetInputterProxy.html" title="">InfosetInputterProxy</a>
+                        <a class="class" href="InfosetInputterProxy.html" title="A proxy for InfosetInputters that are internal to Daffodil"></a>
+                        <a href="InfosetInputterProxy.html" title="A proxy for InfosetInputters that are internal to Daffodil">InfosetInputterProxy</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="InfosetOutputter.html" title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse."></a>
                         <a href="InfosetOutputter.html" title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse.">InfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="InfosetOutputterProxy.html" title=""></a>
-                        <a href="InfosetOutputterProxy.html" title="">InfosetOutputterProxy</a>
+                        <a class="class" href="InfosetOutputterProxy.html" title="A proxy for InfosetOutputters that are internal to Daffodil"></a>
+                        <a href="InfosetOutputterProxy.html" title="A proxy for InfosetOutputters that are internal to Daffodil">InfosetOutputterProxy</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="JDOMInfosetInputter.html" title="Read in an infoset in the form of a jdom2 Document"></a>
-                        <a href="JDOMInfosetInputter.html" title="Read in an infoset in the form of a jdom2 Document">JDOMInfosetInputter</a>
+                        <a class="class" href="JDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.jdom2.Document"></a>
+                        <a href="JDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.jdom2.Document">JDOMInfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="JDOMInfosetOutputter.html" title="Output the infoset as a jdom Document"></a>
-                        <a href="JDOMInfosetOutputter.html" title="Output the infoset as a jdom Document">JDOMInfosetOutputter</a>
+                        <a class="class" href="JDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.jdom2.Document"></a>
+                        <a href="JDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.jdom2.Document">JDOMInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="JsonInfosetInputter.html" title=""></a>
-                        <a href="JsonInfosetInputter.html" title="">JsonInfosetInputter</a>
+                        <a class="class" href="JsonInfosetInputter.html" title="InfosetInputter to read an infoset represented as JSON from a java.io.InputStream"></a>
+                        <a href="JsonInfosetInputter.html" title="InfosetInputter to read an infoset represented as JSON from a java.io.InputStream">JsonInfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="JsonInfosetOutputter.html" title=""></a>
-                        <a href="JsonInfosetOutputter.html" title="">JsonInfosetOutputter</a>
+                        <a class="class" href="JsonInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as JSON written to a java.io.OutputStream"></a>
+                        <a href="JsonInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as JSON written to a java.io.OutputStream">JsonInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="NullInfosetOutputter.html" title="Ignore all infoset output"></a>
-                        <a href="NullInfosetOutputter.html" title="Ignore all infoset output">NullInfosetOutputter</a>
+                        <a class="class" href="NullInfosetOutputter.html" title="InfosetOutputter that does not build an infoset represention, ignoring all InfosetOutputter events"></a>
+                        <a href="NullInfosetOutputter.html" title="InfosetOutputter that does not build an infoset represention, ignoring all InfosetOutputter events">NullInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="ScalaXMLInfosetInputter.html" title="Read in an infoset in the form of a scala.xml.Node"></a>
-                        <a href="ScalaXMLInfosetInputter.html" title="Read in an infoset in the form of a scala.xml.Node">ScalaXMLInfosetInputter</a>
+                        <a class="class" href="ScalaXMLInfosetInputter.html" title="InfosetInputter to read an infoset represented as a scala.xml.Node"></a>
+                        <a href="ScalaXMLInfosetInputter.html" title="InfosetInputter to read an infoset represented as a scala.xml.Node">ScalaXMLInfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="ScalaXMLInfosetOutputter.html" title="Output the infoset as a scala.xml.Node"></a>
-                        <a href="ScalaXMLInfosetOutputter.html" title="Output the infoset as a scala.xml.Node">ScalaXMLInfosetOutputter</a>
+                        <a class="class" href="ScalaXMLInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as a scala.xml.Node"></a>
+                        <a href="ScalaXMLInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as a scala.xml.Node">ScalaXMLInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="W3CDOMInfosetInputter.html" title="Read in an infoset in the form of a w3c Document"></a>
-                        <a href="W3CDOMInfosetInputter.html" title="Read in an infoset in the form of a w3c Document">W3CDOMInfosetInputter</a>
+                        <a class="class" href="W3CDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.w3c.dom.Document"></a>
+                        <a href="W3CDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.w3c.dom.Document">W3CDOMInfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="W3CDOMInfosetOutputter.html" title="Output the infoset as a w3c Document"></a>
-                        <a href="W3CDOMInfosetOutputter.html" title="Output the infoset as a w3c Document">W3CDOMInfosetOutputter</a>
+                        <a class="class" href="W3CDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document"></a>
+                        <a href="W3CDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document">W3CDOMInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="XMLTextInfosetInputter.html" title=""></a>
-                        <a href="XMLTextInfosetInputter.html" title="">XMLTextInfosetInputter</a>
+                        <a class="class" href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream"></a>
+                        <a href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream">XMLTextInfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="XMLTextInfosetOutputter.html" title=""></a>
-                        <a href="XMLTextInfosetOutputter.html" title="">XMLTextInfosetOutputter</a>
+                        <a class="class" href="XMLTextInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as XML written to a java.io.OutputStream"></a>
+                        <a href="XMLTextInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as XML written to a java.io.OutputStream">XMLTextInfosetOutputter</a>
                       </li><li name="org.apache.daffodil.sapi.io" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="io"></a><a id="io:io"></a>
       <span class="permalink">
@@ -495,10 +498,11 @@ the information after a call to advance/inspect.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="InfosetInputterProxy.html"><span class="name">InfosetInputterProxy</span></a><span class="result"> extends <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a></span>
+        <a title="A proxy for InfosetInputters that are internal to Daffodil" href="InfosetInputterProxy.html"><span class="name">InfosetInputterProxy</span></a><span class="result"> extends <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">A proxy for InfosetInputters that are internal to Daffodil
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.InfosetOutputter" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="InfosetOutputterextendsInfosetOutputter"></a><a id="InfosetOutputter:InfosetOutputter"></a>
       <span class="permalink">
@@ -532,10 +536,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="InfosetOutputterProxy.html"><span class="name">InfosetOutputterProxy</span></a><span class="result"> extends <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a></span>
+        <a title="A proxy for InfosetOutputters that are internal to Daffodil" href="InfosetOutputterProxy.html"><span class="name">InfosetOutputterProxy</span></a><span class="result"> extends <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">A proxy for InfosetOutputters that are internal to Daffodil
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.JDOMInfosetInputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="JDOMInfosetInputterextendsInfosetInputterProxy"></a><a id="JDOMInfosetInputter:JDOMInfosetInputter"></a>
       <span class="permalink">
@@ -548,10 +553,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Read in an infoset in the form of a jdom2 Document" href="JDOMInfosetInputter.html"><span class="name">JDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+        <a title="InfosetInputter to read an infoset represented as an org.jdom2.Document" href="JDOMInfosetInputter.html"><span class="name">JDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Read in an infoset in the form of a jdom2 Document
+      <p class="shortcomment cmt"><a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> to read an infoset represented as an org.jdom2.Document
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.JDOMInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="JDOMInfosetOutputterextendsInfosetOutputterProxy"></a><a id="JDOMInfosetOutputter:JDOMInfosetOutputter"></a>
@@ -565,10 +570,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Output the infoset as a jdom Document" href="JDOMInfosetOutputter.html"><span class="name">JDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter to build an infoset represented as an org.jdom2.Document" href="JDOMInfosetOutputter.html"><span class="name">JDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Output the infoset as a jdom Document
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to build an infoset represented as an org.jdom2.Document
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.JsonInfosetInputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="JsonInfosetInputterextendsInfosetInputterProxy"></a><a id="JsonInfosetInputter:JsonInfosetInputter"></a>
@@ -582,10 +587,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="JsonInfosetInputter.html"><span class="name">JsonInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+        <a title="InfosetInputter to read an infoset represented as JSON from a java.io.InputStream" href="JsonInfosetInputter.html"><span class="name">JsonInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt"><a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> to read an infoset represented as JSON from a java.io.InputStream
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.JsonInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="JsonInfosetOutputterextendsInfosetOutputterProxy"></a><a id="JsonInfosetOutputter:JsonInfosetOutputter"></a>
       <span class="permalink">
@@ -598,10 +604,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="JsonInfosetOutputter.html"><span class="name">JsonInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter to build an infoset represented as JSON written to a java.io.OutputStream" href="JsonInfosetOutputter.html"><span class="name">JsonInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to build an infoset represented as JSON written to a java.io.OutputStream
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.NullInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NullInfosetOutputterextendsInfosetOutputterProxy"></a><a id="NullInfosetOutputter:NullInfosetOutputter"></a>
       <span class="permalink">
@@ -614,10 +621,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Ignore all infoset output" href="NullInfosetOutputter.html"><span class="name">NullInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter that does not build an infoset represention, ignoring all InfosetOutputter events" href="NullInfosetOutputter.html"><span class="name">NullInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Ignore all infoset output
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> that does not build an infoset represention, ignoring
+all <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> events
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.ScalaXMLInfosetInputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ScalaXMLInfosetInputterextendsInfosetInputterProxy"></a><a id="ScalaXMLInfosetInputter:ScalaXMLInfosetInputter"></a>
@@ -631,10 +639,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Read in an infoset in the form of a scala.xml.Node" href="ScalaXMLInfosetInputter.html"><span class="name">ScalaXMLInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+        <a title="InfosetInputter to read an infoset represented as a scala.xml.Node" href="ScalaXMLInfosetInputter.html"><span class="name">ScalaXMLInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Read in an infoset in the form of a scala.xml.Node
+      <p class="shortcomment cmt"><a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> to read an infoset represented as a scala.xml.Node
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.ScalaXMLInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ScalaXMLInfosetOutputterextendsInfosetOutputterProxy"></a><a id="ScalaXMLInfosetOutputter:ScalaXMLInfosetOutputter"></a>
@@ -648,10 +656,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Output the infoset as a scala.xml.Node" href="ScalaXMLInfosetOutputter.html"><span class="name">ScalaXMLInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter to build an infoset represented as a scala.xml.Node" href="ScalaXMLInfosetOutputter.html"><span class="name">ScalaXMLInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Output the infoset as a scala.xml.Node
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to build an infoset represented as a scala.xml.Node
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="W3CDOMInfosetInputterextendsInfosetInputterProxy"></a><a id="W3CDOMInfosetInputter:W3CDOMInfosetInputter"></a>
@@ -665,10 +673,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Read in an infoset in the form of a w3c Document" href="W3CDOMInfosetInputter.html"><span class="name">W3CDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+        <a title="InfosetInputter to read an infoset represented as an org.w3c.dom.Document" href="W3CDOMInfosetInputter.html"><span class="name">W3CDOMInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Read in an infoset in the form of a w3c Document
+      <p class="shortcomment cmt"><a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> to read an infoset represented as an org.w3c.dom.Document
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.W3CDOMInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="W3CDOMInfosetOutputterextendsInfosetOutputterProxy"></a><a id="W3CDOMInfosetOutputter:W3CDOMInfosetOutputter"></a>
@@ -682,10 +690,10 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Output the infoset as a w3c Document" href="W3CDOMInfosetOutputter.html"><span class="name">W3CDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document" href="W3CDOMInfosetOutputter.html"><span class="name">W3CDOMInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      <p class="shortcomment cmt">Output the infoset as a w3c Document
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to build an infoset represented as an org.w3c.dom.Document
 </p>
     </li><li name="org.apache.daffodil.sapi.infoset.XMLTextInfosetInputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="XMLTextInfosetInputterextendsInfosetInputterProxy"></a><a id="XMLTextInfosetInputter:XMLTextInfosetInputter"></a>
@@ -699,10 +707,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="XMLTextInfosetInputter.html"><span class="name">XMLTextInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
+        <a title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream" href="XMLTextInfosetInputter.html"><span class="name">XMLTextInfosetInputter</span></a><span class="result"> extends <a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt"><a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> to read an infoset represented as XML from a java.io.InputStream
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.XMLTextInfosetOutputter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="XMLTextInfosetOutputterextendsInfosetOutputterProxy"></a><a id="XMLTextInfosetOutputter:XMLTextInfosetOutputter"></a>
       <span class="permalink">
@@ -715,10 +724,11 @@ infoset representation.</p><p>Classes that extend InfosetOutputter are not guara
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="XMLTextInfosetOutputter.html"><span class="name">XMLTextInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
+        <a title="InfosetOutputter to build an infoset represented as XML written to a java.io.OutputStream" href="XMLTextInfosetOutputter.html"><span class="name">XMLTextInfosetOutputter</span></a><span class="result"> extends <a href="InfosetOutputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputterProxy">InfosetOutputterProxy</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt"><a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to build an infoset represented as XML written to a java.io.OutputStream
+</p>
     </li></ol>
             </div>
 
