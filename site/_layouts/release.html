@@ -31,6 +31,7 @@ permalink: /release/release-notes-:title
       <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
       <li><a data-toggle="tab" href="#maven">Maven</a></li>
       <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+      <li><a data-toggle="tab" href="#rpm">DNF</a></li>
     </ul>
     <div class="tab-content">
       <div id="download" class="tab-pane fade in active">
@@ -100,6 +101,29 @@ libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.ill
 resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"
 {% endunless %}
 {% endhighlight %}
+      </div>
+      <div id="rpm" class="tab-pane fade">
+Create the file <code>/etc/yum.repos.d/apache-daffodil.repo</code> with the following content:
+
+<div style="padding: 10px 15px;">
+{% highlight ini %}
+[apache-daffodil]
+name=Apache Daffodil
+baseurl=https://apache.jfrog.io/artifactory/daffodil-rpm/
+enabled=1
+gpgkey=https://downloads.apache.org/daffodil/KEYS
+gpgcheck=1
+repo_gpgcheck=0
+{% endhighlight %}
+</div>
+
+Run the folllowing command:
+
+<div style="padding: 10px 15px;">
+{% highlight text %}
+sudo dnf install apache-daffodil
+{% endhighlight %}
+</div>
       </div>
     </div>
   </div>
