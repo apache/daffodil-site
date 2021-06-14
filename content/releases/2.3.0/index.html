@@ -97,6 +97,7 @@
       <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
       <li><a data-toggle="tab" href="#maven">Maven</a></li>
       <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+      <li><a data-toggle="tab" href="#rpm">DNF</a></li>
     </ul>
     <div class="tab-content">
       <div id="download" class="tab-pane fade in active">
@@ -211,6 +212,29 @@
 
 <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-sapi"</span> <span class="o">%</span> <span class="s">"2.3.0"</span></code></pre></figure>
 
+      </div>
+      <div id="rpm" class="tab-pane fade">
+Create the file <code>/etc/yum.repos.d/apache-daffodil.repo</code> with the following content:
+
+<div style="padding: 10px 15px;">
+
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="nn">[apache-daffodil]</span>
+<span class="py">name</span><span class="p">=</span><span class="s">Apache Daffodil</span>
+<span class="py">baseurl</span><span class="p">=</span><span class="s">https://apache.jfrog.io/artifactory/daffodil-rpm/</span>
+<span class="py">enabled</span><span class="p">=</span><span class="s">1</span>
+<span class="py">gpgkey</span><span class="p">=</span><span class="s">https://downloads.apache.org/daffodil/KEYS</span>
+<span class="py">gpgcheck</span><span class="p">=</span><span class="s">1</span>
+<span class="py">repo_gpgcheck</span><span class="p">=</span><span class="s">0</span></code></pre></figure>
+
+</div>
+
+Run the folllowing command:
+
+<div style="padding: 10px 15px;">
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo dnf install apache-daffodil</code></pre></figure>
+
+</div>
       </div>
     </div>
   </div>
