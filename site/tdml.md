@@ -40,7 +40,7 @@ absolutely best way to demonstrate a problem.
 By convention, a TDML file uses the file extension ``.tdml``, or ``.tdml.xml``
 when used with the TDML "tutorial" feature.
 
-The schema for a TDML file is available on [GitHub](https://github.com/apache/daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd).
+The schema for a TDML file is available on [GitHub](https://github.com/apache/daffodil/blob/main/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd).
 
 Below is an annotated TDML file for a very simple example:
 
@@ -440,9 +440,9 @@ a bit clumsy as you have to do it like this where each text line gets its own
 documentPart:
 
 ```xml
-<documentPart type="text" replaceDFDLEntities="true"><![CDATA[Of all the gin joints%CR;%LF;]]></documentPart>
-<documentPart type="text" replaceDFDLEntities="true"><![CDATA[In all the towns in the world%CR;%LF;]]></documentPart>
-<documentPart type="text" replaceDFDLEntities="true"><![CDATA[She walked into mine%CR;%LF;]]></documentPart>
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[Daffodil is an open source implementation%CR;%LF;]]></documentPart>
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[of the DFDL specification%CR;%LF;]]></documentPart>
+<documentPart type="text" replaceDFDLEntities="true"><![CDATA[that uses these DFDL schemas%CR;%LF;]]></documentPart>
 ```
 
 So the general rule is that CDATA regions cannot be used to ensure that
@@ -457,9 +457,9 @@ some other obscure Unicode line ending characters. In that case, the original
 documentPart XML:
 
 ```xml
-<documentPart type="text"><![CDATA[Of all the gin joints
-In all the towns of the world
-She walked into mine
+<documentPart type="text"><![CDATA[Daffodil is an open source implementation
+of the DFDL specification
+that uses these DFDL schemas
 ]]></documentPart>
 ```
 

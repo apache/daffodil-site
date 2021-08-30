@@ -76,5 +76,5 @@ but using the website repo instead of the code repo.
 Daffodil uses [gitpubsub](https://www.apache.org/dev/gitpubsub.html) for
 publishing to the website. The static content served via apache must be served
 in the ``content`` directory on the ``asf-site`` orphan branch. When the changes
-are merged into the master branch on GitHub, a GitHub action will automatically
+are merged into the main branch on GitHub, a GitHub action will automatically
 be triggered and it will perform the necessary steps to publish the site.
