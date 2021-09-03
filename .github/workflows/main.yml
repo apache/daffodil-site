@@ -60,7 +60,7 @@ jobs:
           rm -rf content
           mv target content
           git add content
-          git config --local user.email "${{ github.event.head_commit.committer.email }}"
-          git config --local user.name "${{ github.event.head_commit.committer.name }}"
+          git config --local user.email "dev@daffodil.apache.org"
+          git config --local user.name "Apache Daffodil Site Autobuild"
           git commit -a --allow-empty -m "Publishing from ${{ github.sha }}"
           git push --force "https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git" asf-site
