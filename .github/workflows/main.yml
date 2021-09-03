@@ -54,7 +54,7 @@ jobs:
           jekyll build --source site
 
       - name: Publish
-        if: ${{ github.repository == 'apache/daffodil-site' && github.ref == 'refs/heads/master' }}
+        if: ${{ github.repository == 'apache/daffodil-site' && github.ref == 'refs/heads/main' }}
         run: |
           git checkout asf-site
           rm -rf content
