@@ -103,7 +103,7 @@ absolutely best way to demonstrate a problem.</p>
 <p>By convention, a TDML file uses the file extension <code class="language-plaintext highlighter-rouge">.tdml</code>, or <code class="language-plaintext highlighter-rouge">.tdml.xml</code>
 when used with the TDML "tutorial" feature.</p>
 
-<p>The schema for a TDML file is available on <a href="https://github.com/apache/daffodil/blob/master/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd">GitHub</a>.</p>
+<p>The schema for a TDML file is available on <a href="https://github.com/apache/daffodil/blob/main/daffodil-lib/src/main/resources/org/apache/daffodil/xsd/tdml.xsd">GitHub</a>.</p>
 
 <p>Below is an annotated TDML file for a very simple example:</p>
 
@@ -486,9 +486,9 @@ encoding is say, UTF-16 or the 7-bit encoding.</p>
 a bit clumsy as you have to do it like this where each text line gets its own
 documentPart:</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[In all the towns in the world%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
-<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[She walked into mine%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Daffodil is an open source implementation%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[of the DFDL specification%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
+<span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">replaceDFDLEntities=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[that uses these DFDL schemas%CR;%LF;]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 </code></pre></div></div>
 
 <p>So the general rule is that CDATA regions cannot be used to ensure that
@@ -502,9 +502,9 @@ preserve <em>some</em> line endings. If this same test example was instead using
 some other obscure Unicode line ending characters. In that case, the original
 documentPart XML:</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Of all the gin joints
-In all the towns of the world
-She walked into mine
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Daffodil is an open source implementation
+of the DFDL specification
+that uses these DFDL schemas
 ]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 </code></pre></div></div>
 
