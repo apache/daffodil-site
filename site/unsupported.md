@@ -22,7 +22,7 @@ limitations under the License.
 {% endcomment %}
 -->
 
-Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.0.0 are listed below.
+Unsupported features of the [DFDL Specification](/docs/dfdl) as of Daffodil 3.2.0 are listed below.
 Note that this doesn't include just plain bugs in Daffodil, any of which could affect
 support for a feature, but rather the below is a list of features
 that there has been no intention to support as of this release. 
