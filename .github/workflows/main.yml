@@ -13,45 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Publish Daffodil Site
+name: CI
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  test:
-    name: Publish Site
-    runs-on: ubuntu-latest
+  build-publish:
+    name: Build & Publish
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
+
     steps:
-
       - name: Checkout Repository
-        uses: actions/checkout@v1.0.0
-
-      - name: Install Ruby
-        uses: actions/setup-ruby@v1
+        uses: actions/checkout@v2.4.0
         with:
-          ruby-version: '2.6'
+          fetch-depth: 0
 
-      - name: Install Python
-        uses: actions/setup-python@v1
+      - name: Build
+        uses: docker://jekyll/jekyll:4.2.0
+        env:
+          JEKYLL_ROOTLESS: 1
         with:
-          python-version: '3.5'
-
-      - name: Install Dependencies
-        run: |
-          sudo apt-get install graphviz
-          bundle install
-          python -m pip install --upgrade pip
-          pip install blockdiag
-          pip install seqdiag
-          pip install actdiag
-          pip install nwdiag
-
-      - name: Build 
-        run: |
-          jekyll clean --source site
-          jekyll build --source site
+          args: jekyll build --source site
 
       - name: Publish
         if: ${{ github.repository == 'apache/daffodil-site' && github.ref == 'refs/heads/main' }}

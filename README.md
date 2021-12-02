@@ -23,58 +23,41 @@ The Apache Daffodil website is based off of the [Apache Website Template](https:
 
 The website is generated using [Jekyll](https://jekyllrb.com/) and some plug-ins for it.
 
-# How to deploy this web site
+## Testing Locally
 
-## Install Ruby Bundler
+To improve reproducibility and to minimize the effects and variability of a
+users environment, it is recommended that changes to the site repo be tested
+locally with a container. To do so, run one of the following commands.
 
-Some Linux distributions provide the Ruby Bundler via their package managers, for example, for Fedora:
+With docker:
 
-    $ dnf install rubygem-bundler
+    docker run -it --rm \
+      --publish 127.0.0.1:4000:4000 \
+      --volume="$PWD:/srv/jekyll" \
+      docker.io/jekyll/jekyll:4.2.0 \
+      jekyll serve --watch --source site
 
-## Install or Update Site Dependencies
+With rootless podman:
 
-    $ gem install
+    podman run -it --rm \
+      --publish 127.0.0.1:4000:4000 \
+      --volume="$PWD:/srv/jekyll" \
+      --env JEKYLL_ROOTLESS=1 \
+      docker.io/jekyll/jekyll:4.2.0 \
+      jekyll serve --watch --source site
 
-or
-
-    $ gem update
-
-## Install Jekyll Plug-ins for AsciiDoc and Diagram Rendering
-
-Some content is developed using the AsciiDoc Markdown variant, which supports
-embedded diagrams created from diagram-specifying text formats. 
-
-(You probably want to install these as super-user using sudo.)
-
-    $ apt install python-pip
-    $ pip install blockdiag
-    $ pip install seqdiag
-    $ pip install actdiag
-    $ pip install nwdiag
-
-NOTE: `nwdiag` actually supports more than one diagram type. It supports nwdiag, packetdiag, rackdiag, etc.
-
-## Running Locally
-
-Before opening a pull request, you can preview your contributions by
-running from within the directory:
-
-    $ jekyll serve --watch --source site
-
-If that fails to work due to missing jekyll plugin versions, try:
-
-    $ bundle exec jekyll serve --watch --source site
-
-Open [http://localhost:4000](http://localhost:4000) to view the site served by Jekyll.
+Then open [http://localhost:4000](http://localhost:4000) to view the site
+served by the Jekyll container. Changes to files in the site directory are
+automatically rebuilt and served.
 
 Once satisfied, create a branch and open a pull request using the Daffodil
 project [Code Conttributor Workflow](https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow)
 but using the website repo instead of the code repo.
 
-## Pushing to the Live Site
+## Publishing to the Live Site
 
 Daffodil uses [gitpubsub](https://www.apache.org/dev/gitpubsub.html) for
-publishing to the website. The static content served via apache must be served
-in the ``content`` directory on the ``asf-site`` orphan branch. When the changes
+publishing to the website. The static content served via Apache must be served
+in the ``content`` directory on the ``asf-site`` orphan branch. When changes
 are merged into the main branch on GitHub, a GitHub action will automatically
-be triggered and it will perform the necessary steps to publish the site.
+run and perform the necessary steps to publish the site.
