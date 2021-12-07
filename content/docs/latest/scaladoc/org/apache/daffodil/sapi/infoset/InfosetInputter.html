@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.infoset.InfosetInputter</title>
-          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.infoset.InfosetInputter" />
-          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.infoset.InfosetInputter" />
+          <title>Apache Daffodil 3.2.0 Scala API  - org.apache.daffodil.sapi.infoset.InfosetInputter</title>
+          <meta name="description" content="Apache Daffodil 3.2.0 Scala API - org.apache.daffodil.sapi.infoset.InfosetInputter" />
+          <meta name="keywords" content="Apache Daffodil 3.2.0 Scala API org.apache.daffodil.sapi.infoset.InfosetInputter" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.2.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -576,7 +576,7 @@ current event type is StartElement. If the InfosetInputter does not
 support namespaces, this shoud return null. This may return null to
 represent no namespaces.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> → InfosetInputter</dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputter#getSimpleText" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+    </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputter#getSimpleText" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):String"></a><a id="getSimpleText(Kind):String"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/infoset/InfosetInputter.html#getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):String" title="Permalink">
@@ -591,12 +591,9 @@ represent no namespaces.
         <span class="name">getSimpleText</span><span class="params">(<span name="primType">primType: <span class="extype" name="org.apache.daffodil.dpath.NodeInfo.Kind">Kind</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
-      <p class="shortcomment cmt">Get the content of a simple type.</p><div class="fullcomment"><div class="comment cmt"><p>Get the content of a simple type. This will only be called when the
-current event type is StartElement and the element is a simple type. If
-the event contains complex data, it is an error and should throw
-NonTextFoundInSimpleContentException. If the element does not have any
-simple content, this should return either null or the empty string.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> → InfosetInputter</dd></dl></div>
+      <p class="shortcomment cmt">See getSimpleText(primType, runtimeProperties), which has a default
+implementation to call this function without the runtimeProperties Map
+</p>
     </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputter#hasNext" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="hasNext():Boolean"></a>
       <span class="permalink">
@@ -931,6 +928,27 @@ Return MaybeBoolean(true) if the nil property is set to true.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputter#getSimpleText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind,runtimeProperties:java.util.Map[String,String]):String"></a><a id="getSimpleText(Kind,Map[String,String]):String"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/InfosetInputter.html#getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind,runtimeProperties:java.util.Map[String,String]):String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getSimpleText</span><span class="params">(<span name="primType">primType: <span class="extype" name="org.apache.daffodil.dpath.NodeInfo.Kind">Kind</span></span>, <span name="runtimeProperties">runtimeProperties: <span class="extype" name="java.util.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Get the content of a simple type.</p><div class="fullcomment"><div class="comment cmt"><p>Get the content of a simple type. This will only be called when the
+current event type is StartElement and the element is a simple type. If
+the event contains complex data, it is an error and should throw
+NonTextFoundInSimpleContentException. If the element does not have any
+simple content, this should return either null or the empty string.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> → InfosetInputter</dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">

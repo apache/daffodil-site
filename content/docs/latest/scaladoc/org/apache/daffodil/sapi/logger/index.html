@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.logger</title>
-          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.logger" />
-          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.logger" />
+          <title>Apache Daffodil 3.2.0 Scala API  - org.apache.daffodil.sapi.logger</title>
+          <meta name="description" content="Apache Daffodil 3.2.0 Scala API - org.apache.daffodil.sapi.logger" />
+          <meta name="keywords" content="Apache Daffodil 3.2.0 Scala API org.apache.daffodil.sapi.logger" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.2.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -348,11 +348,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         <span class="name">logger</span>
       </span>
       
-      <p class="shortcomment cmt">Provides the classes necessary to receive logging messages from Daffodil.</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to receive logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="ConsoleLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="FileLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="NullLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
-<a href="../Daffodil$.html#setLogWriter(lw:org.apache.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code>/var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
-Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="../Daffodil$.html#setLoggingLevel(lvl:org.apache.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
-defaults to <a href="LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel.Info</a> if not set. For example, to change the log
-level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel.Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="ConsoleLogWriter.html" title="LogWriter that writes log messages to stdout"></a>
@@ -401,16 +397,7 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides the classes necessary to receive logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="ConsoleLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="FileLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="NullLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
-<a href="../Daffodil$.html#setLogWriter(lw:org.apache.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code>/var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
-Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="../Daffodil$.html#setLoggingLevel(lvl:org.apache.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
-defaults to <a href="LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel.Info</a> if not set. For example, to change the log
-level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel.Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><div class="toggleContainer block">
-          <span class="toggle">
-            Linear Supertypes
-          </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
+          <div id="comment" class="fullcommenttop"></div>
         
 
       <div id="mbrsel">
@@ -428,22 +415,10 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
             <ol>
               
               <li class="alpha in"><span>Alphabetic</span></li>
-              <li class="inherit out"><span>By Inheritance</span></li>
+              
             </ol>
           </div>
-          <div class="ancestors">
-                  <span class="filtertype">Inherited<br />
-                  </span>
-                  <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.logger"><span>logger</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
-                  </ol>
-                </div><div class="ancestors">
-              <span class="filtertype"></span>
-              <ol>
-                <li class="hideall out"><span>Hide All</span></li>
-                <li class="showall in"><span>Show All</span></li>
-              </ol>
-            </div>
+          
           <div id="visbl">
               <span class="filtertype">Visibility</span>
               <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -457,7 +432,7 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="org.apache.daffodil.sapi.logger.ConsoleLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="org.apache.daffodil.sapi.logger.ConsoleLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ConsoleLogWriterextendsLogWriter"></a><a id="ConsoleLogWriter:ConsoleLogWriter"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/logger/ConsoleLogWriter.html" title="Permalink">
@@ -469,12 +444,16 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="LogWriter that writes log messages to stdout" href="ConsoleLogWriter.html"><span class="name">ConsoleLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+        <a title="LogWriter that writes log messages to stdout" href="ConsoleLogWriter.html"><span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">ConsoleLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes log messages to stdout
-</p>
-    </li><li name="org.apache.daffodil.sapi.logger.FileLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+</p><div class="fullcomment"><div class="comment cmt"><p><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes log messages to stdout
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.logger.FileLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="FileLogWriterextendsLogWriter"></a><a id="FileLogWriter:FileLogWriter"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/logger/FileLogWriter.html" title="Permalink">
@@ -486,11 +465,15 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="LogWriter that writes all log messages to a file." href="FileLogWriter.html"><span class="name">FileLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+        <a title="LogWriter that writes all log messages to a file." href="FileLogWriter.html"><span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">FileLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
       </span>
       
-      <p class="shortcomment cmt"><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes all log messages to a file.</p>
-    </li><li name="org.apache.daffodil.sapi.logger.LogWriter" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes all log messages to a file.</p><div class="fullcomment"><div class="comment cmt"><p><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that writes all log messages to a file.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.logger.LogWriter" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LogWriterextendsAnyRef"></a><a id="LogWriter:LogWriter"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/logger/LogWriter.html" title="Permalink">
@@ -502,11 +485,15 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Abstract log writer, which can be overridden to create a custom log writer." href="LogWriter.html"><span class="name">LogWriter</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Abstract log writer, which can be overridden to create a custom log writer." href="LogWriter.html"><span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">LogWriter</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Abstract log writer, which can be overridden to create a custom log writer.</p>
-    </li><li name="org.apache.daffodil.sapi.logger.NullLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Abstract log writer, which can be overridden to create a custom log writer.</p><div class="fullcomment"><div class="comment cmt"><p>Abstract log writer, which can be overridden to create a custom log writer.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.logger.NullLogWriter" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="NullLogWriterextendsLogWriter"></a><a id="NullLogWriter:NullLogWriter"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html" title="Permalink">
@@ -518,20 +505,27 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="LogWriter that drops all log messages" href="NullLogWriter.html"><span class="name">NullLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+        <a title="LogWriter that drops all log messages" href="NullLogWriter.html"><span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">NullLogWriter</span></a><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that drops all log messages
-</p>
+</p><div class="fullcomment"><div class="comment cmt"><p><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that drops all log messages
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl></div>
     </li></ol>
             </div>
 
         
 
+        
+
+        
+
         <div class="values members">
-              <h3>Value Members</h3>
-              <ol>
-                <li name="org.apache.daffodil.sapi.logger.LogLevel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="org.apache.daffodil.sapi.logger.LogLevel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="LogLevel"></a><a id="LogLevel:LogLevel"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/logger/LogLevel$.html" title="Permalink">
@@ -543,27 +537,21 @@ level to <a href="LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLeve
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Logging levels." href="LogLevel$.html"><span class="name">LogLevel</span></a><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
+        <a title="Logging levels." href="LogLevel$.html"><span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">LogLevel</span></a><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
       </span>
       
       <p class="shortcomment cmt">Logging levels.</p><div class="fullcomment"><div class="comment cmt"><p>Logging levels.</p><p>Error, Warning, and Info are intended for general use. The default is Info.</p><p>Levels Resolver Compile, Debug, and OOLAGDebug are intended for Daffodil developer
 use.
-</p></div></div>
-    </li>
-              </ol>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl></div>
+    </li></ol>
             </div>
-
-        
-
-        
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
-            </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
-            </div>
+        
         
         </div>
 

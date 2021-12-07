@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter</title>
-          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter" />
-          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter" />
+          <title>Apache Daffodil 3.2.0 Scala API  - org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter</title>
+          <meta name="description" content="Apache Daffodil 3.2.0 Scala API - org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter" />
+          <meta name="keywords" content="Apache Daffodil 3.2.0 Scala API org.apache.daffodil.sapi.infoset.W3CDOMInfosetInputter" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.2.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -832,9 +832,9 @@ support namespaces, this shoud return null. This may return null to
 represent no namespaces.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a> → <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> → InfosetInputter</dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy#getSimpleText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):String"></a><a id="getSimpleText(Kind):String"></a>
+      <a id="getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):Nothing"></a><a id="getSimpleText(Kind):Nothing"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/infoset/W3CDOMInfosetInputter.html#getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):String" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/W3CDOMInfosetInputter.html#getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind):Nothing" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -843,7 +843,27 @@ represent no namespaces.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getSimpleText</span><span class="params">(<span name="primType">primType: <span class="extype" name="org.apache.daffodil.dpath.NodeInfo.Kind">Kind</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">getSimpleText</span><span class="params">(<span name="primType">primType: <span class="extype" name="org.apache.daffodil.dpath.NodeInfo.Kind">Kind</span></span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">See getSimpleText(primType, runtimeProperties), which has a default
+implementation to call this function without the runtimeProperties Map
+</p><div class="fullcomment"><div class="comment cmt"><p>See getSimpleText(primType, runtimeProperties), which has a default
+implementation to call this function without the runtimeProperties Map
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InfosetInputterProxy.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy">InfosetInputterProxy</a> → <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a></dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.infoset.InfosetInputterProxy#getSimpleText" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind,runtimeProperties:java.util.Map[String,String]):String"></a><a id="getSimpleText(Kind,Map[String,String]):String"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/W3CDOMInfosetInputter.html#getSimpleText(primType:org.apache.daffodil.dpath.NodeInfo.Kind,runtimeProperties:java.util.Map[String,String]):String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getSimpleText</span><span class="params">(<span name="primType">primType: <span class="extype" name="org.apache.daffodil.dpath.NodeInfo.Kind">Kind</span></span>, <span name="runtimeProperties">runtimeProperties: <span class="extype" name="java.util.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       <p class="shortcomment cmt">Get the content of a simple type.</p><div class="fullcomment"><div class="comment cmt"><p>Get the content of a simple type. This will only be called when the

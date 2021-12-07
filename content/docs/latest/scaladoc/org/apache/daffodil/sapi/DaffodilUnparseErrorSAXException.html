@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.1.0 Scala API  - org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException</title>
-          <meta name="description" content="Apache Daffodil 3.1.0 Scala API - org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException" />
-          <meta name="keywords" content="Apache Daffodil 3.1.0 Scala API org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException" />
+          <title>Apache Daffodil 3.2.0 Scala API  - org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException</title>
+          <meta name="description" content="Apache Daffodil 3.2.0 Scala API - org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException" />
+          <meta name="keywords" content="Apache Daffodil 3.2.0 Scala API org.apache.daffodil.sapi.DaffodilUnparseErrorSAXException" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.1.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.2.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -345,14 +345,10 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="Provides the classes necessary to receive logging messages from Daffodil." href="logger/index.html"><span class="name">logger</span></a>
+        <a title="" href="logger/index.html"><span class="name">logger</span></a>
       </span>
       
-      <p class="shortcomment cmt">Provides the classes necessary to receive logging messages from Daffodil.</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to receive logging messages from Daffodil.</p><h5> Overview </h5><p>Daffodil comes with three prebuilt log writers:</p><ul><li><a href="logger/ConsoleLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.ConsoleLogWriter">ConsoleLogWriter</a> - writes all log messages to stdout</li><li><a href="logger/FileLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.FileLogWriter">FileLogWriter</a> - writes all log messages to file</li><li><a href="logger/NullLogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> - drop all log messages</li></ul><p>To use one of these log writers, create and instance of it and pass it to
-<a href="Daffodil$.html#setLogWriter(lw:org.apache.daffodil.sapi.logger.LogWriter):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLogWriter">Daffodil.setLogWriter</a>. For example, to write all logs to <code>/var/log/daffodil.log</code>:</p><pre><span class="kw">val</span> lw = <span class="kw">new</span> FileLogWriter(<span class="kw">new</span> File(<span class="lit">"/var/log/daffodil.log"</span>))
-Daffodil.setLogWriter(lw)</pre><p>One may also change the log level using <a href="Daffodil$.html#setLoggingLevel(lvl:org.apache.daffodil.sapi.logger.LogLevel.Value):Unit" class="extmbr" name="org.apache.daffodil.sapi.Daffodil#setLoggingLevel">Daffodil.setLoggingLevel</a>, which
-defaults to <a href="logger/LogLevel$.html#Info:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Info">LogLevel.Info</a> if not set. For example, to change the log
-level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.LogLevel.Value" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel#Warning">LogLevel.Warning</a>:</p><pre>Daffodil.setLoggingLevel(LogLevel.Warning);</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
@@ -389,6 +385,10 @@ level to <a href="logger/LogLevel$.html#Warning:org.apache.daffodil.sapi.logger.
                         <span class="separator"></span>
                         <a class="class" href="Diagnostic.html" title="Class containing diagnostic information"></a>
                         <a href="Diagnostic.html" title="Class containing diagnostic information">Diagnostic</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="ExternalVariableException.html" title="This exception will be thrown if an error occurs when setting an external variable."></a>
+                        <a href="ExternalVariableException.html" title="This exception will be thrown if an error occurs when setting an external variable.">ExternalVariableException</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="InvalidParserException.html" title="This exception will be thrown as a result of attempting to reload a saved parser that is invalid (not a parser file, corrupt, etc.) or is not in the GZIP format."></a>
