@@ -90,3 +90,9 @@
   apacheId: jw3
   githubId: jw3
   role: PMC
+
+- first: Shane
+  last: Dell
+  apacheId: shanedell
+  githubId: shanedell
+  role: PMC
