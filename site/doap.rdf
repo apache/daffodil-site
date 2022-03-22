@@ -87,6 +87,13 @@
     <release>
         <Version>
             <name>Apache Daffodil</name>
+            <created>2022-03-21</created>
+            <revision>3.3.0</revision>
+        </Version>
+    </release>
+    <release>
+        <Version>
+            <name>Apache Daffodil</name>
             <created>2021-12-22</created>
             <revision>3.2.1</revision>
         </Version>
