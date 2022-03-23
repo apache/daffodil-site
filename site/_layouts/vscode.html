@@ -1,0 +1,70 @@
+---
+layout: default
+permalink: /vscode/release-notes-:title
+---
+
+{% unless page.released %}
+  <div class="alert alert-warning">
+    Apache Daffodil VSCode {{ page.title }} has not yet been released! The artifacts
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil which has not yet occurred.
+  </div>
+{% endunless %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Get Release</h3>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="download" class="tab-pane fade in active">
+        {% if page.source-dist %}
+          {% if page.apache %} {% assign prefix = "src/" %} {% endif %}
+          <h4>Source</h4>
+          <p>
+          {% include download-list.html
+             version=page.title
+             artifacts=page.source-dist
+             checksum-root=page.checksum-root
+             artifact-root=page.artifact-root
+             prefix=prefix
+          %}
+          </p>
+        {% endif %}
+
+        {% if page.binary-dist %}
+          {% if page.apache %} {% assign prefix = "bin/" %} {% endif %}
+          <h4>Binaries</h4>
+          <p>
+          {% include download-list.html
+             version=page.title
+             artifacts=page.binary-dist
+             checksum-root=page.checksum-root
+             artifact-root=page.artifact-root
+             prefix=prefix
+          %}
+          </p>
+        {% endif %}
+
+        {% if page.apache %}
+          <hr />
+          <p>
+            <i>
+              The above release files should be verified using the PGP signatures and the
+              <a href='{{ page.key-file }}'>project release KEYS</a>. See
+              <a href='https://www.apache.org/dyn/closer.cgi#verify'>verification instructions</a>
+              for a description of using the PGP and KEYS files for
+              verification. A SHA512 checksum is also provided as
+              an alternative verification method.
+            </i>
+          </p>
+        {% endif page.apache %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="release-notes">Release Notes</h3>
+
+{{ content }}
