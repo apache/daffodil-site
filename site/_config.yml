@@ -25,11 +25,16 @@ collections:
     releases:
         output: true
         permalink: /releases/:title/
+    vscode:
+      output: true
+      permalink: /vscode/:title/
 
 # Site-wide defaults
 defaults:
     - scope:  { type: releases }
       values: { layout: release }
+    - scope:  { type: vscode }
+      values: { layout: vscode }
 
 # Used by the JIRA plugin
 jira_base_url: https://issues.apache.org/jira/browse
