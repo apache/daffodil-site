@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | </title>
+    <title>Apache Daffodil | VSCode Extension</title>
     
     <meta name="author" content="">
 
@@ -75,7 +75,7 @@
 
 <div class="title">
   <div class="container">
-    <h2></h2>
+    <h2>VSCode Extension</h2>
   </div>
 </div>
 
@@ -84,78 +84,61 @@
     <div class="container">
       <div class="row">
   <div class="col-md-12">
-    <div class="sect1">
-<h2 id="about-tdml-tutorials">About TDML Tutorials</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="writing-executable-tutorials-in-tdml">Writing Executable Tutorials in TDML</h3>
-<div class="paragraph">
-<p>Tutorials can be directly written in <a href="/tdml">Test Data Markup Language (TDML)</a>, enhanced using TDML&#8217;s <code>tdml:tutorial</code> elements. These look like:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;tdml:parserTestCase name="myTest"
-   description="This is my test, and this would describe it." ...&gt;
-&lt;tdml:tutorial xml:space="preserve"&gt;&lt;p&gt;
-Any XHTML you want can go inside tutorial elements.
-&lt;br /&gt;
-The tutorial elements can also appear in numerous locations in the TDML file.
-&lt;br /&gt;
-The description attributes are also converted into headings of the resulting tutorial
-&lt;br /&gt;
-&lt;/p&gt;
-&lt;/tdml:tutorial&gt;
-...
-&lt;/tdml:parserTestCase&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The tutorial elements can contain any <a href="http://www.w3.org/TR/html5/the-xhtml-syntax.html">XHTML</a> elements.</p>
-</div>
-<div class="paragraph">
-<p>The TDML file still runs as a test suite of TDML tests, which insures that the examples contained in the tutorial actually work as described. The TDML is translated into HTML by your web browser.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<img src="/images/icons/tip.png" alt="💡">
-</td>
-<td class="content">
-If you <a href="https://www.wikihow.com/View-Source-Code">know how to view the source of the web page</a> from your web browser, you will see the TDML file, not some translation/rendering of it.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="about-graphicsillustrations-in-tdml-tutorials">About Graphics/Illustrations in TDML Tutorials</h3>
-<div class="paragraph">
-<p>An important characteristic of TDML-based tutorials is that they are self-contained.
-By using a few HTML techniques and some free tools that run directly in the web browser, we can insure that the images and diagrams needed for a tutorial can be embedded directly in the TDML file.</p>
-</div>
-<div class="ulist">
+    <!--
+
+-->
+
+<h4 id="summary">Summary</h4>
+<p>This page is for the Daffodil VSCode Extension.</p>
+
+<p>Features:</p>
+
 <ul>
-<li>
-<p><a href="https://svg-edit.github.io/svgedit/releases/svg-edit-2.8.1/svg-editor.html">SVG-Edit</a>
-lets you draw/edit SVG format - which is really the preferred thing for embedding in these tutorials since SVG is part of HTML.
-Once you have the SVG for your diagram, you can copy it into the XHTML tutorial content of the TDML file.
-However, SVG is very verbose, and this will dilute the content of your TDML file substantially.
-You may prefer to embed the diagram via an img tag.</p>
-</li>
-<li>
-<p><a href="http://freeonlinetools24.com/base64-image">Base64 image encoder decoder</a>
-can be used to embed images directly into the TDML file, so you can take images, or draw diagrams with your favorite drawing tool, and embed them in the TDML file while still keeping the TDML file self-contained. This tool can also convert the base64 encoding back into an editable file if you need to edit the image.</p>
-</li>
-<li>
-<p>This <a href="http://www.online-image-editor.com">Online graphics editor</a>
-can edit PNGs JPG, etc.</p>
-</li>
+  <li>DFDL schema parsing/debugging</li>
+  <li>Output infoset to console, file or none</li>
+  <li>Session launch configuration</li>
+  <li>Scala implementation of the daffodil debugger</li>
+  <li>View infoset while debugging</li>
+  <li>View difference of infoset from one step to another when debugging</li>
+  <li>View hex of the data file</li>
+  <li>Launch wizard, helps create the <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code></li>
+  <li>Run currently opened schema file</li>
+  <li>Debug currently opened schema file</li>
+  <li>Daffodil toolbar and Command Palette:
+    <ul>
+      <li>Open infoset view</li>
+      <li>Open infoset diff view</li>
+      <li>Open hex view</li>
+      <li>Open launch wizard</li>
+    </ul>
+  </li>
+  <li>Set breakpoints inside of main schema file</li>
+  <li>Set breakpoints inside of imported schemas</li>
 </ul>
-</div>
-</div>
-</div>
-</div>
+
+<h4 id="releases">Releases</h4>
+
+<p>All recent Daffodil VSCode Extension releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.</p>
+
+<table class="table">
+    <tr>
+        <th class="col-md-1">Version</th>
+        <th>Summary</th>
+        <th class="col-md-2 text-right">Release&nbsp;Date</th>
+    </tr>
+    
+        
+            <tr>
+                <td style="vertical-align: middle; line-height: 2.5em;" class="col-md-1"><a href="/vscode/1.0.0/">1.0.0</a></td>
+                <td style="vertical-align: middle;">Initial release
+</td>
+                <td style="vertical-align: middle;" class="col-md-2 text-right">2022-03-17</td>
+            </tr>
+        
+    
+</table>
+
+
   </div>
 </div>
 
