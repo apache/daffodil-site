@@ -1,6 +1,6 @@
 ---
 layout: page
-title: VSCode Extension
+title: VS Code Extension
 group: nav-right
 ---
 <!--
@@ -22,32 +22,11 @@ limitations under the License.
 {% endcomment %}
 -->
 
-#### Summary
-This page is for the Daffodil VSCode Extension. 
-
-Features:
-
-* DFDL schema parsing/debugging
-* Output infoset to console, file or none
-* Session launch configuration
-* Scala implementation of the daffodil debugger
-* View infoset while debugging
-* View difference of infoset from one step to another when debugging
-* View hex of the data file
-* Launch wizard, helps create the `.vscode/launch.json`
-* Run currently opened schema file
-* Debug currently opened schema file
-* Daffodil toolbar and Command Palette:
-    * Open infoset view
-    * Open infoset diff view
-    * Open hex view
-    * Open launch wizard
-* Set breakpoints inside of main schema file
-* Set breakpoints inside of imported schemas
+The Daffodil VS Code Extension is a custom extension developed by Apache for allowing users to debug schemas inside of VS Code. The VS Code Extension also contains a Scala implemation of the Daffodil DAP Debugger that provides the users the ability to debug schemas.
 
 #### Releases
 
-All recent Daffodil VSCode Extension releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
+All recent Daffodil VS Code Extension releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 
 {% assign releases = site.vscode  | where: 'released', 'true' | where: 'apache', 'true' | sort: 'date' %}
 {% if releases.size > 0 %}
