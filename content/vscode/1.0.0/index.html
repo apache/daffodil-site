@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | 1.0.0</title>
+    <title>Apache Daffodil | VS Code Extension 1.0.0</title>
     
     <meta name="author" content="">
 
@@ -28,7 +28,7 @@
         <nav role="navigation">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/releases">Releases</a></li>
-            <li><a href="/vscode">VSCode</a></li>
+            <li><a href="/vscode">VS Code</a></li>
             <li id="documentation">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
@@ -75,7 +75,7 @@
 
 <div class="title">
   <div class="container">
-    <h2>1.0.0</h2>
+    <h2>VS Code Extension 1.0.0</h2>
   </div>
 </div>
 
@@ -84,7 +84,7 @@
     <div class="container">
       
   <div class="alert alert-warning">
-    Apache Daffodil VSCode 1.0.0 has not yet been released! The artifacts
+    Apache Daffodil VS Code Extension 1.0.0 has not yet been released! The artifacts
     and release notes below are drafts for a proposed release of Apache
     Daffodil which has not yet occurred.
   </div>
@@ -162,11 +162,68 @@
 
 <h3 id="release-notes">Release Notes</h3>
 
-<p>This release contains VSCode extension used parsing/debugging a daffodil schema inside of VSCode.</p>
+<p>This release contains a VS Code extension for debugging Daffodil schemas inside of VS Code.</p>
 
-<h4 id="v100">v1.0.0</h4>
+<h4 id="new-features">New Features</h4>
 
-<p><a href="https://github.com/apache/daffodil-vscode/issues?q=is%3Aissue+is%3Aclosed">GitHub v1.0.0 Closed Issues</a></p>
+<ul>
+  <li>DFDL schema debugging</li>
+  <li>Output infoset to console, file or none</li>
+  <li>Scala implementation of the daffodil debugger</li>
+  <li>Infoset View
+    <ul>
+      <li>This view dynamically updates to show the user what the current state of the infoset looks like</li>
+    </ul>
+  </li>
+  <li>Infoset Diff View
+    <ul>
+      <li>This view dynamically updates to show the user the difference of the infoset from the previous step to the current one</li>
+    </ul>
+  </li>
+  <li>Hex View
+    <ul>
+      <li>This view displays to the user the hexadeciaml of their data file</li>
+      <li>This view also highlights the current byte of the data file being read</li>
+    </ul>
+  </li>
+  <li>Session launch configuration:
+    <ul>
+      <li>Both options are done utilizing file called <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code>. This file can hold multiple different debugging profiles that can be selected between in VS Code</li>
+      <li>Configuration via Launch wizard:
+        <ul>
+          <li>The launch wizard is an interactive GUI that helps user set the values they want for the debugging configuration</li>
+          <li>The launch wizard allows for creating the 1st debug profile, creating additional debug profiles and updating existing debug profiles.</li>
+          <li>If the profile created is the first one the file <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code> is automatically created with the profile in it</li>
+          <li>If the profile is an additional profile it will be appended to the list at <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code></li>
+          <li>If the profile already exists in <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code>, the profile in the file will be updated upon saving</li>
+        </ul>
+      </li>
+      <li>via Manual Editing:
+        <ul>
+          <li>The other way to customized the launch configuration is by manually editing the <code class="language-plaintext highlighter-rouge">.vscode/launch.json</code> file.</li>
+          <li>This is done by editing the specific profile you wish to change. This allows easy changing of the schema file, data file and other settings.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Run currently opened schema file</li>
+  <li>Debug currently opened schema file</li>
+  <li>Daffodil toolbar and Command Palette:
+    <ul>
+      <li>Open Infoset View</li>
+      <li>Open Infoset Diff View</li>
+      <li>Open Hex View</li>
+      <li>Open Launch Wizard</li>
+      <li>NOTE: These commands only become available when debugging has been started</li>
+    </ul>
+  </li>
+  <li>Set breakpoints inside of main schema file</li>
+  <li>Set breakpoints inside of imported schemas</li>
+</ul>
+
+<h4 id="closed-issues">Closed Issues</h4>
+
+<p><a href="https://github.com/apache/daffodil-vscode/milestone/1?closed=1">GitHub v1.0.0 Closed Issues</a></p>
 
 
       <footer>
