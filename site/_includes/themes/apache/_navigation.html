@@ -63,7 +63,7 @@
 {% else %}
 <div class="title">
   <div class="container">
-    <h2>{% if page.collection == "releases" %}{% if page.apache %}Apache {% endif %}Daffodil {% endif %}{{ page.title }}</h2>
+    <h2>{% if page.collection == "releases" %}{% if page.apache %}Apache {% endif %}Daffodil {% endif %}{% if page.collection == "vscode" %}VS Code Extension {% endif %}{{ page.title }}</h2>
   </div>
 </div>
 {% endif %}
