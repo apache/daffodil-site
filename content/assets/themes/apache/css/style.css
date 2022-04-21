@@ -1,6 +1,12 @@
-/* Move down content because we have a fixed navbar that is 50px tall */
-@import url(//fonts.googleapis.com/css?family=Patua+One);
+@font-face {
+  font-family: 'Patua One';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/themes/apache/fonts/patuaone.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-bottom: 20px;
   font-family: 'Carlito', 'FreeSans', 'Liberation Sans', 'Arial', 'Helvetica', sans-serif;
@@ -394,7 +400,7 @@ hr {
 
 
 .jumbotron h1 {
-  font-family: 'Patua One', cursive; }
+  font-family: 'Patua One', sans-serif; }
 
 .jumbotron small {
     font-size: 65%;
@@ -402,7 +408,7 @@ hr {
 }
 
 .navbar-brand {
-    font-family: 'Patua One', cursive;
+    font-family: 'Patua One', sans-serif;
 }
 
 .navbar-brand small {
