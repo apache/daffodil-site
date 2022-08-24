@@ -80,6 +80,7 @@ h2 {
 .nav-tabs > li.active > a:hover {
   background-color: #f5f5f5;
   font-weight: bold;
+  outline: 0;
 }
 
 .navbar-nav .open .dropdown-menu {
