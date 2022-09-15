@@ -96,3 +96,9 @@
   apacheId: shanedell
   githubId: shanedell
   role: PMC
+
+- first: Adam
+  last: Rosien
+  apacheId: arosien
+  githubId: arosien
+  role: PMC
