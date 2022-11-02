@@ -256,13 +256,15 @@ Run the folllowing command:
 support infosets represented as EXI binary XML for non-schema aware and schema
 aware EXI, respectively. EXI infosets are significantly smaller in size than
 normal XML infosets, and are often even smaller than the original data format
-when made schema aware. This support has been enabled with the
-<a href="https://exificient.github.io/">Exificient</a> library.</p>
+when made schema aware. The Daffodil CLI has added the
+<a href="https://exificient.github.io/">Exificient</a> library to support these infoset
+types.</p>
 
-<p>API users can create EXI files using the existing <code class="language-plaintext highlighter-rouge">SAXInfosetInputter</code> and
-<code class="language-plaintext highlighter-rouge">SAXInfosetOutputter</code> classes and the Exificient SAX API. This has also been
-tested with the Agile Delta EXI SAX API. Schema aware EXI can be enabled using
-the <code class="language-plaintext highlighter-rouge">DaffodilXMLEntityResolver</code>, newly added to Java and Scala public APIs.</p>
+<p>API users can create EXI files by combining the existing <code class="language-plaintext highlighter-rouge">SAXInfosetInputter</code>
+and <code class="language-plaintext highlighter-rouge">SAXInfosetOutputter</code> classes with the Exificient SAX API or they can use
+the Agile Delta EXI SAX API which has been tested with Daffodil as
+well. Daffodil has added the new <code class="language-plaintext highlighter-rouge">DaffodilXMLEntityResolver</code> class to its
+Java and Scala public APIs to support creating schema aware EXI files too.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1959">DAFFODIL-1959</a>] EXIficient Inputter and outputter for XML EXI representation</li>
@@ -282,15 +284,16 @@ Daffodil classpath.</p>
 
 <h4 id="embedded-xml-in-the-infoset">Embedded XML in the Infoset</h4>
 
-<p>When using the <code class="language-plaintext highlighter-rouge">XMLTextInfosetInputter</code> and <code class="language-plaintext highlighter-rouge">XMLTextInfosetOutputter</code> in the
-API, or <code class="language-plaintext highlighter-rouge">-I xml</code> in the CLI, simple string elements with the DFDL extension
-attribute of <code class="language-plaintext highlighter-rouge">dfdl:runtimeProperties="stringAsXml=true"</code> are treated as XML.
-This means that when parsing, instead of outputting the content as an XML
+<p>When using the <code class="language-plaintext highlighter-rouge">XMLTextInfosetInputter</code> and <code class="language-plaintext highlighter-rouge">XMLTextInfosetOutputter</code> classes
+in the API, or <code class="language-plaintext highlighter-rouge">-I xml</code> in the CLI, simple string elements with the DFDL
+extension attribute <code class="language-plaintext highlighter-rouge">dfdlx:runtimeProperties="stringAsXml=true"</code> are treated as
+XML. This means that when parsing, instead of outputting the content as an XML
 escaped string, the parsed content is checked to be valid XML and output as if
-it were part of the XML infoset. When unparsing, the XML part of the infoset is
-converted back to a string. Note that because there are multiple ways to read
-and write XML that are syntactically different but semantically the same, it is
-possible that parsed or unparsed data may differ from the original data.</p>
+it were part of the XML infoset. When unparsing, the embedded XML part of the
+infoset is converted back to a string. Note that because there are multiple
+ways to read and write XML that are syntactically different but semantically
+the same, it is possible that parsed or unparsed data may differ from the
+original data.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2708">DAFFODIL-2708</a>] XML String feature in XML Text Infoset Inputter/Outputter</li>
@@ -300,11 +303,13 @@ possible that parsed or unparsed data may differ from the original data.</p>
 
 <p>The C code generator backend now supports reading and writing N-bit booleans
 and integers, where N is an explicit length from 1 to 64 bits. Additional
-miscellaneous changes include unit test support, fixes to nested choices, and
-tweaks to how float numbers are output.</p>
+miscellaneous changes include unit test support, fixes to nested choices,
+tweaks to how float numbers are output, and a command line option to choose the
+TDML implementation to run TDML tests.</p>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2696">DAFFODIL-2696</a>] Extend runtime2 to N-bit booleans and integers (1 &lt;= N &lt;= 64)</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2697">DAFFODIL-2697</a>] Choose TDML implementation to run TDML tests</li>
 </ul>
 
 <h4 id="additional-new-featuresimprovements">Additional New Features/Improvements</h4>
@@ -313,7 +318,6 @@ tweaks to how float numbers are output.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2357">DAFFODIL-2357</a>] Update recoverable error to not be an SDW</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2369">DAFFODIL-2369</a>] TDML language needs comment syntax in documentPart byte and bits</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2685">DAFFODIL-2685</a>] Upgrade Scala XML library to 2.1.0 version</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2697">DAFFODIL-2697</a>] Choose TDML implementation to run TDML tests</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2702">DAFFODIL-2702</a>] Eliminate build warning on VSCode scala build of Daffodil</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2719">DAFFODIL-2719</a>] Add tests to illustrate some nillable and fixed-length scenarios</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2723">DAFFODIL-2723</a>] Change DataProcessor.copy() method to public</li>
@@ -336,6 +340,7 @@ tweaks to how float numbers are output.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2713">DAFFODIL-2713</a>] Release candidate container has poor cacability and reproducability</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2717">DAFFODIL-2717</a>] unparser deadlocks in mil-std-2045 2-message file case</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2726">DAFFODIL-2726</a>] Index out of bounds -1 during unparsing</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2742">DAFFODIL-2742</a>] bin.LICENSE and bin.NOTICE need to be updated</li>
 </ul>
 
 <h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
@@ -363,6 +368,7 @@ instead of <code class="language-plaintext highlighter-rouge">Boolean</code>. Er
   <li>FasterXML Woodstox Core 6.4.0 <small>(update)</small></li>
   <li>ICU4J 72.1 <small>(update)</small></li>
   <li>Log4j API 2.19.0 <small>(update)</small></li>
+  <li>Scala Reflect &amp; Standard Library 2.12.17 <small>(update)</small></li>
   <li>Scala XML 2.1.0 <small>(update)</small></li>
 </ul>
 
@@ -383,6 +389,22 @@ instead of <code class="language-plaintext highlighter-rouge">Boolean</code>. Er
 
 <ul>
   <li>Scalacheck 1.17.0 <small>(update)</small></li>
+</ul>
+
+<p><strong>Changes to Transitive Dependencies</strong></p>
+
+<ul>
+  <li>Apache Commons Codec 1.15 <small>(update, used by httpclient5 &amp; log4j)</small></li>
+  <li>Apache HttpClient 5.1.3 <small>(new, used by XML Resolver)</small></li>
+  <li>Apache HttpComponents Core HTTP/1.1 5.1.3 <small>(upgrade, used by XML Resolver)</small></li>
+  <li>Apache HttpComponents Core HTTP/2 5.1.3 <small>(new, used by XML Resolver)</small></li>
+  <li>JAXB API 2.2.11 <small>(new, used by Exificient)</small></li>
+  <li>JAXB Core Implementation 2.2.11 <small>(new, used by Exificient)</small></li>
+  <li>JAXB Runtime 2.2.11 <small>(new, used by Exificient)</small></li>
+  <li>JavaBeans Activation Framework Specification 1.1.1 <small>(new, used by Exificient)</small></li>
+  <li>SLF4J API 1.7.25 <small>(new, used by httpclient5)</small></li>
+  <li>XML Resolver &amp; data 4.4.3 <small>(update, used by Saxon-HE)</small></li>
+  <li>XmlPull 1.1.3.1 <small>(new, used by Exificient)</small></li>
 </ul>
 
 
