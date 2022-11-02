@@ -1009,7 +1009,7 @@ following order:</p><p>1. Use an org.apache.xml.resolver.Catalog/CatalogManager.
    catalogs can be added by putting CatalogManager.properties on the
    classpath when daffodil is run.</p><p>2. If not resolved in step 1, schemaLocations are resolved relative to the
    importing schema URI, which could either be a file on the filesystem or in
-   a jar on the classpath.</p><p>The DFDLCatalogResolver isn't thread safe, but it also is expensive and stateful,
+   a jar on the classpath.</p><p>The EntityResolver isn't thread safe, but it also is expensive and stateful,
 so we use ThreadLocal to only create one instance per thread.
 </p></div></div>
     </li><li name="org.apache.daffodil.sapi.ValidationMode" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
