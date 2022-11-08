@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.3.0 Scala API  - org.apache.daffodil.sapi</title>
-          <meta name="description" content="Apache Daffodil 3.3.0 Scala API - org.apache.daffodil.sapi" />
-          <meta name="keywords" content="Apache Daffodil 3.3.0 Scala API org.apache.daffodil.sapi" />
+          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi</title>
+          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi" />
+          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.3.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.4.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -373,6 +373,10 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                         <span class="separator"></span>
                         <a class="class" href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse"></a>
                         <a href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse">DaffodilUnparseErrorSAXException</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="object" href="DaffodilXMLEntityResolver$.html" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations."></a>
+                        <a href="DaffodilXMLEntityResolver$.html" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations.">DaffodilXMLEntityResolver</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="DataLocation.html" title="Information related to a location in data"></a>
@@ -982,6 +986,32 @@ Exception.
       
       <p class="shortcomment cmt">The full URIs needed for setting/getting properties for the <a href="DaffodilParseXMLReader.html" class="extype" name="org.apache.daffodil.sapi.DaffodilParseXMLReader">DaffodilParseXMLReader</a>
 </p>
+    </li><li name="org.apache.daffodil.sapi.DaffodilXMLEntityResolver" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DaffodilXMLEntityResolver"></a><a id="DaffodilXMLEntityResolver:DaffodilXMLEntityResolver"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations." href="DaffodilXMLEntityResolver$.html"><span class="name">DaffodilXMLEntityResolver</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Returns the EntityResolver used by Daffodil to resolve import/include
+schemaLocations.</p><div class="fullcomment"><div class="comment cmt"><p>Returns the EntityResolver used by Daffodil to resolve import/include
+schemaLocations.</p><p>The entity resolver attempts to resolve namespaces and systemId's in the
+following order:</p><p>1. Use an org.apache.xml.resolver.Catalog/CatalogManager. By default the
+   Catalog only includes the daffodil-built-in-catalog.xml, but additional
+   catalogs can be added by putting CatalogManager.properties on the
+   classpath when daffodil is run.</p><p>2. If not resolved in step 1, schemaLocations are resolved relative to the
+   importing schema URI, which could either be a file on the filesystem or in
+   a jar on the classpath.</p><p>The EntityResolver isn't thread safe, but it also is expensive and stateful,
+so we use ThreadLocal to only create one instance per thread.
+</p></div></div>
     </li><li name="org.apache.daffodil.sapi.ValidationMode" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ValidationMode"></a><a id="ValidationMode:ValidationMode"></a>
       <span class="permalink">

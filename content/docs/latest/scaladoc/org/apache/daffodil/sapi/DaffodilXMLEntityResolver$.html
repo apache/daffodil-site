@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi.Compiler</title>
-          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi.Compiler" />
-          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi.Compiler" />
+          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi.DaffodilXMLEntityResolver</title>
+          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi.DaffodilXMLEntityResolver" />
+          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi.DaffodilXMLEntityResolver" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -136,8 +136,8 @@
 unparse files using the compiled objects, and retrieve results and
 parsing diagnostics</p><div class="fullcomment"><div class="comment cmt"><p>Provides the classes necessary to compile DFDL schemas, parse and
 unparse files using the compiled objects, and retrieve results and
-parsing diagnostics</p><h5> Overview </h5><p>The <a href="Daffodil$.html" class="extype" name="org.apache.daffodil.sapi.Daffodil">Daffodil</a> object is a factory object to create a <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a>. The
-<a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> provides a method to compile a provided DFDL schema into a
+parsing diagnostics</p><h5> Overview </h5><p>The <a href="Daffodil$.html" class="extype" name="org.apache.daffodil.sapi.Daffodil">Daffodil</a> object is a factory object to create a <a href="Compiler.html" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a>. The
+<a href="Compiler.html" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> provides a method to compile a provided DFDL schema into a
 <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>, which creates a <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>:</p><pre><span class="kw">val</span> c = Daffodil.compiler()
 <span class="kw">val</span> pf = c.compileFile(file)
 <span class="kw">val</span> dp = pf.onPath(<span class="lit">"/"</span>)</pre><p>The <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> provides the necessary functions to parse and unparse
@@ -351,8 +351,8 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
-                        <a href="" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's.">Compiler</a>
+                        <a class="class" href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
+                        <a href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's.">Compiler</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="object" href="Daffodil$.html" title="Factory object to create a Compiler and set global configurations"></a>
@@ -375,8 +375,8 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                         <a href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse">DaffodilUnparseErrorSAXException</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="object" href="DaffodilXMLEntityResolver$.html" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations."></a>
-                        <a href="DaffodilXMLEntityResolver$.html" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations.">DaffodilXMLEntityResolver</a>
+                        <a class="object" href="" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations."></a>
+                        <a href="" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations.">DaffodilXMLEntityResolver</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="DataLocation.html" title="Information related to a location in data"></a>
@@ -430,12 +430,12 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
             </div>
           </div>
           <div id="content">
-            <body class="class type">
+            <body class="object value">
       <div id="definition">
-        <div class="big-circle class">c</div>
+        <div class="big-circle object">o</div>
         <p id="owner"><a href="../../../index.html" class="extype" name="org">org</a>.<a href="../../index.html" class="extype" name="org.apache">apache</a>.<a href="../index.html" class="extype" name="org.apache.daffodil">daffodil</a>.<a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></p>
-        <h1>Compiler<span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html" title="Permalink">
+        <h1>DaffodilXMLEntityResolver<span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
@@ -445,15 +445,23 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">Compiler</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">DaffodilXMLEntityResolver</span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Compile DFDL schemas into <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>'s or reload saved parsers into <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>'s.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Returns the EntityResolver used by Daffodil to resolve import/include
+schemaLocations.</p><p>The entity resolver attempts to resolve namespaces and systemId's in the
+following order:</p><p>1. Use an org.apache.xml.resolver.Catalog/CatalogManager. By default the
+   Catalog only includes the daffodil-built-in-catalog.xml, but additional
+   catalogs can be added by putting CatalogManager.properties on the
+   classpath when daffodil is run.</p><p>2. If not resolved in step 1, schemaLocations are resolved relative to the
+   importing schema URI, which could either be a file on the filesystem or in
+   a jar on the classpath.</p><p>The EntityResolver isn't thread safe, but it also is expensive and stateful,
+so we use ThreadLocal to only create one instance per thread.
 </p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -484,7 +492,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.Compiler"><span>Compiler</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.apache.daffodil.sapi.DaffodilXMLEntityResolver"><span>DaffodilXMLEntityResolver</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -514,7 +522,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -530,7 +538,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html###():Int" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -546,7 +554,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -562,7 +570,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -578,7 +586,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#clone():Object" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -599,63 +607,10 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#compileFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="compileFile(schemaFile:java.io.File,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory"></a><a id="compileFile(File,Option[String],Option[String]):ProcessorFactory"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#compileFile(schemaFile:java.io.File,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">compileFile</span><span class="params">(<span name="schemaFile">schemaFile: <span class="extype" name="java.io.File">File</span></span>, <span name="optRootName">optRootName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="optRootNamespace">optRootNamespace: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Compile DFDL schema file into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></p><div class="fullcomment"><div class="comment cmt"><p>Compile DFDL schema file into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></p><p>To allow jar-file packaging, (where schema files might be part of a jar),
-it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory" class="extmbr" name="org.apache.daffodil.sapi.Compiler#compileSource">Compiler.compileSource</a> instead.
-</p></div><dl class="paramcmts block"><dt class="param">schemaFile</dt><dd class="cmt"><p>DFDL schema file used to create a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>.</p></dd><dt class="param">optRootName</dt><dd class="cmt"><p>Option for name of root element, or None to choose automatically from first element of schema.
-       Defaults to None.</p></dd><dt class="param">optRootNamespace</dt><dd class="cmt"><p>Option for string of namespace of the root element, or None to infer automatically when
-       unambiguous. Pass Some(&quot;&quot;) (empty string) for No Namespace. Defaults to None.</p></dd><dt>returns</dt><dd class="cmt"><p><a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a> used to create <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>(s). Must check <a href="ProcessorFactory.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.ProcessorFactory#isError">ProcessorFactory.isError</a> before using it.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.io.IOException]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#compileSource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="compileSource(uri:java.net.URI,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory"></a><a id="compileSource(URI,Option[String],Option[String]):ProcessorFactory"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#compileSource(uri:java.net.URI,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">compileSource</span><span class="params">(<span name="uri">uri: <span class="extype" name="java.net.URI">URI</span></span>, <span name="optRootName">optRootName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="optRootNamespace">optRootNamespace: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Compile DFDL schema source into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>
-</p><div class="fullcomment"><div class="comment cmt"><p>Compile DFDL schema source into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>
-</p></div><dl class="paramcmts block"><dt class="param">uri</dt><dd class="cmt"><p>URI of DFDL schema file used to create a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>.</p></dd><dt class="param">optRootName</dt><dd class="cmt"><p>Option for name of root element, or None to choose automatically from first
-       element of schema. Defaults to None.</p></dd><dt class="param">optRootNamespace</dt><dd class="cmt"><p>Option for string of namespace of the root element, or None to infer
-       automatically when unambiguous. Pass Some(&quot;&quot;) (empty string) for No Namespace.
-       Defaults to None.</p></dd><dt>returns</dt><dd class="cmt"><p><a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a> used to create <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>(s). Must check <a href="ProcessorFactory.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.ProcessorFactory#isError">ProcessorFactory.isError</a> before using it.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.io.IOException]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -671,7 +626,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#equals(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -687,7 +642,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#finalize():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -709,7 +664,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -725,10 +680,58 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.DaffodilXMLEntityResolver#getEntityResolver" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="getEntityResolver:org.xml.sax.EntityResolver"></a><a id="getEntityResolver:EntityResolver"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#getEntityResolver:org.xml.sax.EntityResolver" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getEntityResolver</span><span class="result">: <span class="extype" name="org.xml.sax.EntityResolver">EntityResolver</span></span>
+      </span>
+      
+      
+    </li><li name="org.apache.daffodil.sapi.DaffodilXMLEntityResolver#getLSResourceResolver" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="getLSResourceResolver:org.w3c.dom.ls.LSResourceResolver"></a><a id="getLSResourceResolver:LSResourceResolver"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#getLSResourceResolver:org.w3c.dom.ls.LSResourceResolver" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLSResourceResolver</span><span class="result">: <span class="extype" name="org.w3c.dom.ls.LSResourceResolver">LSResourceResolver</span></span>
+      </span>
+      
+      
+    </li><li name="org.apache.daffodil.sapi.DaffodilXMLEntityResolver#getXMLEntityResolver" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="getXMLEntityResolver:org.apache.xerces.xni.parser.XMLEntityResolver"></a><a id="getXMLEntityResolver:XMLEntityResolver"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#getXMLEntityResolver:org.apache.xerces.xni.parser.XMLEntityResolver" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getXMLEntityResolver</span><span class="result">: <span class="extype" name="org.apache.xerces.xni.parser.XMLEntityResolver">XMLEntityResolver</span></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#hashCode():Int" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -747,7 +750,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -763,7 +766,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -779,7 +782,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#notify():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -798,7 +801,7 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -814,47 +817,10 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#reload" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="reload(savedParser:java.nio.channels.ReadableByteChannel):org.apache.daffodil.sapi.DataProcessor"></a><a id="reload(ReadableByteChannel):DataProcessor"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#reload(savedParser:java.nio.channels.ReadableByteChannel):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">reload</span><span class="params">(<span name="savedParser">savedParser: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>)</span><span class="result">: <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Reload a saved parser from a java.nio.channels.ReadableByteChannel
-</p><div class="fullcomment"><div class="comment cmt"><p>Reload a saved parser from a java.nio.channels.ReadableByteChannel
-</p></div><dl class="paramcmts block"><dt class="param">savedParser</dt><dd class="cmt"><p>java.nio.channels.ReadableByteChannel of a saved parser, created with <a href="DataProcessor.html#save(output:java.nio.channels.WritableByteChannel):Unit" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#save">DataProcessor.save</a></p></dd><dt>returns</dt><dd class="cmt"><p><a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used to parse data. Must check <a href="DataProcessor.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#isError">DataProcessor.isError</a> before using it.</p></dd></dl><dl class="attributes block"> <dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="InvalidParserException.html" class="extype" name="org.apache.daffodil.sapi.InvalidParserException"><code>InvalidParserException</code></a> if the file is not a valid saved parser.</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#reload" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="reload(savedParser:java.io.File):org.apache.daffodil.sapi.DataProcessor"></a><a id="reload(File):DataProcessor"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#reload(savedParser:java.io.File):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">reload</span><span class="params">(<span name="savedParser">savedParser: <span class="extype" name="java.io.File">File</span></span>)</span><span class="result">: <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Reload a saved parser from a file</p><div class="fullcomment"><div class="comment cmt"><p>Reload a saved parser from a file</p><p>To allow jar-file packaging, (where the savedParser might be part of a jar),
-it is recommended to use the other version of <a href="#reload(savedParser:java.nio.channels.ReadableByteChannel):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.Compiler#reload">Compiler.reload</a> where the argument is
-a java.nio.channels.ReadableByteChannel for a saved parser.
-</p></div><dl class="paramcmts block"><dt class="param">savedParser</dt><dd class="cmt"><p>file of a saved parser, created with <a href="DataProcessor.html#save(output:java.nio.channels.WritableByteChannel):Unit" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#save">DataProcessor.save</a></p></dd><dt>returns</dt><dd class="cmt"><p><a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used to parse data. Must check <a href="DataProcessor.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#isError">DataProcessor.isError</a> before using it.</p></dd></dl><dl class="attributes block"> <dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="InvalidParserException.html" class="extype" name="org.apache.daffodil.sapi.InvalidParserException"><code>InvalidParserException</code></a> if the file is not a valid saved parser.</p></span></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -870,7 +836,7 @@ a java.nio.channels.ReadableByteChannel for a saved parser.
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#toString():String" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#toString():String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -886,7 +852,7 @@ a java.nio.channels.ReadableByteChannel for a saved parser.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#wait():Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -908,7 +874,7 @@ a java.nio.channels.ReadableByteChannel for a saved parser.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -930,7 +896,7 @@ a java.nio.channels.ReadableByteChannel for a saved parser.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DaffodilXMLEntityResolver$.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -951,206 +917,13 @@ a java.nio.channels.ReadableByteChannel for a saved parser.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#withTunable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withTunable(tunable:String,value:String):org.apache.daffodil.sapi.Compiler"></a><a id="withTunable(String,String):Compiler"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#withTunable(tunable:String,value:String):org.apache.daffodil.sapi.Compiler" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withTunable</span><span class="params">(<span name="tunable">tunable: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Return a new <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> with a specific Daffodil tunable parameter
-</p><div class="fullcomment"><div class="comment cmt"><p>Return a new <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> with a specific Daffodil tunable parameter
-</p></div><dl class="paramcmts block"><dt class="param">tunable</dt><dd class="cmt"><p>name of the tunable parameter to set.</p></dd><dt class="param">value</dt><dd class="cmt"><p>value of the tunable parameter to set</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/#tunable-parameters'>Tunable Parameters</a> - list of tunables names of default values</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#withTunables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withTunables(tunables:Map[String,String]):org.apache.daffodil.sapi.Compiler"></a><a id="withTunables(Map[String,String]):Compiler"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#withTunables(tunables:Map[String,String]):org.apache.daffodil.sapi.Compiler" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withTunables</span><span class="params">(<span name="tunables">tunables: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Return a new <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> with multiple tunable parameters
-</p><div class="fullcomment"><div class="comment cmt"><p>Return a new <a href="" class="extype" name="org.apache.daffodil.sapi.Compiler">Compiler</a> with multiple tunable parameters
-</p></div><dl class="paramcmts block"><dt class="param">tunables</dt><dd class="cmt"><p>a map of key/value pairs, where the key is the tunable name and the value is the value to set it to</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/#tunable-parameters'>Tunable Parameters</a> - list of tunables names of default values</p></span></dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        <div class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="org.apache.daffodil.sapi.Compiler#setDistinguishedRootNode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setDistinguishedRootNode(name:String,namespace:String):Unit"></a><a id="setDistinguishedRootNode(String,String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setDistinguishedRootNode(name:String,namespace:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Pass arguments to compileSource, or compileFile.">setDistinguishedRootNode</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Specify a global element to be the root of DFDL Schema to start parsing
-</p><div class="fullcomment"><div class="comment cmt"><p>Specify a global element to be the root of DFDL Schema to start parsing
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the root node</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>namespace of the root node. Set to empty string to specify
-                 no namespace. Set to to NULL to figure out the namespace.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Pass arguments to compileSource, or compileFile.</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setExternalDFDLVariable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setExternalDFDLVariable(name:String,namespace:String,value:String):Unit"></a><a id="setExternalDFDLVariable(String,String,String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setExternalDFDLVariable(name:String,namespace:String,value:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use DataProcessor.setExternalVariables">setExternalDFDLVariable</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set the value of a DFDL variable
-</p><div class="fullcomment"><div class="comment cmt"><p>Set the value of a DFDL variable
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the variable</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>namespace of the variable. Set to empty string to specify
-                 no namespace. Set to to NULL to figure out the namespace.</p></dd><dt class="param">value</dt><dd class="cmt"><p>value to so the variable to</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use DataProcessor.setExternalVariables</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setExternalDFDLVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setExternalDFDLVariables(extVarsFile:java.io.File):Unit"></a><a id="setExternalDFDLVariables(File):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setExternalDFDLVariables(extVarsFile:java.io.File):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use DataProcessor.setExternalVariables">setExternalDFDLVariables</span><span class="params">(<span name="extVarsFile">extVarsFile: <span class="extype" name="java.io.File">File</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Read external variables from a Daffodil configuration file
-</p><div class="fullcomment"><div class="comment cmt"><p>Read external variables from a Daffodil configuration file
-</p></div><dl class="paramcmts block"><dt class="param">extVarsFile</dt><dd class="cmt"><p>file to read DFDL variables from.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use DataProcessor.setExternalVariables</p></dd><dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/'>Daffodil Configuration File</a> - Daffodil configuration file format</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setExternalDFDLVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setExternalDFDLVariables(extVarsMap:Map[String,String]):Unit"></a><a id="setExternalDFDLVariables(Map[String,String]):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setExternalDFDLVariables(extVarsMap:Map[String,String]):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use DataProcessor.setExternalVariables">setExternalDFDLVariables</span><span class="params">(<span name="extVarsMap">extVarsMap: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set the value of multiple DFDL variables
-</p><div class="fullcomment"><div class="comment cmt"><p>Set the value of multiple DFDL variables
-</p></div><dl class="paramcmts block"><dt class="param">extVarsMap</dt><dd class="cmt"><p>a may of key/value pairs, where the key is the variable
-                  name, and the value is the value of the variable. The key
-                  may be preceded by a string of the form &quot;{namespace}&quot; to
-                  define a namespace for the variable. If preceded with &quot;{}&quot;,
-                  then no namespace is used. With not preceded by &quot;{namespace}&quot;,
-                  then Daffodil will figure out the namespace.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use DataProcessor.setExternalVariables</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setTunable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setTunable(tunable:String,value:String):Unit"></a><a id="setTunable(String,String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setTunable(tunable:String,value:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withTunable.">setTunable</span><span class="params">(<span name="tunable">tunable: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set a Daffodil tunable parameter
-</p><div class="fullcomment"><div class="comment cmt"><p>Set a Daffodil tunable parameter
-</p></div><dl class="paramcmts block"><dt class="param">tunable</dt><dd class="cmt"><p>name of the tunable parameter to set.</p></dd><dt class="param">value</dt><dd class="cmt"><p>value of the tunable parameter to set</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withTunable.</p></dd><dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/#tunable-parameters'>Tunable Parameters</a> - list of tunables names of default values</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setTunables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setTunables(tunables:Map[String,String]):Unit"></a><a id="setTunables(Map[String,String]):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setTunables(tunables:Map[String,String]):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withTunables.">setTunables</span><span class="params">(<span name="tunables">tunables: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set the value of multiple tunable parameters
-</p><div class="fullcomment"><div class="comment cmt"><p>Set the value of multiple tunable parameters
-</p></div><dl class="paramcmts block"><dt class="param">tunables</dt><dd class="cmt"><p>a map of key/value pairs, where the key is the tunable name and the value is the value to set it to</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withTunables.</p></dd><dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/#tunable-parameters'>Tunable Parameters</a> - list of tunables names of default values</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.Compiler#setValidateDFDLSchemas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setValidateDFDLSchemas(value:Boolean):Unit"></a><a id="setValidateDFDLSchemas(Boolean):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#setValidateDFDLSchemas(value:Boolean):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Do not use this method. DFDL schema validation should be performed.">setValidateDFDLSchemas</span><span class="params">(<span name="value">value: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Enable/disable DFDL validation of resulting infoset with the DFDL schema
-</p><div class="fullcomment"><div class="comment cmt"><p>Enable/disable DFDL validation of resulting infoset with the DFDL schema
-</p></div><dl class="paramcmts block"><dt class="param">value</dt><dd class="cmt"><p>true to enable validation, false to disabled</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Do not use this method. DFDL schema validation should be performed.</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">
