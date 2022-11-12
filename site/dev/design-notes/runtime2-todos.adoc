@@ -36,7 +36,231 @@ If someone wants to help
 please let the mailto:dev@daffodil.apache.org[dev] list know
 in order to avoid duplication.
 
-=== Report hanging problem running sbt (really dev.dirs) from MSYS2 on Windows
+=== Anonymous choice groups not allowed
+
+We handle elements having xs:choice complex types.
+However, we don't support anonymous choice groups
+(that is, an unnamed choice group in the middle, beginning,
+or end of a sequence which may contain other elements).
+A DFDL schema author may write a sequence like this:
+
+[source,xml]
+----
+  <xs:complexType name="NestedUnionType">
+    <xs:sequence>
+      <xs:element name="first_tag" type="idl:int32"/>
+      <xs:choice dfdl:choiceDispatchKey="{xs:string(./first_tag)}">
+        <xs:element name="foo" type="idl:FooType" dfdl:choiceBranchKey="1 2"/>
+        <xs:element name="bar" type="idl:BarType" dfdl:choiceBranchKey="3 4"/>
+      </xs:choice>
+      <xs:element name="second_tag" type="idl:int32"/>
+      <xs:choice dfdl:choiceDispatchKey="{xs:string(./second_tag)}">
+        <xs:element name="fie" type="idl:FieType" dfdl:choiceBranchKey="1"/>
+        <xs:element name="fum" type="idl:FumType" dfdl:choiceBranchKey="2"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+----
+
+Daffodil will parse and unparse the above sequence fine,
+but the C code generator will not generate correct code
+(no _choice members or unions will be declared for the type).
+It might be possible to generate C code that looks like this:
+
+[source,c]
+----
+typedef struct NestedUnion
+{
+    InfosetBase _base;
+    int32_t     first_tag;
+    size_t      _choice_1; // choice of which union field to use
+    union
+    {
+        foo foo;
+        bar bar;
+    };
+    int32_t     second_tag;
+    size_t      _choice_2; // choice of which union field to use
+    union
+    {
+        fie fie;
+        fum fum;
+    };
+} NestedUnion;
+----
+
+However, the Daffodil devs have looked at DFDL integration
+for other systems like Apache Drill, NiFi, Avro, etc.,
+and these systems generally do not allow anonymous choices.
+Hence, any DFDL schema having anonymous choices
+doesn't integrate well with any of these systems
+unless we generate a child element with a generated name
+(which makes paths awkward, etc.).
+Hence, it seems better to say that
+the runtime2 DFDL subset doesn't allow anonymous choices
+and DFDL schema authors should write their schema like this:
+
+[source,xml]
+----
+  <xs:complexType name="NestedUnionType">
+    <xs:sequence>
+      <xs:element name="first_tag" type="idl:int32"/>
+      <xs:element name="first_choice">
+        <xs:complexType>
+          <xs:choice dfdl:choiceDispatchKey="{xs:string(../first_tag)}">
+            <xs:element name="foo" type="idl:FooType" dfdl:choiceBranchKey="1 2"/>
+            <xs:element name="bar" type="idl:BarType" dfdl:choiceBranchKey="3 4"/>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="second_tag" type="idl:int32"/>
+      <xs:element name="second_choice">
+        <xs:complexType>
+          <xs:choice dfdl:choiceDispatchKey="{xs:string(../second_tag)}">
+            <xs:element name="fie" type="idl:FieType" dfdl:choiceBranchKey="1"/>
+            <xs:element name="fum" type="idl:FumType" dfdl:choiceBranchKey="2"/>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+----
+
+The C code generator will generate _choice members and unions
+for the first_choice and second_choice elements,
+and such a schema will integrate better with other systems too.
+
+=== Replace size_t with choice_t
+
+It has been pointed out that it is actually not obvious
+whether _choice should be a signed or unsigned type.
+One thought had been that _choice should be unsigned
+to avoid cutting the usable range in half
+and it should be size_t because
+size_t is the maximum allowable length of any type of C array.
+However, there are equally compelling reasons why
+indices should be signed instead of unsigned as well
+(<https://www.quora.com/Why-is-size_t-sometimes-used-instead-of-int-for-declaring-an-array-index-in-C-Is-there-any-difference>).
+There appears to be no One Right Answer
+what type _choice should have,
+so defining a choice_t type in only one place
+will allow us to change our mind if we need to
+although we still would need to re-evaluate
+every use of _choice very carefully.
+
+=== Arrays
+
+Currently we create an ERD for an array with the array's name
+and the scalar type of its first element,
+but the ERD has no numChildren and the rest of its fields are NULL.
+Then in the parent element's ERD, we expand and inline the array
+into the parent element's offsets and childrenERDs
+with incrementing offsets for each array element
+and the same pointer to the same array ERD for each array element.
+We also expand and inline the array
+into the parent element's parseSelf and unparseSelf functions
+with as many parse and unparse calls as there are array elements.
+
+We need to change this approach to handle arrays
+having undetermined lengths at compile time.
+One possible approach might be to define an ERD for an array
+like an ERD for a complex element with one child.
+The typeCode might become ARRAY or remain COMPLEX,
+the numChildren would be 1,
+the offsets would be the offset of the first array element
+(allowing room to skip over an actual number of elements
+stored in the C struct to the offset of the actual array,
+or to point to memory allocated from the heap),
+the childrenERDs would be the ERD of the first array element,
+the parseSelf would be a function to parse all array members,
+and the unparseSelf would be a function to unparse all array members.
+These functions would know how to find the number of elements
+depending on dfdl:occursCountKind when parsing
+(fixed, implicit, parsed, expression, or stopValue)
+and depending on a count stored in the C struct when unparsing.
+These functions also would know how to loop as many times
+as needed to parse or unparse each array element using the
+first array element's ERD in childrenERDs every time.
+
+Note that we don't have to store a count
+of the actual number of array elements in the C struct
+for a dfdl:occursCountKind of fixed, expression, or stopValue.
+Fixed means the count is a known constant at compile time.
+Expression means the count is already stored in
+another C struct field which we just have to find
+via the expression when parsing and unparsing.
+StopValue means we only need to look inside the array
+for a stopValue when parsing and unparsing.
+However, we do need to store an actual count in the C struct
+for a dfdl:occursCountKind of implicit or parsed
+because we will have no other possible way
+to find the actual count when unparsing.
+Our C code also should allow the count to be zero
+without the code blowing up.
+
+If we want the C code to validate the array's count
+against the array's minOccurs and maxOccurs,
+we can inline the array's minOccurs and maxOccurs
+into the array's parseSelf and unparseSelf functions.
+However, we should allow the normal case to be no validation,
+since Daffodil must not enforce min/maxOccurs
+if the user wants to parse and unparse well-formed but invalid data
+for forensic analysis.
+However, we still can let min/maxOccurs influence the generated C code.
+If maxOccurs is unbounded or the largest possible array size
+(maxOccurs - minOccurs) is larger than a heuristic or tunable,
+we should allocate storage for the array from the heap
+instead of declaring storage for the array inline in the C struct.
+The normal case should be to inline the array into the C struct
+with the array's maximum size since bare metal C and VHDL
+will not be able to allocate memory from a heap dynamically.
+
+=== Making infosets more efficient
+
+Right now all of our C structs (infoset nodes) store an ERD pointer
+within their first field.
+This makes it possible to take a pointer to any infoset node
+and interpret the infoset node correctly in all the ways we need
+(walk the infoset node, unparse the infoset node to XML, etc.)
+because we can indirect over to the ERD to get all the static info.
+
+In most cases, the ERD needed for a child complex element
+is static information of the enclosing parent's ERD,
+so could be stored only in the parent's ERD.
+Inductively, most infoset nodes should not need ERD pointers
+since the ERD "nest" up to the root is all static information.
+Logically, we should be able to remove ERD pointers
+from the first field of most C structs (infoset nodes),
+avoiding taking up the first field's space 
+multiplied by however many infoset nodes the data contains.
+
+We probably just need to find all the places in the code
+where we pass a pointer to an infoset node and
+make these places pass both a pointer to an infoset node
+and a separate pointer to the infoset node's ERD at the same time.
+Then we can remove the infoset node's pointer to the same ERD
+since it would already be passed into all the places needed.
+
+=== Javadoc-like tool for C code
+
+We may want to adopt one of the javadoc-like tools for C code
+and restructure our comments to create some API documentation.
+
+=== Choice dispatch key expressions
+
+We currently support only a very restricted
+and simple subset of choice dispatch key expressions.
+We would like to refactor the DPath expression compiler
+and make it generate C code
+in order to support arbitrary choice dispatch key expressions.
+
+=== Daffodil module/subdirectory names
+
+When Daffodil is ready to move from a 3.x to a 4.x release,
+rename the modules to have shorter and easier to understand names
+as discussed in https://issues.apache.org/jira/browse/DAFFODIL-2406[DAFFODIL-2406].
+
+=== Remove workaround for problem running sbt (really dev.dirs) from MSYS2 on Windows
 
 We need to open a issue with a reproducible test case
 in the dev.dirs/directories-jvm project on GitHub.
@@ -52,7 +276,8 @@ coursier picks up the new directories version,
 sbt picks up the new coursier version,
 and daffodil picks up the new sbt version,
 before we can remove the "echo >> $GITHUB_ENV" lines
-from .github/workflows/main.yml.
+from .github/workflows/main.yml
+which prevent the sbt hanging problem.
 
 === Reporting data/schema locations in errors
 
@@ -109,16 +334,12 @@ and try the parse call again as an attempt
 to resynchronize with a correct data stream
 after a bunch of failures.
 
-Note that we actually run the generated code in an embedded processor
+Note that we sometimes run the generated code in an embedded processor
 and call our own fread/frwrite functions
 which replace the stdio fread/fwrite functions
 since the C code runs bare metal without OS functions.
-We can implement fseek but we should have a good use case.
-
-=== Javadoc-like tool for C code
-
-We should consider adopting one of the javadoc-like tools for C code
-and structuring our comments that way.
+We can implement the fseek function on the embedded processor too
+but we would need a good use case requiring recovering after errors.
 
 === Validate "fixed" values in runtime1 too
 
@@ -126,189 +347,24 @@ If we change runtime1 to validate "fixed" values
 like runtime2 does, then we can resolve 
 https://issues.apache.org/jira/browse/DAFFODIL-117[DAFFODIL-117].
 
-=== Improve TDML Runner
-
-We want to improve the TDML Runner
-to make it easier to run TDML tests
-with both runtime1 and runtime2.
-We want to eliminate the need
-to configure a `daf:tdmlImplementation` tunable
-in the TDML test using 12 lines of code.
-
-I had an initial idea which was that
-the TDML Runner could run both runtime1 and runtime2 
-automatically (in parallel or serially)
-if it sees a TDML root attribute
-saying `defaultImplementations="daffodil daffodil-runtime2"`
-or a parser/unparseTestCase attribute
-saying `implementations="daffodil daffodil-runtime2"`.
-To make running the same test on runtime1/runtime2 easier
-we also could add an implementation attribute
-to tdml:errors/warnings elements
-saying which implementation they are for
-and tell the TDML Runner to check errors/warnings
-for runtime2 as well as runtime1.
-
-Then I had another idea which might be easier to implement.
-If we could find a way to set Daffodil's tdmlImplementation tunable
-using a command line option or environment variable
-or some other way to change TDML Runner's behavior
-when running both "sbt test" and "daffodil test"
-then we could simply run "sbt test" or "daffodil test" twice
-(first using runtime1 and then using runtime2)
-in order to verify all the cross tests work on both.
-I think this way would be easier than making TDML Runner
-automatically run all the implementations it can find
-in parallel or serially when running cross tests.
-
-If the second idea works as I hope it does,
-then we can start the process of adding "daffodil-runtime2"
-to some of the cross tests we have for daffodil and ibm.
-We also chould change ibm's ProcessFactory class
-to have a different name than daffodil's ProcessFactory class
-and update TDML Runner's match expression to use the new class name.
-Then some developers could add the ibmDFDLCrossTester plugin
-to their daffodil checkout permanently
-instead of having to do & undo that change
-each time they want to run daffodil/ibm cross tests.
-
-=== C struct/field name collisions
-
-To avoid possible name collisions,
-we should prepend struct names and field names with namespace prefixes
-if their infoset elements have non-null namespace prefixes.
-Alternatively, we may need to use enclosing elements' names
-as prefixes to avoid name collisions without namespaces.
-
-=== Anonymous/multiple choice groups
-
-We already handle elements having xs:choice complex types.
-In addition, we should support anonymous/multiple choice groups.
-We may need to refine the choice runtime structure
-in order to allow multiple choice groups
-to be inlined into parent elements.
-Here is an example schema
-and corresponding C code to demonstrate:
-
-[source,xml]
-----
-  <xs:complexType name="NestedUnionType">
-    <xs:sequence>
-      <xs:element name="first_tag" type="idl:int32"/>
-      <xs:choice dfdl:choiceDispatchKey="{xs:string(./first_tag)}">
-        <xs:element name="foo" type="idl:FooType" dfdl:choiceBranchKey="1 2"/>
-        <xs:element name="bar" type="idl:BarType" dfdl:choiceBranchKey="3 4"/>
-      </xs:choice>
-      <xs:element name="second_tag" type="idl:int32"/>
-      <xs:choice dfdl:choiceDispatchKey="{xs:string(./second_tag)}">
-        <xs:element name="fie" type="idl:FieType" dfdl:choiceBranchKey="1"/>
-        <xs:element name="fum" type="idl:FumType" dfdl:choiceBranchKey="2"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-----
-
-[source,c]
-----
-typedef struct NestedUnion
-{
-    InfosetBase _base;
-    int32_t     first_tag;
-    size_t      _choice_1; // choice of which union field to use
-    union
-    {
-        foo foo;
-        bar bar;
-    };
-    int32_t     second_tag;
-    size_t      _choice_2; // choice of which union field to use
-    union
-    {
-        fie fie;
-        fum fum;
-    };
-} NestedUnion;
-----
-
-=== Choice dispatch key expressions
-
-We currently support only a very restricted
-and simple subset of choice dispatch key expressions.
-We would like to refactor the DPath expression compiler
-and make it generate C code
-in order to support arbitrary choice dispatch key expressions.
-
 === No match between choice dispatch key and choice branch keys
 
-Right now c-daffodil is more strict than scala-daffodil
+Right now c/daffodil is more strict than daffodil
 when unparsing infoset XML files with no matches (or mismatches)
 between choice dispatch keys and branch keys.
-Perhaps c-daffodil should load such an XML file
+Such a situation always makes c/daffodil exit with an error,
+which is too strict.
+We should make c/daffodil load such an XML file
 without a no match processing error
 and unparse the infoset to a binary data file
-without a no match processing error.
-We would have to code and call a choice branch resolver in C
-which peeks at the next XML element,
-figures out which branch
-does that element indicate exists
-inside the choice group,
-and initializes the choice and element runtime data
-(_choice and childNode->erd member fields) accordingly.
-We probably would replace the initChoice() call in walkInfosetNode()
-with a call to that choice branch resolver
-and we might not need to call initChoice() in unparseSelf().
-When I called initChoice() in all these parse, walk, and unparse places,
-I was pondering removing the _choice member field
-and calling initChoice() as a function
-to tell us which element to visit next,
-but we probably should have a mutable choice runtime data structure
-that applications can override if they want to.
-
-=== Floating point numbers
-
-Right now runtime2 prints floating point numbers
-in XML infosets slightly differently than runtime1 does.
-This means we may need to use different XML infosets
-in TDML tests depending on the runtime implementation.
-In order to use the same XML infoset in TDML tests,
-we should make the TDML Runner
-compare floating point numbers numerically, not textually,
-as discussed in https://issues.apache.org/jira/browse/DAFFODIL-2402[DAFFODIL-2402].
-
-=== Arrays
-
-Instead of expanding arrays inline within childrenERDs,
-we may want to store a single entry
-for an array in childrenERDs
-giving the array's offset and size of all its elements.
-We would have to write code
-for special case treatment of array member fields
-versus scalar member fields
-but we could save space/memory in childrenERDs
-for use cases with very large arrays.
-An array element's ERD should have minOccurs and maxOccurs
-where minOccurs is unsigned
-and maxOccurs is signed with -1 meaning "unbounded".
-The actual number of children in an array instance
-would have to be stored with the array instance
-in the C struct or the ERD.
-An array node has to be a different kind of infoset node
-with a place for this number of actual children to be stored.
-Probably all ERDs should just get minOccurs and maxOccurs
-and a scalar is just one with 1, 1 as those values,
-an optional element is 0, 1,
-and an array is all other legal combinations
-like N, -1 and N, and M with N<=M.
-A restriction that minOccurs is 0, 1,
-or equal to maxOccurs (which is not -1)
-is acceptable.
-A restriction that maxOccurs is 1, -1,
-or equal to minOccurs
-is also fine
-(means variable-length arrays always have unbounded number of elements).
-
-=== Daffodil module/subdirectory names
-
-When Daffodil is ready to move from a 3.x to a 4.x release,
-rename the modules to have shorter and easier to understand names
-as discussed in https://issues.apache.org/jira/browse/DAFFODIL-2406[DAFFODIL-2406].
+without a no match processing error,
+even if the choiceDispatchKey is invalid.
+The choiceDispatchKey should not be evaluated
+at unparse time, only at parse time.
+If the schema writer wants to enforce that
+the choiceDispatchKey is the right one
+matching the unparsed choice branch,
+the writer must write an explicit dfdl:outputValueCalc
+expression to replace the choiceDispatchKey
+even though supporting dfdl:outputValueCalc
+in runtime2 is likely a distant goal.

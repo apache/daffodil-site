@@ -279,9 +279,14 @@ List or execute tests in a TDML file.
 
 #### Usage
 
-    daffodil test [-l] [-r] [-i] <tdmlfile> [testnames...]
+    daffodil test [-I <implementation>] [-l] [-r] [-i] <tdmlfile> [testnames...]
 
 #### Options
+
+``-I, --implementation  <implementation>``
+
+   : Implementation to run TDML tests. Choose daffodil or
+     daffodilC. Defaults to daffodil.
 
 ``-i, --info``
 
