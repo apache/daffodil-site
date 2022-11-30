@@ -371,12 +371,17 @@
 
 <h4 id="usage-3">Usage</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [-l] [-r] [-i] &lt;tdmlfile&gt; [testnames...]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [-I &lt;implementation&gt;] [-l] [-r] [-i] &lt;tdmlfile&gt; [testnames...]
 </code></pre></div></div>
 
 <h4 id="options-3">Options</h4>
 
 <dl>
+  <dt><code class="language-plaintext highlighter-rouge">-I, --implementation  &lt;implementation&gt;</code></dt>
+  <dd>
+    <p>Implementation to run TDML tests. Choose daffodil or
+daffodilC. Defaults to daffodil.</p>
+  </dd>
   <dt><code class="language-plaintext highlighter-rouge">-i, --info</code></dt>
   <dd>
     <p>Increment test result information output level, one level for each -i.</p>
