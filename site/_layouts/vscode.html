@@ -12,6 +12,17 @@ permalink: /vscode/release-notes-:title
 {% endunless %}
 
 <div class="row">
+  {% capture docx_path %}/docs/vscode/{{page.title}}/Apache-Daffodil-Extension-for-Visual-Studio-Code-{{page.title}}.docx{% endcapture %}
+  {% capture html_path %}/docs/vscode/{{page.title}}/Apache-Daffodil-Extension-for-Visual-Studio-Code-{{page.title}}.html{% endcapture %}
+
+  {% assign exists = site.static_files | where: "path", docx_path %}
+  {% if exists.size != 0 %}
+    <div class="col-md-3 text-right" style="float: right; z-index: 3;">
+      <h3>Documentation</h3>
+      <a href="{{ html_path }}">HTML</a> | <a href="{{ docx_path }}">DOCX</a>
+    </div>
+  {% endif %}
+
   <div class="col-md-12">
     <h3>Get Release</h3>
     <ul class="nav nav-tabs">
