@@ -1,13 +1,28 @@
-{% for file in include.artifacts %}
+{% assign apache = include.apache %}
+{% assign artifacts = include.artifacts %}
+{% assign project = include.project %}
+{% assign type = include.type %}
+{% assign version = include.version %}
+
+{% for file in artifacts %}
+  {% if apache %}
+    {% if file contains "incubating" %}
+      {% assign project = "incubator/" | append: project %}
+    {% endif %}
+    {% capture file-path %}{{project}}/{{version}}/{{type}}/{{file}}{% endcapture %}
+    {% capture artifact-url %}https://www.apache.org/dyn/closer.lua/download/{{file-path}}{% endcapture %}
+    {% capture checksum-url %}https://downloads.apache.org/{{file-path}}{% endcapture %}
+  {% else %}
+    {% capture artifact-url %}https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version={{version}}&filename={{file}}{% endcapture %}
+  {% endif %}
 <div class="row">
   <div class="col-sm-6">
-    <a href="{{ include.artifact-root | append: include.prefix | append: file }}">{{ file }}</a>
+    <a href="{{ artifact-url }}">{{ file }}</a>
   </div>
   <div class="col-sm-6">
-    {% if include.checksum-root %}
-      {% assign base = include.checksum-root | append: include.prefix | append: file %}
-      [ <a href="{{ base }}.asc">PGP</a> ]
-      [ <a href="{{ base }}.sha512">SHA512</a> ]
+    {% if checksum-url %}
+      [ <a href="{{ checksum-url }}.asc">PGP</a> ]
+      [ <a href="{{ checksum-url }}.sha512">SHA512</a> ]
     {% endif %}
   </div>
 </div>
