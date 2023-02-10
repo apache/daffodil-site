@@ -30,7 +30,7 @@ Below are two examples of how Daffodil parses Comma-Separated Values (CSV) and P
 This DFDL schema is found at the DFDLSchemas GitHub [CSV repository](https://github.com/DFDLSchemas/CSV). 
 
 ```bash
-$ daffodil parse --schema CSV/src/main/resources/com/tresys/csv/xsd/csv.dfdl.xsd CSV/src/test/resources/com/tresys/csv/data/simpleCSV.csv
+$ daffodil parse --schema CSV/src/csv.dfdl.xsd CSV/test/simpleCSV.csv
 ```
 The above command uses the csv.dfdl.xsd schema to parse the simpleCSV.csv input data. The simpleCSV.csv contains the following data:
 
