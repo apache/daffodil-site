@@ -55,7 +55,7 @@ Setting environment variables may be necessary to allow imports, includes, and r
 
 ``CC``
 
-   : If you need to specify which C compiler should be called when running TDML files with the ``test`` subcommand using Daffodil's runtime2 backend, you can set the ``CC`` environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the ``PATH`` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
+   : If you need to specify which C compiler should be called when running TDML files with the ``test`` subcommand using Daffodil's codegen-c backend, you can set the ``CC`` environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the ``PATH`` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
 
 ### Global Options
 
