@@ -86,13 +86,13 @@
       <div class="row">
   <div class="col-md-12">
     <div class="sect1">
-<h2 id="runtime2-todos">Runtime2 ToDos</h2>
+<h2 id="c-code-generator-todos">C Code Generator ToDos</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="overview">Overview</h3>
 <div class="paragraph">
-<p>We have built an initial DFDL-to-C backend
-and code generator for Apache Daffodil.
+<p>We have built an initial DFDL-to-C code
+generator and backend for Apache Daffodil.
 Currently the C code generator can support
 binary boolean, integer, and real numbers,
 arrays of simple and complex elements,
@@ -178,7 +178,7 @@ doesn&#8217;t integrate well with any of these systems
 unless we generate a child element with a generated name
 (which makes paths awkward, etc.).
 Hence, it seems better to say that
-the runtime2 DFDL subset doesn&#8217;t allow anonymous choices
+codegen-c&#8217;s DFDL subset doesn&#8217;t allow anonymous choices
 and DFDL schema authors should write their schema like this:</p>
 </div>
 <div class="listingblock">
@@ -236,73 +236,32 @@ every use of _choice very carefully.</p>
 <div class="sect2">
 <h3 id="arrays">Arrays</h3>
 <div class="paragraph">
-<p>Currently we create an ERD for an array with the array&#8217;s name
-and the scalar type of its first element,
-but the ERD has no numChildren and the rest of its fields are NULL.
-Then in the parent element&#8217;s ERD, we expand and inline the array
-into the parent element&#8217;s offsets and childrenERDs
-with incrementing offsets for each array element
-and the same pointer to the same array ERD for each array element.
-We also expand and inline the array
-into the parent element&#8217;s parseSelf and unparseSelf functions
-with as many parse and unparse calls as there are array elements.</p>
+<p>We inline an array&#8217;s minOccurs and maxOccurs
+into the array&#8217;s parseSelf and unparseSelf functions
+and throw an error if the count isn&#8217;t within these bounds.
+The reason why we perform these checks is because
+we inline arrays' maximum size into C structs
+and we put C structs into static memory to avoid using
+heap memory which may not be available on all platforms.</p>
 </div>
 <div class="paragraph">
-<p>We need to change this approach to handle arrays
-having undetermined lengths at compile time.
-One possible approach might be to define an ERD for an array
-like an ERD for a complex element with one child.
-The typeCode might become ARRAY or remain COMPLEX,
-the numChildren would be 1,
-the offsets would be the offset of the first array element
-(allowing room to skip over an actual number of elements
-stored in the C struct to the offset of the actual array,
-or to point to memory allocated from the heap),
-the childrenERDs would be the ERD of the first array element,
-the parseSelf would be a function to parse all array members,
-and the unparseSelf would be a function to unparse all array members.
-These functions would know how to find the number of elements
-depending on dfdl:occursCountKind when parsing
-(fixed, implicit, parsed, expression, or stopValue)
-and depending on a count stored in the C struct when unparsing.
-These functions also would know how to loop as many times
-as needed to parse or unparse each array element using the
-first array element&#8217;s ERD in childrenERDs every time.</p>
-</div>
-<div class="paragraph">
-<p>Note that we don&#8217;t have to store a count
-of the actual number of array elements in the C struct
-for a dfdl:occursCountKind of fixed, expression, or stopValue.
-Fixed means the count is a known constant at compile time.
-Expression means the count is already stored in
-another C struct field which we just have to find
-via the expression when parsing and unparsing.
-StopValue means we only need to look inside the array
-for a stopValue when parsing and unparsing.
-However, we do need to store an actual count in the C struct
-for a dfdl:occursCountKind of implicit or parsed
-because we will have no other possible way
-to find the actual count when unparsing.
-Our C code also should allow the count to be zero
-without the code blowing up.</p>
-</div>
-<div class="paragraph">
-<p>If we want the C code to validate the array&#8217;s count
-against the array&#8217;s minOccurs and maxOccurs,
-we can inline the array&#8217;s minOccurs and maxOccurs
-into the array&#8217;s parseSelf and unparseSelf functions.
-However, we should allow the normal case to be no validation,
-since Daffodil must not enforce min/maxOccurs
-if the user wants to parse and unparse well-formed but invalid data
-for forensic analysis.
-However, we still can let min/maxOccurs influence the generated C code.
+<p>In the normal case, Daffodil&#8217;s Scala backend parses and unparses
+unbounded or well-formed arrays without enforcing min/maxOccurs
+for forensic analysis and easier debugging.
+If we want the C backend to parse and unparse unbounded arrays
+and well-formed arrays, we still can inline min/maxOccurs into
+the generated C code without enforcing their bounds.
 If maxOccurs is unbounded or the largest possible array size
-(maxOccurs - minOccurs) is larger than a heuristic or tunable,
-we should allocate storage for the array from the heap
-instead of declaring storage for the array inline in the C struct.
-The normal case should be to inline the array into the C struct
-with the array&#8217;s maximum size since bare metal C and VHDL
-will not be able to allocate memory from a heap dynamically.</p>
+(maxOccurs - minOccurs) is larger than a tunable,
+we would allocate storage for the array from the heap
+instead of inlining the array&#8217;s storage into the C struct.
+If the array is small enough to inline into the C struct
+but the array needs more space than its inlined space,
+we can switch that array to heap memory at runtime as long as
+we track its heap/inline status in another C struct field.
+We still should keep inlining finite bounded arrays into C structs
+since some embedded systems will not be able to allocate memory
+from a heap dynamically.</p>
 </div>
 </div>
 <div class="sect2">
@@ -403,7 +362,7 @@ like an offline log processor does.</p>
 <div class="sect2">
 <h3 id="recovering-after-errors">Recovering after errors</h3>
 <div class="paragraph">
-<p>As we continue to build out runtime2,
+<p>As we continue to build out codegen-c,
 we may need to distinguish more types of errors
 and allow backtracking and retrying.
 Right now we handle only parse/unparse and
@@ -455,7 +414,7 @@ but we would need a good use case requiring recovering after errors.</p>
 <h3 id="validate-fixed-values-in-runtime1-too">Validate "fixed" values in runtime1 too</h3>
 <div class="paragraph">
 <p>If we change runtime1 to validate "fixed" values
-like runtime2 does, then we can resolve
+like codegen-c does, then we can resolve
 <a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>.</p>
 </div>
 </div>
@@ -480,7 +439,7 @@ matching the unparsed choice branch,
 the writer must write an explicit dfdl:outputValueCalc
 expression to replace the choiceDispatchKey
 even though supporting dfdl:outputValueCalc
-in runtime2 is likely a distant goal.</p>
+in codegen-c is likely a distant goal.</p>
 </div>
 </div>
 </div>
