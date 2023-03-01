@@ -109,3 +109,10 @@
   githubId: scholarsmate
   role: PMC
 
+- first: Mike
+  last: McGann
+  apacheId: mmcgann
+  githubId: mike-mcgann
+  role: PMC
+
+
