@@ -3,13 +3,13 @@ layout: default
 permalink: /release/release-notes-:title
 ---
 
-{% unless page.released %}
+{% if page.release != "final" %}
   <div class="alert alert-warning">
     Apache Daffodil {{ page.title }} has not yet been released! The artifacts
     and release notes below are drafts for a proposed release of Apache
     Daffodil which has not yet occurred.
   </div>
-{% endunless %}
+{% endif %}
 
 {% unless page.apache %}
   <div class="alert alert-warning">
@@ -42,6 +42,7 @@ permalink: /release/release-notes-:title
              apache=page.apache
              artifacts=page.source-dist
              project="daffodil"
+             release=page.release
              type="src"
              version=page.title
           %}
@@ -55,6 +56,7 @@ permalink: /release/release-notes-:title
              apache=page.apache
              artifacts=page.binary-dist
              project="daffodil"
+             release=page.release
              type="bin"
              version=page.title
           %}

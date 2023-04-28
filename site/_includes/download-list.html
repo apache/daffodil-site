@@ -3,15 +3,27 @@
 {% assign project = include.project %}
 {% assign type = include.type %}
 {% assign version = include.version %}
+{% assign release = include.release %}
 
 {% for file in artifacts %}
   {% if apache %}
     {% if file contains "incubating" %}
       {% assign project = "incubator/" | append: project %}
     {% endif %}
-    {% capture file-path %}{{project}}/{{version}}/{{type}}/{{file}}{% endcapture %}
-    {% capture artifact-url %}https://www.apache.org/dyn/closer.lua/download/{{file-path}}{% endcapture %}
-    {% capture checksum-url %}https://downloads.apache.org/{{file-path}}{% endcapture %}
+
+    {% if release == "final" %}
+        {% capture relver %}{{version}}{% endcapture %}
+        {% capture artifact-root %}https://www.apache.org/dyn/closer.lua/download{% endcapture %}
+        {% capture checksum-root %}https://downloads.apache.org{% endcapture %}
+    {% else %}
+        {% capture relver %}{{version}}-{{release}}{% endcapture %}
+        {% capture artifact-root %}https://dist.apache.org/repos/dist/dev{% endcapture %}
+        {% capture checksum-root %}https://dist.apache.org/repos/dist/dev{% endcapture %}
+    {% endif %}
+
+    {% capture file-path %}{{project}}/{{relver}}/{{type}}/{{file}}{% endcapture %}
+    {% capture artifact-url %}{{artifact-root}}/{{file-path}}{% endcapture %}
+    {% capture checksum-url %}{{checksum-root}}/{{file-path}}{% endcapture %}
   {% else %}
     {% capture artifact-url %}https://opensource.ncsa.illinois.edu/projects/artifacts.php?key=DFDL&version={{version}}&filename={{file}}{% endcapture %}
   {% endif %}
