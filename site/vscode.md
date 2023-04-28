@@ -28,7 +28,7 @@ The Daffodil VS Code Extension is a custom extension developed by Apache for all
 
 All recent Daffodil VS Code Extension releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 
-{% assign releases = site.vscode  | where: 'released', 'true' | where: 'apache', 'true' | sort: 'date' %}
+{% assign releases = site.vscode  | where: 'release', 'final' | where: 'apache', 'true' | sort: 'date' %}
 {% if releases.size > 0 %}
 <table class="table">
     <tr>

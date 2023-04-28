@@ -3,13 +3,13 @@ layout: default
 permalink: /vscode/release-notes-:title
 ---
 
-{% unless page.released %}
+{% if page.release != "final" %}
   <div class="alert alert-warning">
     Apache Daffodil VS Code Extension {{ page.title }} has not yet been released! The artifact
     and release notes below are drafts for a proposed release of Apache
     Daffodil VS Code Extension which has not yet occurred.
   </div>
-{% endunless %}
+{% endif %}
 
 <div class="row">
   {% capture docx_path %}/docs/vscode/{{page.title}}/Apache-Daffodil-Extension-for-Visual-Studio-Code-{{page.title}}.docx{% endcapture %}
@@ -38,6 +38,7 @@ permalink: /vscode/release-notes-:title
              apache=page.apache
              artifacts=page.source-dist
              project="daffodil/daffodil-vscode"
+             release=page.release
              type="src"
              version=page.title
           %}
@@ -51,6 +52,7 @@ permalink: /vscode/release-notes-:title
              apache=page.apache
              artifacts=page.binary-dist
              project="daffodil/daffodil-vscode"
+             release=page.release
              type="bin"
              version=page.title
           %}

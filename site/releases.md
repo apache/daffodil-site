@@ -26,7 +26,7 @@ All recent Daffodil releases are listed here, along with several historical rele
 
 ### Apache Releases
 
-{% assign releases = site.releases  | where: 'released', 'true' | where: 'apache', 'true' | sort: 'date' %}
+{% assign releases = site.releases  | where: 'release', 'final' | where: 'apache', 'true' | sort: 'date' %}
 {% if releases.size > 0 %}
 <table class="table">
     <tr>
@@ -58,7 +58,7 @@ No official Apache releases have been made yet. <a href="/community">Get involve
     and are licensed under the <a href="https://opensource.org/licenses/NCSA">NCSA license</a>.
 </div>
 
-{% assign releases = site.releases  | where: 'released', 'true' | where: 'apache', 'false' | sort: 'date' %}
+{% assign releases = site.releases  | where: 'release', 'final' | where: 'apache', 'false' | sort: 'date' %}
 <table class="table">
     <tr>
         <th class="col-md-1">Version</th>
