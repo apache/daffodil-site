@@ -96,6 +96,7 @@
 <p><strong>4.3 The data editor needs to provide a viewport for viewing data as individual bits.</strong> The viewport will render binary 1-0 display. The details of the rendering such as unit length can be modified using properties associated with the viewport.</p>
 <p><strong>4.4 The data editor needs to provide configurable rendering properties for any given representation.</strong> The UI will allow the user to view and edit viewport properties</p>
 <p><strong>4.5 The data editor needs to provide configurable endianness properties for viewport rendering.</strong> Configuring big or little endian for a viewport.</p>
+<p><strong>4.6 Ability to represent data where MSB or LSB bit can be the first bit displayed.</strong> Ability to view and edit bytes represented in binary where the most significant bit can be the first bit of the byte, or the last bit of the byte.</p>
 <h3 id="editing-edt">5. Editing (EDT)</h3>
 <p><strong>5.1 The data editor needs to implement inline editing within a viewport.</strong> The viewport will support mouse and keyboard interaction to initiate editing a value.</p>
 <p><strong>5.2 The data editor needs to default to editing in the same representation as the view.</strong> The editor will allow editing using the same viewport rendering as the representation, e.g., hex from hex, binary from binary can be represented using the native rendering logic of the viewport.</p>
@@ -168,9 +169,11 @@
 <p><strong>9.5 The IntelliSense needs to supply suggestions based on the contextual cursor position.</strong></p>
 <p><strong>9.6 The IntelliSense suggestions need to work when multiple tags are on a single line as well as when each tag is on a single line.</strong></p>
 <p><strong>9.7 IntelliSense needs to supply a closing tag when a closing tag is missing.</strong></p>
+<p><strong>9.8 IntelliSense suggestions need to work when attributes are split on multiple lines.</strong></p>
 <h3 id="dfdl-schema-syntax-colorization-syn">DFDL Schema Syntax Colorization (SYN)</h3>
 <p><strong>10.1 Provide DFDL syntax colorization.</strong></p>
 <p><strong>10.2 Matching tags within the dfdl schema need to be highlighted.</strong></p>
+<p><strong>10.3 XPath expressions embedded within dfdl schema should be highlighted.</strong></p>
 <hr />
 <h2 id="release-plan-proposed">Release Plan (Proposed)</h2>
 <p>The goal is to have these Apache Daffodil VS Code Extension capabilities released, and published to the Marketplace, optimistically by 2Q2023.</p>
