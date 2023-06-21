@@ -1,0 +1,6 @@
+org.apache.daffodil.japi
+org.apache.daffodil.japi.debugger
+org.apache.daffodil.japi.infoset
+org.apache.daffodil.japi.io
+org.apache.daffodil.udf
+org.apache.daffodil.udf.exceptions
