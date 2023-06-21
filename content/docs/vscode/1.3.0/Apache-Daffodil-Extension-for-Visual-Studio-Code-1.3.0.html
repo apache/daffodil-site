@@ -63,6 +63,8 @@
 <li><input type="checkbox" disabled="" />
 <strong>Have any transitive dependencies been added or changed?</strong></li>
 </ul>
+<h2 id="monitoring-project-status">Monitoring Project Status</h2>
+<p>Milestone-level project status can be monitored using the <a href="https://github.com/apache/daffodil-vscode/projects">Projects tab</a> in the <a href="https://github.com/apache/daffodil-vscode">Project’s GitHub repository</a>.</p>
 <hr />
 <p><img src="images/asf-daffodil-logo.svg" /></p>
 <h1 id="apache-daffodil-extension-for-visual-studio-code-roadmap">Apache Daffodil™ Extension for Visual Studio Code: Roadmap</h1>
@@ -422,10 +424,48 @@ export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.12</code></pre>
 <p>DFDL is a data modeling language used to describe file formats. The DFDL language is a subset of eXtensible Markup Language (XML) Schema Definition (XSD). Just as file formats are rich and complex, so is the modeling language to describe them. Developing DFDL Schemas can be challenging, requiring a lot of iterative development, and testing.</p>
 <p>The purpose of Apache Daffodil™ Extension for Visual Studio Code is to ease the burden on DFDL Schema developers, enabling them to develop high quality, DFDL Schemas, in less time. VS Code is free, open source, cross-platform, well-maintained, extensible, and ubiquitous in the developer community. These attributes align well with the Apache Daffodil™ project and the Apache Daffodil™ Extension for Visual Studio Code.</p>
 <h2 id="bundled-tools-in-the-apache-daffodil-extension-for-visual-studio-code-1">Bundled Tools in the Apache Daffodil™ Extension for Visual Studio Code</h2>
-<h3 id="dfdl-syntax-highlighting-1">DFDL Syntax Highlighting</h3>
+<h3 id="dfdl-syntax-highlighting-1"><a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code:-v1.3.0#set-the-editor-to-dfdl-mode">DFDL Syntax Highlighting</a></h3>
 <p>DFDL is rich and complex. Developers using modern code editors expect some degree of built-in language support for the language in which they are developing, and DFDL should be no different. The Apache Daffodil™ Extension for Visual Studio Code provides syntax highlighting to improve the readability and context of the text. In addition, the syntax highlighting provides feedback to the developer indicating the structure and code appear syntactically correct.</p>
-<h3 id="dfdl-schema-code-completion-1">DFDL Schema Code Completion</h3>
+<h3 id="dfdl-schema-code-completion-1"><a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code:-v1.3.0#dfdl-schema-authoring-using-code-completion">DFDL Schema Code Completion</a></h3>
 <p>The Apache Daffodil™ Extension for Visual Studio Code provides code completion, also known as “Intellisense”, offering context-aware code segment predictions that can dramatically speed up DFDL Schema development by reducing keyboard input, memorization by the developer, and typos.</p>
+<h3 id="daffodil-data-parse-debugger-1"><a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code:-v1.3.0#debugging-a-dfdl-schema-using-the-apache-daffodil-extension-for-visual-studio-codes-bundled-daffodil-data-parse-debugger">Daffodil Data Parse Debugger</a></h3>
+<p>The Apache Daffodil™ Extension for Visual Studio Code provides a Daffodil Data Parse Debugger which enables the developer to carefully control the execution of Apache Daffodil™ parse operations. Given a DFDL Schema and a target data file, the developer can step through the execution of a parse line by line, or until the parse reaches some developer-defined location, known as a break point, in the DFDL Schema. What is particularly helpful is that the developer can watch the parsed output, known as the “infoset”, as it’s being created by the parser, and see where the parser is parsing in the data file. This enables the developer to quickly discover and correct issues, improving DFDL Schema development and testing cycles.</p>
+<h3 id="data-editor-2"><a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code:-v1.3.0#data-editor-1">Data Editor</a></h3>
+<p><img width="800" src="images/DE-brief.png" alt="Data Editor"></p>
+<p>The Apache Daffodil™ Extension for Visual Studio Code provides an integrated data editor. It is akin to a hex editor, but tuned specifically for challenging Daffodil use cases. As an editor designed for Daffodil developers by Daffodil developers, features of the tool will evolve quickly to address the specific needs of the Daffodil community.</p>
+<h3 id="daffodil-test-data-markup-language-tdml"><a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code:-v1.3.0#tdml-support">Daffodil Test Data Markup Language (TDML)</a></h3>
+<p>The Apache Daffodil™ Extension for Visual Studio Code provides TDML support. TDML is a way of specifying a DFDL schema, input test data, and expected result or expected error/diagnostic messages, all self-contained in an XML file. A TDML file is often useful just to ask a question about how something in DFDL works. For example, when uploading files to the daffodil users mailing list, it may be easier to upload a zip file containing a TDML file, the DFDL Schema file, the input data file, and, optionally, the infoset file. Sending this file to the users mailing list will allow other users to unpack your zip file and run your test case. It becomes even easier if you have multiple test cases. It allows for a level of precision that is often lacking, but also often required when discussing complex data format issues. As such, providing a TDML file along with a bug report is the absolutely best way to demonstrate a problem. You can read more about TDML <a href="https://daffodil.apache.org/tdml/">here</a> on the Apache Daffodil™ website.</p>
+<h1 id="prerequisites-2">Prerequisites</h1>
+<p>This guide assumes VS Code and a Java Runtime Environment (Java 8 or greater) are installed.</p>
+<ul>
+<li><a href="https://code.visualstudio.com/download">Install VS Code</a></li>
+<li><a href="https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB">Install Java Runtime 8 or greater</a></li>
+<li>On Linux, glibc 2.31 or greater is required</li>
+</ul>
+<h1 id="installing-the-apache-daffodil-extension-for-visual-studio-code-1">Installing the Apache Daffodil™ Extension for Visual Studio Code</h1>
+<p>The Apache Daffodil™ Extension for Visual Studio Code can be installed using one of two methods.</p>
+<h2 id="option-1-install-the-apache-daffodil-extension-for-visual-studio-code-from-the-visual-studio-code-extension-marketplace-1">Option 1: Install the Apache Daffodil™ Extension for Visual Studio Code From the Visual Studio Code Extension Marketplace</h2>
+<p>The Apache Daffodil™ Extension for Visual Studio Code is available in the <a href="https://marketplace.visualstudio.com/vscode">Visual Studio Code Extension Marketplace</a>.</p>
+<h2 id="option-2-install-the-latest-.vsix-file-from-the-apache-daffodil-extension-for-visual-studio-code-release-page-1">Option 2: Install the Latest .Vsix File From the Apache Daffodil™ Extension for Visual Studio Code Release Page</h2>
+<p>The latest <code>.vsix</code> (the file extension used for VS Code extensions) file can also be downloaded from the Apache Daffodil™ Extension for Visual Studio Code <a href="https://github.com/apache/daffodil-vscode/releases">releases page</a> and installed by either:</p>
+<ul>
+<li>Using the command-line via <code>code --install-extension &lt;path-to-downloaded-vsix-file&gt;</code>; or</li>
+<li>Using the “Extensions: Install from VSIX” command from within VS Code by opening the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P), and typing <code>vsix</code> to bring up the command and pointing it at the downloaded <code>.vsix</code> file.</li>
+</ul>
+<details open>
+<summary>
+<h1 id="dfdl-schema-authoring-using-code-completion-1">DFDL Schema Authoring Using Code Completion</h1>
+</summary>
+<p><br></p>
+<h2 id="set-the-editor-to-dfdl-mode-1">Set the Editor to “dfdl” mode</h2>
+<p>Since DFDL Schema files end with <code>.xsd</code> (XML Schema Definition or XSD), the editor needs to be informed specifically that DFDL mode is desired over the more general XML mode. The mode is selected in the status bar at the bottom of the editor window.</p>
+<h2 id="dfdl-schema-authoring-features-1">DFDL Schema Authoring Features</h2>
+<p>Auto suggest is triggered using <code>control space</code> or typing the beginning characters of an item. Typing one or more unique characters will further limit the results.</p>
+<p>📝 <strong>NOTE:</strong> Intellisense is <em>context aware</em>, so there is no need to begin a block with <code>&lt;</code>, just start typing the tag name and code completion will automatically handle it as appropriate.</p>
+<p>Code completion can be used to add a schema block, with just a couple of keystrokes. Code completion can make short work out of completing a DFDL Format Block, offering context-sensitive suggestions attribute values.</p>
+<p>The <code>&gt;</code> or <code>/</code> characters are used to close XML tags. Use <code>tab</code> to select an item from the drop down and to exit double quotes.</p>
+<p>Code completion supports creating self-defined <code>dfdl:complextypes</code> and <code>dfdl:simpleTypes</code>.</p>
+<p>The <code>tab</code> key can be used to complete an auto-complete item within an XML tag. After auto-complete is triggered, typing the initial character or characters will limit the suggestion results. Inside an XML tag a <code>space</code> or <code>carriage return</code> will trigger a list of context sensitive attribute suggestions.</p>
 <figure>
 <img src="https://user-images.githubusercontent.com/72815523/233675278-db394389-30b3-4925-aa70-3167fdcb6826.png" alt="image" /><figcaption aria-hidden="true">image</figcaption>
 </figure>
@@ -534,47 +574,53 @@ export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.12</code></pre>
 <img src="https://user-images.githubusercontent.com/72815523/233679358-b873ebde-b8f4-4715-a259-481dbbeea175.png" alt="image" /><figcaption aria-hidden="true">image</figcaption>
 </figure>
 <p>The closing tag will be re-added and cursor will be placed at the end of the line.</p>
-<h3 id="daffodil-data-parse-debugger-1">Daffodil Data Parse Debugger</h3>
-<p>The Apache Daffodil™ Extension for Visual Studio Code provides a Daffodil Data Parse Debugger which enables the developer to carefully control the execution of Apache Daffodil™ parse operations. Given a DFDL Schema and a target data file, the developer can step through the execution of a parse line by line, or until the parse reaches some developer-defined location, known as a break point, in the DFDL Schema. What is particularly helpful is that the developer can watch the parsed output, known as the “infoset”, as it’s being created by the parser, and see where the parser is parsing in the data file. This enables the developer to quickly discover and correct issues, improving DFDL Schema development and testing cycles.</p>
-<h3 id="data-editor-2">Data Editor</h3>
-<p><img width="800" src="images/DE-brief.png" alt="Data Editor"></p>
-<p>The Apache Daffodil™ Extension for Visual Studio Code provides an integrated data editor. It is akin to a hex editor, but tuned specifically for challenging Daffodil use cases. As an editor designed for Daffodil developers by Daffodil developers, features of the tool will evolve quickly to address the specific needs of the Daffodil community.</p>
-<h1 id="prerequisites-2">Prerequisites</h1>
-<p>This guide assumes VS Code and a Java Runtime Environment (Java 8 or greater) are installed.</p>
-<ul>
-<li><a href="https://code.visualstudio.com/download">Install VS Code</a></li>
-<li><a href="https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm#BGBFJHAB">Install Java Runtime 8 or greater</a></li>
-<li>On Linux, glibc 2.31 or greater is required</li>
-</ul>
-<h1 id="installing-the-apache-daffodil-extension-for-visual-studio-code-1">Installing the Apache Daffodil™ Extension for Visual Studio Code</h1>
-<p>The Apache Daffodil™ Extension for Visual Studio Code can be installed using one of two methods.</p>
-<h2 id="option-1-install-the-apache-daffodil-extension-for-visual-studio-code-from-the-visual-studio-code-extension-marketplace-1">Option 1: Install the Apache Daffodil™ Extension for Visual Studio Code From the Visual Studio Code Extension Marketplace</h2>
-<p>The Apache Daffodil™ Extension for Visual Studio Code is available in the <a href="https://marketplace.visualstudio.com/vscode">Visual Studio Code Extension Marketplace</a>.</p>
-<h2 id="option-2-install-the-latest-.vsix-file-from-the-apache-daffodil-extension-for-visual-studio-code-release-page-1">Option 2: Install the Latest .Vsix File From the Apache Daffodil™ Extension for Visual Studio Code Release Page</h2>
-<p>The latest <code>.vsix</code> (the file extension used for VS Code extensions) file can also be downloaded from the Apache Daffodil™ Extension for Visual Studio Code <a href="https://github.com/apache/daffodil-vscode/releases">releases page</a> and installed by either:</p>
-<ul>
-<li>Using the command-line via <code>code --install-extension &lt;path-to-downloaded-vsix-file&gt;</code>; or</li>
-<li>Using the “Extensions: Install from VSIX” command from within VS Code by opening the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P), and typing <code>vsix</code> to bring up the command and pointing it at the downloaded <code>.vsix</code> file.</li>
-</ul>
-<h1 id="dfdl-schema-authoring-using-code-completion-1">DFDL Schema Authoring Using Code Completion</h1>
-<h2 id="set-the-editor-to-dfdl-mode-1">Set the Editor to “dfdl” mode</h2>
-<p>Since DFDL Schema files end with <code>.xsd</code> (XML Schema Definition or XSD), the editor needs to be informed specifically that DFDL mode is desired over the more general XML mode. The mode is selected in the status bar at the bottom of the editor window.</p>
-<h2 id="dfdl-schema-authoring-features-1">DFDL Schema Authoring Features</h2>
-<p>Auto suggest is triggered using <code>control space</code> or typing the beginning characters of an item. Typing one or more unique characters will further limit the results.</p>
-<p>📝 <strong>NOTE:</strong> Intellisense is <em>context aware</em>, so there is no need to begin a block with <code>&lt;</code>, just start typing the tag name and code completion will automatically handle it as appropriate.</p>
-<p>Code completion can be used to add a schema block, with just a couple of keystrokes. Code completion can make short work out of completing a DFDL Format Block, offering context-sensitive suggestions attribute values.</p>
-<p>The <code>&gt;</code> or <code>/</code> characters are used to close XML tags. Use <code>tab</code> to select an item from the drop down and to exit double quotes.</p>
-<p>Code completion supports creating self-defined <code>dfdl:complextypes</code> and <code>dfdl:simpleTypes</code>.</p>
-<p>The <code>tab</code> key can be used to complete an auto-complete item within an XML tag. After auto-complete is triggered, typing the initial character or characters will limit the suggestion results. Inside an XML tag a <code>space</code> or <code>carriage return</code> will trigger a list of context sensitive attribute suggestions.</p>
 <p>XPath expressions can be code completed.</p>
 <h2 id="known-issues-with-code-completion-1">Known Issues With Code Completion</h2>
 <ol type="1">
 <li>The Apache Daffodil™ Extension for Visual Studio Code uses a clunky method to auto complete curly braces within quotes. It is anticipated that this will be better addressed in the future. The auto complete method blocks suggestions while typing between the beginning quote, opening curly brace and the closing curly brace, ending quote.</li>
 </ol>
-<h1 id="debugging-a-dfdl-schema-using-the-apache-daffodil-extension-for-visual-studio-codes-bundled-daffodil-data-parse-debugger-1">Debugging a DFDL Schema Using the Apache Daffodil™ Extension for Visual Studio Code’s Bundled Daffodil Data Parse Debugger</h1>
+</details>
+<details open>
+<summary>
+<h1 id="debugging-a-dfdl-schema-using-data-parse-debugger">Debugging a DFDL Schema Using Data Parse Debugger</h1>
+</summary>
+<p><br></p>
 <h2 id="debug-configuration-1">Debug Configuration</h2>
 <p>Debugging a DFDL Schema needs both the DFDL Schema to use and a data file to parse. Instead of having to select the DFDL Schema and the data file each time from a file picker, a “launch configuration” can be created, which is a JSON description of the debugging session.</p>
-<p>To create the launch profile:</p>
+<p>A launch configuration can be created using the Launch Wizard or done manually through the ./vscode/launch.json file</p>
+<h3 id="launch-wizard-configuration">Launch Wizard Configuration</h3>
+<p>The launch wizard can be accessed two ways, either from the edit window when editing a DFDL schema file as shown below</p>
+<figure>
+<img src="https://github.com/apache/daffodil-vscode/assets/131286323/e0f00513-f4d0-4422-9aef-0cbce919f8c4" alt="image" /><figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p>Or it can be accessed through the Command Palette (Ctrl + Shift + P) and search for <code>Configure launch.json</code> <img src="https://github.com/apache/daffodil-vscode/assets/131286323/ed4f9c86-4724-4bf2-a57a-bd6d10305370" alt="image" /></p>
+<p>A new tab will be created with the Launch Config Wizard</p>
+<figure>
+<img src="https://github.com/apache/daffodil-vscode/assets/131286323/38bf5b2d-5d8c-4104-bb18-51137670f042" alt="image" /><figcaption aria-hidden="true">image</figcaption>
+</figure>
+<figure>
+<img src="https://github.com/apache/daffodil-vscode/assets/131286323/03f8ca56-fb49-4065-b08b-0988ba49ba3c" alt="image" /><figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p>Here you can create or edit Daffodil Debugger Config Settings</p>
+<p>The drop down under <code>Launch Config</code> will allow you to create a new config and name it or you can select an already created config from the drop down.</p>
+<p>The <code>Daffodil Debugger Classpath</code> is for additional classpaths that you would like the debugger to retrieve files from. Use ${workspaceFolder} for files in the VS Code workspace, and use absolute paths for files outside of the workspace.</p>
+<p>Under the <code>Data</code> section, you can specify an absolute path to the data input file or leave it as a command and the debugger will ask you each time you run it.</p>
+<p>The <code>Debug Server</code> specifies the port that the debug server should be running on.</p>
+<p>The <code>Infoset Format</code> gives the user the ability to have their infosets generated as a XML or JSON format.</p>
+<p>The <code>Infoset Output Type</code> gives the user the ability to specify a destination for their infoset file being a file placed at the path given by the user, printed out in console, or none for no output of an infoset.</p>
+<p>The three checkboxes will open each of the additional views upon running the debugger, those are the</p>
+<p><code>Hex View</code> – Shows daffodil schema in a datafile-hex view</p>
+<p><code>Infoset Diff View</code> – Shows a side-by-side diff of the previous and current infoset file</p>
+<p><code>Infoset View</code> – Shows the infoset file being created in real time as the debugger runs</p>
+<p>The <code>TDML Action</code> section allows the user to specify whether a TDML file should be generated, appended to the end of a previously created TDML file, or should not be created.</p>
+<p>If set to generate or append, a TDML file name, description, and file path must be given.</p>
+<p>Under <code>Program</code>, an absolute path can be given to the DFDL schema file leave it as a command and the debugger will ask you each time you run it.</p>
+<p>The <code>Stop On Entry</code> checkbox will make the debugger automatically pause after launching. This allows the user to set breakpoints before running the file through.</p>
+<p>The <code>Trace</code> checkbox enables the logging of the Debug Adapter Protocol.</p>
+<p>Under <code>Data Editor Settings</code>, there is configurations for <a href="https://github.com/ctc-oss/omega-edit">Omega Edit</a>, here you can specify the port, log file location, and log level.</p>
+<p>The <code>Use Existing Server</code> check box will enable a connection to a Debug Adapter Protocol (DAP) Server</p>
+<p>Once all configurations have been completed, they can be saved and a launch.json file will be created.</p>
+<h3 id="manual-launch-configuration">Manual Launch Configuration</h3>
 <ol type="1">
 <li><p>Select <code>Run -&gt; Open Configurations</code> from the VS Code menubar. This will load a <code>launch.json</code> file into the editor. There may be existing <code>configurations</code>, or it may be empty.</p></li>
 <li><p>Press <code>Add Configuration...</code> and select the <code>Daffodil Debug - Launch</code> option.</p></li>
@@ -639,36 +685,12 @@ export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.12</code></pre>
 <p>Find the infoset tools from the command menu (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P)</p>
 <h3 id="inputstream-hex-viewer-1">Inputstream Hex Viewer</h3>
 <p>Find the hex view from the command menu (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P)</p>
-<h1 id="tdml-support">TDML Support</h1>
-<p>When uploading files to the mailing list, it may be easier to upload a zip file containing a TDML file, the DFDL Schema file, the input data file, and, optionally, the infoset file. Sending this file to the mailing list will allow other users to unpack your zip file and run your test case. It becomes even easier if you have multiple test cases.</p>
-<p>To Generate a TDML file, use similar steps for Launching a DFDL Parse Debugging Session: * Open the DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Generate TDML</code> command * From there, you will be asked to provide the input data file, the TDML test case name, the TDML test case description, and the location/name for the TDML file.</p>
-<p>Once the Daffodil Parse has finished, an infoset and a TDML file will be created. The TDML file contains relative paths to the DFDL Schema file, input data file, and infoset file. When creating an archive for these files, preserve the directory structure in the archive.</p>
-<p>To Append a new test case to an existing TDML file, use similar steps for Generating a TDML file: * Open the DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Append TDML</code> command * From there, you will be asked to provide the input data file, the TDML test case name, the TDML test case description, and the TDML file</p>
-<p>Once the Daffodil Parse has finished, an infoset will be created, and a test case will be added to the existing TDML file. The TDML test case name OR description can be shared between test cases, but no two test cases should share TDML test case names and descriptions. To create an archive for a TDML file with multiple test cases, the same guidelines for creating an archive from a TDML file created from a ‘Generate TDML’ operation should be followed. All DFDL schema files, input data files, the TDML file, and, optionally, the infosets should be added to the archive. Additionally, any directory structure should be preserved in the archive to allow for the relative paths in the TDML file to be resolved.</p>
-<p>When running a zip archive created from another user, extract the archive into your workspace folder. If there is an infoset in the zip archive that you wish to compare with your infoset, make sure that the infoset from the zip archive is not located at the same place as the default infoset for the Daffodil Parse that will be run when executing a test case from the TDML file. This is because the Daffodil Parse run by executing the TDML test case uses the default location for its infoset and will overwrite anything that already exists there.</p>
-<p>To Execute a test case from a TDML file, use the following steps: * Open a DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Execute TDML</code> command * From there, you will be asked to provide the TDML file, TDML test case name, and TDML test case description</p>
-<p>A Daffodil Parse will then be launched. The DFDL Schema file and input data file to be used is determined by the selected test case in the TDML file. The infoset that is generated from this parse can optionally be compared to an infoset included in the zip archive the TDML file was extracted from.</p>
-<h2 id="sample-tdml-file">Sample TDML File</h2>
-<p>A TDML file is comprised of Test Cases. Each test case describes a DFDL parse operation and points to the inputs and outputs of the DFDL parse operation. Inputs - DFDL Schema file and input data file Outputs - Infoset file</p>
-<p>Additionally, each Test Case should be uniquely identified by the combination of its name and description. Currently, this is not enforced, and any duplications will never be selectable by the TDML Execute operation.</p>
-<p>Below is a Sample TDML file with a single Test Case along with XPath expressions describing where each item can be found inside of a Test Case.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;UTF-8&quot;</span><span class="ot"> standalone=</span><span class="st">&quot;yes&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">ns1:testSuite</span><span class="ot"> xmlns:ns1=</span><span class="st">&quot;http://www.ibm.com/xmlns/dfdl/testData&quot;</span><span class="ot"> xmlns:ns2=</span><span class="st">&quot;http://www.ogf.org/dfdl/dfdl-1.0/&quot;</span><span class="ot"> xmlns:ns3=</span><span class="st">&quot;urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext&quot;</span><span class="ot"> xmlns:ns4=</span><span class="st">&quot;http://www.ogf.org/dfdl/dfdl-1.0/extensions&quot;</span><span class="ot"> xmlns:xs=</span><span class="st">&quot;http://www.w3.org/2001/XMLSchema&quot;</span><span class="ot"> xmlns:ns6=</span><span class="st">&quot;urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:int&quot;</span><span class="ot"> suiteName=</span><span class="st">&quot;Default Test Case&quot;</span><span class="ot"> defaultRoundTrip=</span><span class="st">&quot;onePass&quot;</span>&gt;</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ns1:parserTestCase</span><span class="ot"> name=</span><span class="st">&quot;Default Test Case&quot;</span><span class="ot"> root=</span><span class="st">&quot;file&quot;</span><span class="ot"> model=</span><span class="st">&quot;png.dfdl.xsd&quot;</span><span class="ot"> roundTrip=</span><span class="st">&quot;onePass&quot;</span><span class="ot"> description=</span><span class="st">&quot;Generated by DFDL VSCode Extension&quot;</span>&gt;</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ns1:document</span>&gt;</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ns1:documentPart</span><span class="ot"> type=</span><span class="st">&quot;file&quot;</span>&gt;di4zg8Kie.png&lt;/<span class="kw">ns1:documentPart</span>&gt;</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">ns1:document</span>&gt;</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ns1:infoset</span>&gt;</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ns1:dfdlInfoset</span><span class="ot"> type=</span><span class="st">&quot;file&quot;</span>&gt;png-infoset.xml&lt;/<span class="kw">ns1:dfdlInfoset</span>&gt;</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">ns1:infoset</span>&gt;</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">ns1:parserTestCase</span>&gt;</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">ns1:testSuite</span>&gt;</span></code></pre></div>
-<p><code>/ns1:testSuite/ns1:parserTestCase/@model</code> contains the relative path to the DFDL Schema file. This path is relative to the location of the TDML file<br />
-<code>/ns1:testSuite/ns1:parserTestCase/@name</code> contains the name of the Test Case<br />
-<code>/ns1:testSuite/ns1:parserTestCase/@description</code> contains a description of the Test Case<br />
-<code>/ns1:testSuite/ns1:parserTestCase/ns1:document/ns1:documentPart/text()</code> contains the relative path to the input data file. This path is relative to the location of the TDML file<br />
-<code>/ns1:testSuite/ns1:parserTestCase/ns1:infoset/ns1:dfdlInfoset/text()</code> contains the relative path to the infoset file created with the parameters of this test case. This path is relative to the location of the TDML file</p>
-<h2 id="data-editor-3">Data Editor</h2>
+</details>
+<details open>
+<summary>
+<h1 id="data-editor-3">Data Editor</h1>
+</summary>
+<p><br></p>
 <p>This version of the Apache Daffodil™ Extension for Visual Studio Code includes a new Data Editor. To use the Data Editor, open the VS Code command palette and select <code>Daffodil Debug: Data Editor</code>.</p>
 <p><img width="800" src="images/DE-cmd-palette.png"/></p>
 <p>A notification message will appear that informs where the Data Editor will write its logs to. If problems happen, check this log file for clues.</p>
@@ -695,6 +717,27 @@ export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.12</code></pre>
 <p><img width="200" src="images/DE-EditEncoding.png"/> <img width="800" src="images/DE-MBM-UTF-8.png"/></p>
 <p>The Data Editor supports light and dark modes. The mode is determined by the VSCode theme. If the VSCode theme is set to a light theme, the Data Editor will be in light mode. If the VSCode theme is set to a dark theme, the Data Editor will be in dark mode.</p>
 <p><img width="800" src="images/Theme-selection.png"/> <img width="800" src="images/DE-light-theme.png"/></p>
+<h3 id="data-editor-launch-settings">Data Editor Launch Settings</h3>
+<p>Users can update the settings for the Data Editor using the launch config file (<code>.vscode/launch.json</code>). The way to add these settings is by doing something like:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;0.2.0&quot;</span><span class="fu">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;configurations&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            <span class="er">...</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;dataEditor&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">9001</span><span class="fu">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;logFile&quot;</span><span class="fu">:</span> <span class="st">&quot;/tmp/dataEditor-9001.log&quot;</span><span class="fu">,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;logLevel&quot;</span><span class="fu">:</span> <span class="st">&quot;debug&quot;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>If one or more of these items are not set, the items will be set to their default values. Below are the default values:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;dataEditor&quot;:</span> <span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">9000</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;logFile&quot;</span><span class="fu">:</span> <span class="st">&quot;${workspaceFolder}/dataEditor-${omegaEditPort}.log&quot;</span><span class="fu">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;logLevel&quot;</span><span class="fu">:</span> <span class="st">&quot;info&quot;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <h3 id="data-editor-limitations-in-v1.3.0">Data Editor Limitations in v1.3.0</h3>
 <ol type="1">
 <li><p>The current editing limit is 1,000,000 bytes. This is due to the amount of memory it takes to encode and display all the bytes in the viewports.</p></li>
@@ -704,6 +747,40 @@ export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.12</code></pre>
 </ol>
 <p>As of v1.3.0, this feature is <em>minimally viable</em> and will be improving over time. Expect these limitations to be removed in the next release.</p>
 <p>📝 Note: The non-printable font being used (░) may appear different on different platforms and OS/font configurations.</p>
+</details>
+<details open>
+<summary>
+<h1 id="tdml-support">TDML Support</h1>
+</summary>
+<p><br></p>
+<p>To Generate a TDML file, use similar steps for Launching a DFDL Parse Debugging Session: * Open the DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Generate TDML</code> command * From there, you will be asked to provide the input data file, the TDML test case name, the TDML test case description, and the location/name for the TDML file.</p>
+<p>Once the Daffodil Parse has finished, an infoset and a TDML file will be created. The TDML file contains relative paths to the DFDL Schema file, input data file, and infoset file. When creating an archive for these files, preserve the directory structure in the archive.</p>
+<p>To Append a new test case to an existing TDML file, use similar steps for Generating a TDML file: * Open the DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Append TDML</code> command * From there, you will be asked to provide the input data file, the TDML test case name, the TDML test case description, and the TDML file</p>
+<p>Once the Daffodil Parse has finished, an infoset will be created, and a test case will be added to the existing TDML file. The TDML test case name OR description can be shared between test cases, but no two test cases should share TDML test case names and descriptions. To create an archive for a TDML file with multiple test cases, the same guidelines for creating an archive from a TDML file created from a ‘Generate TDML’ operation should be followed. All DFDL schema files, input data files, the TDML file, and, optionally, the infosets should be added to the archive. Additionally, any directory structure should be preserved in the archive to allow for the relative paths in the TDML file to be resolved.</p>
+<p>When running a zip archive created from another user, extract the archive into your workspace folder. If there is an infoset in the zip archive that you wish to compare with your infoset, make sure that the infoset from the zip archive is not located at the same place as the default infoset for the Daffodil Parse that will be run when executing a test case from the TDML file. This is because the Daffodil Parse run by executing the TDML test case uses the default location for its infoset and will overwrite anything that already exists there.</p>
+<p>To Execute a test case from a TDML file, use the following steps: * Open a DFDL Schema file * From inside the file, open the Command Palette (Mac = Command+Shift+P, Windows/Linux = Ctrl+Shift+P) * Once the Command Palette is opened, select the <code>Daffodil Debug: Execute TDML</code> command * From there, you will be asked to provide the TDML file, TDML test case name, and TDML test case description</p>
+<p>A Daffodil Parse will then be launched. The DFDL Schema file and input data file to be used is determined by the selected test case in the TDML file. The infoset that is generated from this parse can optionally be compared to an infoset included in the zip archive the TDML file was extracted from.</p>
+<h2 id="sample-tdml-file">Sample TDML File</h2>
+<p>A TDML file is comprised of Test Cases. Each test case describes a DFDL parse operation and points to the inputs and outputs of the DFDL parse operation. Inputs - DFDL Schema file and input data file Outputs - Infoset file</p>
+<p>Additionally, each Test Case should be uniquely identified by the combination of its name and description. Currently, this is not enforced, and any duplications will never be selectable by the TDML Execute operation.</p>
+<p>Below is a Sample TDML file with a single Test Case along with XPath expressions describing where each item can be found inside of a Test Case.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;UTF-8&quot;</span><span class="ot"> standalone=</span><span class="st">&quot;yes&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">ns1:testSuite</span><span class="ot"> xmlns:ns1=</span><span class="st">&quot;http://www.ibm.com/xmlns/dfdl/testData&quot;</span><span class="ot"> xmlns:ns2=</span><span class="st">&quot;http://www.ogf.org/dfdl/dfdl-1.0/&quot;</span><span class="ot"> xmlns:ns3=</span><span class="st">&quot;urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext&quot;</span><span class="ot"> xmlns:ns4=</span><span class="st">&quot;http://www.ogf.org/dfdl/dfdl-1.0/extensions&quot;</span><span class="ot"> xmlns:xs=</span><span class="st">&quot;http://www.w3.org/2001/XMLSchema&quot;</span><span class="ot"> xmlns:ns6=</span><span class="st">&quot;urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:int&quot;</span><span class="ot"> suiteName=</span><span class="st">&quot;Default Test Case&quot;</span><span class="ot"> defaultRoundTrip=</span><span class="st">&quot;onePass&quot;</span>&gt;</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ns1:parserTestCase</span><span class="ot"> name=</span><span class="st">&quot;Default Test Case&quot;</span><span class="ot"> root=</span><span class="st">&quot;file&quot;</span><span class="ot"> model=</span><span class="st">&quot;png.dfdl.xsd&quot;</span><span class="ot"> roundTrip=</span><span class="st">&quot;onePass&quot;</span><span class="ot"> description=</span><span class="st">&quot;Generated by DFDL VSCode Extension&quot;</span>&gt;</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ns1:document</span>&gt;</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ns1:documentPart</span><span class="ot"> type=</span><span class="st">&quot;file&quot;</span>&gt;di4zg8Kie.png&lt;/<span class="kw">ns1:documentPart</span>&gt;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">ns1:document</span>&gt;</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ns1:infoset</span>&gt;</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">ns1:dfdlInfoset</span><span class="ot"> type=</span><span class="st">&quot;file&quot;</span>&gt;png-infoset.xml&lt;/<span class="kw">ns1:dfdlInfoset</span>&gt;</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">ns1:infoset</span>&gt;</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">ns1:parserTestCase</span>&gt;</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">ns1:testSuite</span>&gt;</span></code></pre></div>
+<code>/ns1:testSuite/ns1:parserTestCase/@model</code> contains the relative path to the DFDL Schema file. This path is relative to the location of the TDML file<br />
+<code>/ns1:testSuite/ns1:parserTestCase/@name</code> contains the name of the Test Case<br />
+<code>/ns1:testSuite/ns1:parserTestCase/@description</code> contains a description of the Test Case<br />
+<code>/ns1:testSuite/ns1:parserTestCase/ns1:document/ns1:documentPart/text()</code> contains the relative path to the input data file. This path is relative to the location of the TDML file<br />
+<code>/ns1:testSuite/ns1:parserTestCase/ns1:infoset/ns1:dfdlInfoset/text()</code> contains the relative path to the infoset file created with the parameters of this test case. This path is relative to the location of the TDML file
+</details>
 <h1 id="reporting-problems-and-requesting-new-features-1">Reporting Problems and Requesting New Features</h1>
 <p>If problems are encountered or new features are desired, create tickets <a href="https://github.com/apache/daffodil-vscode/issues">here</a>.</p>
 <h1 id="getting-help-1">Getting Help</h1>
