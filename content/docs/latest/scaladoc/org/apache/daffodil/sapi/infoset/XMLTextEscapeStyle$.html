@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi.logger.NullLogWriter</title>
-          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi.logger.NullLogWriter" />
-          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi.logger.NullLogWriter" />
+          <title>Apache Daffodil 3.5.0 Scala API  - org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle</title>
+          <meta name="description" content="Apache Daffodil 3.5.0 Scala API - org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle" />
+          <meta name="keywords" content="Apache Daffodil 3.5.0 Scala API org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.4.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.5.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -165,14 +165,14 @@ uri: &quot;urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:sax:ParseResult&quot; 
 unparse to be kicked off by a parse call to any org.xml.sax.XMLReader implementation that has the
 <a href="../DaffodilUnparseContentHandler.html" class="extype" name="org.apache.daffodil.sapi.DaffodilUnparseContentHandler">DaffodilUnparseContentHandler</a> registered as its content handler. To retrieve the <a href="../UnparseResult.html" class="extype" name="org.apache.daffodil.sapi.UnparseResult">UnparseResult</a>,
 one can use <a href="../DaffodilUnparseContentHandler.html#getUnparseResult:org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DaffodilUnparseContentHandler#getUnparseResult">DaffodilUnparseContentHandler.getUnparseResult</a> once the XMLReader.parse run is
-complete.</p><h6> Parse </h6><h6> Dataprocessor Parse </h6><p>The <a href="../DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a> method accepts input data to parse in the form of a <a href="../io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a> and an <a href="../infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to determine
+complete.</p><h6> Parse </h6><h6> Dataprocessor Parse </h6><p>The <a href="../DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a> method accepts input data to parse in the form of a <a href="../io/InputSourceDataInputStream.html" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a> and an <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> to determine
 the output representation of the infoset (e.g. Scala XML Nodes, JDOM2 Documents, etc.):</p><pre><span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 <span class="kw">val</span> is = <span class="kw">new</span> InputSourceDataInputStream(data)
 <span class="kw">val</span> pr = dp.parse(is, scalaOutputter)
 <span class="kw">val</span> node = scalaOutputter.getResult</pre><p>The <a href="../DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a> method is thread-safe and may be called multiple times without the need to
-create other data processors. However, <a href="../infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>'s are not
-thread safe, requiring a unique instance per thread. An <a href="../infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>
-should call <a href="../infoset/InfosetOutputter.html#reset():Unit" class="extmbr" name="org.apache.daffodil.sapi.infoset.InfosetOutputter#reset">InfosetOutputter.reset</a> before reuse (or a new one
+create other data processors. However, <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>'s are not
+thread safe, requiring a unique instance per thread. An <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a>
+should call <a href="InfosetOutputter.html#reset():Unit" class="extmbr" name="org.apache.daffodil.sapi.infoset.InfosetOutputter#reset">InfosetOutputter.reset</a> before reuse (or a new one
 should be allocated). For example:</p><pre><span class="kw">val</span> scalaOutputter = <span class="kw">new</span> ScalaXMLInfosetOutputter()
 files.foreach { f <span class="kw">=&gt;</span> {
   outputter.reset
@@ -226,7 +226,7 @@ xmlReader.setContentHandler(contentHandler)
   keepParsing = !pr.isError()
 }</pre><h6> Unparse </h6><h6> Dataprocessor Unparse </h6><p>The same <a href="../DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> used for parse can be used to unparse an infoset
 via the <a href="../DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method. An
-<a href="../infoset/InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> provides the infoset to unparse, with the unparsed
+<a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> provides the infoset to unparse, with the unparsed
 data written to the provided java.nio.channels.WritableByteChannel. For example:</p><pre><span class="kw">val</span> inputter = <span class="kw">new</span> ScalaXMLInfosetInputter(node)
 <span class="kw">val</span> ur = dp.unparse(inputter, wbc)</pre><h6> SAX Unparse </h6><p>In order to kick off an unparse via the SAX API, one must register the <a href="../DaffodilUnparseContentHandler.html" class="extype" name="org.apache.daffodil.sapi.DaffodilUnparseContentHandler">DaffodilUnparseContentHandler</a>
 as the contentHandler for an XMLReader implementation. The call to the
@@ -275,10 +275,10 @@ dp.save(saveFile);</pre><p>And to restore a saved <a href="../DataProcessor.html
 ... <span class="cmt">// setting appropriate handlers</span>
 xmlReader.parse(data)
 <span class="kw">val</span> pr = xmlReader.getProperty(<span class="lit">"...ParseResult"</span>)</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="org.apache.daffodil">daffodil</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="logger"></a><a id="logger:logger"></a>
+    </li><li name="org.apache.daffodil.sapi.infoset" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="infoset"></a><a id="infoset:infoset"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/index.html" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/index.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -287,41 +287,91 @@ xmlReader.parse(data)
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">logger</span></a>
+        <a title="Defines various classes used control the representation of the infoset for parse and unparse." href="index.html"><span class="name">infoset</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
+      <p class="shortcomment cmt">Defines various classes used control the representation of the infoset for parse and unparse.</p><div class="fullcomment"><div class="comment cmt"><p>Defines various classes used control the representation of the infoset for parse and unparse.
+Classes that extend <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a> are provided to the <a href="../DataProcessor.html#parse(input:org.apache.daffodil.sapi.io.InputSourceDataInputStream,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#parse">DataProcessor.parse</a>
+method to deteremine how to output an infoset. These classes are not
+guaranteed to be thread-safe. Classes that extend <a href="InfosetInputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetInputter">InfosetInputter</a> are
+provided to the <a href="../DataProcessor.html#unparse(input:org.apache.daffodil.sapi.infoset.InfosetInputter,output:java.nio.channels.WritableByteChannel):org.apache.daffodil.sapi.UnparseResult" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#unparse">DataProcessor.unparse</a> method to determine how to read in
+an infoset. A new InfosetOutputter is required for each call to unparse().
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="ConsoleLogWriter.html" title="LogWriter that writes log messages to stdout"></a>
-                        <a href="ConsoleLogWriter.html" title="LogWriter that writes log messages to stdout">ConsoleLogWriter</a>
+                        <a class="class" href="InfosetInputter.html" title="Abstract class used to determine how the infoset representation should be input from a call to DataProcessor.unparse."></a>
+                        <a href="InfosetInputter.html" title="Abstract class used to determine how the infoset representation should be input from a call to DataProcessor.unparse.">InfosetInputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="FileLogWriter.html" title="LogWriter that writes all log messages to a file."></a>
-                        <a href="FileLogWriter.html" title="LogWriter that writes all log messages to a file.">FileLogWriter</a>
+                        <a class="class" href="InfosetInputterProxy.html" title="A proxy for InfosetInputters that are internal to Daffodil"></a>
+                        <a href="InfosetInputterProxy.html" title="A proxy for InfosetInputters that are internal to Daffodil">InfosetInputterProxy</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="LogLevel$.html" title="Logging levels."></a>
-                        <a href="LogLevel$.html" title="Logging levels.">LogLevel</a>
+                        <a class="class" href="InfosetOutputter.html" title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse."></a>
+                        <a href="InfosetOutputter.html" title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse.">InfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="LogWriter.html" title="Abstract log writer, which can be overridden to create a custom log writer."></a>
-                        <a href="LogWriter.html" title="Abstract log writer, which can be overridden to create a custom log writer.">LogWriter</a>
+                        <a class="class" href="InfosetOutputterProxy.html" title="A proxy for InfosetOutputters that are internal to Daffodil"></a>
+                        <a href="InfosetOutputterProxy.html" title="A proxy for InfosetOutputters that are internal to Daffodil">InfosetOutputterProxy</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="" title="LogWriter that drops all log messages"></a>
-                        <a href="" title="LogWriter that drops all log messages">NullLogWriter</a>
+                        <a class="class" href="JDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.jdom2.Document"></a>
+                        <a href="JDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.jdom2.Document">JDOMInfosetInputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="JDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.jdom2.Document"></a>
+                        <a href="JDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.jdom2.Document">JDOMInfosetOutputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="JsonInfosetInputter.html" title="InfosetInputter to read an infoset represented as JSON from a java.io.InputStream"></a>
+                        <a href="JsonInfosetInputter.html" title="InfosetInputter to read an infoset represented as JSON from a java.io.InputStream">JsonInfosetInputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="JsonInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as JSON written to a java.io.OutputStream"></a>
+                        <a href="JsonInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as JSON written to a java.io.OutputStream">JsonInfosetOutputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="NullInfosetOutputter.html" title="InfosetOutputter that does not build an infoset represention, ignoring all InfosetOutputter events"></a>
+                        <a href="NullInfosetOutputter.html" title="InfosetOutputter that does not build an infoset represention, ignoring all InfosetOutputter events">NullInfosetOutputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="ScalaXMLInfosetInputter.html" title="InfosetInputter to read an infoset represented as a scala.xml.Node"></a>
+                        <a href="ScalaXMLInfosetInputter.html" title="InfosetInputter to read an infoset represented as a scala.xml.Node">ScalaXMLInfosetInputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="ScalaXMLInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as a scala.xml.Node"></a>
+                        <a href="ScalaXMLInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as a scala.xml.Node">ScalaXMLInfosetOutputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="W3CDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.w3c.dom.Document"></a>
+                        <a href="W3CDOMInfosetInputter.html" title="InfosetInputter to read an infoset represented as an org.w3c.dom.Document">W3CDOMInfosetInputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="W3CDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document"></a>
+                        <a href="W3CDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document">W3CDOMInfosetOutputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="object" href="" title="XMLTextEscapeStyle determines how to wrap values of elements of type xs:string"></a>
+                        <a href="" title="XMLTextEscapeStyle determines how to wrap values of elements of type xs:string">XMLTextEscapeStyle</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream"></a>
+                        <a href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream">XMLTextInfosetInputter</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="XMLTextInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as XML written to a java.io.OutputStream"></a>
+                        <a href="XMLTextInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as XML written to a java.io.OutputStream">XMLTextInfosetOutputter</a>
                       </li>
               </ul>
             </div>
           </div>
           <div id="content">
-            <body class="class type">
+            <body class="object value">
       <div id="definition">
-        <div class="big-circle class">c</div>
-        <p id="owner"><a href="../../../../index.html" class="extype" name="org">org</a>.<a href="../../../index.html" class="extype" name="org.apache">apache</a>.<a href="../../index.html" class="extype" name="org.apache.daffodil">daffodil</a>.<a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a>.<a href="index.html" class="extype" name="org.apache.daffodil.sapi.logger">logger</a></p>
-        <h1>NullLogWriter<span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html" title="Permalink">
+        <div class="big-circle object">o</div>
+        <p id="owner"><a href="../../../../index.html" class="extype" name="org">org</a>.<a href="../../../index.html" class="extype" name="org.apache">apache</a>.<a href="../../index.html" class="extype" name="org.apache.daffodil">daffodil</a>.<a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a>.<a href="index.html" class="extype" name="org.apache.daffodil.sapi.infoset">infoset</a></p>
+        <h1>XMLTextEscapeStyle<span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
@@ -330,24 +380,25 @@ xmlReader.parse(data)
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
+        <span class="modifier"></span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 3.2.0) Use Log4j for logging">NullLogWriter</span><span class="result"> extends <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></span>
+        <span class="name">XMLTextEscapeStyle</span><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a> that drops all log messages
-</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.2.0)</i> Use Log4j for logging</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>XMLTextEscapeStyle determines how to wrap values of elements of type xs:string</p><p>Standard - Special characters (quotation mark, ampersand, less-than, greater-than)
+in the text of xs:string elements are escaped, while non-special characters are
+written as is.</p><p>CDATA - The text of xs:string elements are wrapped in CDATA tags if the string
+contains whitespace or special characters (quotation mark, ampersand, less-than,
+greater-than)
+</p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Enumeration">Enumeration</span>, <span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -373,7 +424,7 @@ xmlReader.parse(data)
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.logger.NullLogWriter"><span>NullLogWriter</span></li><li class="in" name="org.apache.daffodil.sapi.logger.LogWriter"><span>LogWriter</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle"><span>XMLTextEscapeStyle</span></li><li class="in" name="scala.Enumeration"><span>Enumeration</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -391,28 +442,82 @@ xmlReader.parse(data)
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="org.apache.daffodil.sapi.logger.NullLogWriter#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;():org.apache.daffodil.sapi.logger.NullLogWriter"></a><a id="&lt;init&gt;:NullLogWriter"></a>
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="scala.Enumeration.Val" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ValextendsEnumeration.this.ValuewithSerializable"></a><a id="Val:Val"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#&lt;init&gt;():org.apache.daffodil.sapi.logger.NullLogWriter" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#ValextendsEnumeration.this.ValuewithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">new</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">NullLogWriter</span><span class="params">()</span>
+        <span class="name">Val</span><span class="result"> extends <span class="extype" name="scala.Enumeration.Value">Value</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd><dt>Annotations</dt><dd>
+                <span class="name">@SerialVersionUID</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.Enumeration.Value" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ValueextendsOrdered[Enumeration.this.Value]withSerializable"></a><a id="Value:Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Value</span><span class="result"> extends <span class="extype" name="scala.Ordered">Ordered</span>[<span class="extype" name="scala.Enumeration.Value">Value</span>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd><dt>Annotations</dt><dd>
+                <span class="name">@SerialVersionUID</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.Enumeration.ValueSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ValueSetextendsAbstractSet[Enumeration.this.Value]withSortedSet[Enumeration.this.Value]withSortedSetLike[Enumeration.this.Value,Enumeration.this.ValueSet]withSerializable"></a><a id="ValueSet:ValueSet"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#ValueSetextendsAbstractSet[Enumeration.this.Value]withSortedSet[Enumeration.this.Value]withSortedSetLike[Enumeration.this.Value,Enumeration.this.ValueSet]withSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ValueSet</span><span class="result"> extends <span class="extype" name="scala.collection.AbstractSet">AbstractSet</span>[<span class="extype" name="scala.Enumeration.Value">Value</span>] with <span class="extype" name="scala.collection.immutable.SortedSet">SortedSet</span>[<span class="extype" name="scala.Enumeration.Value">Value</span>] with <span class="extype" name="scala.collection.SortedSetLike">SortedSetLike</span>[<span class="extype" name="scala.Enumeration.Value">Value</span>, <span class="extype" name="scala.Enumeration.ValueSet">ValueSet</span>] with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.XMLTextEscapeStyle" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="XMLTextEscapeStyle=org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value"></a><a id="XMLTextEscapeStyle:XMLTextEscapeStyle"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#XMLTextEscapeStyle=org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">XMLTextEscapeStyle</span><span class="result alias"> = <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
       </span>
       
       
     </li></ol>
             </div>
-
-        
 
         
 
@@ -422,7 +527,7 @@ xmlReader.parse(data)
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -438,7 +543,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html###():Int" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -454,7 +559,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -467,10 +572,122 @@ xmlReader.parse(data)
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle#CDATA" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CDATA:org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value"></a><a id="CDATA:Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#CDATA:org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">CDATA</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      
+    </li><li name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle#Standard" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Standard:org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value"></a><a id="Standard:Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#Standard:org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Standard</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      
+    </li><li name="scala.Enumeration#Value" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Value(i:Int,name:String):Enumeration.this.Value"></a><a id="Value(Int,String):Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#Value(i:Int,name:String):Enumeration.this.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Value</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="scala.Enumeration#Value" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Value(name:String):Enumeration.this.Value"></a><a id="Value(String):Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#Value(name:String):Enumeration.this.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Value</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="scala.Enumeration#Value" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Value(i:Int):Enumeration.this.Value"></a><a id="Value(Int):Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#Value(i:Int):Enumeration.this.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Value</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="scala.Enumeration#Value" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Value:Enumeration.this.Value"></a><a id="Value:Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#Value:Enumeration.this.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Value</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="scala.Enumeration#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(x:Int):Enumeration.this.Value"></a><a id="apply(Int):Value"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#apply(x:Int):Enumeration.this.Value" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="x">x: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -486,7 +703,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#clone():Object" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -510,7 +727,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -526,7 +743,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#equals(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -542,7 +759,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#finalize():Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -564,7 +781,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -583,7 +800,7 @@ xmlReader.parse(data)
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#hashCode():Int" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -602,7 +819,7 @@ xmlReader.parse(data)
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -615,30 +832,26 @@ xmlReader.parse(data)
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger.LogWriter#log" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="log(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String,msg:String,args:Seq[Any]):Unit"></a><a id="log(LogLevel.Value,String,String,Seq[Any]):Unit"></a>
+    </li><li name="scala.Enumeration#maxId" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="maxId:Int"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#log(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String,msg:String,args:Seq[Any]):Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#maxId:Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">log</span><span class="params">(<span name="level">level: <a href="LogLevel$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel.Value">LogLevel.Value</a></span>, <span name="logID">logID: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="args">args: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Any">Any</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">maxId</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <p class="shortcomment cmt">Generates a log message as a string and calls the write method.</p><div class="fullcomment"><div class="comment cmt"><p>Generates a log message as a string and calls the write method.</p><p>The default implementation generates a log message based on the prefix,
-suffix, message string, and log arguments, and passes the generated log
-message, level, and logId to <a href="LogWriter.html#write(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String,msg:String):Unit" class="extmbr" name="org.apache.daffodil.sapi.logger.LogWriter#write">LogWriter.write</a>.</p><p>Can be overridden if more control is needed over the logging mechanism and/or
-log arguments are needed as separate entities.
-</p></div><dl class="paramcmts block"><dt class="param">level</dt><dd class="cmt"><p>level of the message</p></dd><dt class="param">logID</dt><dd class="cmt"><p>identification of class that created the log message</p></dd><dt class="param">msg</dt><dd class="cmt"><p>printf-style format string</p></dd><dt class="param">args</dt><dd class="cmt"><p>arguments passed to the logger, matching the format string</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -651,10 +864,42 @@ log arguments are needed as separate entities.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.Enumeration#nextId" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="nextId:Int"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#nextId:Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">nextId</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
+    </li><li name="scala.Enumeration#nextName" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="nextName:Iterator[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#nextName:Iterator[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">nextName</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#notify():Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -673,7 +918,7 @@ log arguments are needed as separate entities.
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -689,10 +934,10 @@ log arguments are needed as separate entities.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger.LogWriter#prefix" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="prefix(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String):String"></a><a id="prefix(LogLevel.Value,String):String"></a>
+    </li><li name="scala.Enumeration#readResolve" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="readResolve():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#prefix(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String):String" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#readResolve():AnyRef" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -701,32 +946,14 @@ log arguments are needed as separate entities.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">prefix</span><span class="params">(<span name="level">level: <a href="LogLevel$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel.Value">LogLevel.Value</a></span>, <span name="logID">logID: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">readResolve</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Override to change the prefix string of the log message.</p><div class="fullcomment"><div class="comment cmt"><p>Override to change the prefix string of the log message.</p><p>By default, the prefix is the empty string.
-</p></div><dl class="paramcmts block"><dt class="param">level</dt><dd class="cmt"><p>level of the message</p></dd><dt class="param">logID</dt><dd class="cmt"><p>identification of class that created the log message</p></dd><dt>returns</dt><dd class="cmt"><p>the prefix to use for log messages. Defaults to the empty string if not overridden.</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger.LogWriter#suffix" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="suffix(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String):String"></a><a id="suffix(LogLevel.Value,String):String"></a>
-      <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#suffix(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String):String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">suffix</span><span class="params">(<span name="level">level: <a href="LogLevel$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel.Value">LogLevel.Value</a></span>, <span name="logID">logID: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Override to change the suffix string of the log message.</p><div class="fullcomment"><div class="comment cmt"><p>Override to change the suffix string of the log message.</p><p>By default, the suffix is the empty string.
-</p></div><dl class="paramcmts block"><dt class="param">level</dt><dd class="cmt"><p>level of the message</p></dd><dt class="param">logID</dt><dd class="cmt"><p>identification of class that created the log message</p></dd><dt>returns</dt><dd class="cmt"><p>the suffix to use for log messages. Defaults to the empty string if not overridden.</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -739,10 +966,10 @@ log arguments are needed as separate entities.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scala.Enumeration#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#toString():String" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#toString():String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -754,11 +981,27 @@ log arguments are needed as separate entities.
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration → AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Enumeration#values" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="values:Enumeration.this.ValueSet"></a><a id="values:ValueSet"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#values:Enumeration.this.ValueSet" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">values</span><span class="result">: <a href="#ValueSetextendsAbstractSet[Enumeration.this.Value]withSortedSet[Enumeration.this.Value]withSortedSetLike[Enumeration.this.Value,Enumeration.this.ValueSet]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.ValueSet">ValueSet</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#wait():Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -780,7 +1023,7 @@ log arguments are needed as separate entities.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -802,7 +1045,7 @@ log arguments are needed as separate entities.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -823,23 +1066,22 @@ log arguments are needed as separate entities.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger.NullLogWriter#write" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="write(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String,msg:String):Unit"></a><a id="write(LogLevel.Value,String,String):Unit"></a>
+    </li><li name="scala.Enumeration#withName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withName(s:String):Enumeration.this.Value"></a><a id="withName(String):Value"></a>
       <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/NullLogWriter.html#write(level:org.apache.daffodil.sapi.logger.LogLevel.Value,logID:String,msg:String):Unit" title="Permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html#withName(s:String):Enumeration.this.Value" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">write</span><span class="params">(<span name="level">level: <a href="LogLevel$.html#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.logger.LogLevel.Value">LogLevel.Value</a></span>, <span name="logID">logID: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">withName</span><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="#ValueextendsOrdered[Enumeration.this.Value]withSerializable" class="extmbr" name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle.Value">Value</a></span>
       </span>
       
-      <p class="shortcomment cmt">Implement this method to determine how the log message is written.</p><div class="fullcomment"><div class="comment cmt"><p>Implement this method to determine how the log message is written.
-</p></div><dl class="paramcmts block"><dt class="param">level</dt><dd class="cmt"><p>level of the message</p></dd><dt class="param">logID</dt><dd class="cmt"><p>identification of class that created the log message</p></dd><dt class="param">msg</dt><dd class="cmt"><p>log message</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.logger.NullLogWriter">NullLogWriter</a> → <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Enumeration</dd></dl></div>
     </li>
               </ol>
             </div>
@@ -850,8 +1092,12 @@ log arguments are needed as separate entities.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="org.apache.daffodil.sapi.logger.LogWriter">
-              <h3>Inherited from <a href="LogWriter.html" class="extype" name="org.apache.daffodil.sapi.logger.LogWriter">LogWriter</a></h3>
+        <div class="parent" name="scala.Enumeration">
+              <h3>Inherited from <span class="extype" name="scala.Enumeration">Enumeration</span></h3>
+            </div><div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

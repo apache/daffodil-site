@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
-          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
-          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
+          <title>Apache Daffodil 3.5.0 Scala API  - org.apache.daffodil.sapi.DataProcessor</title>
+          <meta name="description" content="Apache Daffodil 3.5.0 Scala API - org.apache.daffodil.sapi.DataProcessor" />
+          <meta name="keywords" content="Apache Daffodil 3.5.0 Scala API org.apache.daffodil.sapi.DataProcessor" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.4.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.5.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -333,22 +333,6 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="logger"></a><a id="logger:logger"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/logger/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="logger/index.html"><span class="name">logger</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="Compiler.html" title="Compile DFDL schemas into ProcessorFactory's or reload saved parsers into DataProcessor's."></a>
@@ -363,16 +347,16 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                         <a href="DaffodilParseXMLReader.html" title="SAX Method of parsing schema and getting the DFDL Infoset via designated org.xml.sax.ContentHandler, based on the org.xml.sax.XMLReader interface">DaffodilParseXMLReader</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="DaffodilUnhandledSAXException.html" title="This exception will be thrown when an unexpected error occurs during the SAX unparse"></a>
-                        <a href="DaffodilUnhandledSAXException.html" title="This exception will be thrown when an unexpected error occurs during the SAX unparse">DaffodilUnhandledSAXException</a>
+                        <a class="class" href="DaffodilUnhandledSAXException.html" title="This exception is thrown when and unexpected error occurs while unparsing an infoset with an XMLReader and a DaffodilUnparseContentHandler."></a>
+                        <a href="DaffodilUnhandledSAXException.html" title="This exception is thrown when and unexpected error occurs while unparsing an infoset with an XMLReader and a DaffodilUnparseContentHandler.">DaffodilUnhandledSAXException</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="DaffodilUnparseContentHandler.html" title="Accepts SAX callback events from any SAX XMLReader for unparsing"></a>
                         <a href="DaffodilUnparseContentHandler.html" title="Accepts SAX callback events from any SAX XMLReader for unparsing">DaffodilUnparseContentHandler</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse"></a>
-                        <a href="DaffodilUnparseErrorSAXException.html" title="This exception will be thrown when unparseResult.isError returns true during a SAX Unparse">DaffodilUnparseErrorSAXException</a>
+                        <a class="class" href="DaffodilUnparseErrorSAXException.html" title="This exception is thrown when UnparseResult.isError returns true while unparsing an infoset with an XMLReader and a DaffodilUnparseContentHandler."></a>
+                        <a href="DaffodilUnparseErrorSAXException.html" title="This exception is thrown when UnparseResult.isError returns true while unparsing an infoset with an XMLReader and a DaffodilUnparseContentHandler.">DaffodilUnparseErrorSAXException</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="object" href="DaffodilXMLEntityResolver$.html" title="Returns the EntityResolver used by Daffodil to resolve import/include schemaLocations."></a>
@@ -979,9 +963,9 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
               
         </dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#withDebugger" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor"></a><a id="withDebugger(Debugger):DataProcessor"></a>
+      <a id="withDebugger(dbg:org.apache.daffodil.runtime1.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor"></a><a id="withDebugger(Debugger):DataProcessor"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withDebugger(dbg:org.apache.daffodil.runtime1.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -990,7 +974,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withDebugger</span><span class="params">(<span name="dbg">dbg: <span class="extype" name="org.apache.daffodil.debugger.Debugger">Debugger</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
+        <span class="name">withDebugger</span><span class="params">(<span name="dbg">dbg: <span class="extype" name="org.apache.daffodil.runtime1.debugger.Debugger">Debugger</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
       </span>
       
       <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a specified debugger.
@@ -1027,7 +1011,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         <span class="name">withDebugging</span><span class="params">(<span name="flag">flag: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
       </span>
       
-      <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><p>Before enabling, <a href="#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> or <a href="#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner">DataProcessor#withDebuggerRunner</a> must be called to obtain
+      <p class="shortcomment cmt">Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><div class="fullcomment"><div class="comment cmt"><p>Obtain a new <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> instance with debugging enabled or disabled.</p><p>Before enabling, <a href="#withDebugger(dbg:org.apache.daffodil.runtime1.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> or <a href="#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner">DataProcessor#withDebuggerRunner</a> must be called to obtain
 a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a> with a non-null debugger.
 </p></div><dl class="paramcmts block"><dt class="param">flag</dt><dd class="cmt"><p>true to enable debugging, false to disabled</p></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#withExternalVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -1107,9 +1091,9 @@ a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataPr
               
         </dd><dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="InvalidUsageException.html" class="extype" name="org.apache.daffodil.sapi.InvalidUsageException"><code>InvalidUsageException</code></a> if mode is not a valid ValidateMode value</p></span></dd></dl></div>
     </li><li name="org.apache.daffodil.sapi.DataProcessor#withValidator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="withValidator(validator:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.DataProcessor"></a><a id="withValidator(Validator):DataProcessor"></a>
+      <a id="withValidator(validator:org.apache.daffodil.lib.api.Validator):org.apache.daffodil.sapi.DataProcessor"></a><a id="withValidator(Validator):DataProcessor"></a>
       <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withValidator(validator:org.apache.daffodil.api.Validator):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
+      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#withValidator(validator:org.apache.daffodil.lib.api.Validator):org.apache.daffodil.sapi.DataProcessor" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1118,7 +1102,7 @@ a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataPr
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withValidator</span><span class="params">(<span name="validator">validator: <span class="extype" name="org.apache.daffodil.api.Validator">Validator</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
+        <span class="name">withValidator</span><span class="params">(<span name="validator">validator: <span class="extype" name="org.apache.daffodil.lib.api.Validator">Validator</span></span>)</span><span class="result">: <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a></span>
       </span>
       
       
@@ -1128,260 +1112,7 @@ a <a href="" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataPr
 
         
 
-        <div class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="org.apache.daffodil.sapi.WithDiagnostics#canProceed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="canProceed():Boolean"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#canProceed():Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.0.0) Use !isError() to determine if it is safe to proceed">canProceed</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Determine if this object can be used in any future parse activities
-</p><div class="fullcomment"><div class="comment cmt"><p>Determine if this object can be used in any future parse activities
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>true it is safe to proceed, false otherwise</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WithDiagnostics.html" class="extype" name="org.apache.daffodil.sapi.WithDiagnostics">WithDiagnostics</a></dd><dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0.0)</i> Use !isError() to determine if it is safe to proceed</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#parse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="parse(input:java.nio.channels.ReadableByteChannel,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult"></a><a id="parse(ReadableByteChannel,InfosetOutputter):ParseResult"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:org.apache.daffodil.sapi.infoset.InfosetOutputter):org.apache.daffodil.sapi.ParseResult" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>, <span name="output">output: <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Parse input data without specifying a length</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data without specifying a length</p><p>Use this when you don't know how big the data is.
-</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt class="param">output</dt><dd class="cmt"><p>the InfosetOutputter that will be used to output the infoset</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#parse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="parse(input:java.nio.channels.ReadableByteChannel,output:org.apache.daffodil.sapi.infoset.InfosetOutputter,lengthLimitInBits:Long):org.apache.daffodil.sapi.ParseResult"></a><a id="parse(ReadableByteChannel,InfosetOutputter,Long):ParseResult"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,output:org.apache.daffodil.sapi.infoset.InfosetOutputter,lengthLimitInBits:Long):org.apache.daffodil.sapi.ParseResult" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>, <span name="output">output: <a href="infoset/InfosetOutputter.html" class="extype" name="org.apache.daffodil.sapi.infoset.InfosetOutputter">InfosetOutputter</a></span>, <span name="lengthLimitInBits">lengthLimitInBits: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Parse input data with a specified length
-</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data with a specified length
-</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt class="param">output</dt><dd class="cmt"><p>the InfosetOutputter that will be used to output the infoset</p></dd><dt class="param">lengthLimitInBits</dt><dd class="cmt"><p>the length of the input data in bits, or -1 if no limit</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#parse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="parse(input:java.nio.channels.ReadableByteChannel):org.apache.daffodil.sapi.ParseResult"></a><a id="parse(ReadableByteChannel):ParseResult"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel):org.apache.daffodil.sapi.ParseResult" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Parse input data without specifying a length
-</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data without specifying a length
-</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#parse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="parse(input:java.nio.channels.ReadableByteChannel,lengthLimitInBits:Long):org.apache.daffodil.sapi.ParseResult"></a><a id="parse(ReadableByteChannel,Long):ParseResult"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#parse(input:java.nio.channels.ReadableByteChannel,lengthLimitInBits:Long):org.apache.daffodil.sapi.ParseResult" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.2.0) Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()">parse</span><span class="params">(<span name="input">input: <span class="extype" name="java.nio.channels.ReadableByteChannel">ReadableByteChannel</span></span>, <span name="lengthLimitInBits">lengthLimitInBits: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <a href="ParseResult.html" class="extype" name="org.apache.daffodil.sapi.ParseResult">ParseResult</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Parse input data with a specified length
-</p><div class="fullcomment"><div class="comment cmt"><p>Parse input data with a specified length
-</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>data to be parsed</p></dd><dt class="param">lengthLimitInBits</dt><dd class="cmt"><p>the length of the input data in bits, or -1 if no limit</p></dd><dt>returns</dt><dd class="cmt"><p>an object which contains the result, and/or diagnostic information.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.2.0)</i> Use parse(InputSourceDataInputStream, InfosetOutputter) to parse the data and get the infoset representation from the InfosetOutputter instead of ParseResult.result()</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#setDebugger" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):Unit"></a><a id="setDebugger(DebuggerRunner):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#setDebugger(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDebuggerRunner.">setDebugger</span><span class="params">(<span name="dr">dr: <a href="debugger/DebuggerRunner.html" class="extype" name="org.apache.daffodil.sapi.debugger.DebuggerRunner">DebuggerRunner</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set the debugger runner
-</p><div class="fullcomment"><div class="comment cmt"><p>Set the debugger runner
-</p></div><dl class="paramcmts block"><dt class="param">dr</dt><dd class="cmt"><p>debugger runner</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withDebuggerRunner.</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#setDebugging" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setDebugging(flag:Boolean):Unit"></a><a id="setDebugging(Boolean):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#setDebugging(flag:Boolean):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withDebugging.">setDebugging</span><span class="params">(<span name="flag">flag: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Enable/disable debugging.</p><div class="fullcomment"><div class="comment cmt"><p>Enable/disable debugging.</p><p>Before enabling, <a href="#withDebugger(dbg:org.apache.daffodil.debugger.Debugger):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebugger">DataProcessor#withDebugger</a> or <a href="#withDebuggerRunner(dr:org.apache.daffodil.sapi.debugger.DebuggerRunner):org.apache.daffodil.sapi.DataProcessor" class="extmbr" name="org.apache.daffodil.sapi.DataProcessor#withDebuggerRunner">DataProcessor#withDebuggerRunner</a> must be called with a
-non-null debugger.
-</p></div><dl class="paramcmts block"><dt class="param">flag</dt><dd class="cmt"><p>true to enable debugging, false to disabled</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withDebugging.</p></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#setExternalVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setExternalVariables(extVars:Map[String,String]):Unit"></a><a id="setExternalVariables(Map[String,String]):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#setExternalVariables(extVars:Map[String,String]):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withExternalVariables.">setExternalVariables</span><span class="params">(<span name="extVars">extVars: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set the value of multiple DFDL variables
-</p><div class="fullcomment"><div class="comment cmt"><p>Set the value of multiple DFDL variables
-</p></div><dl class="paramcmts block"><dt class="param">extVars</dt><dd class="cmt"><p>a map of key/value pairs, where the key is the variable
-               name, and the value is the value of the variable. The key
-               may be preceded by a string of the form &quot;{namespace}&quot; to
-               define a namespace for the variable. If preceded with &quot;{}&quot;,
-               then no namespace is used. If not preceded by anything,
-               then Daffodil will figure out the namespace.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[ExternalVariableException]</span>
-    </span>)</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withExternalVariables.</p></dd><dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="ExternalVariableException.html" class="extype" name="org.apache.daffodil.sapi.ExternalVariableException"><code>ExternalVariableException</code></a> if an error occurs while setting an external variable</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#setExternalVariables" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setExternalVariables(extVars:java.io.File):Unit"></a><a id="setExternalVariables(File):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#setExternalVariables(extVars:java.io.File):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withExternalVariables.">setExternalVariables</span><span class="params">(<span name="extVars">extVars: <span class="extype" name="java.io.File">File</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Read external variables from a Daffodil configuration file
-</p><div class="fullcomment"><div class="comment cmt"><p>Read external variables from a Daffodil configuration file
-</p></div><dl class="paramcmts block"><dt class="param">extVars</dt><dd class="cmt"><p>file to read DFDL variables from.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[ExternalVariableException]</span>
-    </span>)</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withExternalVariables.</p></dd><dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="ExternalVariableException.html" class="extype" name="org.apache.daffodil.sapi.ExternalVariableException"><code>ExternalVariableException</code></a> if an error occurs while setting an external variable</p></span></dd><dt>See also</dt><dd><span class="cmt"><p><a target="_blank" href='https://daffodil.apache.org/configuration/'>Daffodil Configuration File</a> - Daffodil configuration file format</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#setValidationMode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setValidationMode(mode:org.apache.daffodil.sapi.ValidationMode.ValidationMode):Unit"></a><a id="setValidationMode(ValidationMode):Unit"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#setValidationMode(mode:org.apache.daffodil.sapi.ValidationMode.ValidationMode):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.6.0) Use withValidationMode.">setValidationMode</span><span class="params">(<span name="mode">mode: <a href="ValidationMode$.html#ValidationMode=org.apache.daffodil.sapi.ValidationMode.Value" class="extmbr" name="org.apache.daffodil.sapi.ValidationMode.ValidationMode">ValidationMode</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Set validation mode
-</p><div class="fullcomment"><div class="comment cmt"><p>Set validation mode
-</p></div><dl class="paramcmts block"><dt class="param">mode</dt><dd class="cmt"><p>mode to control validation</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[InvalidUsageException]</span>
-    </span>)</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.6.0)</i> Use withValidationMode.</p></dd><dt>Exceptions thrown</dt><dd><span class="cmt"><p><a href="InvalidUsageException.html" class="extype" name="org.apache.daffodil.sapi.InvalidUsageException"><code>InvalidUsageException</code></a> if mode is not a valid ValidateMode value</p></span></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.DataProcessor#unparse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="unparse(output:java.nio.channels.WritableByteChannel,infoset:scala.xml.Node):org.apache.daffodil.sapi.UnparseResult"></a><a id="unparse(WritableByteChannel,Node):UnparseResult"></a>
-      <span class="permalink">
-      <a href="../../../../org/apache/daffodil/sapi/DataProcessor.html#unparse(output:java.nio.channels.WritableByteChannel,infoset:scala.xml.Node):org.apache.daffodil.sapi.UnparseResult" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version 2.0.0) Use unparse(InfosetInputter, WritableByteChannel)">unparse</span><span class="params">(<span name="output">output: <span class="extype" name="java.nio.channels.WritableByteChannel">WritableByteChannel</span></span>, <span name="infoset">infoset: <span class="extype" name="scala.xml.Node">Node</span></span>)</span><span class="result">: <a href="UnparseResult.html" class="extype" name="org.apache.daffodil.sapi.UnparseResult">UnparseResult</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Unparse a scala.xml.Node infoset
-</p><div class="fullcomment"><div class="comment cmt"><p>Unparse a scala.xml.Node infoset
-</p></div><dl class="paramcmts block"><dt class="param">output</dt><dd class="cmt"><p>the byte channel to write the data to</p></dd><dt class="param">infoset</dt><dd class="cmt"><p>the infoset to unparse, as a scala xml Node</p></dd><dt>returns</dt><dd class="cmt"><p>an object with contains the result and/or diagnostic information</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
-                <span class="name">@deprecated</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0.0)</i> Use unparse(InfosetInputter, WritableByteChannel)</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">

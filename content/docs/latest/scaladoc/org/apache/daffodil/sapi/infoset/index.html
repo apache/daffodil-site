@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.4.0 Scala API  - org.apache.daffodil.sapi.infoset</title>
-          <meta name="description" content="Apache Daffodil 3.4.0 Scala API - org.apache.daffodil.sapi.infoset" />
-          <meta name="keywords" content="Apache Daffodil 3.4.0 Scala API org.apache.daffodil.sapi.infoset" />
+          <title>Apache Daffodil 3.5.0 Scala API  - org.apache.daffodil.sapi.infoset</title>
+          <meta name="description" content="Apache Daffodil 3.5.0 Scala API - org.apache.daffodil.sapi.infoset" />
+          <meta name="keywords" content="Apache Daffodil 3.5.0 Scala API org.apache.daffodil.sapi.infoset" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.4.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.5.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -371,6 +371,10 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
                         <a href="W3CDOMInfosetOutputter.html" title="InfosetOutputter to build an infoset represented as an org.w3c.dom.Document">W3CDOMInfosetOutputter</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
+                        <a class="object" href="XMLTextEscapeStyle$.html" title="XMLTextEscapeStyle determines how to wrap values of elements of type xs:string"></a>
+                        <a href="XMLTextEscapeStyle$.html" title="XMLTextEscapeStyle determines how to wrap values of elements of type xs:string">XMLTextEscapeStyle</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
                         <a class="class" href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream"></a>
                         <a href="XMLTextInfosetInputter.html" title="InfosetInputter to read an infoset represented as XML from a java.io.InputStream">XMLTextInfosetInputter</a>
                       </li><li class="current-entities indented5">
@@ -390,22 +394,6 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       </span>
       <span class="symbol">
         <a title="" href="../io/index.html"><span class="name">io</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
-    </li><li name="org.apache.daffodil.sapi.logger" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="logger"></a><a id="logger:logger"></a>
-      <span class="permalink">
-      <a href="../../../../../org/apache/daffodil/sapi/logger/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../logger/index.html"><span class="name">logger</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">sapi</a></dd></dl></div>
@@ -451,7 +439,43 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         </div></div>
         
 
-      
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="org.apache.daffodil.sapi.infoset"><span>infoset</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
 
       <div id="template">
         <div id="allMembers">
@@ -471,7 +495,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Abstract class used to determine how the infoset representation should be input from a call to DataProcessor.unparse." href="InfosetInputter.html"><span class="name">InfosetInputter</span></a><span class="result"> extends <span class="extype" name="org.apache.daffodil.infoset.InfosetInputter">infoset.InfosetInputter</span></span>
+        <a title="Abstract class used to determine how the infoset representation should be input from a call to DataProcessor.unparse." href="InfosetInputter.html"><span class="name">InfosetInputter</span></a><span class="result"> extends <span class="extype" name="org.apache.daffodil.runtime1.infoset.InfosetInputter">runtime1.infoset.InfosetInputter</span></span>
       </span>
       
       <p class="shortcomment cmt">Abstract class used to determine how the infoset representation should be
@@ -511,7 +535,7 @@ the information after a call to advance/inspect.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse." href="InfosetOutputter.html"><span class="name">InfosetOutputter</span></a><span class="result"> extends <span class="extype" name="org.apache.daffodil.infoset.InfosetOutputter">infoset.InfosetOutputter</span></span>
+        <a title="Abstract class used to determine how the infoset representation should be output from a call to DataProcessor.parse." href="InfosetOutputter.html"><span class="name">InfosetOutputter</span></a><span class="result"> extends <span class="extype" name="org.apache.daffodil.runtime1.infoset.InfosetOutputter">runtime1.infoset.InfosetOutputter</span></span>
       </span>
       
       <p class="shortcomment cmt">Abstract class used to determine how the infoset representation should be
@@ -730,7 +754,33 @@ all <a href="InfosetOutputter.html" class="extype" name="org.apache.daffodil.sap
 
         
 
-        
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="org.apache.daffodil.sapi.infoset.XMLTextEscapeStyle" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="XMLTextEscapeStyle"></a><a id="XMLTextEscapeStyle:XMLTextEscapeStyle"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/infoset/XMLTextEscapeStyle$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="XMLTextEscapeStyle determines how to wrap values of elements of type xs:string" href="XMLTextEscapeStyle$.html"><span class="name">XMLTextEscapeStyle</span></a><span class="result"> extends <span class="extype" name="scala.Enumeration">Enumeration</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">XMLTextEscapeStyle determines how to wrap values of elements of type xs:string</p><div class="fullcomment"><div class="comment cmt"><p>XMLTextEscapeStyle determines how to wrap values of elements of type xs:string</p><p>Standard - Special characters (quotation mark, ampersand, less-than, greater-than)
+in the text of xs:string elements are escaped, while non-special characters are
+written as is.</p><p>CDATA - The text of xs:string elements are wrapped in CDATA tags if the string
+contains whitespace or special characters (quotation mark, ampersand, less-than,
+greater-than)
+</p></div></div>
+    </li>
+              </ol>
+            </div>
 
         
 
