@@ -22,11 +22,11 @@ limitations under the License.
 {% endcomment %}
 -->
 
-The Daffodil VS Code Extension is a custom extension developed by Apache for allowing users to debug schemas inside of VS Code. The VS Code Extension also contains a Scala implemation of the Daffodil DAP Debugger that provides the users the ability to debug schemas.
+The Apache Daffodil™ Extension for Visual Studio Code is an extension to the Microsoft® Visual Studio Code (VS Code) editor, designed for Data Format Description Language 1.0 (DFDL) Schema developers. The purpose of the Apache Daffodil™ Extension for Visual Studio Code is to ease the burden on DFDL Schema developers by enabling rapid development of high-quality DFDL Schemas, with syntax highlighting, code completion, data file editing, and debugging of DFDL Schema parsing operations using Apache Daffodil™.
 
 #### Releases
 
-All recent Daffodil VS Code Extension releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
+All recent Apache Daffodil™ Extension for Visual Studio Code releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 
 {% assign releases = site.vscode  | where: 'release', 'final' | where: 'apache', 'true' | sort: 'date' %}
 {% if releases.size > 0 %}
