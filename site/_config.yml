@@ -28,6 +28,9 @@ collections:
     vscode:
       output: true
       permalink: /vscode/:title/
+    sbt:
+      output: true
+      permalink: /sbt/:title/
 
 # Site-wide defaults
 defaults:
@@ -35,6 +38,8 @@ defaults:
       values: { layout: release }
     - scope:  { type: vscode }
       values: { layout: vscode }
+    - scope:  { type: sbt }
+      values: { layout: sbt }
 
 # Used by the JIRA plugin
 jira_base_url: https://issues.apache.org/jira/browse

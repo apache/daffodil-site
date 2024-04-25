@@ -1,0 +1,70 @@
+---
+layout: default
+permalink: /sbt/release-notes-:title
+---
+
+{% if page.release != "final" %}
+  <div class="alert alert-warning">
+    Apache Daffodil SBT Plugin {{ page.title }} has not yet been released! The artifact
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil SBT Plugin which has not yet occurred.
+  </div>
+{% endif %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Get Release</h3>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="download" class="tab-pane fade in active">
+        {% if page.source-dist %}
+          <h4>Source</h4>
+          <p>
+          {% include download-list.html
+             apache=page.apache
+             artifacts=page.source-dist
+             project="daffodil/daffodil-sbt"
+             release=page.release
+             type="src"
+             version=page.title
+          %}
+          </p>
+        {% endif %}
+
+        {% if page.binary-dist %}
+          <h4>Binaries</h4>
+          <p>
+          {% include download-list.html
+             apache=page.apache
+             artifacts=page.binary-dist
+             project="daffodil/daffodil-sbt"
+             release=page.release
+             type="bin"
+             version=page.title
+          %}
+          </p>
+        {% endif %}
+
+        {% if page.apache %}
+          <hr />
+          <p>
+            <i>
+              The above release files should be verified using the PGP signatures and the
+              <a href='https://downloads.apache.org/daffodil/KEYS'>project release KEYS</a>. See
+              <a href='https://www.apache.org/info/verification.html'>verification instructions</a>
+              for a description of using the PGP and KEYS files for
+              verification. A SHA512 checksum is also provided as
+              an alternative verification method.
+            </i>
+          </p>
+        {% endif page.apache %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="release-notes">Release Notes</h3>
+
+{{ content }}

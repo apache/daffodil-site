@@ -25,7 +25,9 @@ limitations under the License.
 There is a specific way of organizing a DFDL schema project that has been found
 to be helpful. It uses specific directory naming conventions and tree structure
 to manage name conflicts in a manner similar to how Java package names
-correspond to directory names.
+correspond to directory names. It also uses the
+[SBT](https://www.scala-sbt.org/) build tool with the [Daffodil SBT Plugin](/sbt)
+to more easily manage, build, and test DFDL schema projects.
 
 ### Quick Start
 
@@ -55,8 +57,6 @@ This set of conventions provides a number of benefits:
     * Run a suite of tests via 'sbt test'
     * Publish a local version of the schema for use in other projects that also
       follow this layout.
-* Eclipse IDE for development and test of the schema. Multiple such schemas all
-  work together without conflict in the IDE.
 * Encourages organizing DFDL schemas into reusable libraries. 
     * A DFDL schema project need not define a whole data format. It can define
       a library of pieces to be included/imported by other formats.
@@ -81,7 +81,8 @@ The standard file tree would be:
     │                            of Daffodil needed, or versions of other DFDL schemas needed
     ├── README.md              - Documentation about the DFDL schema in Markdown file format
     ├── project/
-    │   └── build.properties   - Defines the sbt version
+    │   ├── build.properties   - Defines the sbt version
+    │   └── plugins.sbt        - Defines plugins, including the Daffodil SBT plugin
     └── src/
         ├── main/
         │   └── resources/
@@ -109,6 +110,19 @@ The standard file tree would be:
                         └── rfmt/
                             └── Tests1.scala   - Scala test driver file
 
+### project/plugins.sbt
+
+Add the Daffodil SBT plugin to the project/plugins.sbt file:
+
+```scala
+addSbtPlugin("org.apache.daffodil" % "sbt-daffodil" % "1.0.0")
+```
+
+This adds the [Daffodil SBT Plugin](/sbt) to the project, which configures
+settings and capabilities commonly needed to manage, build, and test DFDL schema
+projects. For more information about the settings that can be added to build.sbt
+or commands to run via SBT, see the [GitHub README](https://github.com/apache/daffodil-sbt/).
+
 ### build.sbt
 
 Use the below template for the build.sbt file:
@@ -120,20 +134,11 @@ organization := "com.example"
  
 version := "0.0.1"
  
-scalaVersion := "2.12.11"
- 
-libraryDependencies ++= Seq(
-  "org.apache.daffodil" %% "daffodil-tdml-processor" % "3.0.0" % "test",
-  "com.novocode" % "junit-interface" % "0.11" % "test",
-  "junit" % "junit" % "4.12" % "test",
-)
+scalaVersion := "2.12.18"
 
-testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
-
-crossPaths := false
+enablePlugins(DaffodilPlugin)
 ```
 
-Edit the version of daffodil-tdml above to match the version you are using. 
 
 ### .gitattributes
 
@@ -149,14 +154,6 @@ directory with the following content to disabling the mangline:
 ```
 The above tells git that any test files in the data directory should be treated
 as if they were binary, and thus not to mangle newlines.
-
-### Eclipse IDE
-
-If you organize your DFDL schema project using the above conventions, and then
-run ``sbt compile``, the ``lib_managed`` directory will be populated. Then if
-you create a new Eclipse scala project from the directory tree, Eclipse will
-see the ``lib_managed`` directory and construct a classpath containing all
-those jars.
 
 ### XSD Conventions
 
@@ -174,7 +171,7 @@ The ``xs:include`` or ``xs:import`` elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:
 
 ``` xml
-<xs:import namespace="urn:example.com/rfmt" schemaLocation="com/example/rfmt/xsd/rfmt.dfdl.xsd"/>
+<xs:import namespace="urn:example.com/rfmt" schemaLocation="/com/example/rfmt/xsd/rfmt.dfdl.xsd"/>
 ```
 
 The above is for using a DFDL schema as a library, from another different DFDL
@@ -187,14 +184,14 @@ appears in the same directory (the src/main/resources/.../xsd directory) via:
 <xs:include schemaLocation="format.dfdl.xsd"/>
 ```
 
-That is, peer files need not carry the long ``com/example/rfmt/xsd/`` prefix
+That is, peer files need not carry the long ``/com/example/rfmt/xsd/`` prefix
 that makes the reference globally unique.
 
 However, if one schema wants to include another different schema, then this
 standard way of organizing schema projects ensures that when packaged into jar
 files, the ``/src/main/resources`` directory contents are at the "root" of the
 jar file so that the ``schemaLocation`` of the ``xs:import`` or ``xs:include``
-containing the fully qualified path (``com/example/rfmt/xsd/rfmt.dfdl.xsd``)
+containing the fully qualified path (``/com/example/rfmt/xsd/rfmt.dfdl.xsd``)
 will be found on the ``CLASSPATH`` unambiguously. This convention is what
 allows the schema files themselves to have short names like rfmt.dfdl.xsd, and
 format.dfdl.xsd. Those names only need to be unique within a single schema

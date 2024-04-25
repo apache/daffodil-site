@@ -4,7 +4,13 @@
         <nav role="navigation">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/releases">Releases</a></li>
-            <li><a href="/vscode">VS Code</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
             <li id="documentation">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
@@ -64,7 +70,7 @@
 {% else %}
 <div class="title">
   <div class="container">
-    <h2>{% if page.collection == "releases" %}{% if page.apache %}Apache {% endif %}Daffodil {% endif %}{% if page.collection == "vscode" %}VS Code Extension {% endif %}{{ page.title }}</h2>
+    <h2>{% if page.collection == "releases" %}{% if page.apache %}Apache {% endif %}Daffodil {% endif %}{% if page.collection == "vscode" %}VS Code Extension {% endif %}{% if page.collection == "sbt" %}SBT Plugin {% endif %}{{ page.title }}</h2>
   </div>
 </div>
 {% endif %}
