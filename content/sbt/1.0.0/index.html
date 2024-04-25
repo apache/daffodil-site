@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | VS Code Extension 1.2.0</title>
+    <title>Apache Daffodil | SBT Plugin 1.0.0</title>
     
     <meta name="author" content="">
 
@@ -82,7 +82,7 @@
 
 <div class="title">
   <div class="container">
-    <h2>VS Code Extension 1.2.0</h2>
+    <h2>SBT Plugin 1.0.0</h2>
   </div>
 </div>
 
@@ -90,19 +90,18 @@
 
     <div class="container">
       
+  <div class="alert alert-warning">
+    Apache Daffodil SBT Plugin 1.0.0 has not yet been released! The artifact
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil SBT Plugin which has not yet occurred.
+  </div>
+
 
 <div class="row">
-  
-  
-
-  
-  
-
   <div class="col-md-12">
     <h3>Get Release</h3>
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
-      <li><a data-toggle="tab" href="#vscodemarketplace">VS Code Marketplace</a></li>
     </ul>
     <div class="tab-content">
       <div id="download" class="tab-pane fade in active">
@@ -120,12 +119,12 @@
   
 <div class="row">
   <div class="col-sm-6">
-    <a href="https://www.apache.org/dyn/closer.lua/download/daffodil/daffodil-vscode/1.2.0/src/apache-daffodil-vscode-1.2.0-src.zip">apache-daffodil-vscode-1.2.0-src.zip</a>
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/daffodil-sbt/1.0.0-rc1/src/apache-daffodil-sbt-1.0.0-src.zip">apache-daffodil-sbt-1.0.0-src.zip</a>
   </div>
   <div class="col-sm-6">
     
-      [ <a href="https://downloads.apache.org/daffodil/daffodil-vscode/1.2.0/src/apache-daffodil-vscode-1.2.0-src.zip.asc">PGP</a> ]
-      [ <a href="https://downloads.apache.org/daffodil/daffodil-vscode/1.2.0/src/apache-daffodil-vscode-1.2.0-src.zip.sha512">SHA512</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/daffodil-sbt/1.0.0-rc1/src/apache-daffodil-sbt-1.0.0-src.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/daffodil-sbt/1.0.0-rc1/src/apache-daffodil-sbt-1.0.0-src.zip.sha512">SHA512</a> ]
     
   </div>
 </div>
@@ -134,32 +133,6 @@
           </p>
         
 
-        
-          <h4>Binaries</h4>
-          <p>
-          
-
-
-
-
-
-
-
-  
-<div class="row">
-  <div class="col-sm-6">
-    <a href="https://www.apache.org/dyn/closer.lua/download/daffodil/daffodil-vscode/1.2.0/bin/apache-daffodil-vscode-1.2.0.vsix">apache-daffodil-vscode-1.2.0.vsix</a>
-  </div>
-  <div class="col-sm-6">
-    
-      [ <a href="https://downloads.apache.org/daffodil/daffodil-vscode/1.2.0/bin/apache-daffodil-vscode-1.2.0.vsix.asc">PGP</a> ]
-      [ <a href="https://downloads.apache.org/daffodil/daffodil-vscode/1.2.0/bin/apache-daffodil-vscode-1.2.0.vsix.sha512">SHA512</a> ]
-    
-  </div>
-</div>
-
-
-          </p>
         
 
         
@@ -176,60 +149,29 @@
           </p>
         
       </div>
-      <div id="vscodemarketplace" class="tab-pane fade">
-        <p>
-            This extension is available from the <a href="https://marketplace.visualstudio.com/items?itemName=ASF.apache-daffodil-vscode">VS Code Marketplace</a>.
-        </p>
-        <p>
-            To install from within VS Code, launch VS Code Quick Open (Ctrl+P), type the following command, and press enter.
-        </p>
-        <div style="padding: 0px 15px 10px 15px;">
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ext install ASF.apache-daffodil-vscode</code></pre></figure>
-
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
 <h3 id="release-notes">Release Notes</h3>
 
-<p>This release contains new features and fixes</p>
+<p>This is the first release of the Apache Daffodil SBT Plugin.</p>
 
-<h4 id="new-features--fixes">New Features &amp; Fixes</h4>
+<p>See the <a href="https://github.com/apache/daffodil-sbt">GitHub page</a> for details to enable and configure.</p>
+
+<h4 id="new-features">New Features</h4>
 
 <ul>
-  <li>Use Apache Daffodil v3.4.0.</li>
-  <li>Add debug option that uses configuration of last debug.</li>
-  <li>Update version of node and Scala dependencies.</li>
-  <li>Create Wiki page for <a href="https://github.com/apache/daffodil-vscode/wiki/Apache-Daffodil%E2%84%A2-Extension-for-Visual-Studio-Code#dfdl-schema-authoring-using-code-completion">Intellisense Documentation</a>.</li>
-  <li>omega-edit updates:
-    <ul>
-      <li>Implement search.</li>
-      <li>Implement search and replace.</li>
-      <li>Update UI to support both search and replace.</li>
-      <li>Update redo and undo to use server instead of work around.</li>
-      <li>Update omega-edit script to be omega-edit-grpc-server instead of example-grpc-server.</li>
-    </ul>
-  </li>
-  <li>Fix launch wizard display issues on light themes.</li>
-  <li>Keep hexview opened on debug stop.</li>
-  <li>xs:choice, fixed snippet return for choiceDispatchKey, fixed brace autocomplete for choice dispatchkey.</li>
-  <li>Test suite updates:
-    <ul>
-      <li>Move test suite to use @vscode/test-electron, so that we can now test all available code not just things that don't call the vscode api.</li>
-      <li>Create additonal unit tests, adding on to previous ones already made.</li>
-    </ul>
-  </li>
-  <li>Restructure some code to make code flow better and easier to test.</li>
-  <li>Remove deprecated function <code class="language-plaintext highlighter-rouge">substr</code> to <code class="language-plaintext highlighter-rouge">substring</code></li>
-  <li>Fix issue with Intellisense inserting an extra <code class="language-plaintext highlighter-rouge">&lt;</code> symbol.</li>
+  <li>Configure SBT settings commonly needed for a DFDL Schema project, such as Daffodil dependencies, test options, and more</li>
+  <li>Configure settings needed for projects that create Daffodil User Defined Functions or Layers</li>
+  <li>Ability to create saved parsers and publish alongside jars</li>
+  <li>Ability to reload and use saved parsers for use with TDML tests</li>
+  <li>Option to use a flat directory structure, useful for examples and testing</li>
 </ul>
 
 <h4 id="closed-issues">Closed Issues</h4>
 
-<p><a href="https://github.com/apache/daffodil-vscode/milestone/3?closed=1">GitHub v1.2.0 Closed Issues</a></p>
+<p><a href="https://github.com/apache/daffodil-sbt/milestone/1?closed=1">GitHub v1.0.0 Closed Issues</a></p>
 
 
       <footer>

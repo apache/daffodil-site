@@ -28,7 +28,13 @@
         <nav role="navigation">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/releases">Releases</a></li>
-            <li><a href="/vscode">VS Code</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
             <li id="documentation">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
               <ul class="dropdown-menu dropdown-left">
@@ -92,7 +98,9 @@
 <p>There is a specific way of organizing a DFDL schema project that has been found
 to be helpful. It uses specific directory naming conventions and tree structure
 to manage name conflicts in a manner similar to how Java package names
-correspond to directory names.</p>
+correspond to directory names. It also uses the
+<a href="https://www.scala-sbt.org/">SBT</a> build tool with the <a href="/sbt">Daffodil SBT Plugin</a>
+to more easily manage, build, and test DFDL schema projects.</p>
 
 <h3 id="quick-start">Quick Start</h3>
 
@@ -125,8 +133,6 @@ part of a larger application, etc.</li>
 follow this layout.</li>
     </ul>
   </li>
-  <li>Eclipse IDE for development and test of the schema. Multiple such schemas all
-work together without conflict in the IDE.</li>
   <li>Encourages organizing DFDL schemas into reusable libraries.
     <ul>
       <li>A DFDL schema project need not define a whole data format. It can define
@@ -155,7 +161,8 @@ organization web identity of example.com.</p>
 │                            of Daffodil needed, or versions of other DFDL schemas needed
 ├── README.md              - Documentation about the DFDL schema in Markdown file format
 ├── project/
-│   └── build.properties   - Defines the sbt version
+│   ├── build.properties   - Defines the sbt version
+│   └── plugins.sbt        - Defines plugins, including the Daffodil SBT plugin
 └── src/
     ├── main/
     │   └── resources/
@@ -184,6 +191,18 @@ organization web identity of example.com.</p>
                         └── Tests1.scala   - Scala test driver file
 </code></pre></div></div>
 
+<h3 id="projectpluginssbt">project/plugins.sbt</h3>
+
+<p>Add the Daffodil SBT plugin to the project/plugins.sbt file:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">addSbtPlugin</span><span class="o">(</span><span class="s">"org.apache.daffodil"</span> <span class="o">%</span> <span class="s">"sbt-daffodil"</span> <span class="o">%</span> <span class="s">"1.0.0"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This adds the <a href="/sbt">Daffodil SBT Plugin</a> to the project, which configures
+settings and capabilities commonly needed to manage, build, and test DFDL schema
+projects. For more information about the settings that can be added to build.sbt
+or commands to run via SBT, see the <a href="https://github.com/apache/daffodil-sbt/">GitHub README</a>.</p>
+
 <h3 id="buildsbt">build.sbt</h3>
 
 <p>Use the below template for the build.sbt file:</p>
@@ -194,20 +213,10 @@ organization web identity of example.com.</p>
  
 <span class="n">version</span> <span class="o">:=</span> <span class="s">"0.0.1"</span>
  
-<span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"2.12.11"</span>
- 
-<span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
-  <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-tdml-processor"</span> <span class="o">%</span> <span class="s">"3.0.0"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-  <span class="s">"com.novocode"</span> <span class="o">%</span> <span class="s">"junit-interface"</span> <span class="o">%</span> <span class="s">"0.11"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-  <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"junit"</span> <span class="o">%</span> <span class="s">"4.12"</span> <span class="o">%</span> <span class="s">"test"</span><span class="o">,</span>
-<span class="o">)</span>
+<span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"2.12.18"</span>
 
-<span class="n">testOptions</span> <span class="o">+=</span> <span class="nv">Tests</span><span class="o">.</span><span class="py">Argument</span><span class="o">(</span><span class="nv">TestFrameworks</span><span class="o">.</span><span class="py">JUnit</span><span class="o">,</span> <span class="s">"-v"</span><span class="o">)</span>
-
-<span class="n">crossPaths</span> <span class="o">:=</span> <span class="kc">false</span>
+<span class="nf">enablePlugins</span><span class="o">(</span><span class="nc">DaffodilPlugin</span><span class="o">)</span>
 </code></pre></div></div>
-
-<p>Edit the version of daffodil-tdml above to match the version you are using.</p>
 
 <h3 id="gitattributes">.gitattributes</h3>
 
@@ -222,14 +231,6 @@ directory with the following content to disabling the mangline:</p>
 </code></pre></div></div>
 <p>The above tells git that any test files in the data directory should be treated
 as if they were binary, and thus not to mangle newlines.</p>
-
-<h3 id="eclipse-ide">Eclipse IDE</h3>
-
-<p>If you organize your DFDL schema project using the above conventions, and then
-run <code class="language-plaintext highlighter-rouge">sbt compile</code>, the <code class="language-plaintext highlighter-rouge">lib_managed</code> directory will be populated. Then if
-you create a new Eclipse scala project from the directory tree, Eclipse will
-see the <code class="language-plaintext highlighter-rouge">lib_managed</code> directory and construct a classpath containing all
-those jars.</p>
 
 <h3 id="xsd-conventions">XSD Conventions</h3>
 
@@ -246,7 +247,7 @@ style for DFDL schemas.</p>
 <p>The <code class="language-plaintext highlighter-rouge">xs:include</code> or <code class="language-plaintext highlighter-rouge">xs:import</code> elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:example.com/rfmt"</span> <span class="na">schemaLocation=</span><span class="s">"com/example/rfmt/xsd/rfmt.dfdl.xsd"</span><span class="nt">/&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:import</span> <span class="na">namespace=</span><span class="s">"urn:example.com/rfmt"</span> <span class="na">schemaLocation=</span><span class="s">"/com/example/rfmt/xsd/rfmt.dfdl.xsd"</span><span class="nt">/&gt;</span>
 </code></pre></div></div>
 
 <p>The above is for using a DFDL schema as a library, from another different DFDL
@@ -258,14 +259,14 @@ appears in the same directory (the src/main/resources/…/xsd directory) via:</p
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:include</span> <span class="na">schemaLocation=</span><span class="s">"format.dfdl.xsd"</span><span class="nt">/&gt;</span>
 </code></pre></div></div>
 
-<p>That is, peer files need not carry the long <code class="language-plaintext highlighter-rouge">com/example/rfmt/xsd/</code> prefix
+<p>That is, peer files need not carry the long <code class="language-plaintext highlighter-rouge">/com/example/rfmt/xsd/</code> prefix
 that makes the reference globally unique.</p>
 
 <p>However, if one schema wants to include another different schema, then this
 standard way of organizing schema projects ensures that when packaged into jar
 files, the <code class="language-plaintext highlighter-rouge">/src/main/resources</code> directory contents are at the "root" of the
 jar file so that the <code class="language-plaintext highlighter-rouge">schemaLocation</code> of the <code class="language-plaintext highlighter-rouge">xs:import</code> or <code class="language-plaintext highlighter-rouge">xs:include</code>
-containing the fully qualified path (<code class="language-plaintext highlighter-rouge">com/example/rfmt/xsd/rfmt.dfdl.xsd</code>)
+containing the fully qualified path (<code class="language-plaintext highlighter-rouge">/com/example/rfmt/xsd/rfmt.dfdl.xsd</code>)
 will be found on the <code class="language-plaintext highlighter-rouge">CLASSPATH</code> unambiguously. This convention is what
 allows the schema files themselves to have short names like rfmt.dfdl.xsd, and
 format.dfdl.xsd. Those names only need to be unique within a single schema
