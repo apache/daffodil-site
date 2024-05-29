@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | Layers - Algorithmic Extensions for DFDL</title>
+    <meta name="description" content="Pluggable Extensions to Enable Algorithmic Transformations in DFDL">
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2>Layers - Algorithmic Extensions for DFDL</h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ol>
+      <li><a href="#built-in-layers" id="markdown-toc-built-in-layers">Built-in Layers</a></li>
+      <li><a href="#custom-plug-in-layers" id="markdown-toc-custom-plug-in-layers">Custom Plug-In Layers</a></li>
+      <li><a href="#layer-kinds-transforming-layers-and-checksum-layers" id="markdown-toc-layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</a>        <ol>
+          <li><a href="#transforming-layers" id="markdown-toc-transforming-layers">Transforming Layers</a></li>
+          <li><a href="#checksum-layers" id="markdown-toc-checksum-layers">Checksum Layers</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#using-layers" id="markdown-toc-using-layers">Using Layers</a>    <ol>
+      <li><a href="#layer-length-limiting" id="markdown-toc-layer-length-limiting">Layer Length Limiting</a>        <ol>
+          <li><a href="#layer-limiting-using-enclosing-elements-of-specified-length" id="markdown-toc-layer-limiting-using-enclosing-elements-of-specified-length">Layer Limiting using Enclosing Elements of Specified Length</a></li>
+          <li><a href="#layer-limiting-using-the-utility-layers" id="markdown-toc-layer-limiting-using-the-utility-layers">Layer Limiting using the Utility Layers</a></li>
+          <li><a href="#layer-limiting-by-binding-a-dfdl-variable" id="markdown-toc-layer-limiting-by-binding-a-dfdl-variable">Layer Limiting by Binding a DFDL Variable</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#example-line-folding" id="markdown-toc-example-line-folding">Example: Line Folding</a></li>
+  <li><a href="#example-base64-gzip-and-boundarymark-layers-used-together" id="markdown-toc-example-base64-gzip-and-boundarymark-layers-used-together">Example: Base64, GZip, and BoundaryMark Layers used Together</a></li>
+  <li><a href="#using-custom-plug-in-layers" id="markdown-toc-using-custom-plug-in-layers">Using Custom Plug-In Layers</a></li>
+  <li><a href="#daffodil-built-in-layer-documentation" id="markdown-toc-daffodil-built-in-layer-documentation">Daffodil Built-In Layer Documentation</a>    <ol>
+      <li><a href="#base64-mime-layer" id="markdown-toc-base64-mime-layer">Base64 MIME Layer</a></li>
+      <li><a href="#boundarymark-layer" id="markdown-toc-boundarymark-layer">BoundaryMark Layer</a></li>
+      <li><a href="#byte-swapping-layers" id="markdown-toc-byte-swapping-layers">Byte-Swapping Layers</a></li>
+      <li><a href="#fixedlength-layer" id="markdown-toc-fixedlength-layer">FixedLength Layer</a></li>
+      <li><a href="#gzip-layer" id="markdown-toc-gzip-layer">GZIP Layer</a></li>
+      <li><a href="#line-folded-layers" id="markdown-toc-line-folded-layers">Line Folded Layers</a>        <ol>
+          <li><a href="#general-usage" id="markdown-toc-general-usage">General Usage</a></li>
+          <li><a href="#layer-name-linefolded_imf" id="markdown-toc-layer-name-linefolded_imf">Layer Name: lineFolded_IMF</a></li>
+          <li><a href="#layer-name-linefolded_icalendar" id="markdown-toc-layer-name-linefolded_icalendar">Layer Name: lineFolded_iCalendar</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This page describes a DFDL language extension known as <em>Layers</em>.</p>
+
+<p>A <em>layer</em> is an algorithmic transformation of the data stream that cannot be expressed using
+regular DFDL properties.
+When parsing it is like a pre-processing of the data stream which 
+happens before parsing. 
+When unparsing it is like a post-processing of the data stream which 
+happens after unparsing. 
+The layer can underlie a part of the data stream, or all of it.</p>
+
+<p>Layers are <em>byte oriented</em>. 
+The smallest non-zero layer size is a single byte, and the length of 
+all layers are in bytes. 
+Throughout this discussion of layers, when length is discussed, the units of measure are always 
+bytes.</p>
+
+<p>Layers can be composed together, that is, with one on top of another, and their composition is 
+orthogonal (as in non-interacting).
+This is actually very common. For example, binary data being included into a textual data format 
+can be both gzip compressed, and then base64 encoded, which requires 2 layers to describe. 
+There is no limit to this depth.</p>
+
+<p>In the section on <a href="#UsingLayers">Using Layers</a> below we will look at an example that uses 
+multiple layers together.</p>
+
+<h3 id="built-in-layers">Built-in Layers</h3>
+
+<p>Daffodil includes several built-in layers:</p>
+<ul>
+  <li><a href="#base64-mime-layer">base64_MIME</a></li>
+  <li><a href="#byte-swapping-layers">fourbyteswap</a></li>
+  <li><a href="#byte-swapping-layers">twobyteswap</a></li>
+  <li><a href="#gzip-layer">gzip</a></li>
+  <li><a href="#line-folded-layers">lineFolded_IMF</a></li>
+  <li><a href="#line-folded-layers">lineFolded_iCalendar</a></li>
+</ul>
+
+<p>Daffodil also includes two utility layers that are used in combination with other layers to 
+isolate the subset of the data stream the layer algorithm will operate upon. 
+These are:</p>
+<ul>
+  <li><a href="#boundarymark-layer">boundaryMark</a></li>
+  <li><a href="#fixedlength-layer">fixedLength</a></li>
+</ul>
+
+<p>Each of the built-in layers will be documented separately below with examples of their usage.</p>
+
+<h3 id="custom-plug-in-layers">Custom Plug-In Layers</h3>
+
+<p>Additional layers can be written in Java or Scala and deployed as <em>plug-ins</em> for Daffodil.
+These are generally packaged as DFDL <em>layer schemas</em>, a kind of <em>component schema</em>,
+that provide the layer packaged for import by other DFDL <em>assembly</em> schemas that use the 
+layer in the data format they describe.</p>
+
+<h3 id="layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</h3>
+
+<p>There are two different kinds of layers, though they share many characteristics. They are 
+<em>transforming</em> layers, and <em>checksum</em> layers. Both run small algorithms over part (or all) of 
+the data stream. The difference is the purpose of the algorithm and its output.</p>
+
+<h4 id="transforming-layers">Transforming Layers</h4>
+
+<p>These layers decode data (when parsing), and encode data (when unparsing). 
+The simplest example of a transforming layer is the <code class="language-plaintext highlighter-rouge">base64_MIME</code> layer which 
+decodes the well known base64 encoding which is commonly used to encode binary 
+data inside textual data formats.</p>
+
+<p>Besides decoding and encoding the data stream for the parser/unparser, transforming layers can be 
+parameterized using DFDL variables. 
+They can also assign computed result values to DFDL variables, though this is uncommon.</p>
+
+<p>Custom transforming layers are created by deriving an implementation from the Daffodil API's 
+<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a> class 
+which is introduced in a later section.</p>
+
+<h4 id="checksum-layers">Checksum Layers</h4>
+
+<p>Checksum layers are a simplified kind of layer which do not decode or encode data, they simply 
+pass through the data unmodified, but while doing so they compute a checksum, hash, or Cyclic
+Redundancy Check (CRC) over the data stream.</p>
+
+<p>The value of the checksum (or hash or CRC) is assigned to a DFDL variable as the result of the 
+layer. This makes the value available for use by the DFDL schema that uses the checksum layer. 
+When parsing, the value of this DFDL variable can then be compared to a checksum field in the 
+data, and either an invalid data element or an parse-error can be created if the checksum in the 
+data stream does not match the computed value. 
+When unparsing, the value of this DFDL variable can be written to an element using the 
+<code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code> property.</p>
+
+<p>An example of a checksum layer plug-in is in the 
+<a href="https://github.com/DFDLSchemas/ethernetIP">EthernetIP</a> 
+DFDL schema, which uses a Daffodil layer to describe the IPv4 packet header checksum algorithm.</p>
+
+<p>Custom checksum layers are created by deriving an implementation class from the Daffodil API's
+<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.
+html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a> 
+class, which is introduced in a later section.</p>
+
+<hr />
+
+<h2 id="using-layers">Using Layers</h2>
+
+<p>To use a layer you must know</p>
+<ul>
+  <li>the layer's namespace URI</li>
+  <li>the layer's name</li>
+  <li>the names of any layer parameter variables</li>
+  <li>the names of any layer result variables</li>
+</ul>
+
+<p>Each layer normally has a <em>layer schema file</em> (.dfdl.xsd) which contains the DFDL variable's 
+<code class="language-plaintext highlighter-rouge">dfdl:defineVariable</code> declarations (if any).</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">sequence</code> group encloses the scope, within the DFDL schema, of the layer.
+Often layers are used to describe checksums or decoding/encoding on small regions within a 
+larger data format.</p>
+
+<p>The DFDL extension property <code class="language-plaintext highlighter-rouge">dfdlx:layer</code> declares that the data underlying a <code class="language-plaintext highlighter-rouge">sequence</code> is to 
+use a layer. The value of the property is a QName identifying the namespace (via prefix) and 
+name of the layer.</p>
+
+<p>A layer's namespace may define DFDL variables that are used to pass parameters to the layer, or 
+to receive results back from the layer (usually for checksum layers).</p>
+
+<p>Lastly, there is the concept of <em>layer length limiting</em>.</p>
+
+<h3 id="layer-length-limiting">Layer Length Limiting</h3>
+
+<p>A layer can process an entire input file/stream.
+Such a layer is said to be <em>unlimited</em>.</p>
+
+<p>A layer can also have a specific data length built into it. 
+The <code class="language-plaintext highlighter-rouge">IPv4Checksum</code> layer (in the aforementioned 
+<a href="https://github.com/DFDLSchemas/ethernetIP">EthernetIP</a> 
+DFDL schema) has a fixed length of 20 bytes. 
+Such a layer is said to be <em>self limiting</em>.</p>
+
+<p>More commonly, a layer has a limited region within the data stream that it is supposed to describe.
+The restriction of the layer so that it only describes the expected part of the data is called
+<em>layer limiting</em>.</p>
+
+<p>There are these ways to do layer limiting, that differ in important ways:</p>
+<ul>
+  <li>using enclosing elements of specified length</li>
+  <li>using a Utility Layer that is built-in to Daffodil</li>
+  <li>binding a DFDL variable specific to a particular layer</li>
+</ul>
+
+<h4 id="layer-limiting-using-enclosing-elements-of-specified-length">Layer Limiting using Enclosing Elements of Specified Length</h4>
+
+<p>If the <code class="language-plaintext highlighter-rouge">sequence</code> for a layer is the model group of the
+complex type of an element, and that element has specified length (meaning it has 
+<code class="language-plaintext highlighter-rouge">dfdl:lengthKind</code> property of <code class="language-plaintext highlighter-rouge">explicit</code>, <code class="language-plaintext highlighter-rouge">prefixed</code> or <code class="language-plaintext highlighter-rouge">pattern</code>), then the length 
+of the element limits the length of the layer within it.</p>
+
+<p>In this case the length of the layer is limited when parsing, but it is NOT limited when
+unparsing.</p>
+
+<h4 id="layer-limiting-using-the-utility-layers">Layer Limiting using the Utility Layers</h4>
+
+<p>Some layers do not decode or encode data but only restrict the length for other layers, for 
+example by using a length layer variable or delimiter. See the [<code class="language-plaintext highlighter-rouge">boundaryMark</code> layer]
+(#boundarymark-layer) and <a href="#fixedlength-layer"><code class="language-plaintext highlighter-rouge">fixedLength</code> layer</a> for examples.</p>
+
+<h4 id="layer-limiting-by-binding-a-dfdl-variable">Layer Limiting by Binding a DFDL Variable</h4>
+
+<p>Some layers will define a DFDL variable that must be set to a non-negative
+integer value to specify the layer length that the layer will use. 
+All checksum layers built with the Daffodil API <code class="language-plaintext highlighter-rouge">ChecksumLayer</code> base class,
+use the DFDL <code class="language-plaintext highlighter-rouge">layerLength</code> variable to specify the length (in bytes) of the layer.</p>
+
+<p>Layers may specify restrictions on the minimum and maximum allowed values of these lengths, 
+and passing an out-of-range value for the variable is a processing error.</p>
+
+<h2 id="example-line-folding">Example: Line Folding</h2>
+
+<p>Consider the line folding layer, specifically the <code class="language-plaintext highlighter-rouge">lineFolded_IMF</code> layer, 
+which is built-in to Daffodil.</p>
+
+<p>Line folding is a way of encoding textual data formats so that no line of text is longer than 
+a limited line length.</p>
+
+<p>Consider this data :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad Lorem
+ ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+</code></pre></div></div>
+<p>This data has been <em>line folded</em> at roughly 72 characters by inserting a CRLF
+before an existing space in the data. 
+Each line ends with a CRLF (\r\n) and the second through fourth lines begin 
+with a space as a way of indicating that they are extension lines. 
+This data is supposed to be reassembled to form a long single-line string by removing
+all CRLF pairs.</p>
+
+<p>The result should be this single longer string which does not contain any line endings:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+</code></pre></div></div>
+<p>To achieve this we would use the <code class="language-plaintext highlighter-rouge">lineFolded_IMF</code> layer.
+This layer has a specific namespace which our DFDL schema will define a prefix <code class="language-plaintext highlighter-rouge">lf</code> for like this:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;schema</span> <span class="na">xmlns:lf=</span><span class="s">"urn:org.apache.daffodil.layers.lineFolded"</span> <span class="err">...</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p>Our DFDL schema will import the layer schema for the line-folded layer with this import:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:org.apache.daffodil.layers.lineFolded"</span>
+        <span class="na">schemaLocation=</span><span class="s">"/org/apache/daffodil/layers/xsd/lineFoldedLayer.dfdl.xsd"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>Then the layer is incorporated into our DFDL schema like this:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;sequence</span> <span class="na">dfdlx:layer=</span><span class="s">"lf:lineFolded_IMF"</span><span class="nt">&gt;</span>
+  ... elements to be parsed from the unfolded layer data go here ...
+<span class="nt">&lt;/sequence&gt;</span>
+</code></pre></div></div>
+<p>You can see that use of a layer is described using the <code class="language-plaintext highlighter-rouge">dfdlx:layer</code> property, and the specific 
+layer is identified by a QName using the previously defined namespace prefix.
+The scope of the layer is the duration of the sequence it appears on. 
+The <code class="language-plaintext highlighter-rouge">dfdlx:layer</code> property can <em>only</em> be used on an XSD <code class="language-plaintext highlighter-rouge">sequence</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">lineFolded_IMF</code> layer does not define any DFDL variables in its namespace as it has no 
+parameters and produces no results. 
+As of Daffodil 3.8.0, the <code class="language-plaintext highlighter-rouge">import</code> statement above is optional for the
+line-folded layers as the DFDL schema file <code class="language-plaintext highlighter-rouge">lineFoldedLayer.dfdl.xsd</code> does not contain any 
+definitions.
+In the future however, parameters may be added, so for uniformity all layers define a DFDL 
+schema to be imported as part of using the layer.</p>
+
+<p>If the line-folding applies to the entire data stream (not uncommon for formats that use line 
+folding), then what has been described is all one needs to describe the layer aspects of a data 
+format. 
+Other examples will show how the layer length can be limited to a sub-region of the data.</p>
+
+<p>More detailed documentation for the <a href="#line-folded-layers">Line Folded Layers</a> is below.</p>
+
+<h2 id="example-base64-gzip-and-boundarymark-layers-used-together">Example: Base64, GZip, and BoundaryMark Layers used Together</h2>
+
+<p>In this example, the data consists of a preliminary string, a section of CSV-like data, and a 
+final string element.
+The CSV-like data section in the middle is both gzipped, and then base64 encoded, with the 
+boundary value mark of "<code class="language-plaintext highlighter-rouge">=_END_=</code>" indicating where the base64 part ends.</p>
+
+<p>The point of the preliminary string and the final string is to show that this sort of layering 
+composes properly with surrounding data elements in the schema. Those strings could be anything 
+at all, they're just strings to make this example simpler.</p>
+
+<p>The physical data string/stream looks like this:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>example of data before the base64 gzipped part
+H4sIAAAAAAAA/y3JQQqAIBCF4b1nmYG0iNxG+84wpqFhI4xuun0Gbd4P78tUG5xJ+t7J+xxg21dV
+79QiSHFBGjgh9oVB22XBYUQzqatErv36CjGwPJ/OOGg0Y1cOFUgegoPaLwa1VS9htd+UbgAAAA==
+=_END_=
+example of data after the base64 gzipped part
+</code></pre></div></div>
+<p>That base64 encoded part, if decoded and decompressed looks like this CSV-like data:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>last,first,middle,DOB
+smith,robert,brandon,1988-03-24
+johnson,john,henry,1986-01-23
+jones,arya,cat,1986-02-19
+</code></pre></div></div>
+
+<p>The Infoset, presented as XML, that we will create for this entire data stream
+using Daffodil parsing looks like:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ex:data&gt;</span>
+  <span class="nt">&lt;before&gt;</span>example of data before the base64 gzipped part<span class="nt">&lt;/before&gt;</span>
+  <span class="nt">&lt;header&gt;&lt;title&gt;</span>last<span class="nt">&lt;/title&gt;&lt;title&gt;</span>first<span class="nt">&lt;/title&gt;&lt;title&gt;</span>middle<span class="nt">&lt;/title&gt;&lt;title&gt;</span>DOB<span class="nt">&lt;/title&gt;&lt;/header&gt;</span>
+  <span class="nt">&lt;record&gt;&lt;item&gt;</span>smith<span class="nt">&lt;/item&gt;&lt;item&gt;</span>robert<span class="nt">&lt;/item&gt;&lt;item&gt;</span>brandon<span class="nt">&lt;/item&gt;&lt;item&gt;</span>1988-03-24<span class="nt">&lt;/item&gt;&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;&lt;item&gt;</span>johnson<span class="nt">&lt;/item&gt;&lt;item&gt;</span>john<span class="nt">&lt;/item&gt;&lt;item&gt;</span>henry<span class="nt">&lt;/item&gt;&lt;item&gt;</span>1986-01-23<span class="nt">&lt;/item&gt;&lt;/record&gt;</span>
+  <span class="nt">&lt;record&gt;&lt;item&gt;</span>jones<span class="nt">&lt;/item&gt;&lt;item&gt;</span>arya<span class="nt">&lt;/item&gt;&lt;item&gt;</span>cat<span class="nt">&lt;/item&gt;&lt;item&gt;</span>1986-02-19<span class="nt">&lt;/item&gt;&lt;/record&gt;</span>
+  <span class="nt">&lt;after&gt;</span>example of data after the base64 gzipped part<span class="nt">&lt;/after&gt;</span>
+<span class="nt">&lt;/ex:data&gt;</span>
+</code></pre></div></div>
+
+<p>With that characterization of the problem, let's look at the DFDL schema with the Daffodil 
+layering properties to do the boundaryMark, base64 decode, and gzip decompression.
+(Note that each of these layers is described further in its own section below on this page.)</p>
+
+<p>First there is the start of the schema which introduces namespace prefix definitions for DFDL, 
+for the DFDL extensions (dfdlx) prefix which is used for the <code class="language-plaintext highlighter-rouge">dfdlx:layer</code> property.</p>
+
+<p>This also sets up 3 namespace prefixes for the namespaces of the boundaryMark (bm), gzip (gz) 
+and base64_MIME (b64) layers which will be imported just after this header.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;schema</span>
+  <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
+  <span class="na">xmlns:fn=</span><span class="s">"http://www.w3.org/2005/xpath-functions"</span>
+  <span class="na">xmlns:dfdlx=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/extensions"</span>
+  <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="na">xmlns:bm=</span><span class="s">"urn:org.apache.daffodil.layers.boundaryMark"</span>
+  <span class="na">xmlns:b64=</span><span class="s">"urn:org.apache.daffodil.layers.base64_MIME"</span>
+  <span class="na">xmlns:gz=</span><span class="s">"urn:org.apache.daffodil.layers.gzip"</span>
+  <span class="na">xmlns:ex=</span><span class="s">"http://example.com"</span>
+  <span class="na">targetNamespace=</span><span class="s">"http://example.com"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p>Next we import the Daffodil built in general format which provides most DFDL properties with 
+sensible starting values, and import the namespaces of our boundaryMark, gzip, and base64_MIME 
+layers, and lastly, set the default format properties for use by this schema file:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;include</span> <span class="na">schemaLocation=</span><span class="s">"/org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"</span><span class="nt">/&gt;</span>
+		
+<span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:org.apache.daffodil.layers.boundaryMark"</span>
+        <span class="na">schemaLocation=</span><span class="s">"/org/apache/daffodil/layers/xsd/boundaryMarkLayer.dfdl.xsd"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:org.apache.daffodil.layers.gzip"</span>
+        <span class="na">schemaLocation=</span><span class="s">"/org/apache/daffodil/layers/xsd/gzipLayer.dfdl.xsd"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:org.apache.daffodil.layers.base64_MIME"</span>
+        <span class="na">schemaLocation=</span><span class="s">"/org/apache/daffodil/layers/xsd/base64_MIMELayer.dfdl.xsd"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;annotation&gt;&lt;appinfo</span> <span class="na">source=</span><span class="s">"http://www.ogf.org/dfdl/"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;dfdl:format</span> <span class="na">ref=</span><span class="s">"ex:GeneralFormat"</span> <span class="na">representation=</span><span class="s">"binary"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/appinfo&gt;&lt;/annotation&gt;</span>
+</code></pre></div></div>
+<p>The root element of the schema is <code class="language-plaintext highlighter-rouge">data</code>, and this element has type <code class="language-plaintext highlighter-rouge">dataType</code>.
+(A separate named complex type definition for the root element is a 
+recommended style for DFDL schemas as it allows someone else to reuse the schema without 
+getting involved in element namespace prefix complexities.) 
+The <code class="language-plaintext highlighter-rouge">dataType</code> just shows us the <code class="language-plaintext highlighter-rouge">before</code> and <code class="language-plaintext highlighter-rouge">after</code> elements, and references a group 
+named <code class="language-plaintext highlighter-rouge">layeredDataGroup</code> for the layered part in between.</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"data"</span> <span class="na">type=</span><span class="s">"ex:dataType"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;complexType</span> <span class="na">name=</span><span class="s">"dataType"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;sequence</span> <span class="na">dfdl:separator=</span><span class="s">"%NL;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"before"</span> <span class="na">type=</span><span class="s">"string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"delimited"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;group</span> <span class="na">ref=</span><span class="s">"ex:layeredDataGroup"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"after"</span> <span class="na">type=</span><span class="s">"string"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"delimited"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/sequence&gt;</span>
+<span class="nt">&lt;/complexType&gt;</span>
+</code></pre></div></div>
+<p>Now we see the definition of the layering. 
+All 3 layers are declared in this named group. 
+The lines here are numbered so that the text that follows can refer to them:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 <span class="nt">&lt;group</span> <span class="na">name=</span><span class="s">"layeredDataGroup"</span><span class="nt">&gt;</span>
+2   <span class="nt">&lt;sequence</span> <span class="na">dfdlx:layer=</span><span class="s">"bm:boundaryMark"</span><span class="nt">&gt;</span>
+3     <span class="nt">&lt;annotation&gt;</span>
+4       <span class="nt">&lt;appinfo</span> <span class="na">source=</span><span class="s">"http://www.ogf.org/dfdl/"</span><span class="nt">&gt;</span>
+5         <span class="nt">&lt;dfdl:newVariableInstance</span> <span class="na">ref=</span><span class="s">"bm:layerEncoding"</span> <span class="na">defaultValue=</span><span class="s">"iso-8859-1"</span><span class="nt">/&gt;</span>
+6         <span class="nt">&lt;dfdl:newVariableInstance</span> <span class="na">ref=</span><span class="s">"bm:boundaryMark"</span> <span class="na">defaultValue=</span><span class="s">"=_END_="</span><span class="nt">/&gt;</span>
+7       <span class="nt">&lt;/appinfo&gt;</span>
+8     <span class="nt">&lt;/annotation&gt;</span>
+9     <span class="nt">&lt;sequence</span> <span class="na">dfdlx:layer=</span><span class="s">"b64:base64_MIME"</span><span class="nt">&gt;</span>
+10       <span class="nt">&lt;sequence</span> <span class="na">dfdlx:layer=</span><span class="s">"gz:gzip"</span><span class="nt">&gt;</span>
+11         <span class="nt">&lt;group</span> <span class="na">ref=</span><span class="s">"ex:dataFieldsGroup"</span><span class="nt">/&gt;</span>
+12       <span class="nt">&lt;/sequence&gt;</span>
+13     <span class="nt">&lt;/sequence&gt;</span>
+14   <span class="nt">&lt;/sequence&gt;</span>
+15 <span class="nt">&lt;/group&gt;</span>
+</code></pre></div></div>
+<p>In the above, at line 2 we see the sequence declares the boundaryMark layer. 
+This layer requires 2 parameters to be passed by binding DFDL variables, which occurs on 
+lines 5 and 6. 
+Line 5 binds the <code class="language-plaintext highlighter-rouge">layerEncoding</code> variable and note the prefix since DFDL variable names can be 
+in a specific namespace.
+Line 6 binds the <code class="language-plaintext highlighter-rouge">boundaryMark</code> variable to the string "<code class="language-plaintext highlighter-rouge">=_END_=</code>". 
+Note that the variable and the layer both are named <code class="language-plaintext highlighter-rouge">boundaryMark</code>, but this is just coincidence.
+Layers do not have to have parameters that match their name, nor even any parameters at all. 
+The boundary mark is the string which marks the end of the data based on scanning for that ending 
+mark.</p>
+
+<p>The data region now being isolated, the <code class="language-plaintext highlighter-rouge">boundaryMark</code> layer contains just one sequence, and line 
+9 which itself declares that the data is base64 encoded by specifying the base64_MIME layer.
+This layer has no parameters, so there are no <code class="language-plaintext highlighter-rouge">dfdl:newVariableInstance</code> statements to bind any
+variables. 
+The region of data that is base64 encoded is then described by the sequence at line 10 which 
+declares that the data is compressed by the <code class="language-plaintext highlighter-rouge">gzip</code> algorithm.</p>
+
+<p>Finally, at line 11 we reference a group which describes what the data format of the underlying 
+CSV-like data.
+That group's definition is regular DFDL without any of the complexity of layers.
+This is useful for testing, as data can be parsed using this group (in the complexType of an 
+element) to ensure it works properly without involving the complexity of layers.
+This group definition is the last thing in the schema:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;group</span> <span class="na">name=</span><span class="s">"dataFieldsGroup"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;sequence</span> <span class="na">dfdl:separator=</span><span class="s">"%NL;"</span> <span class="na">dfdl:separatorPosition=</span><span class="s">"postfix"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"header"</span> <span class="na">minOccurs=</span><span class="s">"0"</span> <span class="na">dfdl:occursCountKind=</span><span class="s">"implicit"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;complexType&gt;</span>
+        <span class="nt">&lt;sequence</span> <span class="na">dfdl:separator=</span><span class="s">","</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"title"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">maxOccurs=</span><span class="s">"unbounded"</span> <span class="na">dfdl:lengthKind=</span><span class="s">"delimited"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sequence&gt;</span>
+      <span class="nt">&lt;/complexType&gt;</span>
+    <span class="nt">&lt;/element&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"record"</span> <span class="na">maxOccurs=</span><span class="s">"unbounded"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;complexType&gt;</span>
+        <span class="nt">&lt;sequence</span> <span class="na">dfdl:separator=</span><span class="s">","</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"item"</span> <span class="na">type=</span><span class="s">"xs:string"</span> <span class="na">maxOccurs=</span><span class="s">"unbounded"</span>
+                   <span class="na">dfdl:lengthKind=</span><span class="s">"delimited"</span>
+                   <span class="na">dfdl:occursCount=</span><span class="s">"{ fn:count(../../header/title) }"</span>
+                   <span class="na">dfdl:occursCountKind=</span><span class="s">"expression"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sequence&gt;</span>
+      <span class="nt">&lt;/complexType&gt;</span>
+    <span class="nt">&lt;/element&gt;</span>
+  <span class="nt">&lt;/sequence&gt;</span>
+<span class="nt">&lt;/group&gt;</span>
+
+<span class="nt">&lt;/schema&gt;</span>
+</code></pre></div></div>
+<p>The above schema works both to parse, but also to unparse this data.</p>
+
+<hr />
+
+<h2 id="using-custom-plug-in-layers">Using Custom Plug-In Layers</h2>
+
+<p>A custom plug-in layer is used in the same manner as the built-in Daffodil layers with just a few
+additional details:</p>
+<ol>
+  <li>The custom layer will have a DFDL schema that declares any DFDL variables it uses, and 
+defines any data formats needed to facilitate use of the layer. 
+This schema will need to be included/imported. 
+Normally this schema would be a small single-file schema and it can be loaded from the 
+classpath.</li>
+  <li>The custom layer's compiled Java/Scala code is dynamically loaded using the 
+Java Service Provider Interface (SPI). 
+Hence, they must be compiled into Jar files with specific META-INF metadata enclosed, and 
+these jars must appear on the Java CLASSPATH so that they can be found and loaded.</li>
+</ol>
+
+<p>The layer API is defined via Java clases and interfaces to enable writing of custom layers in 
+either Java or Scala.<br />
+(One of the built-in layers (Gzip) is written in Java now, by way of proving
+that one can write a Layer in Java.)</p>
+
+<p>Transformer layer classes are derived from the 
+<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a>
+base class.</p>
+
+<p>Checksum layer classes are derived from the
+<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a>
+base class.</p>
+
+<p>Further details on how to define custom plug-in layers is in the Javadoc for the 
+<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/package-summary.html">Layer API</a></p>
+
+<hr />
+<hr />
+
+<h2 id="daffodil-built-in-layer-documentation">Daffodil Built-In Layer Documentation</h2>
+
+<p>Each of the layers built-in to the Daffodil implementation are documented in a section below 
+which gives the name, namespace, variables, and some usage notes.</p>
+
+<hr />
+
+<h3 id="base64-mime-layer">Base64 MIME Layer</h3>
+
+<ul>
+  <li>Name: base64_MIME</li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.base64_MIME</li>
+  <li>Parameter Variables: None</li>
+  <li>Result Variables: None</li>
+</ul>
+
+<p>This uses the standard <code class="language-plaintext highlighter-rouge">java.util.Base64</code> classes, specifically the MIME encoding/decoding.</p>
+
+<p>This is specified by <a href="https://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
+The encoded output must be represented in lines of no more than 76 characters 
+each and uses a carriage return '\r' followed immediately by a linefeed '\n' as the line separator. 
+No line separator is added to the end of the encoded output. 
+All line separators or other characters not found in the base64 alphabet table are ignored in
+decoding operation.</p>
+
+<hr />
+
+<h3 id="boundarymark-layer">BoundaryMark Layer</h3>
+
+<ul>
+  <li>Name: boundaryMark</li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.boundaryMark</li>
+  <li>Parameter Variables
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">boundaryMark</code> a string which delimits the end of the layer data.
+        <ul>
+          <li>No escape schemes are applied.</li>
+          <li>DFDL character entities and character class entities are not allowed.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">layerEncoding</code> a string which names a character set encoding which is used in the scanning 
+for the boundary mark.</li>
+    </ul>
+  </li>
+  <li>Result Variables: None</li>
+</ul>
+
+<p>Isolates text data by way of a boundary mark string.
+This string is a delimiter of the layer data when parsing.
+The data up to but not including the boundary mark string becomes the data available for parsing.
+On completion of the layer parse, the parse position is after the boundary mark string.
+When unparsing the string is
+inserted after the (otherwise unbounded length) layer data.</p>
+
+<p>This is like a terminating delimiter of a DFDL element or sequence/ choice group, except that 
+there is no escaping mechanism, so the data cannot in any way contain the boundary mark string.
+Furthermore, elements within the layer can have any <code class="language-plaintext highlighter-rouge">dfdl:lengthKind</code>, but this does not affect 
+the search for the boundary mark.</p>
+
+<p>For example, when using an element with <code class="language-plaintext highlighter-rouge">dfdl:lengthKind="delimited"</code> and a <code class="language-plaintext highlighter-rouge">dfdl:terminator="END"</code>, 
+if that element contains a child element with <code class="language-plaintext highlighter-rouge">dfdl:lengthKind="explicit"</code>, then the search for 
+the "END" terminator is suspended for the length of the child element, and that search resumes 
+after the child element's length has been parsed.</p>
+
+<p>In contrast to this, if a boundary mark layer is used with the <code class="language-plaintext highlighter-rouge">boundaryMark</code> variable bound 
+to "END", then the data stream is decoded as characters in the charset encoding given by the 
+<code class="language-plaintext highlighter-rouge">layerEncoding</code> variable, and the layer continues until the "END" is found. The <code class="language-plaintext highlighter-rouge">dfdl:lengthKind</code> 
+of any child element enclosed within the layer, or even the lengths of other layers found 
+within the scope of this boundary mark layer are not considered and do not disrupt the search 
+for the boundary mark string.</p>
+
+<hr />
+
+<h3 id="byte-swapping-layers">Byte-Swapping Layers</h3>
+
+<ul>
+  <li>Layer Names:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">twobyteswap</code></li>
+      <li><code class="language-plaintext highlighter-rouge">fourbyteswap</code></li>
+    </ul>
+  </li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.byteSwap</li>
+  <li>Parameter Variables: None</li>
+  <li>Result Variables: None</li>
+</ul>
+
+<p>Layer that re-orders bytes according to the word size which is 2 for <code class="language-plaintext highlighter-rouge">twobyteswap</code> and 4 for
+<code class="language-plaintext highlighter-rouge">fourbyteswap</code> respectively.
+This layer implements streaming behavior. 
+It does not require buffering up the data. 
+So it can be used on very large data objects.
+Bytes within the wrapped input stream are re-ordered <em>word size</em> bytes at a time.</p>
+
+<p>For example, if 
+the wrapped input stream contains 10 bytes and word size is 4, then the bytes from the wrapped 
+input stream are returned in the order 4 3 2 1 8 7 6 5 10 9.</p>
+
+<p>If wordsize were 2 then the bytes from the wrapped input stream are returned in the 
+order 2 1 4 3 6 5 8 7 10 9.</p>
+
+<hr />
+
+<h3 id="fixedlength-layer">FixedLength Layer</h3>
+
+<ul>
+  <li>Name: fixedLength</li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.fixedLength</li>
+  <li>Parameter Variables
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">fixedLength</code> an <code class="language-plaintext highlighter-rouge">unsignedInt</code> which gives the length, in bytes, of the layer 
+data.
+This must be in the range from 0 to 32767 inclusive. It is a processing error otherwise.
+This length is enforced on both parsing and unparsing the layer.</li>
+    </ul>
+  </li>
+  <li>Result Variables: None</li>
+</ul>
+
+<p>Suitable only for small sections of data, not large data streams or large files.
+The entire fixed length region of the data will be pulled into a byte buffer in memory.</p>
+
+<hr />
+
+<h3 id="gzip-layer">GZIP Layer</h3>
+
+<ul>
+  <li>Name: gzip</li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.gzip</li>
+  <li>Parameter Variables: None</li>
+  <li>Result Variables: None</li>
+</ul>
+
+<p>This layer uses the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPInputStream</code> and <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> 
+libraries to decode and encode.</p>
+
+<p>Prior to Java 16, the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> wrote a value of zero for the OS field
+in the header (byte index 9). 
+In Java 16, this was changed to a value of 255 to better abide by the GZIP specification. 
+Unfortunately, this means unparsed data using a GZIP layer might have a single byte difference,
+depending on the Java version used. 
+To avoid inconsistent behavior of test failures that expect a certain byte value this layer
+always writes a consistent header (header byte 9 of 255) regardless of the Java version.</p>
+
+<hr />
+
+<h3 id="line-folded-layers">Line Folded Layers</h3>
+
+<ul>
+  <li>Layer Names:
+    <ul>
+      <li><a href="#layer-name-linefolded_imf">lineFolded_IMF</a> - conforms to IETF RFC 2822 Internet Message 
+ Format (IMF)</li>
+      <li><a href="#layer-name-linefolded_icalendar">lineFolded_iCalendar</a> - conforms to IETF RFC 5545 iCalendar</li>
+    </ul>
+  </li>
+  <li>Namespace URI: urn:org.apache.daffodil.layers.lineFolded</li>
+  <li>Parameter Variables: None</li>
+  <li>Result Variables: None</li>
+</ul>
+
+<h4 id="general-usage">General Usage</h4>
+
+<p>There is a limitation on the compatibility of line folding of data
+with adjacent parts of the format which also use line-endings.
+For example, line folding can interact badly with surrounding elements of <code class="language-plaintext highlighter-rouge">dfdl:lengthKind 
+'pattern'</code> if the pattern is, for example <code class="language-plaintext highlighter-rouge">".*?\\r\\n(?!(?:\\t|\\ ))"</code> which is anything up to
+and including a CRLF not followed by a space or tab. 
+The problem is that line folding
+converts isolated \n or \r into \r\n, and if this just happens to be followed by a
+non space/tab character this will have inserted an end-of-data in the middle of the
+data.</p>
+
+<h4 id="layer-name-linefolded_imf">Layer Name: lineFolded_IMF</h4>
+
+<p>For IMF, unfolding simply removes CRLFs if they are followed by a space or tab.</p>
+
+<p>When unparsing, the folding is more complex, as CRLFs can only be inserted before
+a space/tab that appears in the data. If the data has no spaces, then no
+folding is possible.
+If there are spaces/tabs, the one closest to (and before) position 78 is used unless it is
+followed by punctuation, in which case a prior space/tab (if it exists) is used.
+(This preference for spaces not followed by punctuation is optional, it is
+not required, but is preferred in the IMF RFC.)</p>
+
+<p>Note: folding is done by some systems in a manner that does not respect
+character boundaries - i.e., in utf-8, a multi-byte character sequence may be
+broken in the middle by insertion of a CRLF. Hence, unfolding initially treats
+the text as iso-8859-1, i.e., just bytes, and removes CRLFs, then subsequently
+re-interprets the bytes as the expected charset such as utf-8.</p>
+
+<p>IMF is supposed to be US-ASCII, but implementations have gone to 8-bit characters
+being preserved, so the above problem really can occur.</p>
+
+<p>IMF has a maximum line length of 998 characters per line excluding the CRLF.</p>
+
+<ul>
+  <li><em>WARNING This check for 998 characters (or longer) is not implemented (As of Daffodil 
+version 3.8.0).</em></li>
+</ul>
+
+<p>The layer should fail (cause a parse error) if a line longer than 998 characters is encountered
+or constructed after unfolding. When unparsing, if a line longer than 998 cannot be
+folded due to no spaces/tabs being present in it, then it is an unparse error.</p>
+
+<p>Note that i/vCalendar, vCard, and MIME payloads held by IMF do not run into
+the IMF line length issues, in that they have their own line length limits that
+are smaller than those of IMF, and which do not require accommodation by having
+pre-existing spaces/tabs in the data. So such data will always be short
+enough lines.</p>
+
+<h4 id="layer-name-linefolded_icalendar">Layer Name: lineFolded_iCalendar</h4>
+
+<p>For iCalendar (including vCard and vCalendar), the maximum is 75 bytes plus the CRLF, for
+a total of 77. Folding is inserted by inserting CRLF + a space or tab. The
+CRLF and the following space or tab are removed to unfold. If data happened to
+contain a CRLF followed by a space or tab initially, then that will be lost when
+the data is parsed.</p>
+
+<p>For MIME, the maximum line length is 76.</p>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2024 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

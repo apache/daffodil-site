@@ -45,6 +45,7 @@
                 <li><a href="/docs/dfdl/">DFDL Specification</a></li>
                 <li><a href="/unsupported/">Unsupported Features</a></li>
                 <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
               </ul>
             </li>
             <li id="community">
@@ -95,11 +96,15 @@
 
 -->
 
-<p>Daffodil provides extensions to the DFDL specification. These properties are in the namespace defined by the URI <code class="language-plaintext highlighter-rouge">urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext</code>. To use these the Daffodil DFDL Extensions, bind this namespace to the <code class="language-plaintext highlighter-rouge">daf</code> prefix in the <code class="language-plaintext highlighter-rouge">xs:schema</code> element, like so:</p>
+<p>Daffodil provides extensions to the DFDL specification. 
+These properties are in the namespace defined by the URI 
+<code class="language-plaintext highlighter-rouge">http://www.ogf.org/dfdl/dfdl-1.0/extensions</code> which is normally bound to the <code class="language-plaintext highlighter-rouge">dfdlx</code> prefix 
+like so:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:schema</span> <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
            <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
-           <span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span><span class="nt">&gt;</span>
+           <span class="na">xmlns:dfdlx=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/extensions"</span>
+<span class="nt">&gt;</span>
 </code></pre></div></div>
 
 <p>The following symbols defined in this namespace are described below.</p>
@@ -113,22 +118,58 @@
 
     <p><em>This function is deprecated as of Daffodil 2.0.0. Use the <code class="language-plaintext highlighter-rouge">fn:error(...)</code> function instead.</em></p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">daf:trace($value, $label)</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:trace($value, $label)</code></dt>
   <dd>
     <p>A function that can be used in DFDL expressions, similar to the <code class="language-plaintext highlighter-rouge">fn:trace()</code> function. This logs the string <code class="language-plaintext highlighter-rouge">$label</code> followed by <code class="language-plaintext highlighter-rouge">$value</code> converted to a string and returns <code class="language-plaintext highlighter-rouge">$value</code>. The second argument must be of type <code class="language-plaintext highlighter-rouge">xs:string</code>.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:lookahead(offset, bitSize)</code></dt>
+  <dd>
+    <p>TBD</p>
+  </dd>
+  <dt>Bitwise Functions</dt>
+  <dd>
+    <p>TBD, but the complete list (all <code class="language-plaintext highlighter-rouge">dfdlx</code>) is <code class="language-plaintext highlighter-rouge">BitAnd</code>, <code class="language-plaintext highlighter-rouge">BitNot</code>, <code class="language-plaintext highlighter-rouge">BitOr</code>, <code class="language-plaintext highlighter-rouge">BitXor</code>, <code class="language-plaintext highlighter-rouge">LeftShift</code>, 
+   <code class="language-plaintext highlighter-rouge">RightShift</code></p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong</code></dt>
+  <dd>
+    <p>TBD</p>
   </dd>
 </dl>
 
 <h3 id="properties">Properties</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">daf:parseUnparsePolicy</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code></dt>
   <dd>
     <p>A property applied to simple and complex elements, which specifies whether the element supports only parsing, only unparsing, or both parsing and unparse. Valid values for this property are <code class="language-plaintext highlighter-rouge">parse</code>, <code class="language-plaintext highlighter-rouge">unparse</code>, or <code class="language-plaintext highlighter-rouge">both</code>. This allows one to leave off properties that are required for only parse or only unparse, such as <code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code> or <code class="language-plaintext highlighter-rouge">dfdl:outputNewLine</code>, so that one may have a valid schema if only a subset of functionality is needed.</p>
 
     <p>All elements must have a compatible parseUnparsePolicy with the compilation parseUnparsePolicy (which is defined by the root element daf:parseUnparsePolicy and/or the Daffodil parseUnparsePolicy tunable) or it is a Schema Definition Error. An element is defined to have a compatible parseUnparsePolicy if it has the same value as the compilation parseUnparsePolicy or if it has the value <code class="language-plaintext highlighter-rouge">both</code>.</p>
 
     <p>For compatibility, if this property is not defined, it is assumed to be <code class="language-plaintext highlighter-rouge">both</code>.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:layer</code></dt>
+  <dd>
+    <p><a href="/layers">Layers</a> provide algorithmic capabilities for decoding/encoding data or computing 
+   checksums. Some are built-in to Daffodil. New layers can be created in Java/Scala and 
+   plugged-in to Daffodil dynamically.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:direction</code></dt>
+  <dd>
+    <p>TBD</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code>, and <code class="language-plaintext highlighter-rouge">dfdlx:repValueRanges</code></dt>
+  <dd>
+    <p>TBD</p>
+  </dd>
+</dl>
+
+<h3 id="extended-behaviors">Extended Behaviors</h3>
+
+<dl>
+  <dt>Type <code class="language-plaintext highlighter-rouge">xs:hexBinary</code></dt>
+  <dd>
+    <p>Daffodil allows <code class="language-plaintext highlighter-rouge">dfdlx:lengthUnits='bits'</code> for this simple type.</p>
   </dd>
 </dl>
 
