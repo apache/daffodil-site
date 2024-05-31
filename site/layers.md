@@ -535,22 +535,28 @@ for the boundary mark string.
   - `twobyteswap`  
   - `fourbyteswap`
 - Namespace URI: urn:org.apache.daffodil.layers.byteSwap
-- Parameter Variables: None
+- Parameter Variables: 
+  - `requireLengthInWholeWords` - an `xs:string` which can be "yes" or "no". Defaults to "no". 
+  Indicates whether it is a processing error if the layer length turns out to not be a 
+  multiple of the word size. If bound to a string other than "yes" or "no" it is a Schema Definition
+  Error.
 - Result Variables: None
 
-Layer that re-orders bytes according to the word size which is 2 for `twobyteswap` and 4 for
+Layers that re-order bytes according to the word size which is 2 for `twobyteswap` and 4 for
 `fourbyteswap` respectively.
-This layer implements streaming behavior. 
-It does not require buffering up the data. 
-So it can be used on very large data objects.
+These layers implement streaming behavior, meaning they do not require buffering up the data; 
+hence, they can be used on very large data objects.
 Bytes within the wrapped input stream are re-ordered _word size_ bytes at a time. 
 
-For example, if 
+For example, with the `requireLengthInWholeWords` as "no" (the default), if
 the wrapped input stream contains 10 bytes and word size is 4, then the bytes from the wrapped 
-input stream are returned in the order 4 3 2 1 8 7 6 5 10 9. 
-
+input stream are returned in the order 4 3 2 1 8 7 6 5 10 9. Note that the last 4-byte word is 
+incomplete, but the 2 available bytes are re-ordered anyway. 
 If wordsize were 2 then the bytes from the wrapped input stream are returned in the 
 order 2 1 4 3 6 5 8 7 10 9.
+
+If `requireLengthInWholeWords` is bound to "yes", then if the length is not a multiple of the 
+word size a processing error occurs. 
 
 ----
 
