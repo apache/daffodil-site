@@ -650,23 +650,32 @@ for the boundary mark string.</p>
     </ul>
   </li>
   <li>Namespace URI: urn:org.apache.daffodil.layers.byteSwap</li>
-  <li>Parameter Variables: None</li>
+  <li>Parameter Variables:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> - an <code class="language-plaintext highlighter-rouge">xs:string</code> which can be "yes" or "no". Defaults to "no". 
+Indicates whether it is a processing error if the layer length turns out to not be a 
+multiple of the word size. If bound to a string other than "yes" or "no" it is a Schema Definition
+Error.</li>
+    </ul>
+  </li>
   <li>Result Variables: None</li>
 </ul>
 
-<p>Layer that re-orders bytes according to the word size which is 2 for <code class="language-plaintext highlighter-rouge">twobyteswap</code> and 4 for
+<p>Layers that re-order bytes according to the word size which is 2 for <code class="language-plaintext highlighter-rouge">twobyteswap</code> and 4 for
 <code class="language-plaintext highlighter-rouge">fourbyteswap</code> respectively.
-This layer implements streaming behavior. 
-It does not require buffering up the data. 
-So it can be used on very large data objects.
+These layers implement streaming behavior, meaning they do not require buffering up the data; 
+hence, they can be used on very large data objects.
 Bytes within the wrapped input stream are re-ordered <em>word size</em> bytes at a time.</p>
 
-<p>For example, if 
+<p>For example, with the <code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> as "no" (the default), if
 the wrapped input stream contains 10 bytes and word size is 4, then the bytes from the wrapped 
-input stream are returned in the order 4 3 2 1 8 7 6 5 10 9.</p>
-
-<p>If wordsize were 2 then the bytes from the wrapped input stream are returned in the 
+input stream are returned in the order 4 3 2 1 8 7 6 5 10 9. Note that the last 4-byte word is 
+incomplete, but the 2 available bytes are re-ordered anyway. 
+If wordsize were 2 then the bytes from the wrapped input stream are returned in the 
 order 2 1 4 3 6 5 8 7 10 9.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> is bound to "yes", then if the length is not a multiple of the 
+word size a processing error occurs.</p>
 
 <hr />
 
