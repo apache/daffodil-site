@@ -74,7 +74,9 @@ These are:
 - [boundaryMark](#boundarymark-layer)
 - [fixedLength](#fixedlength-layer)
 
-Each of the built-in layers will be documented separately below with examples of their usage. 
+Each of the built-in layers will be 
+[documented separately below](#daffodil-built-in-layer-documentation) with examples of their 
+usage.
 
 ### Custom Plug-In Layers
 
@@ -469,6 +471,14 @@ Further details on how to define custom plug-in layers is in the Javadoc for the
 
 Each of the layers built-in to the Daffodil implementation are documented in a section below 
 which gives the name, namespace, variables, and some usage notes.
+
+The built-in layers are:
+- [base64_MIME](#base64-mime-layer)
+- [fourbyteswap](#byte-swapping-layers)
+- [twobyteswap](#byte-swapping-layers)
+- [gzip](#gzip-layer)
+- [lineFolded_IMF](#line-folded-layers)
+- [lineFolded_iCalendar](#line-folded-layers)
 
 ----
 
