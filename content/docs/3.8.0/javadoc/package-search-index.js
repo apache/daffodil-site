@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.apache.daffodil.japi"},{"l":"org.apache.daffodil.japi.debugger"},{"l":"org.apache.daffodil.japi.infoset"},{"l":"org.apache.daffodil.japi.io"},{"l":"org.apache.daffodil.runtime1.layers.api"},{"l":"org.apache.daffodil.udf"},{"l":"org.apache.daffodil.udf.exceptions"}];updateSearchResults();
