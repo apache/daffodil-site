@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.7.0 Scala API  - org.apache.daffodil.sapi.io.InputSourceDataInputStream</title>
-          <meta name="description" content="Apache Daffodil 3.7.0 Scala API - org.apache.daffodil.sapi.io.InputSourceDataInputStream" />
-          <meta name="keywords" content="Apache Daffodil 3.7.0 Scala API org.apache.daffodil.sapi.io.InputSourceDataInputStream" />
+          <title>Apache Daffodil 3.8.0 Scala API  - org.apache.daffodil.sapi.io.InputSourceDataInputStream</title>
+          <meta name="description" content="Apache Daffodil 3.8.0 Scala API - org.apache.daffodil.sapi.io.InputSourceDataInputStream" />
+          <meta name="keywords" content="Apache Daffodil 3.8.0 Scala API org.apache.daffodil.sapi.io.InputSourceDataInputStream" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.7.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.8.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -68,7 +68,7 @@
         <a title="This is the documentation for the Apache Daffodil Scala API." href="../../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil Scala API.</p><h5> Package structure </h5><p><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the documentation for the Apache Daffodil Scala API.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the Apache Daffodil Scala API.</p><h5> Package structure </h5><p><a href="../index.html" class="extype" name="org.apache.daffodil.sapi">org.apache.daffodil.sapi</a> - Provides the classes necessary to compile DFDL schemas, parse and unparse files using the compiled objects, and retrieve results and parsing diagnostics</p><p><a href="../../udf/index.html" class="extype" name="org.apache.daffodil.udf">org.apache.daffodil.udf</a> - Provides the classes necessary to create User Defined Functions to extend the DFDL expression language</p><p><a href="../../runtime1/layers/api/index.html" class="extype" name="org.apache.daffodil.runtime1.layers.api">org.apache.daffodil.runtime1.layers.api</a> - Provides the classes necessary to create custom Layer extensions to DFDL.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.org" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="org"></a><a id="org:org"></a>
       <span class="permalink">
@@ -318,7 +318,7 @@ xmlReader.parse(data)
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">InputSourceDataInputStream</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">InputSourceDataInputStream</span><span class="result"> extends <span class="extype" name="java.io.Closeable">Closeable</span></span>
       </span>
       </h4>
 
@@ -329,7 +329,7 @@ Array.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="java.io.Closeable">Closeable</span>, <span class="extype" name="java.lang.AutoCloseable">AutoCloseable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -355,7 +355,7 @@ Array.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream"><span>InputSourceDataInputStream</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream"><span>InputSourceDataInputStream</span></li><li class="in" name="java.io.Closeable"><span>Closeable</span></li><li class="in" name="java.lang.AutoCloseable"><span>AutoCloseable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -524,6 +524,24 @@ Array.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.io.InputSourceDataInputStream#close" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="close():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../../org/apache/daffodil/sapi/io/InputSourceDataInputStream.html#close():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">close</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Closes the underlying resource associated with this object.</p><div class="fullcomment"><div class="comment cmt"><p>Closes the underlying resource associated with this object.</p><p>Once the resource is closed, any subsequent operations on the
+resource may throw an <code>IOException</code>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.apache.daffodil.sapi.io.InputSourceDataInputStream">InputSourceDataInputStream</a> → Closeable → AutoCloseable</dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -818,7 +836,11 @@ been consumed or some data is left-over.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="java.io.Closeable">
+              <h3>Inherited from <span class="extype" name="java.io.Closeable">Closeable</span></h3>
+            </div><div class="parent" name="java.lang.AutoCloseable">
+              <h3>Inherited from <span class="extype" name="java.lang.AutoCloseable">AutoCloseable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
