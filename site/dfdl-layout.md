@@ -115,7 +115,7 @@ The standard file tree would be:
 Add the Daffodil SBT plugin to the project/plugins.sbt file:
 
 ```scala
-addSbtPlugin("org.apache.daffodil" % "sbt-daffodil" % "1.0.0")
+addSbtPlugin("org.apache.daffodil" % "sbt-daffodil" % "1.1.0")
 ```
 
 This adds the [Daffodil SBT Plugin](/sbt) to the project, which configures
@@ -134,8 +134,6 @@ organization := "com.example"
  
 version := "0.0.1"
  
-scalaVersion := "2.12.18"
-
 enablePlugins(DaffodilPlugin)
 ```
 
