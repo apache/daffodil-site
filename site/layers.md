@@ -188,8 +188,9 @@ unparsing.
 #### Layer Limiting using the Utility Layers 
 
 Some layers do not decode or encode data but only restrict the length for other layers, for 
-example by using a length layer variable or delimiter. See the [`boundaryMark` layer]
-(#boundarymark-layer) and [`fixedLength` layer](#fixedlength-layer) for examples.
+example by using a length layer variable or delimiter. 
+See the [`boundaryMark` layer](#boundarymark-layer)
+and [`fixedLength` layer](#fixedlength-layer) for examples.
 
 #### Layer Limiting by Binding a DFDL Variable 
 
