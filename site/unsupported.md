@@ -29,12 +29,10 @@ that there has been no intention to support as of this release.
 
 #### DFDL Features
 
-* COBOL: textNumberPattern: 'V' and 'P' Symbols {% jira 853 %}
-* Intersect and except operators, dfdl:checkRangeInclusive, dfdl:checkRangeExclusive functions {% jira 2379 %}, {% jira 1515 %}
+* Intersect and except operators {% jira 2379 %}
 * defaulting of values for required elements - when unparsing {% jira 115 %}
 * validation (when unparsing) {% jira 1582 %}
 * byte-value entities (aka raw-byte entities){% jira 258 %}
-* regular expressions allow features beyond those in Java 7 {% jira 2001 %} 
 * nested prefix lengths {% jira 2030 %}
 * XPath query-style expressions {% jira 1118 %}
 * "type" component of DFDL infoset {% jira 182 %}, {% jira 1852 %}
@@ -62,7 +60,7 @@ that there has been no intention to support as of this release.
 * dfdl:documentFinalTerminatorCanBeMissing="yes" {% jira 230 %}
 * dfdl:encodingErrorPolicy="error" (Note: this is accepted, but behaves as "replace"){% jira 935 %}
 * dfdl:floating="yes" {% jira 643 %}
-* dfdl:lengthKind="endOfParent" {% jira 238 %}, {% jira 567 %}
+* dfdl:lengthKind="endOfParent" {% jira 238 %}
 * dfdl:nilKind="logicalValue" {% jira 201 %}
 * dfdl:nilKind='literalValue' with dfdl:representation='binary' {% jira 638 %}
 * dfdl:occursCountKind="stopValue", dfdl:occursStopValue {% jira 501 %}
@@ -72,5 +70,3 @@ that there has been no intention to support as of this release.
 * dfdl:escapeCharacterPolicy {% jira 2415 %}
 * dfdl:encoding using CCSIDs {% jira 2000 %}
 * dfdl:useNilForDefault {% jira 1412 %}
-* dfdl:separatorSuppressionPolicy 'never' {% jira 2499 %}
-
