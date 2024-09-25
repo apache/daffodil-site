@@ -71,3 +71,7 @@ that there has been no intention to support as of this release.
 * dfdl:escapeCharacterPolicy {% jira 2415 %}
 * dfdl:encoding using CCSIDs {% jira 2000 %}
 * dfdl:useNilForDefault {% jira 1412 %}
+
+The above listings are derived from
+this [DFDL Language New Features JIRA Report
+](https://s.apache.org/daffodil-unimplemented-dfdl-language-features).
