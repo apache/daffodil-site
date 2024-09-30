@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.8.0 Scala API  - org.apache.daffodil.sapi.Compiler</title>
-          <meta name="description" content="Apache Daffodil 3.8.0 Scala API - org.apache.daffodil.sapi.Compiler" />
-          <meta name="keywords" content="Apache Daffodil 3.8.0 Scala API org.apache.daffodil.sapi.Compiler" />
+          <title>Apache Daffodil 3.9.0 Scala API  - org.apache.daffodil.sapi.Compiler</title>
+          <meta name="description" content="Apache Daffodil 3.9.0 Scala API - org.apache.daffodil.sapi.Compiler" />
+          <meta name="keywords" content="Apache Daffodil 3.9.0 Scala API org.apache.daffodil.sapi.Compiler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.8.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.9.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -606,6 +606,38 @@ it is recommended to use <a href="#compileSource(uri:java.net.URI,optRootName:Op
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.io.IOException]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="org.apache.daffodil.sapi.Compiler#compileResource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="compileResource(name:String,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory"></a><a id="compileResource(String,Option[String],Option[String]):ProcessorFactory"></a>
+      <span class="permalink">
+      <a href="../../../../org/apache/daffodil/sapi/Compiler.html#compileResource(name:String,optRootName:Option[String],optRootNamespace:Option[String]):org.apache.daffodil.sapi.ProcessorFactory" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">compileResource</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="optRootName">optRootName: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="optRootNamespace">optRootNamespace: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Compile DFDL resource name into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>
+</p><div class="fullcomment"><div class="comment cmt"><p>Compile DFDL resource name into a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Resource name of a DFDL schema used to create a <a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a>.</p></dd><dt class="param">optRootName</dt><dd class="cmt"><p>Option for name of root element, or None to choose automatically from first
+       element of schema. Defaults to None.</p></dd><dt class="param">optRootNamespace</dt><dd class="cmt"><p>Option for string of namespace of the root element, or None to infer
+       automatically when unambiguous. Pass Some(&quot;&quot;) (empty string) for No Namespace.
+       Defaults to None.</p></dd><dt>returns</dt><dd class="cmt"><p><a href="ProcessorFactory.html" class="extype" name="org.apache.daffodil.sapi.ProcessorFactory">ProcessorFactory</a> used to create <a href="DataProcessor.html" class="extype" name="org.apache.daffodil.sapi.DataProcessor">DataProcessor</a>(s). Must check <a href="ProcessorFactory.html#isError():Boolean" class="extmbr" name="org.apache.daffodil.sapi.ProcessorFactory#isError">ProcessorFactory.isError</a> before using it.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.io.IOException]</span>
+    </span>)</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.io.FileNotFoundException]">...</span>
     </span>)</span>
               
         </dd></dl></div>

@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Apache Daffodil 3.8.0 Scala API  - org.apache.daffodil.sapi.io</title>
-          <meta name="description" content="Apache Daffodil 3.8.0 Scala API - org.apache.daffodil.sapi.io" />
-          <meta name="keywords" content="Apache Daffodil 3.8.0 Scala API org.apache.daffodil.sapi.io" />
+          <title>Apache Daffodil 3.9.0 Scala API  - org.apache.daffodil.sapi.io</title>
+          <meta name="description" content="Apache Daffodil 3.9.0 Scala API - org.apache.daffodil.sapi.io" />
+          <meta name="keywords" content="Apache Daffodil 3.9.0 Scala API org.apache.daffodil.sapi.io" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Apache Daffodil 3.8.0 Scala API<span id="doc-version"></span></span>
+        <span id="doc-title">Apache Daffodil 3.9.0 Scala API<span id="doc-version"></span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -376,7 +376,7 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="org.apache.daffodil.sapi.io.InputSourceDataInputStream" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="org.apache.daffodil.sapi.io.InputSourceDataInputStream" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="InputSourceDataInputStreamextendsCloseable"></a><a id="InputSourceDataInputStream:InputSourceDataInputStream"></a>
       <span class="permalink">
       <a href="../../../../../org/apache/daffodil/sapi/io/InputSourceDataInputStream.html" title="Permalink">
@@ -392,7 +392,21 @@ an infoset. A new InfosetOutputter is required for each call to unparse().
       </span>
       
       <p class="shortcomment cmt">Provides Daffodil with byte data from an InputStream, ByteBuffer, or byte
-Array.</p>
+Array.</p><div class="fullcomment"><div class="comment cmt"><p>Provides Daffodil with byte data from an InputStream, ByteBuffer, or byte
+Array.</p><p>Note that the InputStream variant has potential overhead due to streaming capabilities and
+support for files greater than 2GB. In some cases, better performance might come from using
+the byte array or ByteBuffer variants instead. For example, if your data is already in a byte
+array, one should use the Array[Byte] or ByteBuffer variants instead of wrapping it in a
+ByteArrayInputStream. As another example, instead of using a FileInputStream like this:</p><pre><span class="kw">val</span> path = Paths.get(file)
+<span class="kw">val</span> fis = Files.newInputStream(path)
+<span class="kw">val</span> input = InputSourceDataInputStream(fis)</pre><p>You might consider mapping the file to a MappedByteBuffer like below, keeping in mind that
+MappedByteBuffers have size limitations and potentially different performance characteristics
+depending on the file size and system--it maybe not always be faster than above.</p><pre><span class="kw">val</span> path = Paths.get(file)
+<span class="kw">val</span> size = Files.size(path)
+<span class="kw">val</span> fc = FileChannel.open(path, StandardOpenOption.READ)
+<span class="kw">val</span> bb = fc.map(FileChannel.MapMode.READ_ONLY, <span class="num">0</span>, size)
+fc.close()
+<span class="kw">val</span> input = InputSourceDataInputStream(bb)</pre></div></div>
     </li></ol>
             </div>
 
