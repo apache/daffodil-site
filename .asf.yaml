@@ -28,3 +28,5 @@ notifications:
     commits:      commits@daffodil.apache.org
     issues:       commits@daffodil.apache.org
     pullrequests: commits@daffodil.apache.org
+publish:
+  whoami: asf-site
