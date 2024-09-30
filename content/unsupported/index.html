@@ -96,20 +96,19 @@
 
 -->
 
-<p>Unsupported features of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 3.2.0 are listed below.
-Note that this doesn't include just plain bugs in Daffodil, any of which could affect
+<p>Unsupported features of the <a href="/docs/dfdl">DFDL Specification</a> as of Daffodil 3.9.0 are listed below.</p>
+
+<p>Note that this doesn't include just plain bugs in Daffodil, any of which could affect
 support for a feature, but rather the below is a list of features
 that there has been no intention to support as of this release.</p>
 
 <h4 id="dfdl-features">DFDL Features</h4>
 
 <ul>
-  <li>COBOL: textNumberPattern: 'V' and 'P' Symbols [<a href="https://issues.apache.org/jira/browse/DAFFODIL-853">DAFFODIL-853</a>]</li>
-  <li>Intersect and except operators, dfdl:checkRangeInclusive, dfdl:checkRangeExclusive functions [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2379">DAFFODIL-2379</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1515">DAFFODIL-1515</a>]</li>
+  <li>Intersect and except operators [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2379">DAFFODIL-2379</a>]</li>
   <li>defaulting of values for required elements - when unparsing [<a href="https://issues.apache.org/jira/browse/DAFFODIL-115">DAFFODIL-115</a>]</li>
   <li>validation (when unparsing) [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1582">DAFFODIL-1582</a>]</li>
   <li>byte-value entities (aka raw-byte entities)[<a href="https://issues.apache.org/jira/browse/DAFFODIL-258">DAFFODIL-258</a>]</li>
-  <li>regular expressions allow features beyond those in Java 7 [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2001">DAFFODIL-2001</a>]</li>
   <li>nested prefix lengths [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2030">DAFFODIL-2030</a>]</li>
   <li>XPath query-style expressions [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1118">DAFFODIL-1118</a>]</li>
   <li>"type" component of DFDL infoset [<a href="https://issues.apache.org/jira/browse/DAFFODIL-182">DAFFODIL-182</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1852">DAFFODIL-1852</a>]</li>
@@ -141,7 +140,7 @@ but may return in a future version of the DFDL spec.)</li>
   <li>dfdl:documentFinalTerminatorCanBeMissing="yes" [<a href="https://issues.apache.org/jira/browse/DAFFODIL-230">DAFFODIL-230</a>]</li>
   <li>dfdl:encodingErrorPolicy="error" (Note: this is accepted, but behaves as "replace")[<a href="https://issues.apache.org/jira/browse/DAFFODIL-935">DAFFODIL-935</a>]</li>
   <li>dfdl:floating="yes" [<a href="https://issues.apache.org/jira/browse/DAFFODIL-643">DAFFODIL-643</a>]</li>
-  <li>dfdl:lengthKind="endOfParent" [<a href="https://issues.apache.org/jira/browse/DAFFODIL-238">DAFFODIL-238</a>], [<a href="https://issues.apache.org/jira/browse/DAFFODIL-567">DAFFODIL-567</a>]</li>
+  <li>dfdl:lengthKind="endOfParent" [<a href="https://issues.apache.org/jira/browse/DAFFODIL-238">DAFFODIL-238</a>]</li>
   <li>dfdl:nilKind="logicalValue" [<a href="https://issues.apache.org/jira/browse/DAFFODIL-201">DAFFODIL-201</a>]</li>
   <li>dfdl:nilKind='literalValue' with dfdl:representation='binary' [<a href="https://issues.apache.org/jira/browse/DAFFODIL-638">DAFFODIL-638</a>]</li>
   <li>dfdl:occursCountKind="stopValue", dfdl:occursStopValue [<a href="https://issues.apache.org/jira/browse/DAFFODIL-501">DAFFODIL-501</a>]</li>
@@ -151,9 +150,11 @@ but may return in a future version of the DFDL spec.)</li>
   <li>dfdl:escapeCharacterPolicy [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2415">DAFFODIL-2415</a>]</li>
   <li>dfdl:encoding using CCSIDs [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2000">DAFFODIL-2000</a>]</li>
   <li>dfdl:useNilForDefault [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1412">DAFFODIL-1412</a>]</li>
-  <li>dfdl:separatorSuppressionPolicy 'never' [<a href="https://issues.apache.org/jira/browse/DAFFODIL-2499">DAFFODIL-2499</a>]</li>
 </ul>
 
+<p>The above listings are derived from
+this <a href="https://s.apache.org/daffodil-unimplemented-dfdl-language-features">DFDL Language New Features JIRA Report
+</a>.</p>
 
   </div>
 </div>
