@@ -2900,6 +2900,26 @@ edited file, <code>Arrow-Up</code> will give you the previous line of
 the edited file, and <code>Arrow-Down</code> will give you the next line
 of the edited file.</p>
 <h1 id="known-issues-in-v1.4.0">Known Issues in v1.4.0</h1>
+<p>Debugger * Ubuntu 24.02 (release date 04/25/2024) When using the
+debugger to step through a dfdl schema utilizing the step over action,
+the step over action will trigger dfdl intellisense to display a list of
+suggestions when a line in the schema is reached that results in output
+to the infoset. This problem can be mitigated by disabling
+“WylandEnable” by uncommenting “#WaylandEnable=false” in the
+/etc/gdm3/custom.conf configuration file and rebooting the system. *
+Ubuntu 20.04 (release date 04/23/2020) When using the debugger to step
+through a dfdl schema utilizing the step over action, the step over
+action will trigger dfdl intellisense to display a list of suggestions
+when a line in the schema is reached that results in output to the
+infoset. A cause and solution have not yet been discovered. Note that
+the mitigation listed above for Ubuntu 24.04 was not found to be an
+effective mitigation for Ubuntu 20.04. * Ubuntu 22.04 (release date
+04/21/2022) The debugger problem that occurs with the step over action
+in Ubuntu 20.04 and Ubuntu 24.04 has not been found to be a problem in
+Ubuntu 22.04. * At this time the debugger step into and step out actions
+have no code behind them, using either button results in an
+unrecoverable error. We have not found a way to disable the step into
+and step out buttons. This problem occurs in all Operating Systems.</p>
 <h1 id="reporting-problems-and-requesting-new-features-3">Reporting
 Problems and Requesting New Features</h1>
 <p>If problems are encountered or new features are desired, create
