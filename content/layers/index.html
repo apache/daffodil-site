@@ -594,9 +594,13 @@ which gives the name, namespace, variables, and some usage notes.</p>
   <li>Namespace URI: urn:org.apache.daffodil.layers.base64_MIME</li>
   <li>Parameter Variables: None</li>
   <li>Result Variables: None</li>
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.base64_MIME"
+       schemaLocation="/org/apache/daffodil/layers/xsd/base64_MIMELayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+    <p>This uses the standard <code class="language-plaintext highlighter-rouge">java.util.Base64</code> classes, specifically the MIME encoding/decoding.</p>
+  </li>
 </ul>
-
-<p>This uses the standard <code class="language-plaintext highlighter-rouge">java.util.Base64</code> classes, specifically the MIME encoding/decoding.</p>
 
 <p>This is specified by <a href="https://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
 The encoded output must be represented in lines of no more than 76 characters 
@@ -625,6 +629,11 @@ for the boundary mark.</li>
     </ul>
   </li>
   <li>Result Variables: None</li>
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.boundaryMark"
+       schemaLocation="/org/apache/daffodil/layers/xsd/boundaryMarkLayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+  </li>
 </ul>
 
 <p>Isolates text data by way of a boundary mark string.
@@ -667,18 +676,22 @@ for the boundary mark string.</p>
     <ul>
       <li><code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> - an <code class="language-plaintext highlighter-rouge">xs:string</code> which can be "yes" or "no". Defaults to "no". 
 Indicates whether it is a processing error if the layer length turns out to not be a 
-multiple of the word size. If bound to a string other than "yes" or "no" it is a Schema Definition
-Error.</li>
+multiple of the word size. If bound to a string other than "yes" or "no" it
+is a Schema Definition Error.</li>
     </ul>
   </li>
   <li>Result Variables: None</li>
-</ul>
-
-<p>Layers that re-order bytes according to the word size which is 2 for <code class="language-plaintext highlighter-rouge">twobyteswap</code> and 4 for
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   &lt;xs:import namespace="urn:org.apache.daffodil.layers.byteSwap"
+      schemaLocation="/org/apache/daffodil/layers/xsd/byteSwapLayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+    <p>Layers that re-order bytes according to the word size which is 2 for <code class="language-plaintext highlighter-rouge">twobyteswap</code> and 4 for
 <code class="language-plaintext highlighter-rouge">fourbyteswap</code> respectively.
 These layers implement streaming behavior, meaning they do not require buffering up the data; 
 hence, they can be used on very large data objects.
 Bytes within the wrapped input stream are re-ordered <em>word size</em> bytes at a time.</p>
+  </li>
+</ul>
 
 <p>For example, with the <code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> as "no" (the default), if
 the wrapped input stream contains 10 bytes and word size is 4, then the bytes from the wrapped 
@@ -706,10 +719,14 @@ This length is enforced on both parsing and unparsing the layer.</li>
     </ul>
   </li>
   <li>Result Variables: None</li>
-</ul>
-
-<p>Suitable only for small sections of data, not large data streams or large files.
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.fixedLength"
+       schemaLocation="/org/apache/daffodil/layers/xsd/fixedLengthLayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+    <p>Suitable only for small sections of data, not large data streams or large files.
 The entire fixed length region of the data will be pulled into a byte buffer in memory.</p>
+  </li>
+</ul>
 
 <hr />
 
@@ -720,10 +737,14 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
   <li>Namespace URI: urn:org.apache.daffodil.layers.gzip</li>
   <li>Parameter Variables: None</li>
   <li>Result Variables: None</li>
-</ul>
-
-<p>This layer uses the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPInputStream</code> and <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> 
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.gzip"
+       schemaLocation="/org/apache/daffodil/layers/xsd/gzipLayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+    <p>This layer uses the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPInputStream</code> and <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> 
 libraries to decode and encode.</p>
+  </li>
+</ul>
 
 <p>Prior to Java 16, the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> wrote a value of zero for the OS field
 in the header (byte index 9). 
@@ -748,9 +769,13 @@ always writes a consistent header (header byte 9 of 255) regardless of the Java 
   <li>Namespace URI: urn:org.apache.daffodil.layers.lineFolded</li>
   <li>Parameter Variables: None</li>
   <li>Result Variables: None</li>
+  <li>Import Statement:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.lineFolded"
+       schemaLocation="/org/apache/daffodil/layers/xsd/lineFoldedLayer.dfdl.xsd"/&gt;
+</code></pre></div>    </div>
+    <h4 id="general-usage">General Usage</h4>
+  </li>
 </ul>
-
-<h4 id="general-usage">General Usage</h4>
 
 <p>There is a limitation on the compatibility of line folding of data
 with adjacent parts of the format which also use line-endings.
