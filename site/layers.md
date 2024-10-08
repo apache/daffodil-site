@@ -489,7 +489,11 @@ The built-in layers are:
 - Namespace URI: urn:org.apache.daffodil.layers.base64_MIME
 - Parameter Variables: None
 - Result Variables: None
-
+- Import Statement:
+```
+      <xs:import namespace="urn:org.apache.daffodil.layers.base64_MIME"
+         schemaLocation="/org/apache/daffodil/layers/xsd/base64_MIMELayer.dfdl.xsd"/>
+```
 This uses the standard `java.util.Base64` classes, specifically the MIME encoding/decoding.
 
 This is specified by [RFC 2045](https://www.ietf.org/rfc/rfc2045.txt).
@@ -512,6 +516,11 @@ decoding operation.
   - `layerEncoding` a string which names a character set encoding which is used in the scanning 
     for the boundary mark.
 - Result Variables: None
+- Import Statement:
+```
+      <xs:import namespace="urn:org.apache.daffodil.layers.boundaryMark"
+         schemaLocation="/org/apache/daffodil/layers/xsd/boundaryMarkLayer.dfdl.xsd"/>
+```
 
 Isolates text data by way of a boundary mark string.
 This string is a delimiter of the layer data when parsing.
@@ -549,10 +558,14 @@ for the boundary mark string.
 - Parameter Variables: 
   - `requireLengthInWholeWords` - an `xs:string` which can be "yes" or "no". Defaults to "no". 
   Indicates whether it is a processing error if the layer length turns out to not be a 
-  multiple of the word size. If bound to a string other than "yes" or "no" it is a Schema Definition
-  Error.
+  multiple of the word size. If bound to a string other than "yes" or "no" it
+  is a Schema Definition Error.
 - Result Variables: None
-
+- Import Statement:
+```
+     <xs:import namespace="urn:org.apache.daffodil.layers.byteSwap"
+        schemaLocation="/org/apache/daffodil/layers/xsd/byteSwapLayer.dfdl.xsd"/>
+```
 Layers that re-order bytes according to the word size which is 2 for `twobyteswap` and 4 for
 `fourbyteswap` respectively.
 These layers implement streaming behavior, meaning they do not require buffering up the data; 
@@ -581,7 +594,11 @@ word size a processing error occurs.
   This must be in the range from 0 to 32767 inclusive. It is a processing error otherwise.
   This length is enforced on both parsing and unparsing the layer.
 - Result Variables: None
-
+- Import Statement:
+```
+      <xs:import namespace="urn:org.apache.daffodil.layers.fixedLength"
+         schemaLocation="/org/apache/daffodil/layers/xsd/fixedLengthLayer.dfdl.xsd"/>
+```
 Suitable only for small sections of data, not large data streams or large files.
 The entire fixed length region of the data will be pulled into a byte buffer in memory.
 
@@ -593,7 +610,11 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
 - Namespace URI: urn:org.apache.daffodil.layers.gzip
 - Parameter Variables: None
 - Result Variables: None
-
+- Import Statement:
+```
+      <xs:import namespace="urn:org.apache.daffodil.layers.gzip"
+         schemaLocation="/org/apache/daffodil/layers/xsd/gzipLayer.dfdl.xsd"/>
+```
 This layer uses the `java.util.zip.GZIPInputStream` and `java.util.zip.GZIPOutputStream` 
 libraries to decode and encode.
 
@@ -616,7 +637,11 @@ always writes a consistent header (header byte 9 of 255) regardless of the Java 
 - Namespace URI: urn:org.apache.daffodil.layers.lineFolded
 - Parameter Variables: None
 - Result Variables: None
-
+- Import Statement:
+```
+      <xs:import namespace="urn:org.apache.daffodil.layers.lineFolded"
+         schemaLocation="/org/apache/daffodil/layers/xsd/lineFoldedLayer.dfdl.xsd"/>
+```
 #### General Usage
 
 There is a limitation on the compatibility of line folding of data
