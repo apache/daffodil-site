@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | Tunables</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">Java API</a></li>
+                <li><a href="/docs/latest/scaladoc/">Scala API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2>Tunables</h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+<!--
+
+-->
+
+<p>Daffodil provides tunables as a way to change its behavior.
+Tunables are set by way of the <code class="language-plaintext highlighter-rouge">tunables</code> element in <a href="/configuration">config files</a>
+or from the <a href="/cli">cli</a> via the <code class="language-plaintext highlighter-rouge">-T</code> option.</p>
+
+<h4 id="config-example">Config Example</h4>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;daf:dfdlConfig</span>
+	<span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;daf:tunables&gt;</span>
+      <span class="nt">&lt;daf:suppressSchemaDefinitionWarnings&gt;</span>
+        encodingErrorPolicyError
+      <span class="nt">&lt;/daf:suppressSchemaDefinitionWarnings&gt;</span>
+    <span class="nt">&lt;/daf:tunables&gt;</span>
+<span class="nt">&lt;/daf:dfdlConfig&gt;</span>
+</code></pre></div></div>
+
+<p>The config file can then be passed into daffodil subcommands via the <code class="language-plaintext highlighter-rouge">-c|--config</code> options.</p>
+
+<h4 id="cli-example">CLI Example</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> daffodil parse <span class="nt">-s</span> schema.xsd <span class="nt">-TsuppressSchemaDefinitionWarnings</span><span class="o">=</span><span class="s2">"encodingErrorPolicyError"</span> data.bin
+</code></pre></div></div>
+
+<h3 id="definitions">Definitions</h3>
+
+<h4 id="allowbigintegerbits">allowBigIntegerBits</h4>
+<p>Previous Daffodil releases let schemas define every type's length using "bits" as the length unit
+even though the specification allows bit length units only for a specific set of types' binary
+representations and does not allow bit length units for any other type's binary representation
+or any type's text representation.  When this tunable is true, a deprecation warning is issued
+when bit length units are incorrectly used.  When this tunable is false, a schema definition
+error will be issued instead.</p>
+
+<p>default: true</p>
+
+<h4 id="allowexpressionresultcoercion">allowExpressionResultCoercion</h4>
+<p>Defines how Daffodil coerces expressions where the result type differs
+from the expected type. As an example, assume the expected type of an
+expression is an xs:string, but the expression is { 3 }. In this case, the
+expression result is an xs:int, which should not be automatically coerced
+to an xs:string. Instead, the expression should be { xs:string(3) } or { "3" }
+If the value of this tunable is false, these types of expressions will
+result in a schema definition error. If the value is true, Daffodil will
+provide a warning and attempt to coerce the result type to the expected
+type.</p>
+
+<p>default: true</p>
+
+<h4 id="allowexternalpathexpressions">allowExternalPathExpressions</h4>
+<p>By default, path expressions in Daffodil will only work correctly if path
+steps are used in an expression defined in the schema when compiled. To
+enable the use of other expressions (e.g. during debugging, where not all
+expressions are known at schema compile time), set this tunable to true.
+This may cause a degredation of performance in path expression evaluation,
+so this should be avoided when in production. This flag is automatically
+enabled when debugging is enabled.</p>
+
+<p>default: false</p>
+
+<h4 id="blobchunksizeinbytes">blobChunkSizeInBytes</h4>
+<p>When reading/writing blob data, the maximum number of bytes to read/write
+at a time. This is also used when parsing xs:hexBinary data.</p>
+
+<p>default: 4096</p>
+
+<h4 id="defaultemptyelementparsepolicy">defaultEmptyElementParsePolicy</h4>
+<p>Defines the default empty element parse policy to use if it is not defined
+in a schema. This is only used if requireEmptyElementParsePolicyProperty is
+false.</p>
+
+<p>default: treatAsEmpty</p>
+
+<h4 id="escalatewarningstoerrors">escalateWarningsToErrors</h4>
+<p>This tunable allows the escalation of Schema Definition Warnings to Errors.</p>
+
+<p>default: false</p>
+
+<h4 id="generatednamespaceprefixstem">generatedNamespacePrefixStem</h4>
+<p>Stem to use when generating a namespace prefix when one is not defined for
+the target naespace.</p>
+
+<p>default: tns</p>
+
+<h4 id="initialelementoccurrenceshint">initialElementOccurrencesHint</h4>
+<p>Initial array buffer size allocated for recurring elements/arrays.</p>
+
+<p>default: 10</p>
+
+<h4 id="initialregexmatchlimitincharacters">initialRegexMatchLimitInCharacters</h4>
+<p>Initial number of characters to match when performing regular expression
+matches on input data. When a regex fails to match, more data may be
+consumed up to the maximumRegexMatchLengthInCharacters tunable.</p>
+
+<p>default: 64</p>
+
+<h4 id="infosetwalkerskipmin">infosetWalkerSkipMin</h4>
+<p>Daffodil periodically walks the internal infoset to send events to the configured
+InfosetOutputter, skipping at least this number of walk attempts. Larger values
+mean delayed InfosetOutputter events and more memory usage; Smaller values mean
+more CPU usage. Set this value to zero to never skip any walk attempts. This is
+specifically for advanced testing behavior and should not need to be changed by users.</p>
+
+<p>default: 32</p>
+
+<h4 id="infosetwalkerskipmax">infosetWalkerSkipMax</h4>
+<p>Daffodil periodically walks the internal infoset to send events to the configured
+InfosetOutputter. On walks where no progress is made, the number of walks to skip
+is increased with the assumption that something is blocking it (like an
+unresolved point of uncertainty), up to this maximum value. Higher values mean
+less attempts are made when blocked for a long time, but with potentially more
+delays and memory usage before InfosetOutputter events are created. This is
+specifically for advanced testing behavior and should not need to be changed by users.</p>
+
+<p>default: 2048</p>
+
+<h4 id="invalidrestrictionpolicy">invalidRestrictionPolicy</h4>
+<p>DFDL only allows a subset of restrictions that XML Schema defines. For example, DFDL
+disallows the use of the xs:pattern restriction on simple types other than xs:string.
+This tunable configures this behavior to allow use of some of these restrictions. The
+allowed values are:</p>
+<ul>
+  <li>error: disallow the restriction, create a schema definition error</li>
+  <li>ignore: allow the restriction but do not use it during validation</li>
+  <li>validate: allow the resriction and use it to validate the canonicalized infoset</li>
+</ul>
+
+<p>default: error</p>
+
+<h4 id="maxbinarydecimalvirtualpoint">maxBinaryDecimalVirtualPoint</h4>
+<p>The largest allowed value of the dfdl:binaryDecimalVirtualPoint property.</p>
+
+<p>default: 200</p>
+
+<h4 id="maxbytearrayoutputstreambuffersizeinbytes">maxByteArrayOutputStreamBufferSizeInBytes</h4>
+<p>When unparsing, this is the maximum size of the buffer that the
+ByteArrayOutputStream can grow to before switching to a file based
+output stream.</p>
+
+<p>default: 2097152000</p>
+
+<h4 id="maxdatadumpsizeinbytes">maxDataDumpSizeInBytes</h4>
+<p>The maximum size of data to retrive when when getting data to display
+for debugging.</p>
+
+<p>default: 256</p>
+
+<h4 id="maxhexbinarylengthinbytes">maxHexBinaryLengthInBytes</h4>
+<p>The maximum size allowed for an xs:hexBinary element.</p>
+
+<p>default: 1073741823</p>
+
+<h4 id="maxlengthforvariablelengthdelimiterdisplay">maxLengthForVariableLengthDelimiterDisplay</h4>
+<p>When unexpected text is found where a delimiter is expected, this is the maximum
+number of bytes (characters) to display when the expected delimiter is a variable
+length delimiter.</p>
+
+<p>default: 10</p>
+
+<h4 id="maxlookaheadfunctionbits">maxLookaheadFunctionBits</h4>
+<p>Max distance that the DPath lookahead function is permitted to look.
+Distance is defined by the distance to the last bit accessed, and
+so it is offset+bitsize.</p>
+
+<p>default: 512</p>
+
+<h4 id="maxoccursbounds">maxOccursBounds</h4>
+<p>Maximum number of occurances of an array element.</p>
+
+<p>default: 2147483647</p>
+
+<h4 id="maxskiplengthinbytes">maxSkipLengthInBytes</h4>
+<p>Maximum number of bytes allowed to skip in a skip region.</p>
+
+<p>default: 1024</p>
+
+<h4 id="maxvalidyear">maxValidYear</h4>
+<p>Due to differences in the DFDL spec and ICU4J SimpleDateFormat, we must
+have SimpleDateFormat parse in lenient mode, which allows the year value
+to overflow with very large years into possibly negative years. This
+tunable tunable sets an upper limit for values to prevent overflow.</p>
+
+<p>default: 9999</p>
+
+<h4 id="maximumregexmatchlengthincharacters">maximumRegexMatchLengthInCharacters</h4>
+<p>Maximum number of characters to match when performing regular expression
+matches on input data.</p>
+
+<p>default: 1048576</p>
+
+<h4 id="maximumsimpleelementsizeincharacters">maximumSimpleElementSizeInCharacters</h4>
+<p>Maximum number of characters to parse when parsing string data.</p>
+
+<p>default: 1048576</p>
+
+<h4 id="minbinarydecimalvirtualpoint">minBinaryDecimalVirtualPoint</h4>
+<p>The smallest allowed value of the dfdl:binaryDecimalVirtualPoint property.</p>
+
+<p>default: -200</p>
+
+<h4 id="minvalidyear">minValidYear</h4>
+<p>Due to differences in the DFDL spec and ICU4J SimpleDateFormat, we must
+have SimpleDateFormat parse in lenient mode, which allows the year value
+to overflow with very large years into possibly negative years. This
+tunable tunable sets an upper limit for values to prevent underflow.</p>
+
+<p>default: 0</p>
+
+<h4 id="outputstreamchunksizeinbytes">outputStreamChunkSizeInBytes</h4>
+<p>When writing file data to the output stream during unparse, this
+is the maximum number of bytes to write at a time.</p>
+
+<p>default: 65536</p>
+
+<h4 id="parseunparsepolicy">parseUnparsePolicy</h4>
+<p>Whether to compile a schema to support only parsing, only unparsing, both, or to
+use the daf:parseUnparsePolicy from the root node. All child elements of the root
+must have a compatable daf:parseUnaprsePolicy property.</p>
+
+<p>default: fromRoot</p>
+
+<h4 id="releaseunneededinfoset">releaseUnneededInfoset</h4>
+<p>Daffodil will periodically release internal infoset elements that it determines
+are no longer needed, thus freeing memory. Setting this value to false will
+prevent this from taking place. This should usually only be used while debugging
+or with very specific tests.</p>
+
+<p>default: true</p>
+
+<h4 id="requirebitorderproperty">requireBitOrderProperty</h4>
+<p>If true, require that the dfdl:bitOrder property is specified. If false, use a
+default value if the property is not defined in the schema.</p>
+
+<p>default: false</p>
+
+<h4 id="requireemptyelementparsepolicyproperty">requireEmptyElementParsePolicyProperty</h4>
+<p>If true, require that the dfdl:emptyElementParsePolicy property is specified in
+the schema. If false, and not defined in the schema, uses the
+defaultEmptyElementParsePolicy as the value of emptyElementParsePolicy.</p>
+
+<p>default: false</p>
+
+<h4 id="requireencodingerrorpolicyproperty">requireEncodingErrorPolicyProperty</h4>
+<p>If true, require that the dfdl:encodingErrorPolicy property is specified. If
+false, use a default value if the property is not defined in the schema.</p>
+
+<p>default: false</p>
+
+<h4 id="requirefloatingproperty">requireFloatingProperty</h4>
+<p>If true, require that the dfdl:floating property is specified. If
+false, use a default value if the property is not defined in the schema.</p>
+
+<p>default: false</p>
+
+<h4 id="requiretextbidiproperty">requireTextBidiProperty</h4>
+<p>If true, require that the dfdl:testBidi property is specified. If
+false, use a default value if the property is not defined in the schema.</p>
+
+<p>default: false</p>
+
+<h4 id="requiretextstandardbaseproperty">requireTextStandardBaseProperty</h4>
+<p>If true, require that the dfdl:textStandardBase property is specified. If false
+and the property is missing, behave as if the property is set to 10.</p>
+
+<p>default: false</p>
+
+<h4 id="saxunparseeventbatchsize">saxUnparseEventBatchSize</h4>
+<p>Daffodil's SAX Unparse API allows events to be batched in memory to minimize the
+frequency of context switching between the SAXInfosetInputter thread that processes
+the events, and the DaffodilUnparseContentHandler thread that generates the events.
+Setting this value to a low number will increase the frequency of context switching,
+but will reduce the memory footprint. Swtting it to a high number will decrease the
+frequency of context switching, but increase the memory footprint.</p>
+
+<p>default: 100</p>
+
+<h4 id="suppressschemadefinitionwarnings">suppressSchemaDefinitionWarnings</h4>
+<p>Space-separated list of schema definition warnings that should be ignored,
+or "all" to ignore all warnings.</p>
+
+<p>default: emptyElementParsePolicyError</p>
+
+<h4 id="tempfilepath">tempFilePath</h4>
+<p>When unparsing, use this path to store temporary files that may be genrated.
+The default value (empty string) will result in the use of the java.io.tmpdir
+property being used as the path.</p>
+
+<p>default: This string is ignored. Default value is taken from java.io.tmpdir property</p>
+
+<h4 id="unqualifiedpathsteppolicy">unqualifiedPathStepPolicy</h4>
+<p>Defines how to lookup DFDL expression path steps that to not include a
+namespace prefix. Values are:</p>
+<ul>
+  <li>noNamespace: only match elements that do not have a namespace</li>
+  <li>defaultNamespace: only match elements defined in the default namespace</li>
+  <li>preferDefaultNamespace: match elements defined in the default namespace;
+if non are found, match elemnts that do not have a namespace</li>
+</ul>
+
+<p>default: noNamespace</p>
+
+<h4 id="unparsesuspensionwaitold">unparseSuspensionWaitOld</h4>
+<p>While unparsing, some unparse actions require "suspending" which
+requires buffering unparse output until the suspension can be
+evaluated. Daffodil periodically attempts to reevaluate these
+suspensions so that these buffers can be released. We attempt to
+evaluate young suspensions shortly after creation with the hope
+that it will succeed and we can release associated buffers. But if
+a young suspension fails it is moved to the old suspension list.
+Old suspensions are evaluated less frequently since they are less
+likely to succeeded. This minimizes the overhead related to
+evaluating suspensions that are likely to fail. The
+unparseSuspensionWaitYoung and unparseSuspensionWaitOld
+values determine how many elements are unparsed before evaluating
+young and old suspensions, respectively.</p>
+
+<p>default: 100</p>
+
+<h4 id="unparsesuspensionwaityoung">unparseSuspensionWaitYoung</h4>
+<p>See unparseSuspensionWaitOld</p>
+
+<p>default: 5</p>
+
+<h3 id="deprecated">Deprecated</h3>
+<ul>
+  <li>defaultInitialRegexMatchLimitInChars</li>
+  <li>errorOnUnsupportedJavaVersion</li>
+  <li>inputFileMemoryMapLowThreshold</li>
+  <li>maxFieldContentLengthInBytes</li>
+  <li>readerByteBufferSize</li>
+</ul>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2024 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

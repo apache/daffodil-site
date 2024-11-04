@@ -129,73 +129,7 @@
 <span class="nt">&lt;/dfdlConfig&gt;</span>
 </code></pre></div></div>
 
-<p>Below is a description of the available tunable parameters:</p>
-
-<dl>
-  <dt><code class="language-plaintext highlighter-rouge">generatedNamespacePrefixStem</code></dt>
-  <dd>
-    <p>If elementFormDefault is qualified, but no prefix is associated with the targetNamespace, a prefix will be created using this value, with numbers appended if necessary to ensure uniqueness. Defaults to "tns".</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">inputFileMemoryMapLowThreshold</code></dt>
-  <dd>
-    <p>In certain I/O optimized situations (text-only, encodingErrorPolicy='replace', fixed-width encoding) input files larger than this will be mmapped. Input files smaller than this will be simply read using ordinary I/O (because for small files that is just faster). This exists because mmap is more expensive than ordinary I/O for small files. Defaults to 225.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">maxBinaryDecimalVirtualPoint</code></dt>
-  <dd>
-    <p>An upper limit on the value of the dfdl:binaryDecimalVirtualPoint property. Defaults to 200.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">maxFieldContentLengthInBytes</code></dt>
-  <dd>
-    <p>A maximum limit for various daffodil I/O properties, including the maximim size of a simple element and maximum regular expression characters to match. Defaults to 220.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">maxLengthForVariableLengthDelimiterDisplay</code></dt>
-  <dd>
-    <p>When unexpected text is found where a delimiter is expected, this is the maximum number of bytes (characters) to display when the expected delimiter is a variable length delimiter. Defaults to 10.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">maxOccursBounds</code></dt>
-  <dd>
-    <p>A maximum limit for the number of repeats of array elements. Defaults to 1024.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">maxSkipLengthInBytes</code></dt>
-  <dd>
-    <p>A maximum limit for the number of bytes that can be skipped in a skip region. Defaults to 1024.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">minBinaryDecimalVirtualPoint</code></dt>
-  <dd>
-    <p>A lower limit on the value of the dfdl:binaryDecimalVirtualPoint property. Defaults to -200.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">parseUnparsePolicy</code></dt>
-  <dd>
-    <p>Whether to compile a schema to support parsing ("parseOnly"), unparsing ("unparseOnly"), both parsing and unparsing ("both"), or to use the daf:parseUnparsePolicy property from the root node ("schema"). Defaults to "both".</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">requireBitOrderProperty</code></dt>
-  <dd>
-    <p>If true, require that the bitOrder property is specified. If false, use a default value for bitOrder if not defined in a schema. Defaults to false.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">requireEncodingErrorPolicyProperty</code></dt>
-  <dd>
-    <p>If true, require that the encodingErrorPolicy property is specified. If false, use a default value if not defined in a schema. Defaults to false.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code></dt>
-  <dd>
-    <p>Specified how unqualified path steps are resolved. Defaults to <code class="language-plaintext highlighter-rouge">noNamespace</code>. Value values are:</p>
-
-    <dl>
-      <dt><code class="language-plaintext highlighter-rouge">noNamespace</code></dt>
-      <dd>
-        <p>Unqualified path steps remain unqualified and will only match elements in NoNamespace. A prefix must be provided to match namespaced elements.</p>
-      </dd>
-      <dt><code class="language-plaintext highlighter-rouge">defaultNamespace</code></dt>
-      <dd>
-        <p>Unqualified path steps will always use the default namespace. If a default namespace is defined, it is not possible to match a NoNamespace element with this policy. Because of this, this may not work well with elementFormDefault="unqualified".</p>
-      </dd>
-      <dt><code class="language-plaintext highlighter-rouge">preferDefaultNamespace</code></dt>
-      <dd>
-        <p>Attempt to use the default namespace to resolve an unqualified path step. If that fails to match an element, then try to resolve using NoNamespace.</p>
-      </dd>
-    </dl>
-  </dd>
-</dl>
+<p>See <a href="/tunables">tunables</a> for a description of the available tunable parameters.</p>
 
   </div>
 </div>
