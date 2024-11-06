@@ -31,12 +31,6 @@
   githubId: efinnegan
   role: Committer
 
-- first: Dave
-  last: Fisher
-  apacheId: wave
-  githubId: dave2wave
-  role: PMC
-
 - first: Steve
   last: Lawrence
   apacheId: slawrence
