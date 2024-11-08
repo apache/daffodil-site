@@ -53,25 +53,15 @@ Setting environment variables may be necessary to allow imports, includes, and r
 
    : If you need to specify java options specific to Daffodil, you can set the ``DAFFODIL_JAVA_OPTS`` environment variable. If not specified, the ``JAVA_OPTS`` environment variable will be used. If that is not specified, reasonable defaults for Daffodil will be used.
 
+``DAFFODIL_TDML_API_INFOSETS``
+
+   : If you need to specify which API (legacy or both (SAX and legacy)) should be called when running TDML files with the ``test`` subcommand, you can set the ``DAFFODIL_TDML_API_INFOSETS`` environment variable to either `scala` or `all`. If that environment variable is not specified, then Daffodil will default to `scala`, using the legacy API and only creating a Scala infoset. Otherwise, if `all` is specified, Daffodil will use both the SAX and Legacy APIs and will create infosets from all the available Infoset Outputters: Scala, JDOM, W3CDOM, JSON and XML Text, to ensure correctness. Since the default option only creates one infoset, it is more efficient, which can speed up TDML tests.
+
 ``CC``
 
    : If you need to specify which C compiler should be called when running TDML files with the ``test`` subcommand using Daffodil's codegen-c backend, you can set the ``CC`` environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the ``PATH`` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
 
 ### Global Options
-
-``-d, --debug [FILE]``
-
-   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
-
-     The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
-
-     This option cannot be used with the ``--trace`` option.
-
-``-t, --trace``
-
-   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
-
-     This option cannot be used with the ``--debug`` option.
 
 ``-v, --verbose``
 
@@ -92,11 +82,9 @@ Parse a file, using either a DFDL schema or a saved parser.
 #### Usage
 
     daffodil parse (-s <schema> [-r <root>] | -P <parser>)
-                   [-c <file>] [-D<variable>=<value>...] [-I <infoset_type>]
-                   [-o <output>] [--stream] [-T<tunable>=<value>...] [-V <mode>]
-                   [infile]
+                   [PARSE_OPTS] [infile]
 
-#### Options
+#### Parse Options
 
 ``-c, --config FILE``
 
@@ -107,6 +95,14 @@ Parse a file, using either a DFDL schema or a saved parser.
    : Variables to be used when parsing. A namespace may be specified by prefixing ``VARIABLE`` with ``{NAMESPACE}``, for example:
 
      ```-D{http://example.com}var1=var```
+
+``-d, --debug [FILE]``
+
+   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+   
+        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+   
+        This option cannot be used with the ``--trace`` option.
 
 ``-I, --infoset-type TYPE``
 
@@ -140,6 +136,12 @@ Parse a file, using either a DFDL schema or a saved parser.
 
    : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
+``-t, --trace``
+
+   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+
+        This option cannot be used with the ``--debug`` option.
+
 ``-V, --validate MODE``
 
    : The validation mode. ``MODE`` must be one of ``on``, ``limited``, ``off``, or a validator plugin name. Defaults to ``off`` if not provided. Validator plugins are provided by SPI and are referenced here using the ``name`` defined by the plugin. ``MODE`` cannot be ``on`` when used with the ``--parser`` option.
@@ -163,11 +165,9 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 #### Usage
 
     daffodil unparse (-s <schema> [-r <root>] | -P <parser>)
-                     [-c <file>] [-D<variable>=<value>...] [-I <infoset_type>]
-                     [-o <output>] [--stream] [-T<tunable>=<value>...] [-V <mode>]
-                     [infile]
+                     [UNPARSE_OPTS] [infile]
 
-#### Options
+#### Unparse Options
 
 ``-c, --config FILE``
 
@@ -178,6 +178,14 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
    : Variables to be used when unparsing. A namespace may be specified by prefixing ``VARIABLE`` with ``{NAMESPACE}``, for example:
 
      ```-D{http://example.com}var1=var```
+
+``-d, --debug [FILE]``
+
+   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+
+        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+   
+        This option cannot be used with the ``--trace`` option.
 
 ``-I, --infoset-type TYPE``
 
@@ -211,6 +219,12 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 
    : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
 
+``-t, --trace``
+
+   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+
+        This option cannot be used with the ``--debug`` option.
+
 ``-V, --validate MODE``
 
    : The validation mode. ``MODE`` must be one of ``on``, ``limited``, ``off``, or a validator plugin name. Defaults to ``off`` if not provided. Validator plugins are provided by SPI and are referenced here using the ``name`` defined by the plugin. ``MODE`` cannot be ``on`` when used with the ``--parser`` option.
@@ -234,10 +248,9 @@ Save a parser that can be reused for parsing and unparsing.
 #### Usage
 
     daffodil save-parser -s <schema> [-r <root>]
-                        [-c <file>] [-D<variable>=<value>...] [-T<tunable>=<value>...]
-                        [outfile]
+                        [SAVE_PARSER_OPTS] [outfile]
 
-#### Options
+#### Save Parser Options
 
 ``-c, --config FILE``
 
@@ -279,9 +292,17 @@ List or execute tests in a TDML file.
 
 #### Usage
 
-    daffodil test [-I <implementation>] [-l] [-r] [-i] <tdmlfile> [testnames...]
+    daffodil test [TEST_OPTS] <tdmlfile> [testnames...]
 
-#### Options
+#### Test Options
+
+``-d, --debug [FILE]``
+
+   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+
+        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+   
+        This option cannot be used with the ``--trace`` option.
 
 ``-I, --implementation  <implementation>``
 
@@ -299,6 +320,12 @@ List or execute tests in a TDML file.
 ``-r, --regex``
 
    : Treat ``TESTNAMES...`` as regular expressions.
+
+``-t, --trace``
+
+   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+
+        This option cannot be used with the ``--debug`` option.
 
 ``TDMLFILE``
 
@@ -323,12 +350,9 @@ Run a performance test (parse or unparse), using either a DFDL schema or a saved
 #### Usage
 
     daffodil performance (-s <schema> [-r <root>] | -P <parser>)
-                         [-c <file>] [-D<variable>=<value>...] [-I <infoset_type>]
-                         [-N <number>] [-t <threads>] [-T<tunable>=<value>...]
-                         [-u] [-V <mode>]
-                         <infile>
+                         [PERFORMANCE_OPTS] <infile>
 
-#### Options
+#### Performance Options
 
 ``-c, --config FILE``
 
@@ -399,10 +423,9 @@ Generate C code from a DFDL schema to parse or unparse data.
     --- there is only one choice for <language> at this time ---
 
     daffodil generate c -s <schema> [-r <root>]
-                        [-c <file>] [-T<tunable>=<value>...]
-                        [outdir]
+                        [GENERATE_OPTIONS] [outdir]
 
-#### Options
+#### Generate Options
 
 ``-c, --config FILE``
 
