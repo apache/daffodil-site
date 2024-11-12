@@ -132,6 +132,10 @@
   <dd>
     <p>If you need to specify java options specific to Daffodil, you can set the <code class="language-plaintext highlighter-rouge">DAFFODIL_JAVA_OPTS</code> environment variable. If not specified, the <code class="language-plaintext highlighter-rouge">JAVA_OPTS</code> environment variable will be used. If that is not specified, reasonable defaults for Daffodil will be used.</p>
   </dd>
+  <dt><code class="language-plaintext highlighter-rouge">DAFFODIL_TDML_API_INFOSETS</code></dt>
+  <dd>
+    <p>If you need to specify which API (legacy or both (SAX and legacy)) should be called when running TDML files with the <code class="language-plaintext highlighter-rouge">test</code> subcommand, you can set the <code class="language-plaintext highlighter-rouge">DAFFODIL_TDML_API_INFOSETS</code> environment variable to either <code class="language-plaintext highlighter-rouge">scala</code> or <code class="language-plaintext highlighter-rouge">all</code>. If that environment variable is not specified, then Daffodil will default to <code class="language-plaintext highlighter-rouge">scala</code>, using the legacy API and only creating a Scala infoset. Otherwise, if <code class="language-plaintext highlighter-rouge">all</code> is specified, Daffodil will use both the SAX and Legacy APIs and will create infosets from all the available Infoset Outputters: Scala, JDOM, W3CDOM, JSON and XML Text, to ensure correctness. Since the default option only creates one infoset, it is more efficient, which can speed up TDML tests.</p>
+  </dd>
   <dt><code class="language-plaintext highlighter-rouge">CC</code></dt>
   <dd>
     <p>If you need to specify which C compiler should be called when running TDML files with the <code class="language-plaintext highlighter-rouge">test</code> subcommand using Daffodil's codegen-c backend, you can set the <code class="language-plaintext highlighter-rouge">CC</code> environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because <a href="https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html">zig cc</a> uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.</p>
@@ -141,20 +145,6 @@
 <h3 id="global-options">Global Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
-  <dd>
-    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
-
-    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
-  <dd>
-    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
-  </dd>
   <dt><code class="language-plaintext highlighter-rouge">-v, --verbose</code></dt>
   <dd>
     <p>Enable verbose mode and increment verbosity level. Each additional <code class="language-plaintext highlighter-rouge">-v</code> provides a new level of information.</p>
@@ -176,12 +166,10 @@
 <h4 id="usage">Usage</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-               [-c &lt;file&gt;] [-D&lt;variable&gt;=&lt;value&gt;...] [-I &lt;infoset_type&gt;]
-               [-o &lt;output&gt;] [--stream] [-T&lt;tunable&gt;=&lt;value&gt;...] [-V &lt;mode&gt;]
-               [infile]
+               [PARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h4 id="options">Options</h4>
+<h4 id="parse-options">Parse Options</h4>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -193,6 +181,14 @@
     <p>Variables to be used when parsing. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">VARIABLE</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>, for example:</p>
 
     <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
+  <dd>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
+
+    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type TYPE</code></dt>
   <dd>
@@ -226,6 +222,12 @@
   <dd>
     <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
+  <dd>
+    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
+  </dd>
   <dt><code class="language-plaintext highlighter-rouge">-V, --validate MODE</code></dt>
   <dd>
     <p>The validation mode. <code class="language-plaintext highlighter-rouge">MODE</code> must be one of <code class="language-plaintext highlighter-rouge">on</code>, <code class="language-plaintext highlighter-rouge">limited</code>, <code class="language-plaintext highlighter-rouge">off</code>, or a validator plugin name. Defaults to <code class="language-plaintext highlighter-rouge">off</code> if not provided. Validator plugins are provided by SPI and are referenced here using the <code class="language-plaintext highlighter-rouge">name</code> defined by the plugin. <code class="language-plaintext highlighter-rouge">MODE</code> cannot be <code class="language-plaintext highlighter-rouge">on</code> when used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
@@ -252,12 +254,10 @@
 <h4 id="usage-1">Usage</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-                 [-c &lt;file&gt;] [-D&lt;variable&gt;=&lt;value&gt;...] [-I &lt;infoset_type&gt;]
-                 [-o &lt;output&gt;] [--stream] [-T&lt;tunable&gt;=&lt;value&gt;...] [-V &lt;mode&gt;]
-                 [infile]
+                 [UNPARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h4 id="options-1">Options</h4>
+<h4 id="unparse-options">Unparse Options</h4>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -269,6 +269,14 @@
     <p>Variables to be used when unparsing. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">VARIABLE</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>, for example:</p>
 
     <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
+  <dd>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
+
+    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type TYPE</code></dt>
   <dd>
@@ -302,6 +310,12 @@
   <dd>
     <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
+  <dd>
+    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
+  </dd>
   <dt><code class="language-plaintext highlighter-rouge">-V, --validate MODE</code></dt>
   <dd>
     <p>The validation mode. <code class="language-plaintext highlighter-rouge">MODE</code> must be one of <code class="language-plaintext highlighter-rouge">on</code>, <code class="language-plaintext highlighter-rouge">limited</code>, <code class="language-plaintext highlighter-rouge">off</code>, or a validator plugin name. Defaults to <code class="language-plaintext highlighter-rouge">off</code> if not provided. Validator plugins are provided by SPI and are referenced here using the <code class="language-plaintext highlighter-rouge">name</code> defined by the plugin. <code class="language-plaintext highlighter-rouge">MODE</code> cannot be <code class="language-plaintext highlighter-rouge">on</code> when used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
@@ -328,11 +342,10 @@
 <h4 id="usage-2">Usage</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [-r &lt;root&gt;]
-                    [-c &lt;file&gt;] [-D&lt;variable&gt;=&lt;value&gt;...] [-T&lt;tunable&gt;=&lt;value&gt;...]
-                    [outfile]
+                    [SAVE_PARSER_OPTS] [outfile]
 </code></pre></div></div>
 
-<h4 id="options-2">Options</h4>
+<h4 id="save-parser-options">Save Parser Options</h4>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -378,12 +391,20 @@
 
 <h4 id="usage-3">Usage</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [-I &lt;implementation&gt;] [-l] [-r] [-i] &lt;tdmlfile&gt; [testnames...]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [TEST_OPTS] &lt;tdmlfile&gt; [testnames...]
 </code></pre></div></div>
 
-<h4 id="options-3">Options</h4>
+<h4 id="test-options">Test Options</h4>
 
 <dl>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
+  <dd>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
+
+    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
+  </dd>
   <dt><code class="language-plaintext highlighter-rouge">-I, --implementation  &lt;implementation&gt;</code></dt>
   <dd>
     <p>Implementation to run TDML tests. Choose daffodil or
@@ -400,6 +421,12 @@ daffodilC. Defaults to daffodil.</p>
   <dt><code class="language-plaintext highlighter-rouge">-r, --regex</code></dt>
   <dd>
     <p>Treat <code class="language-plaintext highlighter-rouge">TESTNAMES...</code> as regular expressions.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
+  <dd>
+    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
+
+    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">TDMLFILE</code></dt>
   <dd>
@@ -427,13 +454,10 @@ daffodilC. Defaults to daffodil.</p>
 <h4 id="usage-4">Usage</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-                     [-c &lt;file&gt;] [-D&lt;variable&gt;=&lt;value&gt;...] [-I &lt;infoset_type&gt;]
-                     [-N &lt;number&gt;] [-t &lt;threads&gt;] [-T&lt;tunable&gt;=&lt;value&gt;...]
-                     [-u] [-V &lt;mode&gt;]
-                     &lt;infile&gt;
+                     [PERFORMANCE_OPTS] &lt;infile&gt;
 </code></pre></div></div>
 
-<h4 id="options-4">Options</h4>
+<h4 id="performance-options">Performance Options</h4>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -508,11 +532,10 @@ daffodilC. Defaults to daffodil.</p>
 --- there is only one choice for &lt;language&gt; at this time ---
 
 daffodil generate c -s &lt;schema&gt; [-r &lt;root&gt;]
-                    [-c &lt;file&gt;] [-T&lt;tunable&gt;=&lt;value&gt;...]
-                    [outdir]
+                    [GENERATE_OPTIONS] [outdir]
 </code></pre></div></div>
 
-<h4 id="options-5">Options</h4>
+<h4 id="generate-options">Generate Options</h4>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
