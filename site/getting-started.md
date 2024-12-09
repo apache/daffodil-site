@@ -44,7 +44,7 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
 [Smooks DFDL Cartridge](https://www.smooks.org/documentation/#dfdl)
 
-   : A [Smooks](https://www.smooks.org) module that has a reader for turning the source into an event stream and and a visitor for serializing the event stream. This module forms the foundation of the [EDI and EDIFACT cartridges](https://github.com/smooks/smooks-edi-cartridge).
+   : A [Smooks](https://www.smooks.org) module that has a reader for turning the source into an event stream and a visitor for serializing the event stream. This module forms the foundation of the [EDI and EDIFACT cartridges](https://github.com/smooks/smooks-edi-cartridge).
 
 ### Existing DFDL Schemas
 
