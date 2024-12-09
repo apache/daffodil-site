@@ -42,6 +42,10 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
    : An extension to [XML Calabash](http://xmlcalabash.com) that declares XProc pipeline steps to parse and unparse input data.
 
+[Smooks DFDL Cartridge](https://www.smooks.org/documentation/#dfdl)
+
+   : A [Smooks](https://www.smooks.org) module that has a reader for turning the source into an event stream and and a visitor for serializing the event stream. This module forms the foundations of the [EDI and EDIFACT cartridges](https://github.com/smooks/smooks-edi-cartridge).
+
 ### Existing DFDL Schemas
 
 Many DFDL schemas are freely and publicly available at [DFDLSchemas](https://github.com/DFDLSchemas) on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more. Some DFDL Schemas for Controlled Unclassified Information (CUI) data formats are available on [DI2E.net](https://confluence.di2e.net/pages/viewpage.action?pageId=196139975), which requires US Citizenship and DoD sponsorship.
