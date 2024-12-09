@@ -30,7 +30,8 @@ Now, turns out there is an XML Schema for DFDL Schemas. It was created by taking
 
 ### Installing Eclipse XML Plugin
 
-The XML settings all assume you have installed Eclipse's XML support. If not already installed, the "Eclipse XML Editors and Tools" plugin can be Eclipse's update site.
+The XML settings all assume you have installed Eclipse's XML support. If not already installed, 
+the "Eclipse XML Editors and Tools" plugin can be obtained from Eclipse's update site.
 
 ### Eclipse XML Settings
 

@@ -22,7 +22,8 @@ limitations under the License.
 {% endcomment %}
 -->
 
-The Apache Daffodil SBT Plugin is plugin for the [SBT build tool](https://www.scala-sbt.org/) to help manage, build, and test DFDL schema projects. It is part of the [Standard DFDL Schema Project Layout](/dfdl-layout).
+The Apache Daffodil SBT Plugin is a plugin for the [SBT build tool](https://www.scala-sbt.org/) 
+to help manage, build, and test DFDL schema projects. It is part of the [Standard DFDL Schema Project Layout](/dfdl-layout).
 
 See the [GitHub page](https://github.com/apache/daffodil-sbt) for details to enable and configure.
 
