@@ -48,7 +48,16 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
 ### Existing DFDL Schemas
 
-Many DFDL schemas are freely and publicly available at [DFDLSchemas](https://github.com/DFDLSchemas) on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more. Some DFDL Schemas for Controlled Unclassified Information (CUI) data formats are available on [DI2E.net](https://confluence.di2e.net/pages/viewpage.action?pageId=196139975), which requires US Citizenship and DoD sponsorship.
+Many DFDL schemas are freely and publicly available at [DFDLSchemas](https://github.com/DFDLSchemas) on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more.
+ 
+DFDL Schemas for US and allied government data formats are available 
+to authorized persons at
+[US DoD Intelink](
+https://intelshare.intelink.gov/sites/ncdsmo/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2Fsites%2Fncdsmo%2FShared%20Documents%2FCDS%20Development%2FFilters%20and%20Other%20Application%20Source%20Code%2FDFDL%2FDFDL%20Schemas
+). These formats include: Link16 (aka MIL-STD-6016, STANAG 5516) with JREAP (MIL-STD-3011) and 
+NACT headers, VMF (aka MIL-STD-6017),GMTIF (STANAG 4607 AEDP-7), iCalendar, IMF, USMTF (aka 
+MIL-STD-6040), and OilStock
+
 
 
 ### Creating DFDL Schemas
