@@ -24,15 +24,21 @@ limitations under the License.
 
 ### Using Daffodil
 
-Daffodil is a library, requiring Java 8, used to convert between fixed format data and XML/JSON based on a DFDL schema. Some [examples](/examples) show the result of Daffodil parsing various inputs into XML. Multiple mechanisms that use the Daffodil library invoke its capabilities are described below.
+Daffodil is a library, requiring Java 8, used to convert between fixed format data and 
+XML/JSON based on a DFDL schema. 
+Some [examples](/examples) show the result of Daffodil parsing various inputs into XML. 
+Multiple mechanisms that use the Daffodil library invoke its capabilities are described below.
 
 [Command Line Interface](/cli)
 
-   : Linux and Windows command line tool with capabilities include parsing, unaparsing, an interactive debugger, and more. Available via download in binary [releases](/releases).
+   : Linux and Windows command line tool with capabilities include parsing, unaparsing, an 
+     interactive debugger, and more. Available via download in binary [releases](/releases).
 
 [Java API](/docs/latest/javadoc) or [Scala API](/docs/latest/scaladoc)
 
-   : Examples for using the Java API are available on the [OpenDFDL examples](https://github.com/OpenDFDL/examples.git) repository. Individual [releases](/releases) describe how to include a dependency to Daffodil via Maven and SBT.
+   : Examples for using the Java API are available on the [OpenDFDL examples](https://github.com/OpenDFDL/examples.git) repository. 
+     Individual [releases](/releases) describe how to include a dependency to Daffodil 
+     via Maven and SBT.
 
 [Apache NiFi Processors](https://github.com/TresysTechnology/nifi-daffodil)
 
@@ -44,7 +50,22 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
 ### Existing DFDL Schemas
 
-Many DFDL schemas are freely and publicly available at [DFDLSchemas](https://github.com/DFDLSchemas) on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more. Some DFDL Schemas for Controlled Unclassified Information (CUI) data formats are available on [DI2E.net](https://confluence.di2e.net/pages/viewpage.action?pageId=196139975), which requires US Citizenship and DoD sponsorship.
+Many DFDL schemas are freely and publicly available at 
+[DFDLSchemas](https://github.com/DFDLSchemas) 
+on GitHub. This includes image formats, financial transaction formats, 
+healthcare formats, and more. 
+
+DFDL Schemas for Controlled Unclassified Information (CUI) 
+data formats are available on [US DoD Intelink](
+https://intelshare.intelink.gov/sites/ncdsmo/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2Fsites%2Fncdsmo%2FShared%20Documents%2FCDS%20Development%2FFilters%20and%20Other%20Application%20Source%20Code%2FDFDL%2FDFDL%20Schemas
+), which requires US Citizenship and US DoD sponsorship. These formats include:
+- Link16 (aka MIL-STD-6016, STANAG 5516) with JREAP and NACT headers
+- VMF (aka MIL-STD-6017)
+- GMTIF
+- iCalendar and IMF
+- USMTF (aka MIL-STD-6020)
+- OilStock
+
 
 
 ### Creating DFDL Schemas
