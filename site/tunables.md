@@ -43,7 +43,7 @@ or from the [cli](/cli) via the ``-T`` option.
 </daf:dfdlConfig>
  ```
 
-The config file can then be passed into daffodil subcommands via the ``-c|--config`` options.
+ The config file can then be passed into daffodil subcommands via the ``-c|--config`` options.
 
 #### CLI Example
  ``` bash
@@ -52,17 +52,6 @@ The config file can then be passed into daffodil subcommands via the ``-c|--conf
 
 
 ### Definitions
-
-#### allowBigIntegerBits
-Previous Daffodil releases let schemas define every type's length using "bits" as the length unit
-even though the specification allows bit length units only for a specific set of types' binary
-representations and does not allow bit length units for any other type's binary representation
-or any type's text representation.  When this tunable is true, a deprecation warning is issued
-when bit length units are incorrectly used.  When this tunable is false, a schema definition
-error will be issued instead.
-
-default: true
-
 
 #### allowExpressionResultCoercion
 Defines how Daffodil coerces expressions where the result type differs
@@ -88,6 +77,13 @@ so this should be avoided when in production. This flag is automatically
 enabled when debugging is enabled.
 
 default: false
+
+
+#### allowSignedIntegerLength1Bit
+When processing signed binary integers, which should have a length of at least 2 bits, issue
+a warning if the length is less than 2 bits by default, otherwise (if false) issue a SDE or Processing Error.
+
+default: true
 
 
 #### blobChunkSizeInBytes
@@ -357,7 +353,7 @@ namespace prefix. Values are:
 - noNamespace: only match elements that do not have a namespace
 - defaultNamespace: only match elements defined in the default namespace
 - preferDefaultNamespace: match elements defined in the default namespace;
-  if non are found, match elemnts that do not have a namespace
+if non are found, match elemnts that do not have a namespace
 
 default: noNamespace
 
@@ -387,6 +383,7 @@ default: 5
 
 
 ### Deprecated
+- allowBigIntegerBits
 - defaultInitialRegexMatchLimitInChars
 - errorOnUnsupportedJavaVersion
 - inputFileMemoryMapLowThreshold
