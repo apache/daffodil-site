@@ -68,13 +68,17 @@ and data location.
 the data being read will not be used.
   
 #### Examples of `dfdlx:lookAhead`
-   The following two elements are equivalent:
+   The following two elements both populate element `a` with the value of the next 3 bits as an 
+   unsignedInt. They are not completely equivalent because the first will consume 3 bits of the 
+   input stream where the second will not advance the input stream.
 ```xml
 <xs:element name="a" type="xs:unsignedInt" dfdl:length="3" dfdl:lengthUnits="bits" />
 
-<xs:element name="a" type="xs:unsignedInt" dfdl:length="3" dfdl:lengthUnits="bits" dfdl:inputValueCalc="{ dfdlx:lookAhead(0,3) }" />
+<xs:element name="a" type="xs:unsignedInt" dfdl:inputValueCalc="{ dfdlx:lookAhead(0,3) }" />
 ```
-The following example demonstrates using lookAhead to branch based on a field in the future:
+The following example demonstrates using lookAhead to branch based on a field in the future. 
+In this case the choice of elements `a` vs. `b` depends on the value of the `tag` field which is 
+found after fields `a` and `b`:
 ```
 <xs:choice dfdl:choiceDispatchKey="{ dfdlx:lookAhead(16,8) }">
   <xs:element name="a" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="1"/>
