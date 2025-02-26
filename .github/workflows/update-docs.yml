@@ -1,0 +1,128 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Update Documentation
+
+# Update the Daffodil site to include documentation for Daffodil or VS Code.
+# This should be manually dispatched after a release candidate is created. Note
+# that this commits the documentation to the 'main' branch of the site, but it
+# does not trigger the normal publish workflow. That must be manually
+# dispatched to actually build and publish the site with the new documentation.
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Project
+        type: choice
+        options:
+        - daffodil
+        - daffodil-vscode.wiki
+        required: true
+      version:
+        description: Version (e.g. v1.0.0-rc1)
+        required: true
+
+jobs:
+  update-docs:
+    name: Update Docs ${{ inputs.project }} ${{ inputs.version }}
+    strategy:
+      matrix:
+        java_distribution: [ temurin ]
+        java_version: [ 8 ]
+
+    runs-on: ubuntu-22.04
+    env:
+      AR: llvm-ar-14
+      CC: clang
+      LANG: en_US.UTF-8
+
+    steps:
+
+      - name: Checkout Site Repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        with:
+          path: site
+
+      # When building documentation for daffodil, we checkout the tag matching
+      # the version input argument. We cannot do the same for VS Code
+      # documentation since that is built from the wiki which does not use
+      # tags. For VS Code documentation, we just always build from the master
+      # branch of the wiki, so users must be careful to specify the right
+      # version when dispatching the workflow.
+      - name: Checkout Project Repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        with:
+          repository: apache/${{ inputs.project }}
+          path: project
+          ref: ${{ inputs.project == 'daffodil' && inputs.version || 'master' }}
+
+      - name: Extract Version
+        run: |
+          VERSION=$(echo '${{ inputs.version }}' | sed 's/^v\(.*\)-.*$/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get install -y libmxml-dev pandoc
+
+      - name: Setup Java
+        uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
+        with:
+          distribution: ${{ matrix.java_distribution }}
+          java-version: ${{ matrix.java_version }}
+
+      - name: Build Daffodil Documentation
+        working-directory: project
+        if: ${{ inputs.project == 'daffodil' }}
+        run: |
+          SITE_ROOT=${{ github.workspace }}/site
+          DOCS_DIR=$SITE_ROOT/site/docs/$VERSION
+          TUTORIALS_DIR=$SITE_ROOT/site/tutorials
+          rm -rf $DOCS_DIR
+          rm -rf $TUTORIALS_DIR
+
+          sbt unidoc
+          mkdir -p $DOCS_DIR/{javadoc,scaladoc}/
+          cp -R target/javaunidoc/* $DOCS_DIR/javadoc/
+          cp -R target/scala-*/unidoc/* $DOCS_DIR/scaladoc/
+
+          mkdir -p $TUTORIALS_DIR
+          cp -R tutorials/src/main/resources/* $TUTORIALS_DIR/
+
+      - name: Build Daffodil VS Code Documentation
+        working-directory: project
+        if: ${{ inputs.project == 'daffodil-vscode.wiki' }}
+        run: |
+          SITE_ROOT=${{ github.workspace }}/site
+          DOCS_DIR=$SITE_ROOT/site/docs/vscode/$VERSION
+          rm -rf $DOCS_DIR
+
+          DOC_NAME="Apache-Daffodil-Extension-for-Visual-Studio-Code-$VERSION"
+          mkdir -p $DOCS_DIR
+          pandoc -t docx -f markdown -o $DOCS_DIR/$DOC_NAME.docx *.md
+          pandoc -t html -f markdown -o $DOCS_DIR/$DOC_NAME.html *.md
+
+      - name: Commit Update
+        working-directory: site
+        shell: bash
+        run: |
+          # We allow empty commits so that we always create a commit. This
+          # makes it easy to verify that the workflow actually happened and
+          # didn't just silently error.
+          git add .
+          git config --local user.email "dev@daffodil.apache.org"
+          git config --local user.name "Apache Daffodil Site"
+          git commit -a --allow-empty -m "Update documentation from ${{ inputs.project }} ${{ inputs.version }}"
+          git push --force "https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git" main
