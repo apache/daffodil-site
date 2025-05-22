@@ -15,5 +15,9 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll-asciidoc', '= 3.0.0'
-gem 'asciidoctor-diagram', '= 2.2.1'
+gem 'jekyll', '= 4.2.2'
+gem 'jekyll-asciidoc', '= 3.0.1'
+gem 'asciidoctor-diagram', '= 3.0.0'
+gem 'asciidoctor-diagram-plantuml', '= 1.2025.2'
+gem 'asciidoctor-diagram-ditaamini', '= 1.0.3'
+gem 'webrick', '= 1.9.1'

@@ -34,7 +34,7 @@ With docker:
     docker run -it --rm \
       --publish 127.0.0.1:4000:4000 \
       --volume="$PWD:/srv/jekyll" \
-      docker.io/jekyll/jekyll:4.2.0 \
+      docker.io/jekyll/jekyll:4.2.2 \
       jekyll serve --watch --source site
 
 With rootless podman:
@@ -43,7 +43,7 @@ With rootless podman:
       --publish 127.0.0.1:4000:4000 \
       --volume="$PWD:/srv/jekyll" \
       --env JEKYLL_ROOTLESS=1 \
-      docker.io/jekyll/jekyll:4.2.0 \
+      docker.io/jekyll/jekyll:4.2.2 \
       jekyll serve --watch --source site
 
 Then open [http://localhost:4000](http://localhost:4000) to view the site
