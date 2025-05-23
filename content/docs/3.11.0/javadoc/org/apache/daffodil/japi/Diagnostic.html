@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -160,34 +160,40 @@ extends java.lang.Object</pre>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#getMessage--">getMessage</a></span>()</code>
-<div class="block">Get the diagnostic message.</div>
+<div class="block">Get all diagnostic information, including mode name, schema context, and data location</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#getMessageOnly--">getMessageOnly</a></span>()</code>
+<div class="block">Get only the message part of a diagnostic.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#getModeName--">getModeName</a></span>()</code>
 <div class="block">Get the diagnostic mode name</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.Throwable</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#getSomeCause--">getSomeCause</a></span>()</code>
 <div class="block">Get the cause of that cause this diagnostic</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#getSomeMessage--">getSomeMessage</a></span>()</code>
 <div class="block">Get the message that caused this diagnostic</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#isError--">isError</a></span>()</code>
 <div class="block">Determine if a diagnostic object represents an error or something less serious.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/apache/daffodil/japi/Diagnostic.html#toString--">toString</a></span>()</code>
 <div class="block">Get a string containing the mode name, message, schema location, and data location combined
@@ -274,7 +280,25 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getMessage</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getMessage()</pre>
-<div class="block">Get the diagnostic message.
+<div class="block">Get all diagnostic information, including mode name, schema context, and data location
+ <p>
+ Future versions of Daffodil will change getMessage to return only the message portion of a
+ diagnostic, matching the behavior of getMessageOnly--users should call toString() instead.
+ <p></div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>diagnostic message in string form</dd>
+</dl>
+</li>
+</ul>
+<a name="getMessageOnly--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMessageOnly</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getMessageOnly()</pre>
+<div class="block">Get only the message part of a diagnostic.
  <p>
  This does not include mode name, schema context, or data location information
  <p></div>
