@@ -175,10 +175,12 @@
 that require different major versions of Scala simultaneously. For example:
 <code class="language-plaintext highlighter-rouge">daffodilPackageBinVersions := Seq("3.10.0", "3.11.0")</code>
 is not supported as Daffodil 3.10.0 requires Scala 2.12 and Daffodil 3.11.0
-requires Scala 2.13. Building them separately with the appropriate changes to
-<code class="language-plaintext highlighter-rouge">daffodilVersion</code> and <code class="language-plaintext highlighter-rouge">daffodilPackageBinVersions</code> is supported, assuming all
-Scala based test/plugin/layer code is cross compatible between Scala 2.12 and
-2.13</li>
+requires Scala 2.13. Building them separately or in different SBT subprojects
+with the appropriate changes to <code class="language-plaintext highlighter-rouge">daffodilVersion</code> and
+<code class="language-plaintext highlighter-rouge">daffodilPackageBinVersions</code> is supported, assuming all Scala based
+test/plugin/layer code is cross compatible between Scala 2.12 and 2.13.
+See <a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Daffodil+3.11.0+and+Scala+2.13+Transition">Daffodil 3.11.0 and Scala 2.13 Transition</a>
+for more details.</li>
 </ul>
 
 <h4 id="closed-issues">Closed Issues</h4>
