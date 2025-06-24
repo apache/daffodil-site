@@ -51,7 +51,7 @@ served by the Jekyll container. Changes to files in the site directory are
 automatically rebuilt and served.
 
 Once satisfied, create a branch and open a pull request using the Daffodil
-project [Code Conttributor Workflow](https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow)
+project [Code Contributor Workflow](https://cwiki.apache.org/confluence/display/DAFFODIL/Code+Contributor+Workflow)
 but using the website repo instead of the code repo.
 
 ## Publishing to the Live Site
