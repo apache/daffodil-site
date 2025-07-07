@@ -93,9 +93,14 @@ jobs:
           rm -rf $DOCS_DIR
           rm -rf $TUTORIALS_DIR
 
+          # generate javadoc using scalaunidoc
           sbt unidoc
           mkdir -p $DOCS_DIR/{javadoc,scaladoc}/
-          cp -R target/javaunidoc/* $DOCS_DIR/javadoc/
+          cp -R target/scala-*/unidoc/* $DOCS_DIR/javadoc/
+          
+          # generate scaladoc using scalaunidoc
+          touch daffodil-core/src/main/java/dummy.scala
+          sbt unidoc
           cp -R target/scala-*/unidoc/* $DOCS_DIR/scaladoc/
 
           mkdir -p $TUTORIALS_DIR
