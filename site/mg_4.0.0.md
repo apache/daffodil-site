@@ -30,7 +30,7 @@ The most important changes to be aware of in this release are:
 - Daffodil has merged daffodil-runtime1, daffodil-runtime1-unparser, daffodil-lib, daffodil-sapi,
 daffodil-japi and daffodil-io into daffodil-core.
 - Daffodil has replaced Validation Modes with a factory method from the ValidatorFactory class called `make`.
-- com.typesafe.config class has been replaced by java.util.Properties class for Validators configuration
+- com.typesafe.config class has been replaced with java.util.Properties class for Validators configuration
 
 ## Dependencies
 
@@ -98,7 +98,7 @@ val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, opt
 
 ## Adding Validation to Compiler
 Validation Modes (i.e `withValidationMode(ValidationMode.*)`) were removed and now validators must be used directly 
-(i.e `withValidator(Validators.getInstance().get(...).make(...))`).
+(i.e `withValidator(Validators.get(...).make(...))`).
 
 <div>
 <ul class="nav nav-tabs">
@@ -113,9 +113,8 @@ import java.util.Properties;
 
 org.apache.daffodil.api.ProcessorFactory pf = c.compileFile(schemaFile, rootName, rootNamespace);
 String mainValidationSchema = "file:/path/to/other/schema.xsd";
-Properties config = new Properties();
-config.setProperty(XercesValidator.ConfigKeys.rootSchema, mainValidationSchema);
-org.apache.daffodil.api.DataProcessor dp = pf.onPath("/").withValidator(Validators.getInstance().get("xerces").make(config)); 
+Properties config = ValidatorFactory.makeConfig(mainValidationSchema);
+org.apache.daffodil.api.DataProcessor dp = pf.onPath("/").withValidator(Validators.get("xerces").make(config)); 
 ```
 </div>
 <div id="scala_validate" class="tab-pane" markdown="1">
@@ -123,9 +122,8 @@ org.apache.daffodil.api.DataProcessor dp = pf.onPath("/").withValidator(Validato
 ```scala
 val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, optRootName, optRootNamespace)
 val mainValidationSchema = "file:/path/to/other/schema.xsd";
-val config = new Properties();
-config.setProperty(XercesValidator.ConfigKeys.rootSchema, mainValidationSchema);
-val dp: org.apache.daffodil.api.DataProcessor = pf.onPath("/").withValidator(Validators.getInstance.get("xerces").make(config)) 
+val config = ValidatorFactory.makeConfig(mainValidationSchema)
+val dp: org.apache.daffodil.api.DataProcessor = pf.onPath("/").withValidator(Validators.get("xerces").make(config)) 
 ```
 </div>
 </div>
