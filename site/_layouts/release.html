@@ -22,7 +22,8 @@ permalink: /release/release-notes-:title
 <div class="row">
   <div class="col-md-3 text-right" style="float: right; z-index: 3;">
     <h3>Documentation</h3>
-    <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a> | <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>
+    {% assign major_version = page.title | split: '.' | first | plus: 0 %}
+    <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a>{% if major_version < 4 %} | <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>{% endif %}
   </div>
 
   <div class="col-md-12">
