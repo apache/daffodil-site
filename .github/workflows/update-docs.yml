@@ -94,9 +94,8 @@ jobs:
           rm -rf $TUTORIALS_DIR
 
           sbt unidoc
-          mkdir -p $DOCS_DIR/{javadoc,scaladoc}/
-          cp -R target/javaunidoc/* $DOCS_DIR/javadoc/
-          cp -R target/scala-*/unidoc/* $DOCS_DIR/scaladoc/
+          mkdir -p $DOCS_DIR/javadoc/
+          cp -R target/scala-*/unidoc/* $DOCS_DIR/javadoc/
 
           mkdir -p $TUTORIALS_DIR
           cp -R tutorials/src/main/resources/* $TUTORIALS_DIR/
