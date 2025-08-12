@@ -27,15 +27,15 @@ limitations under the License.
 
 The most important changes to be aware of in this release are:
 
-- Daffodil has merged daffodil-runtime1, daffodil-runtime1-unparser, daffodil-lib, daffodil-sapi,
-daffodil-japi and daffodil-io into daffodil-core.
-- Daffodil has replaced Validation Modes with a factory method from the ValidatorFactory class called `make`.
+- Daffodil has merged daffodil-udf, daffodil-runtime1, daffodil-runtime1-unparser, daffodil-lib,
+  daffodil-sapi, daffodil-japi and daffodil-io into daffodil-core.
+- Daffodil has replaced the Validation Modes(`withValidationMode`)/`withValidator` with the `withValidation(validatorName[, validationConfigurationURI])` method. Built-in validator names are xerces, daffodil, schematron and off. 
 - com.typesafe.config class has been replaced with java.util.Properties class for Validators configuration
 
 ## Dependencies
 
-Since daffodil-sapi/japi have been merged into daffodil-core, the dependencies when using scala/java
-have changed to daffodil-core.
+Since daffodil-udf and daffodil-sapi/japi have been merged into daffodil-core, the dependencies when
+ using scala/java or udfs have changed to daffodil-core.
 
 <div>
 <ul class="nav nav-tabs">
@@ -48,7 +48,7 @@ have changed to daffodil-core.
 ```xml
 <dependency>
   <groupId>org.apache.daffodil</groupId>
-  <artifactId>daffodil-core_3.3.6</artifactId>
+  <artifactId>daffodil-core_3</artifactId>
   <version>4.0.0</version>
 </dependency>
 ```
@@ -63,9 +63,7 @@ libraryDependencies += "org.apache.daffodil" %% "daffodil-core" % "4.0.0"
 </div>
 
 ## Compiling Schemas
-This remains generally unchanged for Java users as passing in strings is still supported, one may also pass in 
-Java `Optional`, where Scala `Option`s used to be used. For Scala users, use of `scala.jdk.OptionConverters` may
-be used, as well as passing in string arguments.
+This remains generally unchanged for Java users as passing in strings (or nulls) is still supported. For Scala users, Options are no longer supported in the api and strings (or nulls) must be passed in instead.
 
 <div>
 <ul class="nav nav-tabs">
@@ -77,28 +75,25 @@ be used, as well as passing in string arguments.
 
 ```java
 File schemaFile = new File("/some/schema/file.xsd");
-Optional<String> optRootName = Optional.of("e1");
-Optional<String> optRootNamespace = Optional.of("http://example.com");
-org.apache.daffodil.api.ProcessorFactory pf = c.compileFile(schemaFile, optRootName, optRootNamespace);
+String rootName = "e1"; // can also be null to default to root element
+String rootNamespace = "http://example.com"; // can also be null to default to root element namespace
+org.apache.daffodil.api.ProcessorFactory pf = c.compileFile(schemaFile, rootName, rootNamespace);
 ```
 </div>
 <div id="scala_compile" class="tab-pane" markdown="1">
 
 ```scala
-import scala.jdk.OptionConverters._
-
 val schemaFile: File = new File("/some/schema/file.xsd")
-val optRootName: Option[String] = Some("e1").toJava
-val optRootNamespace: Option[String] = Some("http://example.com").toJava
-val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, optRootName, optRootNamespace) 
+val rootName: String = "e1" // can also be null to default to root element
+val rootNamespace: String = "http://example.com"  // can also be null to default to root element namespace
+val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, rootName, rootNamespace) 
 ```
 </div>
 </div>
 </div>
 
 ## Adding Validation to Compiler
-Validation Modes (i.e `withValidationMode(ValidationMode.*)`) were removed and now validators must be used directly 
-(i.e `withValidator(Validators.get(...).make(...))`).
+Validation Modes (i.e `withValidationMode(ValidationMode.*)`) and the `withValidator(validatorObj)`  were removed in place of `withValidation(validator.name[, validationConfigurationURI])`.
 
 <div>
 <ul class="nav nav-tabs">
@@ -109,29 +104,25 @@ Validation Modes (i.e `withValidationMode(ValidationMode.*)`) were removed and n
 <div id="java_validate" class="tab-pane active" markdown="1">
 
 ```java
-import java.util.Properties;
-
 org.apache.daffodil.api.ProcessorFactory pf = c.compileFile(schemaFile, rootName, rootNamespace);
-String mainValidationSchema = "file:/path/to/other/schema.xsd";
-Properties config = ValidatorFactory.makeConfig(mainValidationSchema);
-org.apache.daffodil.api.DataProcessor dp = pf.onPath("/").withValidator(Validators.get("xerces").make(config)); 
+URI mainValidationSchemaUri = URI.create("file:///path/to/other/schema.xsd");
+org.apache.daffodil.api.DataProcessor dp = pf.onPath("/").withValidation("xerces", mainValidationSchemaUri); 
 ```
 </div>
 <div id="scala_validate" class="tab-pane" markdown="1">
 
 ```scala
-val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, optRootName, optRootNamespace)
-val mainValidationSchema = "file:/path/to/other/schema.xsd";
-val config = ValidatorFactory.makeConfig(mainValidationSchema)
-val dp: org.apache.daffodil.api.DataProcessor = pf.onPath("/").withValidator(Validators.get("xerces").make(config)) 
+val pf: org.apache.daffodil.api.ProcessorFactory = c.compileFile(schemaFile, rootName, rootNamespace)
+val mainValidationSchemaUri = URI.create("file:///path/to/other/schema.xsd";
+val dp: org.apache.daffodil.api.DataProcessor = pf.onPath("/").withValidation("xerces", mainValidationSchemaUri) 
 ```
 </div>
 </div>
 </div>
 
 ## Parsing Data
-Factory methods to get `InputSourceDataInputStream` and `InfosetOutputter` objects have been added via 
-`Infoset.getInputSourceDataInputStream` and `Infoset.get*InfosetOutputter` 
+Factory methods to get `InputSourceDataInputStream` and `InfosetOutputter` objects have been added via
+`Infoset.getInputSourceDataInputStream` and `Infoset.get*InfosetOutputter`
 
 <div>
 <ul class="nav nav-tabs">
@@ -142,23 +133,23 @@ Factory methods to get `InputSourceDataInputStream` and `InfosetOutputter` objec
 <div id="java_parse" class="tab-pane active" markdown="1">
 
 ```java
-    java.io.File file = getResource("/test/api/myData.dat");
-    java.io.FileInputStream fis = new java.io.FileInputStream(file);
-    try (InputSourceDataInputStream dis = Infoset.getInputSourceDataInputStream(fis)) {
-    JDOMInfosetOutputter outputter = Infoset.getJDOMInfosetOutputter();
-    ParseResult res = dp.parse(dis, outputter);
-    } 
+java.io.File file = getResource("/test/api/myData.dat");
+java.io.FileInputStream fis = new java.io.FileInputStream(file);
+try (InputSourceDataInputStream dis = Infoset.getInputSourceDataInputStream(fis)) {
+  org.apache.daffodil.api.infoset.JDOMInfosetOutputter outputter = Infoset.getJDOMInfosetOutputter();
+  org.apache.daffodil.api.ParseResult res = dp.parse(dis, outputter);
+} 
 ```
 </div>
 <div id="scala_parse" class="tab-pane" markdown="1">
 
 ```scala
-    val file = getResource("/test/api/myData.dat")
-    val fis = new java.io.FileInputStream(file)
-    Using.resource(Infoset.getInputSourceDataInputStream(fis)) { input =>
-      val outputter = Infoset.getScalaXMLInfosetOutputter()
-      val res = dp.parse(input, outputter)
-    }
+val file = getResource("/test/api/myData.dat")
+val fis = new java.io.FileInputStream(file)
+Using.resource(Infoset.getInputSourceDataInputStream(fis)) { input =>
+  val outputter = Infoset.getScalaXMLInfosetOutputter()
+  val res = dp.parse(input, outputter)
+}
 ```
 </div>
 </div>
@@ -176,19 +167,100 @@ Factory methods to get an `InfosetInputter` object has been added via `Infoset.g
 <div id="java_unparse" class="tab-pane active" markdown="1">
 
 ```java
-    java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
-    java.nio.channels.WritableByteChannel wbc = java.nio.channels.Channels.newChannel(bos);
-    InfosetInputter inputter = Infoset.getJDOMInfosetInputter(outputter.getResult());
-    UnparseResult res2 = dp.unparse(inputter, wbc);
+java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+java.nio.channels.WritableByteChannel wbc = java.nio.channels.Channels.newChannel(bos);
+org.apache.daffodil.api.infoset.InfosetInputter inputter = Infoset.getJDOMInfosetInputter(outputter.getResult());
+org.apache.daffodil.api.UnparseResult res2 = dp.unparse(inputter, wbc);
 ```
 </div>
 <div id="scala_unparse" class="tab-pane" markdown="1">
 
 ```scala
     val bos = new java.io.ByteArrayOutputStream()
-    val wbc = java.nio.channels.Channels.newChannel(bos)
-    val inputter = Infoset.getScalaXMLInfosetInputter(outputter.getResult())
-    val res2 = dp.unparse(inputter, wbc)
+val wbc = java.nio.channels.Channels.newChannel(bos)
+val inputter = Infoset.getScalaXMLInfosetInputter(outputter.getResult())
+val res2 = dp.unparse(inputter, wbc)
+```
+</div>
+</div>
+</div>
+
+## Using Custom Plugin Layers
+Custom Plug-in layers must extend the `org.apache.daffodil.api.layers.Layer` class, and be 
+referenced in a `META-INF/services` file with the same class reference as the name. This 
+path has changed in Daffodil 4.0.0.
+
+<div>
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#java_layers">Java</a></li>
+<li><a data-toggle="tab" href="#scala_layers">Scala</a></li>
+</ul>
+<div class="tab-content">
+<div id="java_unparse" class="tab-pane active" markdown="1">
+
+```java
+// example layer class
+import org.apache.daffodil.api.layers.Layer;
+
+public final class GZipLayer extends Layer {
+  // implementation details
+}
+
+// in META-INF/services/org.apache.daffodil.api.layers.Layer
+org.apache.daffodil.layers.runtime1.GZipLayer
+```
+</div>
+<div id="scala_unparse" class="tab-pane" markdown="1">
+
+```scala
+// example layer class
+import org.apache.daffodil.api.layers.Layer
+
+abstract class ByteSwap(name: String, wordsize: Int)
+  extends Layer(name, "urn:org.apache.daffodil.layers.byteSwap") {...}
+
+// in META-INF/services/org.apache.daffodil.api.layers.Layer
+org.apache.daffodil.layers.runtime1.GZipLayer
+```
+</div>
+</div>
+</div>
+
+## Using User Defined Functions
+UDF Providers must extend the `org.apache.daffodil.api.udf.UserDefinedFunctionProvider` class, and be
+referenced in a `META-INF/services` file with the same class reference as the name. This
+path has changed in Daffodil 4.0.0.
+
+<div>
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#java_layers">Java</a></li>
+<li><a data-toggle="tab" href="#scala_layers">Scala</a></li>
+</ul>
+<div class="tab-content">
+<div id="java_unparse" class="tab-pane active" markdown="1">
+
+```java
+// example layer class
+import org.apache.daffodil.api.udf.UserDefinedFunctionProvider;
+
+public class StringFunctionsProvider extends UserDefinedFunctionProvider {
+  // implementation details
+}
+
+// in META-INF/services/org.apache.daffodil.api.udf.UserDefinedFunctionProvider
+org.jgoodudfs.example.StringFunctions.StringFunctionsProvider
+```
+</div>
+<div id="scala_unparse" class="tab-pane" markdown="1">
+
+```scala
+// example layer class
+import org.apache.daffodil.api.udf.UserDefinedFunctionProvider
+
+class StringFunctionsProvider extends UserDefinedFunctionProvider {...}
+
+// in META-INF/services/org.apache.daffodil.api.udf.UserDefinedFunctionProvider
+org.sgoodudfs.example.StringFunctions.StringFunctionsProvider
 ```
 </div>
 </div>
