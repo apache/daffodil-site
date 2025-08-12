@@ -122,7 +122,7 @@ val dp: org.apache.daffodil.api.DataProcessor = pf.onPath("/").withValidation("x
 
 ## Parsing Data
 Factory methods to get `InputSourceDataInputStream` and `InfosetOutputter` objects have been added via
-`Infoset.getInputSourceDataInputStream` and `Infoset.get*InfosetOutputter`
+`Daffodil.newInputSourceDataInputStream` and `Infoset.new*InfosetOutputter`
 
 <div>
 <ul class="nav nav-tabs">
@@ -135,8 +135,8 @@ Factory methods to get `InputSourceDataInputStream` and `InfosetOutputter` objec
 ```java
 java.io.File file = getResource("/test/api/myData.dat");
 java.io.FileInputStream fis = new java.io.FileInputStream(file);
-try (InputSourceDataInputStream dis = Infoset.getInputSourceDataInputStream(fis)) {
-  org.apache.daffodil.api.infoset.JDOMInfosetOutputter outputter = Infoset.getJDOMInfosetOutputter();
+try (InputSourceDataInputStream dis = Daffodil.newInputSourceDataInputStream(fis)) {
+  org.apache.daffodil.api.infoset.JDOMInfosetOutputter outputter = Daffodil.newJDOMInfosetOutputter();
   org.apache.daffodil.api.ParseResult res = dp.parse(dis, outputter);
 } 
 ```
@@ -146,8 +146,8 @@ try (InputSourceDataInputStream dis = Infoset.getInputSourceDataInputStream(fis)
 ```scala
 val file = getResource("/test/api/myData.dat")
 val fis = new java.io.FileInputStream(file)
-Using.resource(Infoset.getInputSourceDataInputStream(fis)) { input =>
-  val outputter = Infoset.getScalaXMLInfosetOutputter()
+Using.resource(Daffodil.newInputSourceDataInputStream(fis)) { input =>
+  val outputter = Daffodil.newScalaXMLInfosetOutputter()
   val res = dp.parse(input, outputter)
 }
 ```
@@ -156,7 +156,7 @@ Using.resource(Infoset.getInputSourceDataInputStream(fis)) { input =>
 </div>
 
 ## Unparsing Infoset
-Factory methods to get an `InfosetInputter` object has been added via `Infoset.get*InfosetInputter`
+Factory methods to get an `InfosetInputter` object has been added via `Daffodil.new*InfosetInputter`
 
 <div>
 <ul class="nav nav-tabs">
@@ -169,7 +169,7 @@ Factory methods to get an `InfosetInputter` object has been added via `Infoset.g
 ```java
 java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
 java.nio.channels.WritableByteChannel wbc = java.nio.channels.Channels.newChannel(bos);
-org.apache.daffodil.api.infoset.InfosetInputter inputter = Infoset.getJDOMInfosetInputter(outputter.getResult());
+org.apache.daffodil.api.infoset.InfosetInputter inputter = Daffodil.newJDOMInfosetInputter(outputter.getResult());
 org.apache.daffodil.api.UnparseResult res2 = dp.unparse(inputter, wbc);
 ```
 </div>
@@ -178,7 +178,7 @@ org.apache.daffodil.api.UnparseResult res2 = dp.unparse(inputter, wbc);
 ```scala
     val bos = new java.io.ByteArrayOutputStream()
 val wbc = java.nio.channels.Channels.newChannel(bos)
-val inputter = Infoset.getScalaXMLInfosetInputter(outputter.getResult())
+val inputter = Daffodil.newScalaXMLInfosetInputter(outputter.getResult())
 val res2 = dp.unparse(inputter, wbc)
 ```
 </div>
