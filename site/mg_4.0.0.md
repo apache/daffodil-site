@@ -196,7 +196,7 @@ path has changed in Daffodil 4.0.0.
 <li><a data-toggle="tab" href="#scala_layers">Scala</a></li>
 </ul>
 <div class="tab-content">
-<div id="java_unparse" class="tab-pane active" markdown="1">
+<div id="java_layers" class="tab-pane active" markdown="1">
 
 ```java
 // example layer class
@@ -210,7 +210,7 @@ public final class GZipLayer extends Layer {
 org.apache.daffodil.layers.runtime1.GZipLayer
 ```
 </div>
-<div id="scala_unparse" class="tab-pane" markdown="1">
+<div id="scala_layers" class="tab-pane" markdown="1">
 
 ```scala
 // example layer class
@@ -233,11 +233,11 @@ path has changed in Daffodil 4.0.0.
 
 <div>
 <ul class="nav nav-tabs">
-<li class="active"><a data-toggle="tab" href="#java_layers">Java</a></li>
-<li><a data-toggle="tab" href="#scala_layers">Scala</a></li>
+<li class="active"><a data-toggle="tab" href="#java_udfs">Java</a></li>
+<li><a data-toggle="tab" href="#scala_udfs">Scala</a></li>
 </ul>
 <div class="tab-content">
-<div id="java_unparse" class="tab-pane active" markdown="1">
+<div id="java_udfs" class="tab-pane active" markdown="1">
 
 ```java
 // example layer class
@@ -251,7 +251,7 @@ public class StringFunctionsProvider extends UserDefinedFunctionProvider {
 org.jgoodudfs.example.StringFunctions.StringFunctionsProvider
 ```
 </div>
-<div id="scala_unparse" class="tab-pane" markdown="1">
+<div id="scala_udfs" class="tab-pane" markdown="1">
 
 ```scala
 // example layer class
