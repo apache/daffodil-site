@@ -176,7 +176,7 @@ org.apache.daffodil.api.UnparseResult res2 = dp.unparse(inputter, wbc);
 <div id="scala_unparse" class="tab-pane" markdown="1">
 
 ```scala
-    val bos = new java.io.ByteArrayOutputStream()
+val bos = new java.io.ByteArrayOutputStream()
 val wbc = java.nio.channels.Channels.newChannel(bos)
 val inputter = Daffodil.newScalaXMLInfosetInputter(outputter.getResult())
 val res2 = dp.unparse(inputter, wbc)
