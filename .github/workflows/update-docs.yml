@@ -106,13 +106,14 @@ jobs:
         if: ${{ inputs.project == 'daffodil-vscode.wiki' }}
         run: |
           SITE_ROOT=${{ github.workspace }}/site
-          DOCS_DIR=$SITE_ROOT/site/docs/vscode/$VERSION
+          DOCS_DIR=$SITE_ROOT/docs/vscode/$VERSION
           rm -rf $DOCS_DIR
 
+          MD_NAME="Apache-Daffodil™-Extension-for-Visual-Studio-Code:-v$VERSION.md"
           DOC_NAME="Apache-Daffodil-Extension-for-Visual-Studio-Code-$VERSION"
           mkdir -p $DOCS_DIR
-          pandoc -t docx -f markdown -o $DOCS_DIR/$DOC_NAME.docx *.md
-          pandoc -t html -f markdown -o $DOCS_DIR/$DOC_NAME.html *.md
+          pandoc --from=gfm --standalone --embed-resources $MD_NAME -o $DOCS_DIR/$DOC_NAME.docx
+          pandoc --from=gfm --standalone --embed-resources $MD_NAME -o $DOCS_DIR/$DOC_NAME.html
 
       - name: Commit Update
         working-directory: site
