@@ -185,6 +185,32 @@ val res2 = dp.unparse(inputter, wbc)
 </div>
 </div>
 
+## Using Debuggers
+Factory methods to get a `Debugger` object has been added via `Daffodil.newDaffodilDebugger`
+
+<div>
+<ul class="nav nav-tabs">
+<li class="active"><a data-toggle="tab" href="#java_debug">Java</a></li>
+<li><a data-toggle="tab" href="#scala_debug">Scala</a></li>
+</ul>
+<div class="tab-content">
+<div id="java_debug" class="tab-pane active" markdown="1">
+
+```java
+org.apache.daffodil.api.debugger.Debugger debugger = Daffodil.newDaffodilDebugger(new CLIDebuggerRunner(System.in, System.out));
+dp.withDebugger(debugger);
+```
+</div>
+<div id="scala_debug" class="tab-pane" markdown="1">
+
+```scala
+val debugger = Daffodil.newDaffodilDebugger(new CLIDebuggerRunner(System.in, System.out))
+dp.withDebugger(debugger)
+```
+</div>
+</div>
+</div>
+
 ## Using Custom Plugin Layers
 Custom Plug-in layers must extend the `org.apache.daffodil.api.layers.Layer` class, and be 
 referenced in a `META-INF/services` file with the same class reference as the name. This 
@@ -220,7 +246,7 @@ abstract class ByteSwap(name: String, wordsize: Int)
   extends Layer(name, "urn:org.apache.daffodil.layers.byteSwap") {...}
 
 // in META-INF/services/org.apache.daffodil.api.layers.Layer
-org.apache.daffodil.layers.runtime1.GZipLayer
+org.apache.daffodil.layers.runtime1.ByteSwap
 ```
 </div>
 </div>
