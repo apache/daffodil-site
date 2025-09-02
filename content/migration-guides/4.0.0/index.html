@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | 4.0.0 Migration Guide</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+<div class="title">
+  <div class="container">
+    <h2>4.0.0 Migration Guide</h2>
+  </div>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<div class="well">
+  <div class="row">
+    <div class="col-sm-9">
+      This migration guide provides examples in both Java and Scala. Use the buttons on the right to select your preferred language.
+    </div>
+    <div class="col-sm-3 text-right">
+      <div id="lang-toggle" class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="lang" id="lang-java" autocomplete="off" checked="" /> Java
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="lang" id="lang-scala" autocomplete="off" /> Scala
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="3110-to-400">3.11.0 to 4.0.0</h3>
+
+<p>Overview of changes to be aware of in this release are:</p>
+
+<ul>
+  <li>Daffodil now requires Scala 3.3.6 and Java 17+</li>
+  <li>Daffodil has merged daffodil-udf, daffodil-runtime1, daffodil-runtime1-unparser, daffodil-lib,
+daffodil-sapi, daffodil-japi and daffodil-io into daffodil-core.</li>
+  <li>Daffodil has replaced the Validation Modes(<code class="language-plaintext highlighter-rouge">withValidationMode</code>)/<code class="language-plaintext highlighter-rouge">withValidator</code> with the <code class="language-plaintext highlighter-rouge">withValidation(validatorName[, validationConfigurationURL])</code> method. Built-in validator names are xerces, daffodil, schematron and off.</li>
+  <li>com.typesafe.config class has been replaced with java.util.Properties class for Validators configuration</li>
+  <li>getDiagnostics returns a java.util.List instead of a Seq</li>
+  <li>Diagnostic removed getSomeMessage and getSomeCause</li>
+  <li>withExternalVariables expects a Java Map instead of Scala Map.</li>
+  <li>Diagnostic.getMessage() now returns just the message, and toString should be used if the diagnostic context is needed</li>
+  <li>getAnyRef in MetaData has been removed</li>
+</ul>
+
+<h4 id="dependencies">Dependencies</h4>
+
+<p>The following dependencies have been merged into daffodil-core:</p>
+
+<ul>
+  <li>daffodil-udf</li>
+  <li>daffodil-sapi</li>
+  <li>daffodil-japi</li>
+  <li>daffodil-runtime1</li>
+  <li>daffodil-runtime1-unparser</li>
+  <li>daffodil-lib</li>
+  <li>daffodil-io</li>
+</ul>
+
+<p>Dependencies to the listed jars should be changed to the following.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.daffodil<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>daffodil-core_3<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>4.0.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"3.3.6"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-core"</span> <span class="o">%</span> <span class="s">"4.0.0"</span>
+</code></pre></div></div>
+<h4 id="core-imports">Core Imports</h4>
+<p>The path to core api classes were updated from <code class="language-plaintext highlighter-rouge">japi</code>/<code class="language-plaintext highlighter-rouge">sapi</code> to <code class="language-plaintext highlighter-rouge">api</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.ProcessorFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.Daffodil</span><span class="o">;</span> <span class="c1">// factory method for compiler</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.DataProcessor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.Diagnostic</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.ParseResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.UnparseResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.DaffodilParseXMLReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.DaffodilUnparseContentHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.io.InputSourceDataInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.infoset.*</span><span class="o">;</span> <span class="c1">// all InfosetInputters and InfosetOutputters</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.ProcessorFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.Daffodil</span><span class="o">;</span> <span class="c1">// factory method for compiler, InfosetInputter/Outputters and many others</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.DataProcessor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.Diagnostic</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.ParseResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.UnparseResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.DaffodilParseXMLReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.DaffodilUnparseContentHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.InputSourceDataInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.infoset.*</span><span class="o">;</span> <span class="c1">// InfosetInputter, InfosetOutputter, JDOM/Scala/W3CDOM InfosetOutputters</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.ProcessorFactory</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.Daffodil</span> <span class="c1">// factory method for compiler</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.DataProcessor</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.Diagnostic</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.ParseResult</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.UnparseResult</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.DaffodilParseXMLReader</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.DaffodilUnparseContentHandler</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.io.InputSourceDataInputStream</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.infoset._</span> <span class="c1">// all InfosetInputters and InfosetOutputters</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.ProcessorFactory</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.Daffodil</span> <span class="c1">// factory method for compiler, InfosetInputter/Outputters and many others</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.DataProcessor</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.Diagnostic</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.ParseResult</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.UnparseResult</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.DaffodilParseXMLReader</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.DaffodilUnparseContentHandler</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.InputSourceDataInputStream</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.infoset.</span><span class="o">*</span> <span class="c1">// InfosetInputter, InfosetOutputter, JDOM/Scala/W3CDOM InfosetOutputters</span>
+
+</code></pre></div></div>
+
+<h4 id="cli-validation">CLI Validation</h4>
+<p>Values for the <code class="language-plaintext highlighter-rouge">--validate</code> option have been renamed: <code class="language-plaintext highlighter-rouge">on</code> has been replaced with <code class="language-plaintext highlighter-rouge">xerces</code> and <code class="language-plaintext highlighter-rouge">limited</code> has been replaced with <code class="language-plaintext highlighter-rouge">daffodil</code>.
+Both <code class="language-plaintext highlighter-rouge">schematron</code> and <code class="language-plaintext highlighter-rouge">xerces</code> accept option values that provide a file 
+to the validator for validator configuration. If no value is provided, it will attempt to use the schema provided by <code class="language-plaintext highlighter-rouge">--schema</code>.
+The file can either be a .xsd, .sch, .conf or .properties file. Typesafe configs have been replaced with java.util.Properties.
+<code class="language-plaintext highlighter-rouge">--validate {schematron|xerces}=value</code> can be used with <code class="language-plaintext highlighter-rouge">--parser</code>, enabling
+Xerces/Schematron validation with a saved parser.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ----- BEFORE -----</span>
+daffodil parse <span class="nt">--validate</span> on <span class="nt">-s</span> schema.xsd input.dat
+daffodil parse <span class="nt">--validate</span> limited <span class="nt">--parser</span> schema.parser myData.dat
+daffodil parse <span class="nt">--validate</span> on <span class="nt">--parser</span> schema.parser myData.dat <span class="c"># would lead to error</span>
+daffodil parse <span class="nt">--validate</span> <span class="nv">schematron</span><span class="o">=</span>schema.sch <span class="nt">--parser</span> schema.parser myData.dat <span class="c"># would lead to error</span>
+
+<span class="c"># ----- AFTER -----</span>
+daffodil parse <span class="nt">--validate</span> xerces <span class="nt">-s</span> schema.xsd input.dat
+daffodil parse <span class="nt">--validate</span> daffodil <span class="nt">--parser</span> schema.parser myData.dat
+daffiduk parse <span class="nt">--validate</span> <span class="nv">xerces</span><span class="o">=</span>schema.xsd <span class="nt">--parser</span> schema.parser myData.dat <span class="c"># no error and validates</span>
+daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</span><span class="o">=</span>schema.sch <span class="nt">--parser</span> schema.parser myData.dat <span class="c"># no error and validates</span>
+</code></pre></div></div>
+
+<h4 id="compiling-schemas">Compiling Schemas</h4>
+<p>This remains generally unchanged for Java users as passing in strings (or nulls) is still supported. For Scala users, Options are no longer supported in the api and strings (or nulls) must be passed in instead.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// unchanged save for import paths</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">val</span> <span class="nv">pf</span><span class="k">:</span> <span class="kt">ProcessorFactory</span> <span class="o">=</span> <span class="nv">c</span><span class="o">.</span><span class="py">compileFile</span><span class="o">(</span><span class="n">schemaFile</span><span class="o">,</span> <span class="nc">None</span><span class="o">,</span> <span class="nc">None</span><span class="o">)</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">val</span> <span class="nv">pf</span><span class="k">:</span> <span class="kt">ProcessorFactory</span> <span class="o">=</span> <span class="nv">c</span><span class="o">.</span><span class="py">compileFile</span><span class="o">(</span><span class="n">schemaFile</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span>
+<span class="c1">// or</span>
+<span class="k">val</span> <span class="nv">pf</span> <span class="k">=</span> <span class="nv">c</span><span class="o">.</span><span class="py">compileFile</span><span class="o">(</span><span class="n">schemaFile</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h4 id="dataprocessor-validation">DataProcessor Validation</h4>
+<p>Validation Modes (i.e <code class="language-plaintext highlighter-rouge">withValidationMode(ValidationMode.*)</code>) and the <code class="language-plaintext highlighter-rouge">withValidator(validatorObj)</code> were removed in place of <code class="language-plaintext highlighter-rouge">withValidation(validator.name[, validationConfigurationURL])</code>. Some validators have mandatory properties–if not provided an exception will be thrown. See the <a href="/docs/4.0.0/javadoc/org/apache/daffodil/api/validation/package-summary.html">validator documentation</a> for the list of those properties.
+ Custom validators must be found via SPI and are not expected to be directly created.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="nc">DataProcessor</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="na">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">withValidationMode</span><span class="o">(</span><span class="nc">ValidationMode</span><span class="o">.</span><span class="na">Full</span><span class="o">);</span>
+<span class="c1">// or</span>
+<span class="nc">DataProcessor</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="na">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">withValidator</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomValidator</span><span class="o">());</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="nc">DataProcessor</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="na">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">withValidation</span><span class="o">(</span><span class="s">"xerces"</span><span class="o">,</span> <span class="n">schemaUrl</span><span class="o">);</span> 
+<span class="c1">//or</span>
+<span class="nc">DataProcessor</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="na">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">withValidation</span><span class="o">(</span><span class="s">"CUSTOM-VALIDATOR-NAME"</span><span class="o">,</span> <span class="n">schemaUrl</span><span class="o">);</span> 
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">val</span> <span class="nv">dp</span><span class="k">:</span> <span class="kt">DataProcessor</span> <span class="o">=</span> <span class="nv">pf</span><span class="o">.</span><span class="py">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="py">withValidationMode</span><span class="o">(</span><span class="nv">ValidationMode</span><span class="o">.</span><span class="py">Full</span><span class="o">)</span>
+<span class="c1">// or</span>
+<span class="k">val</span> <span class="nv">dp</span><span class="k">:</span> <span class="kt">DataProcessor</span> <span class="o">=</span> <span class="nv">pf</span><span class="o">.</span><span class="py">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="py">withValidator</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomValidator</span><span class="o">())</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">val</span> <span class="nv">dp</span><span class="k">:</span> <span class="kt">DataProcessor</span> <span class="o">=</span> <span class="nv">pf</span><span class="o">.</span><span class="py">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="py">withValidation</span><span class="o">(</span><span class="s">"xerces"</span><span class="o">,</span> <span class="n">schemaUrl</span><span class="o">)</span> 
+<span class="c1">//or</span>
+<span class="k">val</span> <span class="nv">dp</span><span class="k">:</span> <span class="kt">DataProcessor</span> <span class="o">=</span> <span class="nv">pf</span><span class="o">.</span><span class="py">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="py">withValidation</span><span class="o">(</span><span class="s">"CUSTOM-VALIDATOR-NAME"</span><span class="o">,</span> <span class="n">schemaUrl</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h4 id="parse">Parse</h4>
+<p>Factory methods to get <code class="language-plaintext highlighter-rouge">InputSourceDataInputStream</code> and <code class="language-plaintext highlighter-rouge">InfosetOutputter</code> objects have been added via
+<code class="language-plaintext highlighter-rouge">Daffodil.newInputSourceDataInputStream</code> and <code class="language-plaintext highlighter-rouge">Infoset.new*InfosetOutputter</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="nc">InputSourceDataInputStream</span> <span class="n">dis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputSourceDataInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">);</span>
+<span class="nc">JDOMInfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JDOMInfosetOutputter</span><span class="o">();</span>
+<span class="nc">XMLTextInfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XMLTextInfosetOutputter</span><span class="o">();</span>
+<span class="nc">JsonInfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JsonInfosetOutputter</span><span class="o">();</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="nc">InputSourceDataInputStream</span> <span class="n">dis</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newInputSourceDataInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">);</span>
+<span class="nc">JDOMInfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newJDOMInfosetOutputter</span><span class="o">();</span>
+<span class="nc">InfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newXMLTextInfosetOutputter</span><span class="o">();</span>
+<span class="nc">InfosetOutputter</span> <span class="n">outputter</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newJsonInfosetOutputter</span><span class="o">();</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">val</span> <span class="nv">dis</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">InputSourceDataInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ScalaXMLInfosetOutputter</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">XMLTextInfosetOutputter</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">JsonInfosetOutputter</span><span class="o">()</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">val</span> <span class="nv">dis</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newInputSourceDataInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newScalaXMLInfosetOutputter</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newXMLTextInfosetOutputter</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newJsonInfosetOutputter</span><span class="o">()</span>
+</code></pre></div></div>
+
+<h4 id="unparse">Unparse</h4>
+<p>Factory methods to get an <code class="language-plaintext highlighter-rouge">InfosetInputter</code> object has been added via <code class="language-plaintext highlighter-rouge">Daffodil.new*InfosetInputter</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="nc">JDOMInfosetInputter</span> <span class="n">inputter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JDOMInfosetInputter</span><span class="o">(</span><span class="n">outputter</span><span class="o">.</span><span class="na">getResult</span><span class="o">());</span>
+  
+<span class="c1">// ----- AFTER -----</span>
+<span class="nc">InfosetInputter</span> <span class="n">inputter</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newJDOMInfosetInputter</span><span class="o">(</span><span class="n">outputter</span><span class="o">.</span><span class="na">getResult</span><span class="o">());</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">val</span> <span class="nv">inputter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ScalaXMLInfosetInputter</span><span class="o">(</span><span class="nv">outputter</span><span class="o">.</span><span class="py">getResult</span><span class="o">())</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">val</span> <span class="nv">inputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newScalaXMLInfosetInputter</span><span class="o">(</span><span class="nv">outputter</span><span class="o">.</span><span class="py">getResult</span><span class="o">())</span>
+</code></pre></div></div>
+
+<h4 id="debuggers">Debuggers</h4>
+<p>The different ways debuggers are defined and enabled have changed. 
+Factory methods to get a <code class="language-plaintext highlighter-rouge">Debugger</code> object have been added via <code class="language-plaintext highlighter-rouge">Daffodil.newDaffodilDebugger</code>.</p>
+
+<p>Using a custom debugger:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.debugger.Debugger</span><span class="o">;</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomDebugger</span> <span class="kd">extends</span> <span class="nc">Debugger</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// to use</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebugger</span><span class="o">());</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebugging</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.debugger.Debugger</span><span class="o">;</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomDebugger</span> <span class="kd">extends</span> <span class="nc">Debugger</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+<span class="n">dp</span><span class="o">.</span><span class="na">withDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebugger</span><span class="o">())</span>
+</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.debugger.Debugger</span>
+
+<span class="k">class</span> <span class="nc">CustomDebugger</span> <span class="k">extends</span> <span class="nc">Debugger</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="c1">// to use</span>
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebugger</span><span class="o">())</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.debugger.Debugger</span>
+
+<span class="k">class</span> <span class="nc">CustomDebugger</span> <span class="k">extends</span> <span class="nc">Debugger</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="c1">// to use</span>
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebugger</span><span class="o">())</span>
+</code></pre></div></div>
+
+<p>Using a custom debugger runner:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.debugger.DebuggerRunner</span><span class="o">;</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomDebuggerRunner</span> <span class="kd">extends</span> <span class="nc">DebuggerRunner</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// to use</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.Debugger</span><span class="o">;</span>
+
+<span class="nc">Debugger</span> <span class="n">debugger</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomDebuggerRunner</span><span class="o">();</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebuggerRunner</span><span class="o">(</span><span class="n">debugger</span><span class="o">);</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebugging</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.debugger.DaffodilDebuggerRunner</span><span class="o">;</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomDebuggerRunner</span> <span class="kd">extends</span> <span class="nc">DaffodilDebuggerRunner</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// to use</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.debugger.Debugger</span><span class="o">;</span>
+
+<span class="nc">Debugger</span> <span class="n">debugger</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newDaffodilDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebuggerRunner</span><span class="o">());</span>
+<span class="n">dp</span><span class="o">.</span><span class="na">withDebugger</span><span class="o">(</span><span class="n">debugger</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">import</span>  <span class="nn">org.apache.daffodil.sapi.debugger.DebuggerRunner</span>
+
+<span class="k">final</span> <span class="k">class</span> <span class="nc">CustomDebuggerRunner</span> <span class="k">extends</span> <span class="nc">DebuggerRunner</span> <span class="o">{...}</span>
+
+<span class="c1">// to use</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.debugger.Debugger</span>
+
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebuggerRunner</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebuggerRunner</span><span class="o">())</span>
+  <span class="o">.</span><span class="py">withDebugging</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.debugger.DaffodilDebuggerRunner</span>
+
+<span class="k">final</span> <span class="k">class</span> <span class="nc">CustomDebuggerRunner</span> <span class="k">extends</span> <span class="nc">DaffodilDebuggerRunner</span> <span class="o">{...}</span>
+
+<span class="c1">// to use</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.debugger.Debugger</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.Daffodil</span>
+
+<span class="k">val</span> <span class="nv">debugger</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newDaffodilDebugger</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomDebuggerRunner</span><span class="o">())</span>
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebugger</span><span class="o">(</span><span class="n">debugger</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Using the built-in trace debugger:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.japi.debugger.TraceDebuggerRunner</span><span class="o">;</span>
+
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebuggerRunner</span><span class="o">(</span><span class="k">new</span> <span class="nc">TraceDebuggerRunner</span><span class="o">());</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">withDebugging</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.debugger.Debugger</span><span class="o">;</span>
+
+<span class="nc">Debugger</span> <span class="n">traceDebugger</span> <span class="o">=</span> <span class="nc">Daffodil</span><span class="o">.</span><span class="na">newTraceDebugger</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">);</span>
+<span class="n">dp</span><span class="o">.</span><span class="na">withDebugger</span><span class="o">(</span><span class="n">traceDebugger</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="k">import</span> <span class="nn">org.apache.daffodil.sapi.debugger.TraceDebuggerRunner</span>
+
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebuggerRunner</span><span class="o">(</span><span class="k">new</span> <span class="nc">TraceDebuggerRunner</span><span class="o">())</span>
+  <span class="o">.</span><span class="py">withDebugging</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="k">val</span> <span class="nv">traceDebugger</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newTraceDebugger</span><span class="o">(</span><span class="nv">System</span><span class="o">.</span><span class="py">out</span><span class="o">)</span>
+<span class="nv">dp</span><span class="o">.</span><span class="py">withDebugger</span><span class="o">(</span><span class="n">traceDebugger</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h4 id="layers">Layers</h4>
+<p>Custom Plug-in layers must extend the <code class="language-plaintext highlighter-rouge">org.apache.daffodil.api.layers.Layer</code> class, and be 
+referenced in a <code class="language-plaintext highlighter-rouge">META-INF/services</code> file with the same class reference as the name. This 
+path has changed in Daffodil 4.0.0.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="c1">// example layer class</span>
+<span class="kn">package</span> <span class="nn">com.example.layers</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.runtime1.layers.api.Layer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomLayer</span> <span class="kd">extends</span> <span class="nc">Layer</span> <span class="o">{</span>
+<span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.runtime1.layers.api.Layer</span>
+<span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">layers</span><span class="o">.</span><span class="na">CustomLayer</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="c1">// example layer class</span>
+<span class="kn">package</span> <span class="nn">com.example.layers</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.layers.Layer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">CustomLayer</span> <span class="kd">extends</span> <span class="nc">Layer</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.api.layers.Layer</span>
+<span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">layers</span><span class="o">.</span><span class="na">CustomLayer</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="c1">// example layer class</span>
+<span class="k">package</span> <span class="nn">com.example.layers</span>
+
+<span class="k">import</span> <span class="nn">org.apache.daffodil.runtime1.layers.api.Layer</span>
+
+<span class="k">final</span> <span class="k">class</span> <span class="nc">CustomLayer</span> <span class="k">extends</span> <span class="nc">Layer</span><span class="o">(</span><span class="s">"customLayer"</span><span class="o">,</span> <span class="s">"com.example.layers.customLayer"</span><span class="o">)</span> <span class="o">{...}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.runtime1.layers.api.Layer</span>
+<span class="nv">com</span><span class="o">.</span><span class="py">example</span><span class="o">.</span><span class="py">layers</span><span class="o">.</span><span class="py">CustomLayer</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="c1">// example layer class</span>
+<span class="k">package</span> <span class="nn">com.example.layers</span>
+
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.layers.Layer</span>
+
+<span class="k">final</span> <span class="k">class</span> <span class="nc">CustomLayer</span> <span class="k">extends</span> <span class="nc">Layer</span><span class="o">(</span><span class="s">"customLayer"</span><span class="o">,</span> <span class="s">"com.example.layers.customLayer"</span><span class="o">)</span> <span class="o">{...}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.api.layers.Layer</span>
+<span class="nv">com</span><span class="o">.</span><span class="py">example</span><span class="o">.</span><span class="py">layers</span><span class="o">.</span><span class="py">CustomLayer</span>
+</code></pre></div></div>
+
+<h4 id="user-defined-functions">User Defined Functions</h4>
+<p>UDF Providers must extend the <code class="language-plaintext highlighter-rouge">org.apache.daffodil.api.udf.UserDefinedFunctionProvider</code> class, and be
+referenced in a <code class="language-plaintext highlighter-rouge">META-INF/services</code> file with the same class reference as the name. This
+path has changed in Daffodil 4.0.0.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="c1">// example UDF Provider class</span>
+<span class="kn">package</span> <span class="nn">com.example.udf</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.udf.UserDefinedFunctionProvider</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomUDFProvider</span> <span class="kd">extends</span> <span class="nc">UserDefinedFunctionProvider</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.udf.UserDefinedFunctionProvider</span>
+<span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">udf</span><span class="o">.</span><span class="na">CustomUDFProvider</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="c1">// example UDF Provider class</span>
+<span class="kn">package</span> <span class="nn">com.example.udf</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.daffodil.api.udf.UserDefinedFunctionProvider</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomUDFProvider</span> <span class="kd">extends</span> <span class="nc">UserDefinedFunctionProvider</span> <span class="o">{</span>
+  <span class="c1">// implementation details</span>
+<span class="o">}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.api.udf.UserDefinedFunctionProvider</span>
+<span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">udf</span><span class="o">.</span><span class="na">CustomUDFProvider</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
+<span class="c1">// example UDF Provider class</span>
+<span class="k">package</span> <span class="nn">com.example.udf</span>
+
+<span class="k">import</span> <span class="nn">org.apache.daffodil.udf.UserDefinedFunctionProvider</span>
+
+<span class="k">class</span> <span class="nc">CustomUDFProvider</span> <span class="k">extends</span> <span class="nc">UserDefinedFunctionProvider</span> <span class="o">{...}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.udf.UserDefinedFunctionProvider</span>
+<span class="nv">com</span><span class="o">.</span><span class="py">example</span><span class="o">.</span><span class="py">udf</span><span class="o">.</span><span class="py">CustomUDFProvider</span>
+
+<span class="c1">// ----- AFTER -----</span>
+<span class="c1">// example UDF Provider class</span>
+<span class="k">package</span> <span class="nn">com.example.udf</span>
+
+<span class="k">import</span> <span class="nn">org.apache.daffodil.api.udf.UserDefinedFunctionProvider</span>
+
+<span class="k">class</span> <span class="nc">CustomUDFProvider</span> <span class="k">extends</span> <span class="nc">UserDefinedFunctionProvider</span> <span class="o">{...}</span>
+
+<span class="c1">// in META-INF/services/org.apache.daffodil.api.udf.UserDefinedFunctionProvider</span>
+<span class="nv">com</span><span class="o">.</span><span class="py">example</span><span class="o">.</span><span class="py">udf</span><span class="o">.</span><span class="py">CustomUDFProvider</span>
+</code></pre></div></div>
+
+<script>
+  function updateExamples() {
+    const activeBtn = document.querySelector('#lang-toggle .btn.active input');
+    const showJava = activeBtn && activeBtn.id === 'lang-java';
+    document.querySelectorAll('.language-xml').forEach(el => el.classList.toggle('hidden', !showJava));
+    document.querySelectorAll('.language-java').forEach(el => el.classList.toggle('hidden', !showJava));
+    document.querySelectorAll('.language-scala').forEach(el => el.classList.toggle('hidden', showJava));
+  }
+  document.querySelectorAll('#lang-toggle .btn').forEach(btn => {
+    btn.addEventListener('click', () => setTimeout(updateExamples, 0));
+  });
+  updateExamples();
+</script>
+
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
