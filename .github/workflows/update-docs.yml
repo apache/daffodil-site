@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         java_distribution: [ temurin ]
-        java_version: [ 8 ]
+        java_version: [ 17 ]
 
     runs-on: ubuntu-22.04
     env:
