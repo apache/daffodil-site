@@ -3,6 +3,8 @@ layout: default
 permalink: /release/release-notes-:title
 ---
 
+{% assign major_version = page.title | split: '.' | first | plus: 0 %}
+
 {% if page.release != "final" %}
   <div class="alert alert-warning">
     Apache Daffodil {{ page.title }} has not yet been released! The artifacts
@@ -22,7 +24,6 @@ permalink: /release/release-notes-:title
 <div class="row">
   <div class="col-md-3 text-right" style="float: right; z-index: 3;">
     <h3>Documentation</h3>
-    {% assign major_version = page.title | split: '.' | first | plus: 0 %}
     <a href="/docs/{{ page.title }}/javadoc/">Javadoc</a>{% if major_version < 4 %} | <a href="/docs/{{ page.title }}/scaladoc/">Scaladoc</a>{% endif %}
   </div>
 
@@ -83,7 +84,7 @@ permalink: /release/release-notes-:title
 {% highlight xml %}
 <dependency>
   <groupId>{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}</groupId>
-  <artifactId>daffodil-japi_{{ page.scala-version }}</artifactId>
+  <artifactId>daffodil-{% if major_version < 4 %}japi{% else %}core{% endif %}_{{ page.scala-version }}</artifactId>
   <version>{{ page.title }}</version>
 </dependency>
 {% unless page.apache %}
@@ -97,7 +98,7 @@ permalink: /release/release-notes-:title
       </div>
       <div id="sbt" class="tab-pane fade">
 {% highlight scala %}
-libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}" %% "daffodil-sapi" % "{{ page.title }}"
+libraryDependencies += "{% if page.apache %}org.apache.daffodil{% else %}edu.illinois.ncsa{% endif %}" %% "daffodil-{% if major_version < 4 %}sapi{% else %}core{% endif %}" % "{{ page.title }}"
 {% unless page.apache %}
 resolvers += "NCSA Sonatype Releases" at "https://opensource.ncsa.illinois.edu/nexus/content/repositories/releases"
 {% endunless %}
