@@ -36,7 +36,7 @@ that there has been no intention to support as of this release.
 * byte-value entities (aka raw-byte entities){% jira 258 %}
 * nested prefix lengths {% jira 2030 %}
 * XPath query-style expressions {% jira 1118 %}
-* "type" component of DFDL infoset {% jira 182 %}, {% jira 1852 %}
+* "type" component of DFDL infoset {% jira 182 %}
 * "unionMemberSchema" component of DFDL infoset {% jira 1633 %}
 * "valid" component of DFDL infoset {% jira 813 %}
 * extended ICU symbol 'I' in calendarPattern {% jira 1462 %}
@@ -47,7 +47,6 @@ that there has been no intention to support as of this release.
   but may return in a future version of the DFDL spec.)
 * dfdl:contentLength() and dfdl:valueLength() with 'characters' units and variable-width encodings {% jira 1516 %}
 * dfdl:outputValueCalc calling dfdl:valueLength() for string with dfdl:truncateSpecifiedLengthString 'yes' {% jira 1598 %}
-* Statement order of evaluation not per DFDL spec. {% jira 1971 %}
 
 #### XML Schema Features
 
