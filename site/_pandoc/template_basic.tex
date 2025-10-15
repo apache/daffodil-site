@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\setmainfont{DejaVu Sans}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{FaintPinkWatermark}{rgb}{1,0.95,0.95}
+\usepackage{parskip}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+\usepackage{array} % for Version History Tables custom column definitions
+\usepackage{etoolbox}
+\usepackage{mdframed}
+\AtBeginDocument{\color{black}}
+\usepackage{geometry}         % Page margins
+\geometry{top=1in, bottom=1.5in, left=1in, right=1in}
+
+% for CUI Block
+\usepackage[absolute,overlay]{textpos}
+\usepackage{tcolorbox}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+
+% quote blocks need grey background and italics. That got lost somehow.
+\BeforeBeginEnvironment{quote}{\vspace{1em}\begin{mdframed}[backgroundcolor=gray!10, roundcorner=4pt, innertopmargin=6pt, innerbottommargin=6pt]\itshape}
+\AfterEndEnvironment{quote}{\end{mdframed}}
+
+% Watermark setup if variable is defined
+$if(watermark)$
+  \usepackage{draftwatermark}
+  \SetWatermarkText{$watermark$}
+  \SetWatermarkScale{1.8}
+  \SetWatermarkColor{FaintPinkWatermark}
+$endif$
+
+\newcommand{\leftheadermacro}{%
+    {\includegraphics[width=0.2\textwidth]{$daffodil_logo$}}
+}
+
+\newcommand{\rightheadermacro}{%
+  \textsf{\small $title$}
+}
+
+\newcommand{\leftfootermacro}{%
+  \footnotesize
+  Copyright \textcopyright{} {$copyright_year$} \href{$org_url$}{$org_name$}. \\
+  Licensed under the \href{$license_url$}{$license_name$}. \\
+  $trademark_text$
+}
+
+\newcommand{\rightfootermacro}{%
+    {\includegraphics[height=2.0\baselineskip]{$asf_logo$}}
+  \vspace{1em}
+  Page \thepage
+}
+
+\pagestyle{fancy}{ % used for 2nd and subsequent pages
+\fancyhf{}
+\fancyhead[L]{\leftheadermacro}
+\fancyhead[R]{\rightheadermacro}
+\fancyfoot[L]{\leftfootermacro}
+\fancyfoot[R]{\rightfootermacro}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+}
+
+\fancypagestyle{plain}{ % used for the title page.
+  \fancyhf{}
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyhead[L]{\leftheadermacro}
+  \fancyhead[R]{\rightheadermacro}
+  \fancyfoot[L]{\leftfootermacro}
+  \fancyfoot[R]{\rightfootermacro}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% Define \tightlist for Pandoc-generated lists
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
+% Listings setup
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color[gray]{0.95},
+  frame=single,
+  framerule=0pt,
+  xleftmargin=1em,
+  xrightmargin=1em,
+  breaklines=true,
+  showstringspaces=false
+}
+
+% list spacing needs to be slightly more relaxed
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=3pt, topsep=4pt}
+
+\usepackage{tocloft}                      % Table of contents dot leaders
+\renewcommand{\cftdotsep}{1.5}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% missing the passthrough command needed for backticked words.
+\providecommand{\passthrough}[1]{\texttt{#1}}
+
+\begin{document}
+\begingroup
+\normalcolor
+
+% Manually typeset title block
+% Centered document title
+\begin{center}
+  {\LARGE \textbf{$title$}}
+\end{center}
+\vspace{2em}
+
+\hrule
+\tableofcontents
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+\endgroup
+
+$body$
+
+
+\end{document}

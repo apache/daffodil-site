@@ -1,7 +1,8 @@
 ---
 layout: page
-title: DFDL Extensions
+title: Daffodil Extensions of DFDL 
 group: nav-right
+pdf: true
 ---
 <!--
 {% comment %}
@@ -29,15 +30,15 @@ like so:
 
 
 ``` xml
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-           xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
 >
 ```
 
 The following symbols defined in this namespace are described below.
 
-### Expression Functions
+# Expression Functions
 
 ``daf:error()``
 
@@ -67,7 +68,7 @@ and data location.
 - DFDL property changes between the current location and the location containing
 the data being read will not be used.
   
-#### Examples of `dfdlx:lookAhead`
+## Examples of `dfdlx:lookAhead`
    The following two elements both populate element `a` with the value of the next 3 bits as an 
    unsignedInt. They are not completely equivalent because the first will consume 3 bits of the 
    input stream where the second will not advance the input stream.
@@ -87,10 +88,9 @@ found after fields `a` and `b`:
 <xs:element name="tag" type="xs:int" dfdl:length="8" />
 ```
 
-Bitwise Functions
+``dfdlx:BitAnd``, ``BitNot``, ``BitOr``, ``BitXor``, ``LeftShift``, ``RightShift`` Bitwise Functions
 
-   : TBD, but the complete list (all ``dfdlx``) is `BitAnd`, `BitNot`, `BitOr`, `BitXor`, `LeftShift`, 
-   `RightShift`
+   : TBD - also are these names actually starting with a capital letter?
 
 ``dfdlx:doubleFromRawLong`` and ``dfdlx:doubleToRawLong``
 
@@ -101,7 +101,7 @@ The base 10 representation, converted back to binary representation, may not be 
    and operate on the floating point value by converting these `xs:long` values into type 
    `xs:double`, and back if necessary for unparsing a new value. 
 
-### Properties
+# Properties
 
 ``dfdlx:parseUnparsePolicy``
 
@@ -125,7 +125,7 @@ The base 10 representation, converted back to binary representation, may not be 
 
    : TBD
 
-### Extended Behaviors
+# Extended Behaviors
 
 Type ``xs:hexBinary``
 
