@@ -51,20 +51,20 @@ $endif$
   \textsf{\small $title$}
 }
 
-\newcommand{\leftfootermacro}{%
+\newcommand{\leftfootermacro}{\vspace{-1.0cm}
   \footnotesize
-  Copyright \textcopyright{} {$copyright_year$} \href{$org_url$}{$org_name$}. \\
+  \parbox{0.7\textwidth}{%
+    Copyright \textcopyright{} {$copyright_year$} \href{$org_url$}{$org_name$}. \\
   Licensed under the \href{$license_url$}{$license_name$}. \\
   $trademark_text$
+  }
 }
 
 \newcommand{\rightfootermacro}{%
-    {\includegraphics[height=2.0\baselineskip]{$asf_logo$}}
-  \vspace{1em}
+    {\includegraphics[height=2.0\baselineskip]{$asf_logo$}} \\
   Page \thepage
 }
 
-\pagestyle{fancy}{ % used for 2nd and subsequent pages
 \fancyhf{}
 \fancyhead[L]{\leftheadermacro}
 \fancyhead[R]{\rightheadermacro}
@@ -72,19 +72,9 @@ $endif$
 \fancyfoot[R]{\rightfootermacro}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-}
 
-\fancypagestyle{plain}{ % used for the title page.
-  \fancyhf{}
-  \fancyhead{}
-  \fancyfoot{}
-  \fancyhead[L]{\leftheadermacro}
-  \fancyhead[R]{\rightheadermacro}
-  \fancyfoot[L]{\leftfootermacro}
-  \fancyfoot[R]{\rightfootermacro}
-  \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0.4pt}
-}
+
+\fancypagestyle{plain}{\pagestyle{fancy}} % used for the title page.
 
 % Define \tightlist for Pandoc-generated lists
 \providecommand{\tightlist}{%
@@ -115,7 +105,8 @@ $endif$
 \providecommand{\passthrough}[1]{\texttt{#1}}
 
 \begin{document}
-\begingroup
+\pagestyle{fancy}
+% \begingroup
 \normalcolor
 
 % Manually typeset title block
@@ -124,13 +115,14 @@ $endif$
   {\LARGE \textbf{$title$}}
 \end{center}
 \vspace{2em}
-
+\enlargethispage{-0.5cm} % adjust first page size so footer doesn't crash into text.
 \hrule
 \tableofcontents
+\thispagestyle{fancy}
 \vspace{0.5cm}
 \hrule
 \vspace{0.5cm}
-\endgroup
+% \endgroup
 
 $body$
 
