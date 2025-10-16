@@ -22,6 +22,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 {% endcomment %}
 -->
+_This page is available as a [downloadable PDF](../pdf/dfdl-extensions.pdf)._ 
 
 Daffodil provides extensions to the DFDL specification. 
 These properties are in the namespace defined by the URI 
