@@ -150,6 +150,25 @@ but may return in a future version of the DFDL spec.)</li>
   <li>dfdl:useNilForDefault [<a href="https://issues.apache.org/jira/browse/DAFFODIL-1412">DAFFODIL-1412</a>]</li>
 </ul>
 
+<h4 id="xpath-features">XPath Features</h4>
+
+<ul>
+  <li>Arbitrary precision for numeric operations (+, -, *, div, idiv, mod) is only
+used in specific cases. This can potentially lead to loss of precision or
+overflow/underflow. The rules for promoting operands are as follows:
+    <ul>
+      <li>If both operands are xs:long, xs:unsignedInt, or a subtype, both operands
+are promoted to xs:long</li>
+      <li>If one operand is xs:float or xs:double and the other is xs:float,
+xs:double, xs:long, xs:unsignedLong, or a subtype, the operands are
+promoted to xs:double</li>
+      <li>If one operand is xs:integer or xs:nonNegativeInteger, and the other is
+xs:integer or a subtype, both operands are promoted to xs:integer.</li>
+      <li>Otherwise, both operands are promoted to xs:decimal</li>
+    </ul>
+  </li>
+</ul>
+
 <p>The above listings are derived from
 this <a href="https://s.apache.org/daffodil-unimplemented-dfdl-language-features">DFDL Language New Features JIRA Report
 </a>.</p>
