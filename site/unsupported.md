@@ -51,7 +51,7 @@ that there has been no intention to support as of this release.
 #### XML Schema Features
 
 * fixed {% jira 117 %}
-* default {% jira 115 %} {% jira 1277 %}
+* default {% jira 115 %}
 
 #### Properties and Property Enumerations
 
