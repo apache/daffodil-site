@@ -71,6 +71,20 @@ that there has been no intention to support as of this release.
 * dfdl:encoding using CCSIDs {% jira 2000 %}
 * dfdl:useNilForDefault {% jira 1412 %}
 
+#### XPath Features
+
+* Arbitrary precision for numeric operations (+, -, *, div, idiv, mod) is only
+  used in specific cases. This can potentially lead to loss of precision or
+  overflow/underflow. The rules for promoting operands are as follows:
+  * If both operands are xs:long, xs:unsignedInt, or a subtype, both operands
+    are promoted to xs:long
+  * If one operand is xs:float or xs:double and the other is xs:float,
+    xs:double, xs:long, xs:unsignedLong, or a subtype, the operands are
+    promoted to xs:double
+  * If one operand is xs:integer or xs:nonNegativeInteger, and the other is
+    xs:integer or a subtype, both operands are promoted to xs:integer.
+  * Otherwise, both operands are promoted to xs:decimal
+
 The above listings are derived from
 this [DFDL Language New Features JIRA Report
 ](https://s.apache.org/daffodil-unimplemented-dfdl-language-features).
