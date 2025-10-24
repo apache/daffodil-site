@@ -38,7 +38,11 @@ $(PDF_OUTDIR)/%.pdf: $(SITE_ROOT)/%.md | make-dirs
 	@mkdir -p $(dir $@)
 	@echo "📄 Building $@"
 	@awk -f $(AWK_UNWRAP) $< | \
-	$(PANDOC) --defaults=$(DEFAULTS) --metadata-file=$(SITE_ROOT)/_data/footer.yml \
+	$(PANDOC) --defaults=$(DEFAULTS) \
+	  -L only.lua \
+	  -f markdown+markdown_in_html_blocks \
+	  --metadata-file=$(SITE_ROOT)/_data/footer.yml \
+	  -V numberoffset=0 \
 	  --from markdown --to pdf -o $@
 
 # --- Create directories as needed ---

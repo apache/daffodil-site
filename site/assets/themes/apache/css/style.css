@@ -506,3 +506,6 @@ dt code {
 	color: inherit;
 	background-color: inherit;
 }
+
+/* allows pages to contain pandoc-only sections for use when creating PDFs */
+.only-pandoc { display: none; }
