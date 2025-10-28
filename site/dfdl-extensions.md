@@ -213,27 +213,127 @@ whether the variable is to be available for only parsing, only unparsing, or bot
 Since this is a newly introduced extension property and existing schemas won't contain a definition 
 for it, it has a default value of `both`. 
 
+This property can conflict with the `dfdlx:parseUnparsePolicy` property which takes the same 
+values (`both`, `parseOnly`, and `unparseOnly`).
+If `dfdlx:parseUnparsePolicy='parseOnly' then it is a Schema Definition Error if 
+variables in the DFDL schema have `dfdlx:direction='unparseOnly'. 
+Similarly if `dfdlx:parseUnparsePolicy='unparseOnly' then it is a Schema Definition Error if
+variables in the DFDL schema have `dfdlx:direction='parseOnly'. 
+
 It is a Schema Definition Error if a variable defined with direction `parseOnly` is accessed 
-from an expression used by the unparser. This error is detected at DFDL schema compilation 
-time, not runtime. Unparser expressions 
-include:
+from an expression used by the unparser. 
+Symmetrically, it is a Schema Definition Error if a variable defined with direction
+`unparseOnly` is accessed from an expression used by the parser.
+This error is detected at DFDL schema compilation time, not runtime. 
 
-- `dfdl:outputValueCalc`
-- `dfdl:length` (when `dfdl:lengthKind='explicit')
-- `dfdl:setVariable` expression or a `dfdl:newVariableInstance` default value expression when that variable being set/defaulted
-  is itself referenced from a another expression being accessed at unparser creation time.
+These properties take expressions for their values and are generally evaluated at both parse and 
+unparse time. 
+Hence, unless the whole schema is constrained by `dfdlx:parseUnparsePolicy`, any expressions for 
+these properties[^moreProps] cannot  
+cannot reference DFDL variables with `dfdlx:direction` of `parseOnly` or `unparseOnly`. 
 
-Symmetrically, it is a Schema Definition Error if a variable defined with direction 
-`unparseOnly` is accessed from an expression used by the parser. Parser expressions include 
+- `byteOrder`
+- `encoding`
+- `initiator`
+- `terminator`
+- `separator`
+- `escapeCharacter`
+- `escapeEscapeCharacter`
+- `length`
+- `occursCount`
+- `textStandardDecimalSeparator`
+- `textStandardGroupingSeparator`
+- `textStandardExponentRep`
+- `binaryFloatRep`
+- `textBooleanTrueRep`
+- `textbooleanFalseRep`
+- `calendarLanguage`
+- `dfdl:setVariable`, a `dfdl:newVariableInstance` default value expression, or a
+  `dfdl:defineVariable` default value expression when
+  that variable being set/defaulted is itself referenced from a another expression and the variable 
+  being set/defaulted has `dfdlx:direction` of `both` (the default)
+
+[^moreProps] New properties added as part of errata corrections to the DFDL v1.0 standard which 
+take expressions for their values will need to be added to this list or those for 
+parser-specific or unparser-specific properties. 
+  
+Parser-specific expressions include
 
 - `dfdl:inputValueCalc`
 - `dfdl:length` (when dfdl:lengthKind='explicit')
-- `dfdl:occursCount` (when `dfdl:occursCountKind='expression'), 
+- `dfdl:occursCount` (when `dfdl:occursCountKind='expression')
+- `dfdl:choiceDispatchKey`
 - the `message` and `test` attributes of the `dfdl:assert` and `dfdl:discriminator` statement annotations
+- `dfdl:setVariable`, a `dfdl:newVariableInstance` default value expression, or a
+  `dfdl:defineVariable` default value expression when
+  that variable being set/defaulted is itself referenced from a another expression being
+  accessed at parser creation time, and the variable being set/defaulted has `dfdlx:direction`
+  of `parseOnly`
+
+Unparser-specific expressions include:
+
+- `dfdl:outputValueCalc`
+- `dfdl:length` (when `dfdl:lengthKind='explicit')
+- `dfdl:outputNewLine`
+- `dfdl:setVariable`, a `dfdl:newVariableInstance` default value expression, or a 
+  `dfdl:defineVariable` default value expression when 
+  that variable being set/defaulted is itself referenced from a another expression being 
+  accessed at unparser creation time, and the variable being set/defaulted has `dfdlx:direction` 
+  of `unparseOnly` 
+
 
 ## `dfdlx:repType`, `dfdlx:repValues`, and `dfdlx:repValueRanges`
 
-TBD
+These properties work together to allow DFDL schemas to define _enumerations_;
+that is, symbolic representations for integer constants. 
+When parsing, Daffodil will convert these integers into the corresponding string values. 
+When unparsing, Daffodil will convert strings into the corresponding integers. 
+
+An element of type `xs:string` can be defined using XSD `enumeration` facets which constrain the 
+valid values of this string. 
+The properties are then used to define the correspondence of the strings to the corresponding 
+numeric values.
+
+### `dfdlx:repType`
+
+The value of this property is an XSD QName of a simple type definition that must be derived
+from `xs:unsignedInt`. 
+A simple type definition for a string can be annotated with `dfdlx:repType` 
+in order to declare that the representation of the string is not as text characters but is a 
+numeric integer value. 
+The type referenced from `dfdlx:repType` is usually a fixed length binary integer, but can be any
+DFDL type derived from `xs:unsignedInt`, with any DFDL representation properties. 
+
+
+
+### Examples of Numeric Enumerations in Daffodil DFDL
+
+A simple example taken from the public github DFDL schema for 
+[MIL-STD-2045-47001 C/D1](https://github.com/DFDLSchemas/mil-std-2045) is:
+
+```xml schema
+  <simpleType name="messagePrecedenceCodesEnum_C" dfdlx:repType="ms2045:enum3">
+    <restriction base="ms2045:enumString">
+      <enumeration value="OK_Emergency" dfdlx:repValues="2"/>
+      <enumeration value="OK_Flash" dfdlx:repValues="4"/>
+      <enumeration value="OK_Immediate" dfdlx:repValues="5"/>
+      <enumeration value="OK_Priority" dfdlx:repValues="6"/>
+      <enumeration value="OK_Routine" dfdlx:repValues="7"/>
+
+      <!-- This pattern facet insures that only the above "OK" values are considered valid. -->
+      <pattern value="OK_[0-9A-Za-z_-]{0,20}"/>
+ 
+      <!-- The remaining enumeration values are considered _well formed_ (DFDL parsing will 
+      succeed), but are not XML Schema facet valid --> 
+      <enumeration value="Reserved_0" dfdlx:repValues="0"/>
+      <enumeration value="Reserved_1" dfdlx:repValues="1"/>
+      <enumeration value="Reserved_3" dfdlx:repValues="3"/>
+    </restriction>
+  </simpleType>
+  ```
+
+
+
 
 # Extended Behaviors
 
