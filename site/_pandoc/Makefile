@@ -3,11 +3,11 @@
 # Scans Markdown files with "pdf: true" in YAML front matter
 # and produces PDFs in the site's ./pdf/ directory
 # ==========================================================
+SHELL := /bin/bash
 
 # --- Configuration ---
 SITE_ROOT := ..
-AWK_UNWRAP := $(SITE_ROOT)/_pandoc/unwrap-pandoc.awk
-AWK_LIST   := $(SITE_ROOT)/_pandoc/list-pdf-sources.awk
+
 PANDOC := pandoc
 
 # Output directory for generated PDFs (at site root)
@@ -15,15 +15,9 @@ PDF_OUTDIR := $(SITE_ROOT)/pdf
 
 DEFAULTS := $(SITE_ROOT)/_pandoc/basic.yaml
 
-# --- Candidate Markdown files (exclude build/tool/output dirs) ---
-# Use find + awk pipeline — awk -f avoids executable bit.
-MD_CANDIDATES := $(shell find $(SITE_ROOT) \
-  -type f -name '*.md' \
-  -not -path '*/_*/*' \
-  -not -path '*/node_modules/*' \
-  -not -path '*/vendor/*' \
-  -not -path '*/pdf/*' \
-  -print0 | xargs -0 -r awk -f $(AWK_LIST))
+# This is coarse, but we take any markdown file containing a line of "pdf: true" regardless of location in the file.
+# but we exclude directories that begin with "_".
+MD_CANDIDATES=$(shell grep -Rlx 'pdf: true' $(SITE_ROOT) --exclude-dir '_*')
 
 # --- Files to build ---
 PDF_SRCS := $(MD_CANDIDATES)
@@ -31,13 +25,12 @@ PDFS     := $(patsubst $(SITE_ROOT)/%.md,$(PDF_OUTDIR)/%.pdf,$(PDF_SRCS))
 
 # --- Default target ---
 all: $(PDFS)
-	@echo "✅ Generated $(words $(PDFS)) PDF(s) in $(PDF_OUTDIR)"
+	@echo "Generated $(words $(PDFS)) PDF(s) in $(PDF_OUTDIR)"
 
 # --- Rule to ensure output dirs exist and build each PDF ---
 $(PDF_OUTDIR)/%.pdf: $(SITE_ROOT)/%.md | make-dirs
 	@mkdir -p $(dir $@)
 	@echo "📄 Building $@"
-	@awk -f $(AWK_UNWRAP) $< | \
 	$(PANDOC) --defaults=$(DEFAULTS) \
 	  -L only.lua \
 	  -f markdown+markdown_in_html_blocks \
@@ -53,11 +46,11 @@ make-dirs:
 # --- Cleanup ---
 .PHONY: clean
 clean:
-	@echo "🧹 Removing generated PDFs"
+	@echo "Removing generated PDFs"
 	@rm -rf $(PDF_OUTDIR)
 
 # --- Debugging helpers ---
 .PHONY: list
 list:
-	@echo "Markdown files with pdf:true (front matter only):"
+	@echo "Markdown files with pdf:true:"
 	@for f in $(PDF_SRCS); do echo " - $$f"; done

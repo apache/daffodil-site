@@ -24,19 +24,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 {% endcomment %}
 -->
-<div class="only-jekyll" markdown="1">
-_This page is available as a [downloadable PDF](../pdf/layers.pdf){:target="_blank"}._
 
-### Table of Contents
-{:.no_toc}
 
-1. use ordered table of contents
-{:toc}
-</div>
-
-<div class="only-pandoc" markdown="1">
 # Introduction
-</div>
 
 This page describes a DFDL language extension known as _Layers_.
 

@@ -27,8 +27,8 @@ The :target="_blank" syntax below makes this open in a new tab
 and work in the PDF and jekyll web page.
 But displays as literal text in the IDE markdown previewer. 
 --> 
+
 <div class="only-jekyll" markdown="1">
-_This page is available as a [downloadable PDF](../pdf/dfdl-extensions.pdf){:target="_blank"}._
 
 ### Table of Contents
 {:.no_toc}
@@ -37,9 +37,7 @@ _This page is available as a [downloadable PDF](../pdf/dfdl-extensions.pdf){:tar
 {:toc}
 </div>
 
-<div class="only-pandoc" markdown="1">
 # Introduction
-</div>
 
 Daffodil provides extensions to the DFDL specification. 
 These functions and properties are in the namespace defined by the URI 
@@ -177,7 +175,7 @@ If _logical_ (zero-filling) shift right is needed, you must use unsigned types.
 - It is a processing error if the `shiftCount` argument is greater than the number of
   bits in the type of the value argument.
 
-## `dfdlx:doubleFromRawLong(longArg): double` and `dfdlx:doubleToRawLong(doubleArg): long`
+## `dfdlx:doubleFromRawLong(longArg)` and `dfdlx:doubleToRawLong(doubleArg)`
 
 IEEE binary float and double values that are not NaN will parse to base 10 text and unparse back
 to the same exact IEEE binary bits. 
