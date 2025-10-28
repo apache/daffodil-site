@@ -282,58 +282,132 @@ Unparser-specific expressions include:
   of `unparseOnly` 
 
 
-## `dfdlx:repType`, `dfdlx:repValues`, and `dfdlx:repValueRanges`
+## Enumerations: `dfdlx:repType`, `dfdlx:repValues`, and `dfdlx:repValueRanges`
 
 These properties work together to allow DFDL schemas to define _enumerations_;
 that is, symbolic representations for integer constants. 
 When parsing, Daffodil will convert these integers into the corresponding string values. 
 When unparsing, Daffodil will convert strings into the corresponding integers. 
 
-An element of type `xs:string` can be defined using XSD `enumeration` facets which constrain the 
-valid values of this string. 
-The properties are then used to define the correspondence of the strings to the corresponding 
-numeric values.
+An element of type (or derived from) `xs:string` can be defined using XSD `enumeration` facets 
+which constrain the valid values of this string. 
+These enumeration values are effectively symbolic constants. 
+The `dfdlx:repType` and `dfdlx:repValues` properties are then used to define the correspondence of 
+the symbolic strings to the corresponding integer values.
 
 ### `dfdlx:repType`
 
 The value of this property is an XSD QName of a simple type definition that must be derived
-from `xs:unsignedInt`. 
+from `xs:int`, or `xs:unsignedInt`. 
 A simple type definition for a string can be annotated with `dfdlx:repType` 
 in order to declare that the representation of the string is not as text characters but is a 
 numeric integer value. 
 The type referenced from `dfdlx:repType` is usually a fixed length binary integer, but can be any
-DFDL type derived from `xs:unsignedInt`, with any DFDL representation properties. 
+DFDL type derived from `xs:int` or `xs:unsignedInt`, with any DFDL representation properties. 
+
+The mapping between the representation integer and the symbolic constants is specified using the 
+`dfdlx:repValues` and/or `dfdlx:repValueRanges` properties. 
+
+### `dfdlx:repValues`
+
+The value of this property is one or more integer values within 
+the numeric range defined for the type referenced by `dfdlx:repType`. When more than one value 
+is specified, they are in a whitespace separated list. 
+
+This property is placed on the `xs:enumeration` facets of a symbolic string constant having a 
+`dfdlx:repType`. 
+At parse time, if the value of the `dfdlx:repType` integer is found within the `dfdlx:repValues` 
+list, then the infoset value for the symbolic string gets the corresponing enumeration facet value.
+It is a parse error if no `xs:enumeration` has a `dfdlx:repValues` nor `dfdlx:repValueRanges` 
+(see below) assign a symbolic equivalent to the `dfdlx:repType` integer.
+At unparse time, the symbolic constant is mapped to the first integer in the dfdlx:repValues list. 
+It is an unparse error if the symbolic string value is not found among the `xs:enumeration` 
+facet values of the symbolic string type. 
 
 
+### `dfdlx:repValueRanges`
+
+The value of this property is a list of integers of even length 2 or greater. The integers at 
+odd positions (starting with position 1) define the inclusive lower bound of a range of 
+integers.
+The integers at even positions (starting with position 2) define the corresponding inclusive 
+upper bound of a range of integers.
+
+This property is placed on the `xs:enumeration` facets of a symbolic string constant having a
+`dfdlx:repType`.
+
+At parse time, the integer value of the `dfdlx:repType` is used to search the numeric ranges. 
+If it is found in any of the numeric ranges for a specific `xs:enumeration` facet, then the 
+facet's value is used as the corresponding symbolic value. 
+It is a parse error if no `xs:enumeration` has a `dfdlx:repValues` (see above) nor 
+`dfdlx:repValueRanges` assign a symbolic equivalent to the `dfdlx:repType` integer. 
+At unparse time, the symbolic string value's corresponding `xs:enumeration` facet is found and 
+if the `xs:enumeration` contains both `dfdlx:repValues` and `dfdlx:repValueRanges` then the 
+`dfdlx:repValues` is used to determine the corresponing `dfdl:repType` integer value to unparse, 
+as described above for the `dfdl:repValues` property. 
+If the `xs:enumeration` has no `dfdlx:repValues` property, then the smallest numeric value in the  
+`dfdlx:repValueRanges` list is unparsed for the `dfdlx:repType` integer. 
+
+TBD: is this correct? Or is it the lower bound of the first range?
+
+TBD: is this correct that dfdlx:repValues always supercedes dfdlx:repValueRanges?
 
 ### Examples of Numeric Enumerations in Daffodil DFDL
 
-A simple example taken from the public github DFDL schema for 
-[MIL-STD-2045-47001 C/D1](https://github.com/DFDLSchemas/mil-std-2045) is:
+A simple example of a basic enum is:
 
 ```xml schema
-  <simpleType name="messagePrecedenceCodesEnum_C" dfdlx:repType="ms2045:enum3">
-    <restriction base="ms2045:enumString">
-      <enumeration value="OK_Emergency" dfdlx:repValues="2"/>
-      <enumeration value="OK_Flash" dfdlx:repValues="4"/>
-      <enumeration value="OK_Immediate" dfdlx:repValues="5"/>
-      <enumeration value="OK_Priority" dfdlx:repValues="6"/>
-      <enumeration value="OK_Routine" dfdlx:repValues="7"/>
 
-      <!-- This pattern facet insures that only the above "OK" values are considered valid. -->
-      <pattern value="OK_[0-9A-Za-z_-]{0,20}"/>
- 
-      <!-- The remaining enumeration values are considered _well formed_ (DFDL parsing will 
-      succeed), but are not XML Schema facet valid --> 
+  <simpleType name="rep3Bit" dfdl:lengthUnits="bits" dfdl:length="3" dfdl:lengthKind="explicit">
+    <restriction base="xs:unsignedInt"/>
+  </simpleType>
+    
+  <simpleType name="precedenceEnum" dfdlx:repType="pre:rep3Bit">
+    <restriction base="xs:string">
       <enumeration value="Reserved_0" dfdlx:repValues="0"/>
       <enumeration value="Reserved_1" dfdlx:repValues="1"/>
+      <enumeration value="Emergency" dfdlx:repValues="2"/>
       <enumeration value="Reserved_3" dfdlx:repValues="3"/>
+      <enumeration value="Flash" dfdlx:repValues="4"/>
+      <enumeration value="Immediate" dfdlx:repValues="5"/>
+      <enumeration value="Priority" dfdlx:repValues="6"/>
+      <enumeration value="Routine" dfdlx:repValues="7"/>
     </restriction>
   </simpleType>
   ```
 
+In the above you can see that the symbolic strings are in one-to-one correspondence with every 
+possible value of the 3-bit representation integer. This one-to-one correspondence assures that 
+data that is first parsed and then unparsed will recreated the exact numeric bits used. 
 
+However, in data security applications the following may be preferred:
+```xml schema
+ <simpleType name="precedenceEnum" dfdlx:repType="pre:rep3Bit">
+    <restriction base="xs:string">
+      <enumeration value="Reserved" dfdlx:repValues="0 1 3"/>
+      <enumeration value="Emergency" dfdlx:repValues="2"/>
+      <enumeration value="Flash" dfdlx:repValues="4"/>
+      <enumeration value="Immediate" dfdlx:repValues="5"/>
+      <enumeration value="Priority" dfdlx:repValues="6"/>
+      <enumeration value="Routine" dfdlx:repValues="7"/>
+    </restriction>
+  </simpleType>
+```
 
+In the above we see that three numeric values, 0, 1, and 3 are mapped to the symbolic string 
+"Reserved". 
+This technique has the advantage of blocking covert signals being transmitted by use of the 
+different reserved values since when unparsed, the constant string "Reserved" will always be 
+mapped to integer 0. 
+
+It is _*highly*_ recommended that DFDL schema authors avoid whitespace within the definition of 
+symbolic enumeration constants. Underscores should be use instead of spaces. 
+
+TBD: Don't forget this in the Best Practices guide for enumerations. 
+
+Above we see the `dfdlx:repType` is `rep3Bit` which is a 3 bit `xs:unsignedInt`. This can 
+represent the values 0 to 7 which one can see are the `dfdlx:repValues` of the `xs:enumeration` 
+facets for this enumeration string type which is `messagePrecedenceCodesEnum_C`.
 
 # Extended Behaviors
 
