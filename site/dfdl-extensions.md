@@ -376,9 +376,14 @@ A simple example of a basic enum is:
   </simpleType>
   ```
 
-In the above you can see that the symbolic strings are in one-to-one correspondence with every 
-possible value of the 3-bit representation integer. This one-to-one correspondence assures that 
-data that is first parsed and then unparsed will recreated the exact numeric bits used. 
+Above we see the `dfdlx:repType` is `rep3Bit` which is a 3 bit `xs:unsignedInt`. This can
+represent the values 0 to 7 which one can see are the `dfdlx:repValues` of the `xs:enumeration`
+facets for this enumeration string type which is named `precedenceEnum`.
+
+In the above you can also see that the symbolic strings are in one-to-one correspondence with 
+every possible value of the 3-bit representation integer. 
+This one-to-one correspondence assures that data that is first parsed and then unparsed will 
+recreate the exact numeric bits used.
 
 However, in data security applications the following may be preferred:
 ```xml schema
@@ -394,22 +399,42 @@ However, in data security applications the following may be preferred:
   </simpleType>
 ```
 
-In the above we see that three numeric values, 0, 1, and 3 are mapped to the symbolic string 
-"Reserved". 
+In the above we see that three numeric values, 0, 1, and 3 are the `dfdlx:repValues` mapped to 
+the symbolic string `Reserved`. 
 This technique has the advantage of blocking covert signals being transmitted by use of the 
-different reserved values since when unparsed, the constant string "Reserved" will always be 
-mapped to integer 0. 
+different reserved values since when unparsed, the constant string `Reserved` will always be 
+_canonicalized_ to integer 0. 
+Putting data into canonical form when unparsing generally improves data security.
 
-It is _*highly*_ recommended that DFDL schema authors avoid whitespace within the definition of 
-symbolic enumeration constants. Underscores should be use instead of spaces. 
+The next example illustrates use of the `dfdlx:repValueRanges` property:
 
-TBD: Don't forget this in the Best Practices guide for enumerations. 
 
-Above we see the `dfdlx:repType` is `rep3Bit` which is a 3 bit `xs:unsignedInt`. This can 
-represent the values 0 to 7 which one can see are the `dfdlx:repValues` of the `xs:enumeration` 
-facets for this enumeration string type which is `messagePrecedenceCodesEnum_C`.
+```xml schema
 
-# Extended Behaviors
+  <simpleType name="rep5Bit" dfdl:lengthUnits="bits" dfdl:length="5" dfdl:lengthKind="explicit">
+    <restriction base="xs:unsignedInt"/>
+  </simpleType>
+    
+  <simpleType name="versionEnum" dfdlx:repType="pre:rep4Bit">
+    <restriction base="xs:string">
+      <enumeration value="Undefined" dfdlx:repValues="0" dfdlx:repValueRanges="5 10 12 17"/>
+      <enumeration value="B" dfdlx:repValues="1"/>
+      <enumeration value="C" dfdlx:repValues="2"/>
+      <enumeration value="D" dfdlx:repValues="3"/>
+      <enumeration value="E" dfdlx:repValues="4"/>
+      <enumeration value="Q" dfdlx:repValues="11"/>
+      <enumeration value="NotImplemented" dfdl:repValueRanges="18 31"/>
+    </restriction>
+  </simpleType>
+  ```
+
+In the above the enumeration specifies that many of the values are considered `Undefined` 
+including values 0, 5 through 10, and 12 through 17. 
+A second range from 18 to 31 correspond to constant `NotImplemented`. 
+
+
+
+# Extended Behaviors for DFDL Types
 
 ## Type ``xs:hexBinary``
 
