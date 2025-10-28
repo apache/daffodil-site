@@ -206,7 +206,30 @@ There is [separate Layer documentation](/layers).
 
 ## `dfdlx:direction`
 
-This property has 
+This property can appear only on DFDL `defineVariable` statement annotations.
+This property has possible values `both` (the default), `parseOnly`, or `unparseOnly`. 
+It declares 
+whether the variable is to be available for only parsing, only unparsing, or both. 
+Since this is a newly introduced extension property and existing schemas won't contain a definition 
+for it, it has a default value of `both`. 
+
+It is a Schema Definition Error if a variable defined with direction `parseOnly` is accessed 
+from an expression used by the unparser. This error is detected at DFDL schema compilation 
+time, not runtime. Unparser expressions 
+include:
+
+- `dfdl:outputValueCalc`
+- `dfdl:length` (when `dfdl:lengthKind='explicit')
+- `dfdl:setVariable` expression or a `dfdl:newVariableInstance` default value expression when that variable being set/defaulted
+  is itself referenced from a another expression being accessed at unparser creation time.
+
+Symmetrically, it is a Schema Definition Error if a variable defined with direction 
+`unparseOnly` is accessed from an expression used by the parser. Parser expressions include 
+
+- `dfdl:inputValueCalc`
+- `dfdl:length` (when dfdl:lengthKind='explicit')
+- `dfdl:occursCount` (when `dfdl:occursCountKind='expression'), 
+- the `message` and `test` attributes of the `dfdl:assert` and `dfdl:discriminator` statement annotations
 
 ## `dfdlx:repType`, `dfdlx:repValues`, and `dfdlx:repValueRanges`
 
