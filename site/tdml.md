@@ -153,7 +153,7 @@ it using the ``test`` subcommand of the [Daffodil Command Line Interface](/cli):
 $ daffodil test myDateTimeBug.tdml
 ```
 
-### Specifying Test Data
+# Specifying Test Data
 
 Test data can be specified in text, hexadecimal, individual bits, or in an
 external file by setting the ``type`` attribute in the ``tdml:documentPart``
@@ -239,7 +239,7 @@ Note that in order for a test to be considered successful, it must consume all
 the data defined in the ``tdml:document`` element. Otherwise the test will fail
 with a message about "left over data".
 
-### Specifying the Infoset
+# Specifying the Infoset
 
 The infoset can be provided either as an inline XML infoset or as a path to an
 external file by setting the ``type`` attribute on the ``tdml:dfdlInfoset``
@@ -262,7 +262,7 @@ legal in XML documents. Daffodil remaps these characters into legal XML
 characters in the Unicode Private Use Areas (PUA). See [XML Illegal
 Characters](/infoset#xml-illegal-characters) for details.
 
-### Negative Tests: Expecting Errors/Warnings
+# Negative Tests: Expecting Errors/Warnings
 
 A poor or missing diagnostic message is a bug just as much as a broken feature.
 TDML allows for creating negative tests to expect errors and warnings. To do
@@ -292,14 +292,14 @@ that warnings are considered non-fatal and so can appear alongside
 </tdml:warnings>
 ```
 
-### Using CDATA Regions
+# Using CDATA Regions
 
 XML CDATA regions indicate XML data that should not be interpreted as XML.
 Although in general is it used to easily include XML special characters in XML
 data, its use has other benefits in TDML files as well. Below are examples of
 what scenarios when CDATA regions should and should not be used.
 
-#### {% ok %} &nbsp;As a clear way represent XML special characters
+## {% ok %} &nbsp;As a clear way represent XML special characters
 
 The characters ``<``, ``>``, ``&``, ``'``, and ``"`` must be represented in XML
 with ``&lt;``, ``&gt;``, ``&amp;``, ``&apos;``, and ``&quot;``, respectively.
@@ -311,7 +311,7 @@ make the data more clear. For example, the following are equivalent:
 <foo>abc<![CDATA[&&&]]>def</foo>
 ```
 
-#### {% ok %} &nbsp;To preserve textual formatting within TDML - for clarity reasons
+## {% ok %} &nbsp;To preserve textual formatting within TDML - for clarity reasons
 
 Often times IDE's and XML editors will indent, wrap, and remove redundant
 whitespace in XML data. However, sometimes it is desired that such formatting
@@ -335,7 +335,7 @@ the formatting. But logically, the whitespace is irrelevant when the
 documentPart type is "byte". In effect, we have CDATA here so that tooling like
 IDEs, XML editor, etc. will not mess with the formatting of the content.
 
-#### {% ok %} &nbsp;To avoid insertion of whitespace that would make things incorrect
+## {% ok %} &nbsp;To avoid insertion of whitespace that would make things incorrect
 
 Let us assume that the input document should contain exactly two letters:
 ``a年``. This might be represented as the following in a TDML file:
@@ -368,7 +368,7 @@ input data:
   <documentPart type="text"><![CDATA[a年]]></documentPart>
 </document>
 ```
-#### {% err %} &nbsp;To preserve specific line endings
+## {% err %} &nbsp;To preserve specific line endings
 
 Using CDATA does NOT necessarily preserve line endings. So if you had a test
 where you have this:
@@ -465,7 +465,7 @@ that uses these DFDL schemas
 
 is fine, and will work and be robust.
 
-### Round-Trip Testing
+# Round-Trip Testing
 
 Round-trip testing is using a single test case for testing both parse and unparse directions.
 

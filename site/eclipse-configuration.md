@@ -28,16 +28,16 @@ DFDL extends a subset of XML Schema. Note however: an XML Schema is an XML docum
 
 Now, turns out there is an XML Schema for DFDL Schemas. It was created by taking the XML Schema for XML Schemas, and subsetting it to just what DFDL uses, and then adding into it the XML Schema for DFDL's annotation objects.
 
-### Installing Eclipse XML Plugin
+# Installing Eclipse XML Plugin
 
 The XML settings all assume you have installed Eclipse's XML support. If not already installed, 
 the "Eclipse XML Editors and Tools" plugin can be obtained from Eclipse's update site.
 
-### Eclipse XML Settings
+# Eclipse XML Settings
 
 Following are steps to modify the Eclipse XML settings to aid in the creation of DFDL schemas:
 
-#### Enable Validation of DFDL Files
+## Enable Validation of DFDL Files
 
 1. Window > Preferences > Validation
 	1. Turn off XML Schema Validator
@@ -58,7 +58,7 @@ Following are steps to modify the Eclipse XML settings to aid in the creation of
 
 If also editing TDML file in Eclipse, repeat the above steps, replacing all instances of ``dfdl.xsd`` with ``tdml``.
 
-#### Add XML Schemas for DFDL to the XML Catalog
+## Add XML Schemas for DFDL to the XML Catalog
 
 Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the ``src/main/resources/org/apache/daffodil/xsd/`` directory in either ``daffodil-lib/`` or ``daffodil-propgen/``.
 

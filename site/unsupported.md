@@ -28,7 +28,7 @@ Note that this doesn't include just plain bugs in Daffodil, any of which could a
 support for a feature, but rather the below is a list of features
 that there has been no intention to support as of this release. 
 
-#### DFDL Features
+# DFDL Features
 
 * Intersect and except operators {% jira 2379 %}
 * defaulting of values for required elements - when unparsing {% jira 115 %}
@@ -48,12 +48,12 @@ that there has been no intention to support as of this release.
 * dfdl:contentLength() and dfdl:valueLength() with 'characters' units and variable-width encodings {% jira 1516 %}
 * dfdl:outputValueCalc calling dfdl:valueLength() for string with dfdl:truncateSpecifiedLengthString 'yes' {% jira 1598 %}
 
-#### XML Schema Features
+# XML Schema Features
 
 * fixed {% jira 117 %}
 * default {% jira 115 %} {% jira 1277 %}
 
-#### Properties and Property Enumerations
+# Properties and Property Enumerations
 
 * dfdl:lengthUnits 'characters' with dfdl:lengthKind 'prefixed' {% jira 2029 %}
 * dfdl:binaryFloatRep="ibm390Hex" {% jira 244 %}
@@ -71,7 +71,7 @@ that there has been no intention to support as of this release.
 * dfdl:encoding using CCSIDs {% jira 2000 %}
 * dfdl:useNilForDefault {% jira 1412 %}
 
-#### XPath Features
+# XPath Features
 
 * Arbitrary precision for numeric operations (+, -, *, div, idiv, mod) is only
   used in specific cases. This can potentially lead to loss of precision or

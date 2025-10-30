@@ -2,6 +2,7 @@
 layout: page
 title: Examples
 group: nav-right
+pdf: true
 ---
 <!--
 {% comment %}
@@ -25,7 +26,7 @@ limitations under the License.
 
 Below are two examples of how Daffodil parses Comma-Separated Values (CSV) and Packet Capture data (PCAP) data to XML. For simplicity, each example uses the Daffodil [Command Line Interface](/cli) to parse input data to output XML.
 
-### Comma-Separated Values (CSV)
+# Comma-Separated Values (CSV)
 
 This DFDL schema is found at the DFDLSchemas GitHub [CSV repository](https://github.com/DFDLSchemas/CSV). 
 
@@ -72,7 +73,7 @@ The result of the parse is the following XML:
 </ex:file>
 ```
 
-### Packet Capture Data (PCAP)
+# Packet Capture Data (PCAP)
 
 This DFDL schema is found in the DFDLSchemas GitHub [PCAP repository](https://github.com/DFDLSchemas/PCAP).
 

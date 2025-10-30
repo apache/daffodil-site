@@ -1,8 +1,8 @@
 ---
-layout: page
-
+title: About TDML Tutorials
 ---
-== About TDML Tutorials
+
+= About TDML Tutorials
 :page-layout: page
 :url-asciidoctor: http://asciidoctor.org
 :keywords: TDML Daffodil DFDL
@@ -18,7 +18,7 @@ layout: page
 // Oh, and did I mention, you need to view this with Chrome or Firefox....?
 //
 
-=== Writing Executable Tutorials in TDML
+== Writing Executable Tutorials in TDML
 
 Tutorials can be directly written in link:/tdml[Test Data Markup Language (TDML)], enhanced using TDML's `tdml:tutorial` elements. These look like:
 
@@ -46,7 +46,7 @@ The TDML file still runs as a test suite of TDML tests, which insures that the e
 TIP: If you https://www.wikihow.com/View-Source-Code[know how to view the source of the web page] from your web browser, you will see the TDML file, not some translation/rendering of it.
 
 
-=== About Graphics/Illustrations in TDML Tutorials
+== About Graphics/Illustrations in TDML Tutorials
 
 An important characteristic of TDML-based tutorials is that they are self-contained. 
 By using a few HTML techniques and some free tools that run directly in the web browser, we can insure that the images and diagrams needed for a tutorial can be embedded directly in the TDML file.

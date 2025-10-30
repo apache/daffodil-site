@@ -55,6 +55,7 @@ keep_files:
 
 kramdown:
   smart_quotes: ["apos", "apos", "quot", "quot"]
+  header_offset: 1
 
 asciidoc: {}
 

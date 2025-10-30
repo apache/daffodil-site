@@ -24,11 +24,11 @@ limitations under the License.
 
 The Apache Daffodil™ Extension for Visual Studio Code is an extension to the Microsoft® Visual Studio Code (VS Code) editor, designed for Data Format Description Language 1.0 (DFDL) Schema developers. The purpose of the Apache Daffodil™ Extension for Visual Studio Code is to ease the burden on DFDL Schema developers by enabling rapid development of high-quality DFDL Schemas, with syntax highlighting, code completion, data file editing, and debugging of DFDL Schema parsing operations using Apache Daffodil™.
 
-#### Usage
+# Usage
 
 Please refer to the [Apache Daffodil™ Extension for Visual Studio Code Wiki pages](https://github.com/apache/daffodil-vscode/wiki).
 
-#### Releases
+# Releases
 
 All recent Apache Daffodil™ Extension for Visual Studio Code releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 

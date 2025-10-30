@@ -24,7 +24,7 @@ limitations under the License.
 
 Daffodil has the capability to read in parameters via an external XML file, defined by the [dafext.xsd](https://github.com/apache/daffodil/blob/main/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/dafext.xsd) schema. Below are the parameters that can be defined.
 
-### External Variables
+# External Variables
 
 External variables can be defined using the ``externalVariablesBindings`` tag. For example, the following configuration file defines two variables, ``var1`` and ``var2``, in the ``http://example.com`` namespace.
 
@@ -45,7 +45,7 @@ The following defined in a DFDL schema would allow the external variables to be 
 <dfdl:defineVariable name="var2" external="true" type="xsd:string">Bar</dfdl:defineVariable>
 ```
 
-### Tunable Parameters
+# Tunable Parameters
 
 Tunable parameters can be modified to change Daffodil schema compilation and data parsing properties. For example, the following sets the ``maxOccursBounds`` tunable to 1024:
 

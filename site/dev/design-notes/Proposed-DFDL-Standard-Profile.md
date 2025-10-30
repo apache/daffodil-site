@@ -1,8 +1,30 @@
-# Proposal: DFDL Standard Profile
+---
+layout: page
+title: Proposal - DFDL Standard Profile
+group: nav-right
+---
+<!--
+{% comment %}
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
 
-#### Version  0.3  2023-12-08
+http://www.apache.org/licenses/LICENSE-2.0
 
-## Introduction
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+{% endcomment %}
+-->
+
+*Version  0.3  2023-12-08*
+
+# Introduction
 
 In attempting to integrate Apache Daffodil with other data processing software, the need to make
 DFDL schemas interoperate properly in conjunction with other data models has arisen.
@@ -31,9 +53,9 @@ including the ability to convert into JSON without name/namespace collisions.
 This is a proposal for a switch/option to be added to Daffodil which turns on enforcement of this
 standard profile (which is a subset of DFDL).
 
-## Standard Profile Restrictions
+# Standard Profile Restrictions
 
-### No Anonymous Choices
+## No Anonymous Choices
 
 Choices must be the model groups of complex type definitions and are not allowed in any other
 context.
@@ -41,7 +63,7 @@ context.
 Each choice branch must begin with a different element. (This is already a XML Schema requirement -
 Unique Particle Attribution.)
 
-### Group References Cannot Carry DFDL Properties
+## Group References Cannot Carry DFDL Properties
 
 Group references are allowed, but DFDL format properties cannot be expressed on group references; hence,
 combining those properties with those of the group definition is not required.
@@ -60,26 +82,26 @@ Allowing groups and group references reduces the difficulty of converting many l
 schemas to conform to the standard profile, and makes this possible without introducing many 
 otherwise unneeded element and type definitions. 
 
-### No Element References
+## No Element References
 
 There is no corresponding form of sharing in most data structure systems.
 
-### No Namespace-Qualified Names
+## No Namespace-Qualified Names
 
 Only elementFormDefault 'unqualified' is allowed.
 Note that this is the default for XML Schema and DFDL.
 
-### Unique Namespace Prefixes
+## Unique Namespace Prefixes
 
 All namespace prefixes must be unique in the entire schema.
 
 This enables one to create unique identifiers by concatenating prefix_local to create global names.
 
-### All Element Children Have Unique Names
+## All Element Children Have Unique Names
 
 All children element declarations must have unique names within their enclosing parent element.
 
-#### Discussion
+### Discussion
 
 Note that this causes issues in a number of large DFDL schemas which attempt to implement a 
 single DFDL schema that is capable of handling multiple versions of the data format.
@@ -125,13 +147,13 @@ deltas, and generating common schema when it can.
 This is, however, not the way some large schemas were created, as these schemas are machine generated from the 
 individual format specifications, without performing an analysis of what is common and what is unique.
 
-### Nillable Simple Types Only (TBD: May not be necessary)
+## Nillable Simple Types Only (TBD: May not be necessary)
 
 Nillable is allowed only for simple type elements. 
 
 Note that in DFDL, element declarations express nillability, not type definitions. 
 
-#### Rationale
+### Rationale
 
 DFDL does not allow the same representation for nilled complex elements as it does for nilled simple elements. 
 The representation DFDL allows for nillable complex types is only empty string whereas for simple types a variety of 
@@ -139,7 +161,7 @@ dfdl:nilValue values can be expressed.
 
 Hence, omitting this feature removes an awkward corner case.
 
-### Element Name/Identifier Restrictions
+## Element Name/Identifier Restrictions
 
 Element names must consist of all non-whitespace characters from the
 Unicode basic multilingual plane (no surrogate pairs in element names).
@@ -161,15 +183,15 @@ Element names may not begin with any prefix defined as part of the schema
 followed by an "_" as this could be ambiguous with names being made globally
 unique by appending prefix, "_" and local name.
 
-### String Content Restrictions
+## String Content Restrictions
 
 Schemas may only be written in UTF-8 encoding.
 
-#### Rationale
+### Rationale
 
 Simplify implementations.
 
-### Import `schemaLocation`
+## Import `schemaLocation`
 
 Imported files - a namespace must be imported from a single unique imported file. 
 A single schema may not contain different import statements for the same
@@ -180,7 +202,7 @@ This is a practical requirement in XML Schema and in Apache Daffodil today, but 
 If the `schemaLocation` begins with a "/" it is interpreted as an absolute path, otherwise a
 relative path. Both may be interpreted relative to a classpath.
 
-## Existing DFDL Restrictions
+# Existing DFDL Restrictions
 
 Just as a reminder, the above standard-profile restrictions go on top of DFDL
 existing limitations on XML Schema such as:
@@ -193,9 +215,9 @@ existing limitations on XML Schema such as:
 - pattern facets only for xs:string elements
 - other facet restrictions by type
 
-## Possible additional restrictions
+# Possible additional restrictions
 
-### Troublesome Placement of dfdl:assert and dfdl:discriminator on Sequences & Choices
+## Troublesome Placement of dfdl:assert and dfdl:discriminator on Sequences & Choices
 
 The DFDL v1.0 rules about sequences/choices and statement annotations on them are confusing.
 In particular, a dfdl:assert or dfdl:discriminator with testKind 'expression' appears lexically at
@@ -206,12 +228,12 @@ it, requiring instead that an inner sequence carrying the assertion or
 discriminator with NO child content, be inserted in the sequence at the
 point where the evaluation is required to occur.
 
-# Requesting/Enabling the Standard Profile
+ Requesting/Enabling the Standard Profile
 
 If the standard profile is requested, then use of constructs outside of the standard profile is a
 Schema Definition Error.
 
-## Use Cases
+# Use Cases
 
 A DFDL schema author may want to, by default, state that they want to conform to the standard profile
 for new DFDL schemas they create.
@@ -225,7 +247,7 @@ Finally, an individual schema project may contain a variety of subsections, some
 some of which do not; hence, individual DFDL schema files must be able to declare their use of the standard profile, or
 intention to not use it. 
 
-### Mechanisms for Requesting the Standard Profile
+## Mechanisms for Requesting the Standard Profile
 
 The following ways should be available for a schema author to tell Daffodil they want enforcement of
 the standard profile (or not).

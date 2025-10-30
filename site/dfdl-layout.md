@@ -29,7 +29,7 @@ correspond to directory names. It also uses the
 [SBT](https://www.scala-sbt.org/) build tool with the [Daffodil SBT Plugin](/sbt)
 to more easily manage, build, and test DFDL schema projects.
 
-### Quick Start
+# Quick Start
 
 To quickly get started and generate this directory structure, you can install
 [SBT](https://www.scala-sbt.org/) and run the following command:
@@ -42,7 +42,7 @@ This prompts for various properties and creates the directory structure
 described below, including git and sbt configuration files, a basic DFDL schema
 file, and TDML and test files.
 
-### Conventions
+# Conventions
 
 This set of conventions provides a number of benefits:
 
@@ -65,7 +65,7 @@ These conventions are actually usable for regular XML-schema projects, that is,
 they're not really DFDL-specific conventions. They're general conventions for
 organizing projects so as to achieve the above benefits.
 
-### Standard File Tree
+# Standard File Tree
 
 Let's assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
 format.dfdl.xsd, and that our format is named RFormat (rfmt) with an
@@ -110,7 +110,7 @@ The standard file tree would be:
                         └── rfmt/
                             └── Tests1.scala   - Scala test driver file
 
-### project/plugins.sbt
+# project/plugins.sbt
 
 Add the Daffodil SBT plugin to the project/plugins.sbt file:
 
@@ -123,7 +123,7 @@ settings and capabilities commonly needed to manage, build, and test DFDL schema
 projects. For more information about the settings that can be added to build.sbt
 or commands to run via SBT, see the [GitHub README](https://github.com/apache/daffodil-sbt/).
 
-### build.sbt
+# build.sbt
 
 Use the below template for the build.sbt file:
 
@@ -138,7 +138,7 @@ enablePlugins(DaffodilPlugin)
 ```
 
 
-### .gitattributes
+# .gitattributes
 
 In some cases, git may mangle line endings of files so that they match the line
 ending of the system. In most cases, this is done in such a way that it you may
@@ -153,7 +153,7 @@ directory with the following content to disabling the mangline:
 The above tells git that any test files in the data directory should be treated
 as if they were binary, and thus not to mangle newlines.
 
-### XSD Conventions
+# XSD Conventions
 
 DFDL schemas should have the ``.dfdl.xsd`` suffix to distinguish them from
 ordinary XML Schema files.
@@ -163,7 +163,7 @@ A DFDL schema should have a target namespace.
 Stylistically, the XSD ``elementFormDefault="unqualified"`` is the preferred
 style for DFDL schemas.
 
-### Using a DFDL Schema
+# Using a DFDL Schema
 
 The ``xs:include`` or ``xs:import`` elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:
@@ -196,7 +196,7 @@ format.dfdl.xsd. Those names only need to be unique within a single schema
 project. Across schema projects our standard DFDL schema project layout insures
 unambiguous qualification is available.
 
-### Git Revision Control
+# Git Revision Control
 
 You don't have to use Git version control, but many people do, and github.com
 is one of the reasons for this popularity.
@@ -209,7 +209,7 @@ other formats that are not publicly available, one may want to put a
 placeholder for them on DFDLSchemas anyway (as IBM has done for some formats
 like Swift-MT.)
 
-### Jar File Packaging
+# Jar File Packaging
 
 A DFDL schema using the recommended file structure as described here, can be
 packaged into a jar for convenient import/include from other schemas.

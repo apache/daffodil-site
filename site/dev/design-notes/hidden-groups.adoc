@@ -1,3 +1,6 @@
+---
+title: Hidden Groups
+---
 :page-layout: page
 :keywords: schema-compiler performance alignment optimization
 // ///////////////////////////////////////////////////////////////////////////
@@ -23,9 +26,7 @@
 //
 // //////////////////////////////////////////////////////////////////////////
 
-== Hidden Groups
-
-=== Introduction
+= Hidden Groups
 
 The DFDL language enables groups to be hidden, meaning not part of the logical infoset.
 
@@ -38,13 +39,13 @@ This is expected to be fairly common, as often hidden groups are designed to con
 
 Nevertheless, Daffodil must accomodate that the same group definition can be used both in hidden and non-hidden manners. 
 
-=== Static Analysis by the Schema Compiler (i.e., there is none)
+== Static Analysis by the Schema Compiler (i.e., there is none)
 
 The schema compiler could provide information about whether a given term of the schema is always hidden, sometimes hidden, or never hidden. 
 However, the runtime overheads are anticipated to be so small that optimizations based on this information are expected to be unnecessary.
 Hence, no static analysis of whether a term is always/sometimes/never hidden is performed. 
 
-=== Runtime Principles of Operation
+== Runtime Principles of Operation
 
 The implementation takes advantage of the processor (parser/unparser) traversal of the DFDL schema components following an in-order traversal pattern, so that a stack-discpline can be used when traversing hidden-group references. No actual stack is needed, only a counter. 
 The details are:
@@ -56,7 +57,7 @@ No action is required for non-hidden group references.
 * When an infoset element is created, the setHidden() method is called if the counter is non-zero. 
 * At the end of processing, the counter should be zero. 
 
-=== Runtime Data Structures - Runtime 1
+== Runtime Data Structures - Runtime 1
 
 In Daffodil's "Runtime 1" backend, these are the runtime data structure features to support hidden group references:
 
@@ -70,7 +71,7 @@ This check need only be performed on normal exits. If the processor terminates a
 * Unparser suspended UStates do not need to copy the counter value. That is, this counter need only exist in UStateMain. 
 ** This holds because infoset elements are created as part of the state of suspensions, and those infoset elements will have setHidden() called or not depending on the counter. Hence, the counter value of a suspended UState is not needed when evaluating a suspension.  
 
-=== Testing
+== Testing
 
 * Tests cover where the same group definition is used both hidden and non-hidden within the same schema. 
 * Tests cover this for hidden sequences and hidden choices. 

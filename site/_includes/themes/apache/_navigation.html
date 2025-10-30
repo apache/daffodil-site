@@ -55,6 +55,18 @@
       </div>
     </div>
 
+{% if page.collection == "releases" %}
+    {% if page.apache %}
+        {% assign titleprefix = "Apache Daffodil " %}
+    {% else %}
+        {% assign titleprefix = "Daffodil " %}
+    {% endif %}
+{% elsif page.collection == "vscode" %}
+    {% assign titleprefix = "VS Code Extension " %}
+{% elsif page.collection == "sbt" %}
+    {% assign titleprefix = "SBT Plugin " %}
+{% endif %}
+
 {% if page.title == "Home" %}
 <div class="title jumbotron">
   <div class="container">
@@ -69,8 +81,10 @@
 </div>
 {% else %}
 <div class="title">
-  <div class="container">
-    <h2>{% if page.collection == "releases" %}{% if page.apache %}Apache {% endif %}Daffodil {% endif %}{% if page.collection == "vscode" %}VS Code Extension {% endif %}{% if page.collection == "sbt" %}SBT Plugin {% endif %}{{ page.title }}</h2>
-  </div>
+  <div class="container"></div>
+</div>
+<div class="container">
+  <h1>{{ titleprefix }}{{ page.title }}</h1>
 </div>
 {% endif %}
+
