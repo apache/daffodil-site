@@ -558,7 +558,7 @@ Infoset to the supported representations.
     </div>
 </div>
 
-### XML Illegal Characters
+# XML Illegal Characters
 
 Since DFDL strings can contain characters that are not allowed in XML at all,
 for the XML based representations, these characters are mapped into the Unicode

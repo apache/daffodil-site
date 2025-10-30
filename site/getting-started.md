@@ -22,7 +22,7 @@ limitations under the License.
 {% endcomment %}
 -->
 
-### Using Daffodil
+# Using Daffodil
 
 Daffodil is a library, requiring Java 8, used to convert between fixed format data and XML/JSON based on a DFDL schema. Some [examples](/examples) show the result of Daffodil parsing various inputs into XML. Multiple mechanisms that use the Daffodil library invoke its capabilities are described below.
 
@@ -46,7 +46,7 @@ Daffodil is a library, requiring Java 8, used to convert between fixed format da
 
    : A [Smooks](https://www.smooks.org) module that has a reader for parsing the source into an event stream and a visitor for unparsing the event stream. This module forms the foundation of the [EDI and EDIFACT cartridges](https://github.com/smooks/smooks-edi-cartridge).
 
-### Existing DFDL Schemas
+# Existing DFDL Schemas
 
 Many DFDL schemas are freely and publicly available at [DFDLSchemas](https://github.com/DFDLSchemas) on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more.
  
@@ -60,22 +60,22 @@ MIL-STD-6040), and OilStock
 
 
 
-### Creating DFDL Schemas
+# Creating DFDL Schemas
 
-#### Layout
+## Layout
 
 When creating a custom DFDL schema, it is beneficial to follow the directory/file layout described in [Standard DFDL Schema Project Layout](/dfdl-layout). This layout provides a consistent and familiar structure for DFDL schema development that existing tooling understands, provides for easy testing and schema packaging, and ensures no name conflicts on classpaths if multiple schemas are used together.
 
-#### Editors
+## Editors
 
 Any text editor can be used for authoring DFDL schemas. But because DFDL schemas are a subset of XML Schema, using an XML editor (especially an XML Schema aware editor) can provide intelligent assistance in authoring DFDL Schemas, including attribute and tag completion, validation, indentation, visualizations, etc. Below are resources for configuring various tools specifically for editing or authoring DFDL schemas.
 
  * [Eclipse IDE](/eclipse-configuration)
 
-#### DFDL Extensions
+## DFDL Extensions
 
 Daffodil provides extensions to the DFDL specification to add extra enhancements and capabilities. These extensions are listed at [DFDL Extensions](/dfdl-extensions).
 
-### Infoset
+# Infoset
 
 The Daffodil API and CLI support multiple ways to represent the DFDL infoset, including XML and JSON. See [Daffodil and the DFDL Infoset](/infoset) for a description of how the parts of the DFDL infoset are represented.

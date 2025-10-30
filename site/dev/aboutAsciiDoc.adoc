@@ -1,3 +1,6 @@
+---
+title: About AsciiDoc for Documentation
+---
 :page-layout: page
 :url-asciidoctor: http://asciidoctor.org
 :keywords: asciidoc markdown diagram
@@ -24,7 +27,7 @@
 //
 // //////////////////////////////////////////////////////////////////////////
 
-== About AsciiDoc for Documentation
+= About AsciiDoc for Documentation
 
 There is a trend towards less WYSIWYG for documentation, slides, etc. because it doesn't have the useful characteristics of source code in that it cannot be easily diffed. Configuration management is always more ad-hoc and problematic.
 AsciiDoc is a highly regular markdown-style language for creating documentation in the style of Markdown, but it eliminates many drawbacks of the various markdown dialects.

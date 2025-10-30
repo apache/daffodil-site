@@ -37,7 +37,7 @@ The available subcommands are:
 - [performance](#performance-subcommand)
 - [generate](#generate-subcommand)
 
-### Environment Variables
+# Environment Variables
 
 Setting environment variables may be necessary to allow imports, includes, and running TDML files to work.
 
@@ -61,7 +61,7 @@ Setting environment variables may be necessary to allow imports, includes, and r
 
    : If you need to specify which C compiler should be called when running TDML files with the ``test`` subcommand using Daffodil's codegen-c backend, you can set the ``CC`` environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the ``PATH`` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
 
-### Global Options
+# Global Options
 
 ``-v, --verbose``
 
@@ -75,16 +75,16 @@ Setting environment variables may be necessary to allow imports, includes, and r
 
    : Display a help message.
 
-### Parse Subcommand
+# Parse Subcommand
 
 Parse a file, using either a DFDL schema or a saved parser.
 
-#### Usage
+## Usage
 
     daffodil parse (-s <schema> [-r <root>] | -P <parser>)
                    [PARSE_OPTS] [infile]
 
-#### Parse Options
+## Parse Options
 
 ``-c, --config FILE``
 
@@ -154,20 +154,20 @@ Parse a file, using either a DFDL schema or a saved parser.
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil parse -s csv.dfdl.xsd test_file.csv
 
-### Unparse Subcommand
+# Unparse Subcommand
 
 Unparse an infoset file, using either a DFDL schema or a saved parser.
 
-#### Usage
+## Usage
 
     daffodil unparse (-s <schema> [-r <root>] | -P <parser>)
                      [UNPARSE_OPTS] [infile]
 
-#### Unparse Options
+## Unparse Options
 
 ``-c, --config FILE``
 
@@ -237,20 +237,20 @@ Unparse an infoset file, using either a DFDL schema or a saved parser.
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil unparse -s csv.dfdl.xsd test_file.infoset
 
-### Save Parser Subcommand
+# Save Parser Subcommand
 
 Save a parser that can be reused for parsing and unparsing.
 
-#### Usage
+## Usage
 
     daffodil save-parser -s <schema> [-r <root>]
                         [SAVE_PARSER_OPTS] [outfile]
 
-#### Save Parser Options
+## Save Parser Options
 
 ``-c, --config FILE``
 
@@ -282,19 +282,19 @@ Save a parser that can be reused for parsing and unparsing.
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
 
-### Test Subcommand
+# Test Subcommand
 
 List or execute tests in a TDML file.
 
-#### Usage
+## Usage
 
     daffodil test [TEST_OPTS] <tdmlfile> [testnames...]
 
-#### Test Options
+## Test Options
 
 ``-d, --debug [FILE]``
 
@@ -339,20 +339,20 @@ List or execute tests in a TDML file.
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil test csv.tdml
 
-### Performance Subcommand
+# Performance Subcommand
 
 Run a performance test (parse or unparse), using either a DFDL schema or a saved parser.
 
-#### Usage
+## Usage
 
     daffodil performance (-s <schema> [-r <root>] | -P <parser>)
                          [PERFORMANCE_OPTS] <infile>
 
-#### Performance Options
+## Performance Options
 
 ``-c, --config FILE``
 
@@ -408,15 +408,15 @@ Run a performance test (parse or unparse), using either a DFDL schema or a saved
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
 
-### Generate Subcommand
+# Generate Subcommand
 
 Generate C code from a DFDL schema to parse or unparse data.
 
-#### Usage
+## Usage
 
     daffodil generate <language> [SUBCOMMAND_OPTS]
 
@@ -425,7 +425,7 @@ Generate C code from a DFDL schema to parse or unparse data.
     daffodil generate c -s <schema> [-r <root>]
                         [GENERATE_OPTIONS] [outdir]
 
-#### Generate Options
+## Generate Options
 
 ``-c, --config FILE``
 
@@ -451,6 +451,6 @@ Generate C code from a DFDL schema to parse or unparse data.
 
    : Display a help message.
 
-#### Example
+## Example
 
     daffodil generate c -s csv.dfdl.xsd

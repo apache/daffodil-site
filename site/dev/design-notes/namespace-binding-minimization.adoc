@@ -1,3 +1,7 @@
+---
+title: Namespace Binding Minimization
+---
+
 :page-layout: page
 :keywords: schema-compiler performance alignment optimization
 // ///////////////////////////////////////////////////////////////////////////
@@ -23,9 +27,7 @@
 //
 // //////////////////////////////////////////////////////////////////////////
 
-== Namespace Binding Minimization
-
-=== Introduction
+= Namespace Binding Minimization
 
 DFDL schemas are XML schemas and so DFDL inherits the namespace system of XML and XML Schema for composing large schemas from smaller ones, for reusing schema files, and for managing name conflicts. 
 
@@ -57,7 +59,7 @@ The conclusion is that the minmal set of namespace bindings introduced by an ele
 
 The basic technique is to store, on the runtime element data structure (DPathElementCompileInfo), the complete set of lexical namespace bindings present for the element declaration in the DFDL schema document. 
 
-==== Namespace Bindings come from the Element Declarations, not Element References
+=== Namespace Bindings come from the Element Declarations, not Element References
 
 Consider two schema files:
 
@@ -141,15 +143,15 @@ Automatic renaming of prefixes to avoid this problem is considered unwarranted, 
 
 
 
-=== Namespace Minimization
+== Namespace Minimization
 
-==== Only Element Namespace Prefix Bindings
+=== Only Element Namespace Prefix Bindings
 
 Only namespace definitions associated with element declarations need to ever be considered for the infoset.
 Namespace definitions that define prefixes used for type, group, format, or escapeScheme references are not included
 in the namespace definitions carried on infoset elements.
 
-==== Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible
+=== Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible
 
 Many DFDL schemas will define prefix "tns" to be that schema document's target namespace. 
 
@@ -168,14 +170,14 @@ There is actually no difference between using "tns" and the default namespace. B
 
 (This all generalizes to any prefix which is ambiguous across the schema set.)
 
-==== Corner Cases
+=== Corner Cases
 
 There are numerous ways schema authors can use and reuse namespace prefixes that can lead to cluttered infosets.
 
 Other than minor heuristics to choose among alternative available prefix definitions, Daffodil does not try to improve on the 
 namespace prefix problem on behalf of schema authors. 
 
-===== No Prefix At All
+==== No Prefix At All
 A legal schema document can define a target namespace and define no prefix for it at all. 
 
 In this case, the only way elements of that schema document can be used is some other schema document must provide a prefix definition. 
@@ -183,7 +185,7 @@ Daffodil chooses a prefix from those available in the schema set (deterministica
 
 CAUTION: TBD: Should we issue a warning or even make this a schema definition error?
 
-===== Only "tns" or Only the Default Namespace
+==== Only "tns" or Only the Default Namespace
 A schema defines "tns" (or other very common prefix like "pre" or "p") for its target namespace, but defines no other prefix that can be used as an alternative.
 
 Daffodil does nothing here to improve on the situation where there will be many inner namespace re-bindings of the "tns" like:
@@ -212,7 +214,7 @@ In that case you can have infosets like this:
 </foo>
 ```
 
-==== Undefining the Default Namespace
+=== Undefining the Default Namespace
 
 Many schemas will not define the default namespace.
 

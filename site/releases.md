@@ -24,7 +24,7 @@ limitations under the License.
 
 All recent Daffodil releases are listed here, along with several historical releases. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 
-### Apache Releases
+# Apache Releases
 
 {% assign releases = site.releases  | where: 'release', 'final' | where: 'apache', 'true' | sort: 'date' %}
 {% if releases.size > 0 %}
@@ -50,7 +50,7 @@ No official Apache releases have been made yet. <a href="/community">Get involve
 </div>
 {% endif %}
 
-### Pre-Apache Releases
+# Pre-Apache Releases
 
 <div class="alert alert-warning">
     All releases below are from prior to Daffodil's acceptance into

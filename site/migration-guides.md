@@ -21,7 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 {% endcomment %}
 -->
-### Migration Guides
+# Migration Guides
 
 {% assign guides = site.pages
 | where_exp: "p", "p.path contains 'migration-guides/'"

@@ -1,3 +1,6 @@
+---
+title: Infoset Inputters and Runtime 1 Streaming Unparser & NextElementResolver
+---
 :page-layout: page
 :keywords: unparser InfosetInputter NextElementResolver Streaming
 // ///////////////////////////////////////////////////////////////////////////
@@ -23,9 +26,7 @@
 //
 // //////////////////////////////////////////////////////////////////////////
 
-== Infoset Inputters and Runtime 1 Streaming Unparser & NextElementResolver
-
-== Introduction
+= Infoset Inputters and Runtime 1 Streaming Unparser & NextElementResolver
 
 Describes the way the streaming unparser in Runtime 1 works, in particular how
 the unparser resolves the next element - identifying which ERD (Element Runtime Data) 

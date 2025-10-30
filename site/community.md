@@ -32,7 +32,7 @@ You can:
 * Report bugs and submit patches.
 * Contribute code, javadocs, documentation.
 
-### Mailing Lists
+# Mailing Lists
 
 Get help using Daffodil or contribute to the project on our mailing lists:
 
@@ -49,9 +49,9 @@ Get help using Daffodil or contribute to the project on our mailing lists:
   : For tracking new commits, pull requests, review comments, and issues.
 
 
-### Issue tracker
+# Issue tracker
 
-#### Bug Reports
+## Bug Reports
 
 Found bug? Enter an issue in the [Daffodil Issue Tracker](https://issues.apache.org/jira/browse/DAFFODIL)
 on JIRA. Be sure to provide as much detail as possible in the issue description
@@ -70,14 +70,14 @@ Before submitting an issue, please:
   with creating a bug report. Visit the [Daffodil Developers wiki](https://cwiki.apache.org/confluence/display/DAFFODIL/)
   for information to get started contributing.
 
-#### Feature Requests
+## Feature Requests
 
 Enhancement requests for new features are also welcome. The more concrete and rationale the request is, the greater the chance it will incorporated into future releases.
 
-### Source Code
+# Source Code
 
 The project sources are accessible via [GitHub](https://github.com/apache/daffodil) and [ASF](https://gitbox.apache.org/repos/asf?p=daffodil.git).
 
-### Website Source Code
+# Website Source Code
 
 The project website sources are accessible via [GitHub](https://github.com/apache/daffodil-site) and [ASF](https://gitbox.apache.org/repos/asf?p=daffodil-site.git).

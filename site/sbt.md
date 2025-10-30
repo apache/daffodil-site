@@ -27,7 +27,7 @@ to help manage, build, and test DFDL schema projects. It is part of the [Standar
 
 See the [GitHub page](https://github.com/apache/daffodil-sbt) for details to enable and configure.
 
-#### Releases
+# Releases
 
 All recent Daffodil SBT Plugin releases are listed here. Each release below is listed by the version and date on which it was released. Clicking on the version number will take you to the release notes and downloads for that release.
 

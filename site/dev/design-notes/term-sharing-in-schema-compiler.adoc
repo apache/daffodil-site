@@ -1,3 +1,6 @@
+---
+title: Term Sharing in the Schema Compiler
+---
 :page-layout: page
 :keywords: schema-compiler performance alignment optimization
 // ///////////////////////////////////////////////////////////////////////////
@@ -26,9 +29,7 @@
 //
 // //////////////////////////////////////////////////////////////////////////
 
-== Term Sharing in the Schema Compiler
-
-=== Introduction
+= Term Sharing in the Schema Compiler
 
 The DFDL language has a composition property known as _referential transparency_. 
 It is not supposed to matter whether you lift a part of the schema out
@@ -59,7 +60,7 @@ complexity in sharing objects by the schema compiler.
 Alignment will be used as the example in this design note to
 illustrate the schema compiler behavior.
 
-=== DSOM Term Objects
+== DSOM Term Objects
 
 DSOM is the Daffodil Schema Object Model.
 Within this model, the components from a DFDL schema that actually have
@@ -94,7 +95,7 @@ The classes in Daffodil that are used for concrete terms are:
 
 A https://cwiki.apache.org/confluence/display/DAFFODIL/DFDL+Schema+Object+Model+%28DSOM%29+with+UML[UML Diagram] is available showing these classes.
 
-=== Term Representation Regions
+== Term Representation Regions
 
 Consider the representation of a term, which we call the term's
 _region_, as appearing between two other term regions in the data
@@ -134,7 +135,7 @@ There are some limits to this sharing.
 A single implementation is not always achievable, but generally one or
 a small number of implementations are possible.
 
-=== Limits to Sharing
+== Limits to Sharing
 
 Consider if this term above was defined by way of a XSD group
 reference. 
@@ -189,7 +190,7 @@ Anecdotally, the vast majority of schemas seen to-date reuse groups
 entirely, that is specifying no properties at all on the group
 reference.
 
-==== Property Environment or PropEnv
+=== Property Environment or PropEnv
 
 We define the _property environment_ or _PropEnv_ of a term, as the
 complete set of properties for that term, combining them from all the
@@ -263,7 +264,7 @@ That is, so that multiple schema documents each containing:
 ```
 are instantiated as the same object when the QName resolves to the same format object.  
 
-==== Details of Unique and Shared Regions
+=== Details of Unique and Shared Regions
 
 The division of the reprsentation into the unique part which appears
 before the shared parts indicates where we can share implementation,
@@ -501,7 +502,7 @@ compilation space/speed is proportional to, roughly, the size of the
 schema without any non-constant multiplicative factor.
 This insures no combinatorial explosion of compilation time.
 
-=== Optimizing Alignment Regions
+== Optimizing Alignment Regions
 
 A primary task of the schema compiler is to eliminate alignment fill
 (and mandatory text alignment aka MTA) regions that are unnecessary
@@ -534,7 +535,7 @@ known alignment (specified by its alignment and alignment units
 property).
 
 
-=== Other Context-Dependent Computations
+== Other Context-Dependent Computations
 
 By dividing up the representation of a term into the unique context-dependent 
 and shared context-indepenent parts explicitly we provide a home for the various 
