@@ -5,6 +5,8 @@ pdf: false
 ---
 # Pandoc + Jekyll Integration
 
+## _ Currently Broken: pandoc just hangs, never creates PDF file output.
+
 This directory contains tools for generating **PDF versions** of selected Jekyll pages while keeping the same Markdown files usable by Jekyll for the website.
 
 The goal is to have **one Markdown source** that:
