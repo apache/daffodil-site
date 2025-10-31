@@ -25,6 +25,10 @@
     {% include themes/apache/_navigation.html %}
 
     <div class="container">
+      {% if page.pdf %}
+      {% assign filename_without_extension = page.path | split: '.' | first %}
+      <div><i>This page is available as a <a href="../pdf/{{ filename_without_extension }}.pdf" target="_blank">downloadable PDF</a></i></div>
+      {% endif %}
       {{ content }}
       <footer>
         {% include themes/apache/footer.html %}

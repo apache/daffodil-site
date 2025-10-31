@@ -1,16 +1,14 @@
 <footer class="site-footer">
     <div class="wrapper">
-        <div class="footer-col-wrapper" style="font-size: .85em;">
+        <div class="footer-col-wrapper" style="font-size:.85em;">
             <hr>
-            <div>
-                <div style="text-align: center;">
-                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
-                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
-                    2.0</a>.
-                    <br>
-                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
-                    are trademarks of The Apache Software Foundation.
-                </div>
+            <div style="text-align:center;">
+                Copyright &copy; {{ site.data.footer.copyright_year }}
+                <a href="{{ site.data.footer.org_url }}">{{ site.data.footer.org_name }}</a>.
+                Licensed under the
+                <a href="{{ site.data.footer.license_url }}">{{ site.data.footer.license_name }}</a>.
+                <br>
+                {{ site.data.footer.trademark_text }}
             </div>
         </div>
     </div>

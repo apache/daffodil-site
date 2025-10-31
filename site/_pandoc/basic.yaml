@@ -1,0 +1,6 @@
+pdf-engine: xelatex
+template: template_basic.tex
+toc: true
+number-sections: true
+from: markdown+pipe_tables+autolink_bare_uris+bracketed_spans+markdown_attribute+raw_tex
+listings: true

@@ -1,0 +1,8 @@
+org_name: "The Apache Software Foundation"
+org_url: "https://www.apache.org"
+license_name: "Apache License, Version 2.0"
+copyright_year: "2025"
+license_url: "https://www.apache.org/licenses/LICENSE-2.0"
+trademark_text: "Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo are trademarks of The Apache Software Foundation."
+daffodil_logo: ../assets/themes/apache/img/apache-daffodil-logo.png
+asf_logo: ../assets/themes/apache/img/asf_logo_wide.png
