@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Configuration</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Configuration</h1>
+</div>
+
 
 
 
@@ -97,7 +101,7 @@
 
 <p>Daffodil has the capability to read in parameters via an external XML file, defined by the <a href="https://github.com/apache/daffodil/blob/main/daffodil-propgen/src/main/resources/org/apache/daffodil/xsd/dafext.xsd">dafext.xsd</a> schema. Below are the parameters that can be defined.</p>
 
-<h3 id="external-variables">External Variables</h3>
+<h2 id="external-variables">External Variables</h2>
 
 <p>External variables can be defined using the <code class="language-plaintext highlighter-rouge">externalVariablesBindings</code> tag. For example, the following configuration file defines two variables, <code class="language-plaintext highlighter-rouge">var1</code> and <code class="language-plaintext highlighter-rouge">var2</code>, in the <code class="language-plaintext highlighter-rouge">http://example.com</code> namespace.</p>
 
@@ -116,7 +120,7 @@
 <span class="nt">&lt;dfdl:defineVariable</span> <span class="na">name=</span><span class="s">"var2"</span> <span class="na">external=</span><span class="s">"true"</span> <span class="na">type=</span><span class="s">"xsd:string"</span><span class="nt">&gt;</span>Bar<span class="nt">&lt;/dfdl:defineVariable&gt;</span>
 </code></pre></div></div>
 
-<h3 id="tunable-parameters">Tunable Parameters</h3>
+<h2 id="tunable-parameters">Tunable Parameters</h2>
 
 <p>Tunable parameters can be modified to change Daffodil schema compilation and data parsing properties. For example, the following sets the <code class="language-plaintext highlighter-rouge">maxOccursBounds</code> tunable to 1024:</p>
 

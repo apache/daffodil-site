@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.2.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.2.0</h1>
+</div>
+
 
 
 
@@ -262,7 +266,7 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <div class="alert alert-danger">
 WARNING
@@ -272,7 +276,7 @@ This release has been superceded by <a href="../3.2.1">Release 3.2.1</a> due to 
 The release notes below are still useful for understanding the features and functionality which are also part of <a href="../3.2.1">Release 3.2.1</a>.
 </div>
 
-<h4 id="new-dfdl-language-extension-features">New DFDL Language Extension Features</h4>
+<h2 id="new-dfdl-language-extension-features">New DFDL Language Extension Features</h2>
 
 <p>Daffodil contains a number of extensions to the DFDL language. These
 extensions generally are identified by use of the DFDL extensions
@@ -308,7 +312,7 @@ InfosetOutputter classes.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2537">DAFFODIL-2537</a>] dfdlx:runtimeProperties property</li>
 </ul>
 
-<h4 id="other-new-features">Other New Features</h4>
+<h2 id="other-new-features">Other New Features</h2>
 
 <p>The standard Log4J logging system is now used.</p>
 
@@ -329,7 +333,7 @@ InfosetOutputter classes.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2558">DAFFODIL-2558</a>] Update GitHub Actions Workflow to use Java 17</li>
 </ul>
 
-<h4 id="code-generation-backend">Code Generation Backend</h4>
+<h2 id="code-generation-backend">Code Generation Backend</h2>
 
 <p>The C code generation backend called <code class="language-plaintext highlighter-rouge">daffodil-runtime2</code> has had these enhancements.</p>
 
@@ -339,7 +343,7 @@ InfosetOutputter classes.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2583">DAFFODIL-2583</a>] Rename runtime2 test files and make runtime2 tests round-trip</li>
 </ul>
 
-<h4 id="bug-fixes">Bug Fixes</h4>
+<h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2551">DAFFODIL-2551</a>] Get a StackOverflowError when using daffodil save-parser to compile/save ATO schema to parser.bin file</li>
@@ -371,7 +375,7 @@ InfosetOutputter classes.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2554">DAFFODIL-2554</a>] Debugger infoset output is confusing with hidden groups</li>
 </ul>
 
-<h4 id="miscellaneous-changes">Miscellaneous Changes</h4>
+<h2 id="miscellaneous-changes">Miscellaneous Changes</h2>
 
 <p>Performance, code cleanups or maintainability improvements</p>
 
@@ -399,7 +403,7 @@ InfosetOutputter classes.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2528">DAFFODIL-2528</a>] Enable dependabot for github actions</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>The Daffodil layering extension formerly supported layering property
 names (E.G., layerTransform) not in the DFDL extensions namespace. The
@@ -428,11 +432,11 @@ vulerabilities.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1659">DAFFODIL-1659</a>] Turn off XML general entities - creates vulnerabilities</li>
 </ul>
 
-<h4 id="dependency-changes">Dependency Changes</h4>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>Apache Commons I/O 2.11.0 <small>(update)</small></li>
@@ -446,7 +450,7 @@ vulerabilities.</p>
   <li>Typesafe Config 1.4.1 <small>(update)</small></li>
 </ul>
 
-<p><strong>Command Line Interface</strong></p>
+<h3 id="command-line-interface">Command Line Interface</h3>
 
 <ul>
   <li>JLine 3.21.0 <small>(update)</small></li>
@@ -455,19 +459,19 @@ vulerabilities.</p>
   <li>Scallop 4.1.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>Code Generator</strong></p>
+<h3 id="code-generator">Code Generator</h3>
 
 <ul>
   <li>OS-Lib 0.7.8 <small>(update)</small></li>
 </ul>
 
-<p><strong>Schematron Validator</strong></p>
+<h3 id="schematron-validator">Schematron Validator</h3>
 
 <ul>
   <li>Saxon-HE 10.6 <small>(update)</small></li>
 </ul>
 
-<p><strong>Test</strong></p>
+<h3 id="test">Test</h3>
 
 <ul>
   <li>Junit-interface 0.13.2 <small>(update)</small></li>

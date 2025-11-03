@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Test Data Markup Language (TDML)</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Test Data Markup Language (TDML)</h1>
+</div>
+
 
 
 
@@ -222,7 +226,7 @@ it using the <code class="language-plaintext highlighter-rouge">test</code> subc
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ daffodil test myDateTimeBug.tdml
 </code></pre></div></div>
 
-<h3 id="specifying-test-data">Specifying Test Data</h3>
+<h2 id="specifying-test-data">Specifying Test Data</h2>
 
 <p>Test data can be specified in text, hexadecimal, individual bits, or in an
 external file by setting the <code class="language-plaintext highlighter-rouge">type</code> attribute in the <code class="language-plaintext highlighter-rouge">tdml:documentPart</code>
@@ -307,7 +311,7 @@ hardnessRating:967;
 the data defined in the <code class="language-plaintext highlighter-rouge">tdml:document</code> element. Otherwise the test will fail
 with a message about "left over data".</p>
 
-<h3 id="specifying-the-infoset">Specifying the Infoset</h3>
+<h2 id="specifying-the-infoset">Specifying the Infoset</h2>
 
 <p>The infoset can be provided either as an inline XML infoset or as a path to an
 external file by setting the <code class="language-plaintext highlighter-rouge">type</code> attribute on the <code class="language-plaintext highlighter-rouge">tdml:dfdlInfoset</code>
@@ -329,7 +333,7 @@ legal in XML documents. Daffodil remaps these characters into legal XML
 characters in the Unicode Private Use Areas (PUA). See <a href="/infoset#xml-illegal-characters">XML Illegal
 Characters</a> for details.</p>
 
-<h3 id="negative-tests-expecting-errorswarnings">Negative Tests: Expecting Errors/Warnings</h3>
+<h2 id="negative-tests-expecting-errorswarnings">Negative Tests: Expecting Errors/Warnings</h2>
 
 <p>A poor or missing diagnostic message is a bug just as much as a broken feature.
 TDML allows for creating negative tests to expect errors and warnings. To do
@@ -357,14 +361,14 @@ that warnings are considered non-fatal and so can appear alongside
 <span class="nt">&lt;/tdml:warnings&gt;</span>
 </code></pre></div></div>
 
-<h3 id="using-cdata-regions">Using CDATA Regions</h3>
+<h2 id="using-cdata-regions">Using CDATA Regions</h2>
 
 <p>XML CDATA regions indicate XML data that should not be interpreted as XML.
 Although in general is it used to easily include XML special characters in XML
 data, its use has other benefits in TDML files as well. Below are examples of
 what scenarios when CDATA regions should and should not be used.</p>
 
-<h4 id="-as-a-clear-way-represent-xml-special-characters"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  As a clear way represent XML special characters</h4>
+<h3 id="-as-a-clear-way-represent-xml-special-characters"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  As a clear way represent XML special characters</h3>
 
 <p>The characters <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">'</code>, and <code class="language-plaintext highlighter-rouge">"</code> must be represented in XML
 with <code class="language-plaintext highlighter-rouge">&amp;lt;</code>, <code class="language-plaintext highlighter-rouge">&amp;gt;</code>, <code class="language-plaintext highlighter-rouge">&amp;amp;</code>, <code class="language-plaintext highlighter-rouge">&amp;apos;</code>, and <code class="language-plaintext highlighter-rouge">&amp;quot;</code>, respectively.
@@ -375,7 +379,7 @@ make the data more clear. For example, the following are equivalent:</p>
 <span class="nt">&lt;foo&gt;</span>abc<span class="cp">&lt;![CDATA[&amp;&amp;&amp;]]&gt;</span>def<span class="nt">&lt;/foo&gt;</span>
 </code></pre></div></div>
 
-<h4 id="-to-preserve-textual-formatting-within-tdml---for-clarity-reasons"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To preserve textual formatting within TDML - for clarity reasons</h4>
+<h3 id="-to-preserve-textual-formatting-within-tdml---for-clarity-reasons"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To preserve textual formatting within TDML - for clarity reasons</h3>
 
 <p>Often times IDE's and XML editors will indent, wrap, and remove redundant
 whitespace in XML data. However, sometimes it is desired that such formatting
@@ -398,7 +402,7 @@ the formatting. But logically, the whitespace is irrelevant when the
 documentPart type is "byte". In effect, we have CDATA here so that tooling like
 IDEs, XML editor, etc. will not mess with the formatting of the content.</p>
 
-<h4 id="-to-avoid-insertion-of-whitespace-that-would-make-things-incorrect"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To avoid insertion of whitespace that would make things incorrect</h4>
+<h3 id="-to-avoid-insertion-of-whitespace-that-would-make-things-incorrect"><i class="glyphicon glyphicon-ok" style="color: #00d000;"></i>  To avoid insertion of whitespace that would make things incorrect</h3>
 
 <p>Let us assume that the input document should contain exactly two letters:
 <code class="language-plaintext highlighter-rouge">a年</code>. This might be represented as the following in a TDML file:</p>
@@ -428,7 +432,7 @@ input data:</p>
   <span class="nt">&lt;documentPart</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[a年]]&gt;</span><span class="nt">&lt;/documentPart&gt;</span>
 <span class="nt">&lt;/document&gt;</span>
 </code></pre></div></div>
-<h4 id="-to-preserve-specific-line-endings"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i>  To preserve specific line endings</h4>
+<h3 id="-to-preserve-specific-line-endings"><i class="glyphicon glyphicon-remove" style="color: #d00000;"></i>  To preserve specific line endings</h3>
 
 <p>Using CDATA does NOT necessarily preserve line endings. So if you had a test
 where you have this:</p>
@@ -518,7 +522,7 @@ that uses these DFDL schemas
 
 <p>is fine, and will work and be robust.</p>
 
-<h3 id="round-trip-testing">Round-Trip Testing</h3>
+<h2 id="round-trip-testing">Round-Trip Testing</h2>
 
 <p>Round-trip testing is using a single test case for testing both parse and unparse directions.</p>
 

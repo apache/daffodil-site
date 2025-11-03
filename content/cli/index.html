@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Command Line Interface</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Command Line Interface</h1>
+</div>
+
 
 
 
@@ -113,7 +117,7 @@
   <li><a href="#generate-subcommand">generate</a></li>
 </ul>
 
-<h3 id="environment-variables">Environment Variables</h3>
+<h2 id="environment-variables">Environment Variables</h2>
 
 <p>Setting environment variables may be necessary to allow imports, includes, and running TDML files to work.</p>
 
@@ -141,7 +145,7 @@
   </dd>
 </dl>
 
-<h3 id="global-options">Global Options</h3>
+<h2 id="global-options">Global Options</h2>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-v, --verbose</code></dt>
@@ -158,17 +162,17 @@
   </dd>
 </dl>
 
-<h3 id="parse-subcommand">Parse Subcommand</h3>
+<h2 id="parse-subcommand">Parse Subcommand</h2>
 
 <p>Parse a file, using either a DFDL schema or a saved parser.</p>
 
-<h4 id="usage">Usage</h4>
+<h3 id="usage">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
                [PARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h4 id="parse-options">Parse Options</h4>
+<h3 id="parse-options">Parse Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -241,22 +245,22 @@
   </dd>
 </dl>
 
-<h4 id="example">Example</h4>
+<h3 id="example">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse -s csv.dfdl.xsd test_file.csv
 </code></pre></div></div>
 
-<h3 id="unparse-subcommand">Unparse Subcommand</h3>
+<h2 id="unparse-subcommand">Unparse Subcommand</h2>
 
 <p>Unparse an infoset file, using either a DFDL schema or a saved parser.</p>
 
-<h4 id="usage-1">Usage</h4>
+<h3 id="usage-1">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
                  [UNPARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h4 id="unparse-options">Unparse Options</h4>
+<h3 id="unparse-options">Unparse Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -329,22 +333,22 @@
   </dd>
 </dl>
 
-<h4 id="example-1">Example</h4>
+<h3 id="example-1">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse -s csv.dfdl.xsd test_file.infoset
 </code></pre></div></div>
 
-<h3 id="save-parser-subcommand">Save Parser Subcommand</h3>
+<h2 id="save-parser-subcommand">Save Parser Subcommand</h2>
 
 <p>Save a parser that can be reused for parsing and unparsing.</p>
 
-<h4 id="usage-2">Usage</h4>
+<h3 id="usage-2">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [-r &lt;root&gt;]
                     [SAVE_PARSER_OPTS] [outfile]
 </code></pre></div></div>
 
-<h4 id="save-parser-options">Save Parser Options</h4>
+<h3 id="save-parser-options">Save Parser Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -379,21 +383,21 @@
   </dd>
 </dl>
 
-<h4 id="example-2">Example</h4>
+<h3 id="example-2">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
 </code></pre></div></div>
 
-<h3 id="test-subcommand">Test Subcommand</h3>
+<h2 id="test-subcommand">Test Subcommand</h2>
 
 <p>List or execute tests in a TDML file.</p>
 
-<h4 id="usage-3">Usage</h4>
+<h3 id="usage-3">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [TEST_OPTS] &lt;tdmlfile&gt; [testnames...]
 </code></pre></div></div>
 
-<h4 id="test-options">Test Options</h4>
+<h3 id="test-options">Test Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
@@ -441,22 +445,22 @@ daffodilC. Defaults to daffodil.</p>
   </dd>
 </dl>
 
-<h4 id="example-3">Example</h4>
+<h3 id="example-3">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test csv.tdml
 </code></pre></div></div>
 
-<h3 id="performance-subcommand">Performance Subcommand</h3>
+<h2 id="performance-subcommand">Performance Subcommand</h2>
 
 <p>Run a performance test (parse or unparse), using either a DFDL schema or a saved parser.</p>
 
-<h4 id="usage-4">Usage</h4>
+<h3 id="usage-4">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
                      [PERFORMANCE_OPTS] &lt;infile&gt;
 </code></pre></div></div>
 
-<h4 id="performance-options">Performance Options</h4>
+<h3 id="performance-options">Performance Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -515,16 +519,16 @@ daffodilC. Defaults to daffodil.</p>
   </dd>
 </dl>
 
-<h4 id="example-4">Example</h4>
+<h3 id="example-4">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
 </code></pre></div></div>
 
-<h3 id="generate-subcommand">Generate Subcommand</h3>
+<h2 id="generate-subcommand">Generate Subcommand</h2>
 
 <p>Generate C code from a DFDL schema to parse or unparse data.</p>
 
-<h4 id="usage-5">Usage</h4>
+<h3 id="usage-5">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil generate &lt;language&gt; [SUBCOMMAND_OPTS]
 
@@ -534,7 +538,7 @@ daffodil generate c -s &lt;schema&gt; [-r &lt;root&gt;]
                     [GENERATE_OPTIONS] [outdir]
 </code></pre></div></div>
 
-<h4 id="generate-options">Generate Options</h4>
+<h3 id="generate-options">Generate Options</h3>
 
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
@@ -563,7 +567,7 @@ daffodil generate c -s &lt;schema&gt; [-r &lt;root&gt;]
   </dd>
 </dl>
 
-<h4 id="example-5">Example</h4>
+<h3 id="example-5">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil generate c -s csv.dfdl.xsd
 </code></pre></div></div>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | </title>
+    <title>Apache Daffodil | Namespace Binding Minimization</title>
     
     <meta name="author" content="">
 
@@ -80,22 +80,23 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2></h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Namespace Binding Minimization</h1>
+</div>
+
 
 
 
     <div class="container">
       <div class="row">
   <div class="col-md-12">
-    <div class="sect1">
-<h2 id="namespace-binding-minimization">Namespace Binding Minimization</h2>
+    <div id="preamble">
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="introduction">Introduction</h3>
 <div class="paragraph">
 <p>DFDL schemas are XML schemas and so DFDL inherits the namespace system of XML and XML Schema for composing large schemas from smaller ones, for reusing schema files, and for managing name conflicts.</p>
 </div>
@@ -140,8 +141,10 @@ But when element Q appears inside element C, its namespace binding for "qns" is 
 <div class="paragraph">
 <p>The basic technique is to store, on the runtime element data structure (DPathElementCompileInfo), the complete set of lexical namespace bindings present for the element declaration in the DFDL schema document.</p>
 </div>
-<div class="sect3">
-<h4 id="namespace-bindings-come-from-the-element-declarations-not-element-references">Namespace Bindings come from the Element Declarations, not Element References</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="namespace-bindings-come-from-the-element-declarations-not-element-references">Namespace Bindings come from the Element Declarations, not Element References</h3>
 <div class="paragraph">
 <p>Consider two schema files:</p>
 </div>
@@ -233,19 +236,19 @@ The schema author can simply avoid these sorts of name clashes and this problem 
 Automatic renaming of prefixes to avoid this problem is considered unwarranted, as it will confuse users.</p>
 </div>
 </div>
-</div>
+<div class="sect1">
+<h2 id="namespace-minimization">Namespace Minimization</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="namespace-minimization">Namespace Minimization</h3>
-<div class="sect3">
-<h4 id="only-element-namespace-prefix-bindings">Only Element Namespace Prefix Bindings</h4>
+<h3 id="only-element-namespace-prefix-bindings">Only Element Namespace Prefix Bindings</h3>
 <div class="paragraph">
 <p>Only namespace definitions associated with element declarations need to ever be considered for the infoset.
 Namespace definitions that define prefixes used for type, group, format, or escapeScheme references are not included
 in the namespace definitions carried on infoset elements.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="avoid-prefix-tns-or-other-common-ambiguous-names-when-possible">Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible</h4>
+<div class="sect2">
+<h3 id="avoid-prefix-tns-or-other-common-ambiguous-names-when-possible">Avoid Prefix "tns" (or Other Common Ambiguous Names) When Possible</h3>
 <div class="paragraph">
 <p>Many DFDL schemas will define prefix "tns" to be that schema document&#8217;s target namespace.</p>
 </div>
@@ -270,8 +273,8 @@ There is actually no difference between using "tns" and the default namespace. B
 <p>(This all generalizes to any prefix which is ambiguous across the schema set.)</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="corner-cases">Corner Cases</h4>
+<div class="sect2">
+<h3 id="corner-cases">Corner Cases</h3>
 <div class="paragraph">
 <p>There are numerous ways schema authors can use and reuse namespace prefixes that can lead to cluttered infosets.</p>
 </div>
@@ -279,8 +282,8 @@ There is actually no difference between using "tns" and the default namespace. B
 <p>Other than minor heuristics to choose among alternative available prefix definitions, Daffodil does not try to improve on the
 namespace prefix problem on behalf of schema authors.</p>
 </div>
-<div class="sect4">
-<h5 id="no-prefix-at-all">No Prefix At All</h5>
+<div class="sect3">
+<h4 id="no-prefix-at-all">No Prefix At All</h4>
 <div class="paragraph">
 <p>A legal schema document can define a target namespace and define no prefix for it at all.</p>
 </div>
@@ -301,8 +304,8 @@ TBD: Should we issue a warning or even make this a schema definition error?
 </table>
 </div>
 </div>
-<div class="sect4">
-<h5 id="only-tns-or-only-the-default-namespace">Only "tns" or Only the Default Namespace</h5>
+<div class="sect3">
+<h4 id="only-tns-or-only-the-default-namespace">Only "tns" or Only the Default Namespace</h4>
 <div class="paragraph">
 <p>A schema defines "tns" (or other very common prefix like "pre" or "p") for its target namespace, but defines no other prefix that can be used as an alternative.</p>
 </div>
@@ -338,8 +341,8 @@ In that case you can have infosets like this:</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="undefining-the-default-namespace">Undefining the Default Namespace</h4>
+<div class="sect2">
+<h3 id="undefining-the-default-namespace">Undefining the Default Namespace</h3>
 <div class="paragraph">
 <p>Many schemas will not define the default namespace.</p>
 </div>
@@ -419,7 +422,6 @@ That is, an element with no namespace displayed in a context which has a default
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>

@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Getting Started</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Getting Started</h1>
+</div>
+
 
 
 
@@ -95,7 +99,7 @@
 
 -->
 
-<h3 id="using-daffodil">Using Daffodil</h3>
+<h2 id="using-daffodil">Using Daffodil</h2>
 
 <p>Daffodil is a library, requiring Java 8, used to convert between fixed format data and XML/JSON based on a DFDL schema. Some <a href="/examples">examples</a> show the result of Daffodil parsing various inputs into XML. Multiple mechanisms that use the Daffodil library invoke its capabilities are described below.</p>
 
@@ -122,7 +126,7 @@
   </dd>
 </dl>
 
-<h3 id="existing-dfdl-schemas">Existing DFDL Schemas</h3>
+<h2 id="existing-dfdl-schemas">Existing DFDL Schemas</h2>
 
 <p>Many DFDL schemas are freely and publicly available at <a href="https://github.com/DFDLSchemas">DFDLSchemas</a> on GitHub. This includes image formats, financial transaction formats, healthcare formats, and more.</p>
 
@@ -132,13 +136,13 @@ to authorized persons at
 NACT headers, VMF (aka MIL-STD-6017),GMTIF (STANAG 4607 AEDP-7), iCalendar, IMF, USMTF (aka 
 MIL-STD-6040), and OilStock</p>
 
-<h3 id="creating-dfdl-schemas">Creating DFDL Schemas</h3>
+<h2 id="creating-dfdl-schemas">Creating DFDL Schemas</h2>
 
-<h4 id="layout">Layout</h4>
+<h3 id="layout">Layout</h3>
 
 <p>When creating a custom DFDL schema, it is beneficial to follow the directory/file layout described in <a href="/dfdl-layout">Standard DFDL Schema Project Layout</a>. This layout provides a consistent and familiar structure for DFDL schema development that existing tooling understands, provides for easy testing and schema packaging, and ensures no name conflicts on classpaths if multiple schemas are used together.</p>
 
-<h4 id="editors">Editors</h4>
+<h3 id="editors">Editors</h3>
 
 <p>Any text editor can be used for authoring DFDL schemas. But because DFDL schemas are a subset of XML Schema, using an XML editor (especially an XML Schema aware editor) can provide intelligent assistance in authoring DFDL Schemas, including attribute and tag completion, validation, indentation, visualizations, etc. Below are resources for configuring various tools specifically for editing or authoring DFDL schemas.</p>
 
@@ -146,11 +150,11 @@ MIL-STD-6040), and OilStock</p>
   <li><a href="/eclipse-configuration">Eclipse IDE</a></li>
 </ul>
 
-<h4 id="dfdl-extensions">DFDL Extensions</h4>
+<h3 id="dfdl-extensions">DFDL Extensions</h3>
 
 <p>Daffodil provides extensions to the DFDL specification to add extra enhancements and capabilities. These extensions are listed at <a href="/dfdl-extensions">DFDL Extensions</a>.</p>
 
-<h3 id="infoset">Infoset</h3>
+<h2 id="infoset">Infoset</h2>
 
 <p>The Daffodil API and CLI support multiple ways to represent the DFDL infoset, including XML and JSON. See <a href="/infoset">Daffodil and the DFDL Infoset</a> for a description of how the parts of the DFDL infoset are represented.</p>
 

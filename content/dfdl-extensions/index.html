@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>DFDL Extensions</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>DFDL Extensions</h1>
+</div>
+
 
 
 
@@ -108,26 +112,22 @@ like so:</p>
 
 <p>The following symbols defined in this namespace are described below.</p>
 
-<h3 id="expression-functions">Expression Functions</h3>
+<h2 id="expression-functions">Expression Functions</h2>
 
-<dl>
-  <dt><code class="language-plaintext highlighter-rouge">daf:error()</code></dt>
-  <dd>
-    <p>A function that can be used in DFDL expressions. This functions does not return a value or accept any arguments. When called, it causes a Parse Error or Unparse Error.</p>
+<h3 id="daferror"><code class="language-plaintext highlighter-rouge">daf:error()</code></h3>
 
-    <p><em>This function is deprecated as of Daffodil 2.0.0. 
- Use the <code class="language-plaintext highlighter-rouge">fn:error(...)</code> function instead.</em></p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:trace($value, $label)</code></dt>
-  <dd>
-    <p>A function that can be used in DFDL expressions, similar to the <code class="language-plaintext highlighter-rouge">fn:trace()</code> function. This logs the string <code class="language-plaintext highlighter-rouge">$label</code> followed by <code class="language-plaintext highlighter-rouge">$value</code> converted to a string and returns <code class="language-plaintext highlighter-rouge">$value</code>. The second argument must be of type <code class="language-plaintext highlighter-rouge">xs:string</code>.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:lookAhead(offset, bitSize)</code></dt>
-  <dd>
-    <p>Read <code class="language-plaintext highlighter-rouge">bitSize</code> bits, where the first bit is located at an <code class="language-plaintext highlighter-rouge">offset</code> (in bits)
-   from the current location. The result is a <code class="language-plaintext highlighter-rouge">xs:nonNegativeInteger</code>. Restrictions:</p>
-  </dd>
-</dl>
+<p>A function that can be used in DFDL expressions. This functions does not return a value or accept any arguments. When called, it causes a Parse Error or Unparse Error.</p>
+
+<p><em>This function is deprecated as of Daffodil 2.0.0. Use the <code class="language-plaintext highlighter-rouge">fn:error(...)</code> function instead.</em></p>
+
+<h3 id="dfdlxtracevalue-label"><code class="language-plaintext highlighter-rouge">dfdlx:trace($value, $label)</code></h3>
+
+<p>A function that can be used in DFDL expressions, similar to the <code class="language-plaintext highlighter-rouge">fn:trace()</code> function. This logs the string <code class="language-plaintext highlighter-rouge">$label</code> followed by <code class="language-plaintext highlighter-rouge">$value</code> converted to a string and returns <code class="language-plaintext highlighter-rouge">$value</code>. The second argument must be of type <code class="language-plaintext highlighter-rouge">xs:string</code>.</p>
+
+<h3 id="dfdlxlookaheadoffset-bitsize"><code class="language-plaintext highlighter-rouge">dfdlx:lookAhead(offset, bitSize)</code></h3>
+
+<p>Read <code class="language-plaintext highlighter-rouge">bitSize</code> bits, where the first bit is located at an <code class="language-plaintext highlighter-rouge">offset</code> (in bits)
+from the current location. The result is a <code class="language-plaintext highlighter-rouge">xs:nonNegativeInteger</code>. Restrictions:</p>
 
 <ul>
   <li>offset &gt;=0</li>
@@ -144,75 +144,68 @@ the data being read will not be used.</li>
 </ul>
 
 <h4 id="examples-of-dfdlxlookahead">Examples of <code class="language-plaintext highlighter-rouge">dfdlx:lookAhead</code></h4>
+
 <p>The following two elements both populate element <code class="language-plaintext highlighter-rouge">a</code> with the value of the next 3 bits as an 
-   unsignedInt. They are not completely equivalent because the first will consume 3 bits of the 
-   input stream where the second will not advance the input stream.</p>
+unsignedInt. They are not completely equivalent because the first will consume 3 bits of the 
+input stream where the second will not advance the input stream.</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"3"</span> <span class="na">dfdl:lengthUnits=</span><span class="s">"bits"</span> <span class="nt">/&gt;</span>
 
 <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:inputValueCalc=</span><span class="s">"{ dfdlx:lookAhead(0,3) }"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
 <p>The following example demonstrates using lookAhead to branch based on a field in the future. 
 In this case the choice of elements <code class="language-plaintext highlighter-rouge">a</code> vs. <code class="language-plaintext highlighter-rouge">b</code> depends on the value of the <code class="language-plaintext highlighter-rouge">tag</code> field which is 
-found after fields <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;xs:choice dfdl:choiceDispatchKey="{ dfdlx:lookAhead(16,8) }"&gt;
-  &lt;xs:element name="a" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="1"/&gt;
-  &lt;xs:element name="b" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="2"/&gt;
-&lt;/xs:choice&gt;
-&lt;xs:element name="tag" type="xs:int" dfdl:length="8" /&gt;
+found after fields <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>:
+```</p>
+<xs:choice dfdl:choiceDispatchKey="{ dfdlx:lookAhead(16,8) }">
+<xs:element name="a" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="1" />
+<xs:element name="b" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="2" />
+</xs:choice>
+<xs:element name="tag" type="xs:int" dfdl:length="8" />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ``` # Bitwise Functions
 </code></pre></div></div>
 
-<dl>
-  <dt>Bitwise Functions</dt>
-  <dd>
-    <p>TBD, but the complete list (all <code class="language-plaintext highlighter-rouge">dfdlx</code>) is <code class="language-plaintext highlighter-rouge">BitAnd</code>, <code class="language-plaintext highlighter-rouge">BitNot</code>, <code class="language-plaintext highlighter-rouge">BitOr</code>, <code class="language-plaintext highlighter-rouge">BitXor</code>, <code class="language-plaintext highlighter-rouge">LeftShift</code>, 
-   <code class="language-plaintext highlighter-rouge">RightShift</code></p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong</code></dt>
-  <dd>
-    <p>Converting binary floating point numbers to/from base 10 text can result in lost information.
+<p>TBD, but the complete list (all <code class="language-plaintext highlighter-rouge">dfdlx</code>) is <code class="language-plaintext highlighter-rouge">BitAnd</code>, <code class="language-plaintext highlighter-rouge">BitNot</code>, <code class="language-plaintext highlighter-rouge">BitOr</code>, <code class="language-plaintext highlighter-rouge">BitXor</code>, <code class="language-plaintext highlighter-rouge">LeftShift</code>, 
+<code class="language-plaintext highlighter-rouge">RightShift</code></p>
+
+<h3 id="dfdlxdoublefromrawlong-and-dfdlxdoubletorawlong"><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong</code></h3>
+
+<p>Converting binary floating point numbers to/from base 10 text can result in lost information.
 The base 10 representation, converted back to binary representation, may not be bit-for-bit 
-   identical. These functions can be used to carry 8-byte double precision IEEE floating point 
-   numbers as type <code class="language-plaintext highlighter-rouge">xs:long</code> so that no information is lost. The DFDL schema can still obtain 
-   and operate on the floating point value by converting these <code class="language-plaintext highlighter-rouge">xs:long</code> values into type 
-   <code class="language-plaintext highlighter-rouge">xs:double</code>, and back if necessary for unparsing a new value.</p>
-  </dd>
-</dl>
+identical. These functions can be used to carry 8-byte double precision IEEE floating point 
+numbers as type <code class="language-plaintext highlighter-rouge">xs:long</code> so that no information is lost. The DFDL schema can still obtain 
+and operate on the floating point value by converting these <code class="language-plaintext highlighter-rouge">xs:long</code> values into type 
+<code class="language-plaintext highlighter-rouge">xs:double</code>, and back if necessary for unparsing a new value.</p>
 
-<h3 id="properties">Properties</h3>
+<h2 id="properties">Properties</h2>
 
-<dl>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code></dt>
-  <dd>
-    <p>A property applied to simple and complex elements, which specifies whether the element supports only parsing, only unparsing, or both parsing and unparse. Valid values for this property are <code class="language-plaintext highlighter-rouge">parse</code>, <code class="language-plaintext highlighter-rouge">unparse</code>, or <code class="language-plaintext highlighter-rouge">both</code>. This allows one to leave off properties that are required for only parse or only unparse, such as <code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code> or <code class="language-plaintext highlighter-rouge">dfdl:outputNewLine</code>, so that one may have a valid schema if only a subset of functionality is needed.</p>
+<h3 id="dfdlxparseunparsepolicy"><code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code></h3>
 
-    <p>All elements must have a compatible parseUnparsePolicy with the compilation parseUnparsePolicy (which is defined by the root element daf:parseUnparsePolicy and/or the Daffodil parseUnparsePolicy tunable) or it is a Schema Definition Error. An element is defined to have a compatible parseUnparsePolicy if it has the same value as the compilation parseUnparsePolicy or if it has the value <code class="language-plaintext highlighter-rouge">both</code>.</p>
+<p>A property applied to simple and complex elements, which specifies whether the element supports only parsing, only unparsing, or both parsing and unparse. Valid values for this property are <code class="language-plaintext highlighter-rouge">parse</code>, <code class="language-plaintext highlighter-rouge">unparse</code>, or <code class="language-plaintext highlighter-rouge">both</code>. This allows one to leave off properties that are required for only parse or only unparse, such as <code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code> or <code class="language-plaintext highlighter-rouge">dfdl:outputNewLine</code>, so that one may have a valid schema if only a subset of functionality is needed.</p>
 
-    <p>For compatibility, if this property is not defined, it is assumed to be <code class="language-plaintext highlighter-rouge">both</code>.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:layer</code></dt>
-  <dd>
-    <p><a href="/layers">Layers</a> provide algorithmic capabilities for decoding/encoding data or computing 
-   checksums. Some are built-in to Daffodil. New layers can be created in Java/Scala and 
-   plugged-in to Daffodil dynamically.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:direction</code></dt>
-  <dd>
-    <p>TBD</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code>, and <code class="language-plaintext highlighter-rouge">dfdlx:repValueRanges</code></dt>
-  <dd>
-    <p>TBD</p>
-  </dd>
-</dl>
+<p>All elements must have a compatible parseUnparsePolicy with the compilation parseUnparsePolicy (which is defined by the root element daf:parseUnparsePolicy and/or the Daffodil parseUnparsePolicy tunable) or it is a Schema Definition Error. An element is defined to have a compatible parseUnparsePolicy if it has the same value as the compilation parseUnparsePolicy or if it has the value <code class="language-plaintext highlighter-rouge">both</code>.</p>
 
-<h3 id="extended-behaviors">Extended Behaviors</h3>
+<p>For compatibility, if this property is not defined, it is assumed to be <code class="language-plaintext highlighter-rouge">both</code>.</p>
 
-<dl>
-  <dt>Type <code class="language-plaintext highlighter-rouge">xs:hexBinary</code></dt>
-  <dd>
-    <p>Daffodil allows <code class="language-plaintext highlighter-rouge">dfdlx:lengthUnits='bits'</code> for this simple type.</p>
-  </dd>
-</dl>
+<h3 id="dfdlxlayer"><code class="language-plaintext highlighter-rouge">dfdlx:layer</code></h3>
+
+<p><a href="/layers">Layers</a> provide algorithmic capabilities for decoding/encoding data or computing 
+checksums. Some are built-in to Daffodil. New layers can be created in Java/Scala and 
+plugged-in to Daffodil dynamically.</p>
+
+<h3 id="dfdlxdirection"><code class="language-plaintext highlighter-rouge">dfdlx:direction</code></h3>
+
+<p>TBD</p>
+
+<h3 id="dfdlxreptype-dfdlxrepvalues-and-dfdlxrepvalueranges"><code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code>, and <code class="language-plaintext highlighter-rouge">dfdlx:repValueRanges</code></h3>
+
+<p>TBD</p>
+
+<h2 id="extended-behaviors">Extended Behaviors</h2>
+
+<h3 id="type-xshexbinary">Type <code class="language-plaintext highlighter-rouge">xs:hexBinary</code></h3>
+
+<p>Daffodil allows <code class="language-plaintext highlighter-rouge">dfdlx:lengthUnits='bits'</code> for this simple type.</p>
 
   </div>
 </div>

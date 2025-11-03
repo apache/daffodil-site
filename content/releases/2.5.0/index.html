@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 2.5.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 2.5.0</h1>
+</div>
+
 
 
 
@@ -262,9 +266,9 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
-<h4 id="extension-user-defined-functions-proposal">Extension: User Defined Functions [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Feature+to+Support+User+Defined+Functions">Proposal</a>]</h4>
+<h2 id="extension-user-defined-functions-proposal">Extension: User Defined Functions [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Feature+to+Support+User+Defined+Functions">Proposal</a>]</h2>
 
 <p>A new extension is added to support custom DFDL expression functions written in
 Java or Scala. To add new functions, the UserDefinedFunctionProvider and
@@ -280,7 +284,7 @@ page.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2235">DAFFODIL-2235</a>] Exception when UDF object contains nonSerializable field</li>
 </ul>
 
-<h4 id="extension-binary-large-objects-proposal">Extension: Binary Large Objects [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Binary+Large+Objects">Proposal</a>]</h4>
+<h2 id="extension-binary-large-objects-proposal">Extension: Binary Large Objects [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Binary+Large+Objects">Proposal</a>]</h2>
 
 <p>A new extension is added to support Binary Large Objects. Setting an element
 type to <code class="language-plaintext highlighter-rouge">xs:anyURI</code> and setting the DFDL property
@@ -294,7 +298,7 @@ files.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1735">DAFFODIL-1735</a>] BLOB/CLOB - large object handles</li>
 </ul>
 
-<h4 id="unordered-sequences">Unordered Sequences</h4>
+<h2 id="unordered-sequences">Unordered Sequences</h2>
 
 <p>Add support for unordered sequences via the <code class="language-plaintext highlighter-rouge">dfdl:sequenceKind="unordered"</code>
 property. See section 14.3 of the DFDL specification for more information on
@@ -311,7 +315,7 @@ the behavior of unordered sequences.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2261">DAFFODIL-2261</a>] Optional first element in unordered sequence fails to unparse</li>
 </ul>
 
-<h4 id="memory-limitations">Memory Limitations</h4>
+<h2 id="memory-limitations">Memory Limitations</h2>
 
 <p>During parsing, Daffodil stores the data stream in a cache to allow for
 backtracking. However, when streaming very large files that might need to
@@ -339,7 +343,7 @@ greater than 2GB is possible.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2194">DAFFODIL-2194</a>] buffered data output stream has a chunk limit of 2GB</li>
 </ul>
 
-<h4 id="tdml">TDML</h4>
+<h2 id="tdml">TDML</h2>
 
 <p>Improvements were made to the TDML runner, including API updates to support use in Java,
 and improved output on failures.</p>
@@ -351,7 +355,7 @@ and improved output on failures.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2241">DAFFODIL-2241</a>] Java Junit Test TDML not working</li>
 </ul>
 
-<h4 id="infrastructure">Infrastructure</h4>
+<h2 id="infrastructure">Infrastructure</h2>
 
 <p>Multiple infrastructure changes were made, including support for GitHub Actions
 continuous integration, Windows CI tests, a new container based system for
@@ -371,7 +375,7 @@ creating releases, and website updates.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2264">DAFFODIL-2264</a>] Add more automation to the release candidate container</li>
 </ul>
 
-<h4 id="code-refactoring">Code Refactoring</h4>
+<h2 id="code-refactoring">Code Refactoring</h2>
 
 <p>Many non-functional changes were made, including improved internal type-safety,
 improved separation of runtime objects to support different runtimes in the
@@ -387,7 +391,7 @@ miscellaneous improvements.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2256">DAFFODIL-2256</a>] Purge scala.math.{BigInt, BigDecimal}  from code</li>
 </ul>
 
-<h4 id="miscellaneous-changes-and-bug-fixes">Miscellaneous Changes and Bug Fixes</h4>
+<h2 id="miscellaneous-changes-and-bug-fixes">Miscellaneous Changes and Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1034">DAFFODIL-1034</a>] IBM Compatibility - VCard Schemas cause abort</li>
@@ -410,7 +414,7 @@ miscellaneous improvements.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2265">DAFFODIL-2265</a>] Update copyright dates to 2020</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>The following changes have been made which may affect compatibility with past releases:</p>
 

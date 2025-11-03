@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | </title>
+    <title>Apache Daffodil | Term Sharing in the Schema Compiler</title>
     
     <meta name="author" content="">
 
@@ -80,22 +80,23 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2></h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Term Sharing in the Schema Compiler</h1>
+</div>
+
 
 
 
     <div class="container">
       <div class="row">
   <div class="col-md-12">
-    <div class="sect1">
-<h2 id="term-sharing-in-the-schema-compiler">Term Sharing in the Schema Compiler</h2>
+    <div id="preamble">
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="introduction">Introduction</h3>
 <div class="paragraph">
 <p>The DFDL language has a composition property known as <em>referential transparency</em>.
 It is not supposed to matter whether you lift a part of the schema out
@@ -132,8 +133,10 @@ complexity in sharing objects by the schema compiler.</p>
 illustrate the schema compiler behavior.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="dsom-term-objects">DSOM Term Objects</h3>
+</div>
+<div class="sect1">
+<h2 id="dsom-term-objects">DSOM Term Objects</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>DSOM is the Daffodil Schema Object Model.
 Within this model, the components from a DFDL schema that actually have
@@ -196,8 +199,10 @@ choice branch is a single element decl/ref)</p>
 <p>A <a href="https://cwiki.apache.org/confluence/display/DAFFODIL/DFDL+Schema+Object+Model+%28DSOM%29+with+UML">UML Diagram</a> is available showing these classes.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="term-representation-regions">Term Representation Regions</h3>
+</div>
+<div class="sect1">
+<h2 id="term-representation-regions">Term Representation Regions</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Consider the representation of a term, which we call the term&#8217;s
 <em>region</em>, as appearing between two other term regions in the data
@@ -237,8 +242,10 @@ A single implementation is not always achievable, but generally one or
 a small number of implementations are possible.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="limits-to-sharing">Limits to Sharing</h3>
+</div>
+<div class="sect1">
+<h2 id="limits-to-sharing">Limits to Sharing</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Consider if this term above was defined by way of a XSD group
 reference.
@@ -298,8 +305,8 @@ postfix separator.</p>
 entirely, that is specifying no properties at all on the group
 reference.</p>
 </div>
-<div class="sect3">
-<h4 id="property-environment-or-propenv">Property Environment or PropEnv</h4>
+<div class="sect2">
+<h3 id="property-environment-or-propenv">Property Environment or PropEnv</h3>
 <div class="paragraph">
 <p>We define the <em>property environment</em> or <em>PropEnv</em> of a term, as the
 complete set of properties for that term, combining them from all the
@@ -457,8 +464,8 @@ That is, so that multiple schema documents each containing:</p>
 <p>are instantiated as the same object when the QName resolves to the same format object.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="details-of-unique-and-shared-regions">Details of Unique and Shared Regions</h4>
+<div class="sect2">
+<h3 id="details-of-unique-and-shared-regions">Details of Unique and Shared Regions</h3>
 <div class="paragraph">
 <p>The division of the reprsentation into the unique part which appears
 before the shared parts indicates where we can share implementation,
@@ -688,8 +695,10 @@ This insures no combinatorial explosion of compilation time.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="optimizing-alignment-regions">Optimizing Alignment Regions</h3>
+</div>
+<div class="sect1">
+<h2 id="optimizing-alignment-regions">Optimizing Alignment Regions</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>A primary task of the schema compiler is to eliminate alignment fill
 (and mandatory text alignment aka MTA) regions that are unnecessary
@@ -725,8 +734,10 @@ known alignment (specified by its alignment and alignment units
 property).</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="other-context-dependent-computations">Other Context-Dependent Computations</h3>
+</div>
+<div class="sect1">
+<h2 id="other-context-dependent-computations">Other Context-Dependent Computations</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>By dividing up the representation of a term into the unique context-dependent
 and shared context-indepenent parts explicitly we provide a home for the various
@@ -752,7 +763,6 @@ It exists in 1 to 1 correspondence (aka it is "owned" by the enclosing model gro
 <div class="paragraph">
 <p>In the Runtime 1 backend, a processor (parser/unparser) is generated for the shared term object,
 and that processor is referenced from the processor generated for the unshared term object.</p>
-</div>
 </div>
 </div>
 </div>

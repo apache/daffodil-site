@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | </title>
+    <title>Apache Daffodil | C Code Generator ToDos</title>
     
     <meta name="author" content="">
 
@@ -80,22 +80,23 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2></h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>C Code Generator ToDos</h1>
+</div>
+
 
 
 
     <div class="container">
       <div class="row">
   <div class="col-md-12">
-    <div class="sect1">
-<h2 id="c-code-generator-todos">C Code Generator ToDos</h2>
+    <div id="preamble">
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="overview">Overview</h3>
 <div class="paragraph">
 <p>We have built an initial DFDL-to-C code
 generator and backend for Apache Daffodil.
@@ -120,8 +121,10 @@ please let the <a href="mailto:dev@daffodil.apache.org">dev</a> list know
 in order to avoid duplication.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="anonymous-choice-groups-not-allowed">Anonymous choice groups not allowed</h3>
+</div>
+<div class="sect1">
+<h2 id="anonymous-choice-groups-not-allowed">Anonymous choice groups not allowed</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We handle elements having xs:choice complex types.
 However, we don&#8217;t support anonymous choice groups
@@ -219,8 +222,10 @@ for the first_choice and second_choice elements,
 and such a schema will integrate better with other systems too.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="replace-size_t-with-choice_t">Replace size_t with choice_t</h3>
+</div>
+<div class="sect1">
+<h2 id="replace-size_t-with-choice_t">Replace size_t with choice_t</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>It has been pointed out that it is actually not obvious
 whether _choice should be a signed or unsigned type.
@@ -239,8 +244,10 @@ although we still would need to re-evaluate
 every use of _choice very carefully.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="arrays">Arrays</h3>
+</div>
+<div class="sect1">
+<h2 id="arrays">Arrays</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We inline an array&#8217;s minOccurs and maxOccurs
 into the array&#8217;s parseSelf and unparseSelf functions
@@ -270,8 +277,10 @@ since some embedded systems will not be able to allocate memory
 from a heap dynamically.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="making-infosets-more-efficient">Making infosets more efficient</h3>
+</div>
+<div class="sect1">
+<h2 id="making-infosets-more-efficient">Making infosets more efficient</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Right now all of our C structs (infoset nodes) store an ERD pointer
 within their first field.
@@ -300,15 +309,19 @@ Then we can remove the infoset node&#8217;s pointer to the same ERD
 since it would already be passed into all the places needed.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="javadoc-like-tool-for-c-code">Javadoc-like tool for C code</h3>
+</div>
+<div class="sect1">
+<h2 id="javadoc-like-tool-for-c-code">Javadoc-like tool for C code</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We may want to adopt one of the javadoc-like tools for C code
 and restructure our comments to create some API documentation.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="choice-dispatch-key-expressions">Choice dispatch key expressions</h3>
+</div>
+<div class="sect1">
+<h2 id="choice-dispatch-key-expressions">Choice dispatch key expressions</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We currently support only a very restricted
 and simple subset of choice dispatch key expressions.
@@ -317,16 +330,20 @@ and make it generate C code
 in order to support arbitrary choice dispatch key expressions.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="daffodil-modulesubdirectory-names">Daffodil module/subdirectory names</h3>
+</div>
+<div class="sect1">
+<h2 id="daffodil-modulesubdirectory-names">Daffodil module/subdirectory names</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>When Daffodil is ready to move from a 3.x to a 4.x release,
 rename the modules to have shorter and easier to understand names
 as discussed in <a href="https://issues.apache.org/jira/browse/DAFFODIL-2406">DAFFODIL-2406</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="remove-workaround-for-problem-running-sbt-really-dev-dirs-from-msys2-on-windows">Remove workaround for problem running sbt (really dev.dirs) from MSYS2 on Windows</h3>
+</div>
+<div class="sect1">
+<h2 id="remove-workaround-for-problem-running-sbt-really-dev-dirs-from-msys2-on-windows">Remove workaround for problem running sbt (really dev.dirs) from MSYS2 on Windows</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We need to open a issue with a reproducible test case
 in the dev.dirs/directories-jvm project on GitHub.
@@ -346,8 +363,10 @@ from .github/workflows/main.yml
 which prevent the sbt hanging problem.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="reporting-dataschema-locations-in-errors">Reporting data/schema locations in errors</h3>
+</div>
+<div class="sect1">
+<h2 id="reporting-dataschema-locations-in-errors">Reporting data/schema locations in errors</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We have replaced error message strings
 with error structs everywhere now.
@@ -365,8 +384,10 @@ using knowledge of the schema and runtime data objects,
 like an offline log processor does.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="recovering-after-errors">Recovering after errors</h3>
+</div>
+<div class="sect1">
+<h2 id="recovering-after-errors">Recovering after errors</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>As we continue to build out codegen-c,
 we may need to distinguish more types of errors
@@ -416,16 +437,20 @@ We can implement the fseek function on the embedded processor too
 but we would need a good use case requiring recovering after errors.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="validate-fixed-values-in-runtime1-too">Validate "fixed" values in runtime1 too</h3>
+</div>
+<div class="sect1">
+<h2 id="validate-fixed-values-in-runtime1-too">Validate "fixed" values in runtime1 too</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>If we change runtime1 to validate "fixed" values
 like codegen-c does, then we can resolve
 <a href="https://issues.apache.org/jira/browse/DAFFODIL-117">DAFFODIL-117</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="no-match-between-choice-dispatch-key-and-choice-branch-keys">No match between choice dispatch key and choice branch keys</h3>
+</div>
+<div class="sect1">
+<h2 id="no-match-between-choice-dispatch-key-and-choice-branch-keys">No match between choice dispatch key and choice branch keys</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Right now c/daffodil is more strict than daffodil
 when unparsing infoset XML files with no matches (or mismatches)
@@ -446,7 +471,6 @@ the writer must write an explicit dfdl:outputValueCalc
 expression to replace the choiceDispatchKey
 even though supporting dfdl:outputValueCalc
 in codegen-c is likely a distant goal.</p>
-</div>
 </div>
 </div>
 </div>

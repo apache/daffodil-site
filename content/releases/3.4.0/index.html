@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.4.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.4.0</h1>
+</div>
+
 
 
 
@@ -262,9 +266,9 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
-<h4 id="exi-support">EXI Support</h4>
+<h2 id="exi-support">EXI Support</h2>
 
 <p>The Daffodil CLI adds two new infoset types–<code class="language-plaintext highlighter-rouge">-I exi</code> and <code class="language-plaintext highlighter-rouge">-I exisa</code>–to
 support infosets represented as EXI binary XML for non-schema aware and schema
@@ -285,7 +289,7 @@ Java and Scala public APIs to support creating schema aware EXI files too.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2739">DAFFODIL-2739</a>] Expose DFDLCatalogResolver to the public API</li>
 </ul>
 
-<h4 id="pluggable-character-sets">Pluggable Character Sets</h4>
+<h2 id="pluggable-character-sets">Pluggable Character Sets</h2>
 
 <p>Custom character sets can now be added to Daffodil by implementing a custom
 <code class="language-plaintext highlighter-rouge">BitsCharsetDefinition</code> class and related functions/classes, listing it in a
@@ -296,7 +300,7 @@ Daffodil classpath.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2663">DAFFODIL-2663</a>] charset encoders need to be pluggable (doc needed)</li>
 </ul>
 
-<h4 id="embedded-xml-in-the-infoset">Embedded XML in the Infoset</h4>
+<h2 id="embedded-xml-in-the-infoset">Embedded XML in the Infoset</h2>
 
 <p>When using the <code class="language-plaintext highlighter-rouge">XMLTextInfosetInputter</code> and <code class="language-plaintext highlighter-rouge">XMLTextInfosetOutputter</code> classes
 in the API, or <code class="language-plaintext highlighter-rouge">-I xml</code> in the CLI, simple string elements with the DFDL
@@ -313,7 +317,7 @@ original data.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2708">DAFFODIL-2708</a>] XML String feature in XML Text Infoset Inputter/Outputter</li>
 </ul>
 
-<h4 id="c-code-generator-updates">C Code Generator Updates</h4>
+<h2 id="c-code-generator-updates">C Code Generator Updates</h2>
 
 <p>The C code generator backend now supports reading and writing N-bit booleans
 and integers, where N is an explicit length from 1 to 64 bits. Additional
@@ -326,7 +330,7 @@ TDML implementation to run TDML tests.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2697">DAFFODIL-2697</a>] Choose TDML implementation to run TDML tests</li>
 </ul>
 
-<h4 id="additional-new-featuresimprovements">Additional New Features/Improvements</h4>
+<h2 id="additional-new-featuresimprovements">Additional New Features/Improvements</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2357">DAFFODIL-2357</a>] Update recoverable error to not be an SDW</li>
@@ -338,7 +342,7 @@ TDML implementation to run TDML tests.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2725">DAFFODIL-2725</a>] TDML runner needs to support pre-compiled DFDL schema</li>
 </ul>
 
-<h4 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h4>
+<h2 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2237">DAFFODIL-2237</a>] XML comment not allowed inside dfdl:defineEscapeScheme</li>
@@ -357,7 +361,7 @@ TDML implementation to run TDML tests.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2742">DAFFODIL-2742</a>] bin.LICENSE and bin.NOTICE need to be updated</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <ul>
   <li>
@@ -371,11 +375,11 @@ instead of <code class="language-plaintext highlighter-rouge">Boolean</code>. Er
   </li>
 </ul>
 
-<h4 id="dependency-changes">Dependency Changes</h4>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated:</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>FasterXML Jackson Core 2.13.4 <small>(update)</small></li>
@@ -386,26 +390,26 @@ instead of <code class="language-plaintext highlighter-rouge">Boolean</code>. Er
   <li>Scala XML 2.1.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>Command Line Interface</strong></p>
+<h3 id="command-line-interface">Command Line Interface</h3>
 
 <ul>
   <li>Exificient 1.0.4 <small>(new)</small></li>
   <li>Log4j Core 2.19.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>Schematron Validator</strong></p>
+<h3 id="schematron-validator">Schematron Validator</h3>
 
 <ul>
   <li>Saxon-HE 11.4 <small>(update)</small></li>
 </ul>
 
-<p><strong>Test</strong></p>
+<h3 id="test">Test</h3>
 
 <ul>
   <li>Scalacheck 1.17.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>Changes to Transitive Dependencies</strong></p>
+<h3 id="changes-to-transitive-dependencies">Changes to Transitive Dependencies</h3>
 
 <ul>
   <li>Apache Commons Codec 1.15 <small>(update, used by httpclient5 &amp; log4j)</small></li>

@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>4.0.0 Migration Guide</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>4.0.0 Migration Guide</h1>
+</div>
+
 
 
 
@@ -113,7 +117,7 @@
   </div>
 </div>
 
-<h3 id="3110-to-400">3.11.0 to 4.0.0</h3>
+<h2 id="3110-to-400">3.11.0 to 4.0.0</h2>
 
 <p>Overview of changes to be aware of in this release are:</p>
 
@@ -130,7 +134,7 @@ daffodil-sapi, daffodil-japi and daffodil-io into daffodil-core.</li>
   <li>getAnyRef in MetaData has been removed</li>
 </ul>
 
-<h4 id="dependencies">Dependencies</h4>
+<h2 id="dependencies">Dependencies</h2>
 
 <p>The following dependencies have been merged into daffodil-core:</p>
 
@@ -156,7 +160,7 @@ daffodil-sapi, daffodil-japi and daffodil-io into daffodil-core.</li>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scalaVersion</span> <span class="o">:=</span> <span class="s">"3.3.6"</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-core"</span> <span class="o">%</span> <span class="s">"4.0.0"</span>
 </code></pre></div></div>
-<h4 id="core-imports">Core Imports</h4>
+<h2 id="core-imports">Core Imports</h2>
 <p>The path to core api classes were updated from <code class="language-plaintext highlighter-rouge">japi</code>/<code class="language-plaintext highlighter-rouge">sapi</code> to <code class="language-plaintext highlighter-rouge">api</code></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
@@ -210,7 +214,7 @@ daffodil-sapi, daffodil-japi and daffodil-io into daffodil-core.</li>
 
 </code></pre></div></div>
 
-<h4 id="cli-validation">CLI Validation</h4>
+<h2 id="cli-validation">CLI Validation</h2>
 <p>Values for the <code class="language-plaintext highlighter-rouge">--validate</code> option have been renamed: <code class="language-plaintext highlighter-rouge">on</code> has been replaced with <code class="language-plaintext highlighter-rouge">xerces</code> and <code class="language-plaintext highlighter-rouge">limited</code> has been replaced with <code class="language-plaintext highlighter-rouge">daffodil</code>.
 Both <code class="language-plaintext highlighter-rouge">schematron</code> and <code class="language-plaintext highlighter-rouge">xerces</code> accept option values that provide a file 
 to the validator for validator configuration. If no value is provided, it will attempt to use the schema provided by <code class="language-plaintext highlighter-rouge">--schema</code>.
@@ -231,7 +235,7 @@ daffiduk parse <span class="nt">--validate</span> <span class="nv">xerces</span>
 daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</span><span class="o">=</span>schema.sch <span class="nt">--parser</span> schema.parser myData.dat <span class="c"># no error and validates</span>
 </code></pre></div></div>
 
-<h4 id="compiling-schemas">Compiling Schemas</h4>
+<h2 id="compiling-schemas">Compiling Schemas</h2>
 <p>This remains generally unchanged for Java users as passing in strings (or nulls) is still supported. For Scala users, Options are no longer supported in the api and strings (or nulls) must be passed in instead.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// unchanged save for import paths</span>
@@ -246,7 +250,7 @@ daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</s
 <span class="k">val</span> <span class="nv">pf</span> <span class="k">=</span> <span class="nv">c</span><span class="o">.</span><span class="py">compileFile</span><span class="o">(</span><span class="n">schemaFile</span><span class="o">)</span>
 </code></pre></div></div>
 
-<h4 id="dataprocessor-validation">DataProcessor Validation</h4>
+<h2 id="dataprocessor-validation">DataProcessor Validation</h2>
 <p>Validation Modes (i.e <code class="language-plaintext highlighter-rouge">withValidationMode(ValidationMode.*)</code>) and the <code class="language-plaintext highlighter-rouge">withValidator(validatorObj)</code> were removed in place of <code class="language-plaintext highlighter-rouge">withValidation(validator.name[, validationConfigurationURL])</code>. Some validators have mandatory properties–if not provided an exception will be thrown. See the <a href="/docs/4.0.0/javadoc/org/apache/daffodil/api/validation/package-summary.html">validator documentation</a> for the list of those properties.
  Custom validators must be found via SPI and are not expected to be directly created.</p>
 
@@ -272,7 +276,7 @@ daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</s
 <span class="k">val</span> <span class="nv">dp</span><span class="k">:</span> <span class="kt">DataProcessor</span> <span class="o">=</span> <span class="nv">pf</span><span class="o">.</span><span class="py">onPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="py">withValidation</span><span class="o">(</span><span class="s">"CUSTOM-VALIDATOR-NAME"</span><span class="o">,</span> <span class="n">schemaUrl</span><span class="o">)</span>
 </code></pre></div></div>
 
-<h4 id="parse">Parse</h4>
+<h2 id="parse">Parse</h2>
 <p>Factory methods to get <code class="language-plaintext highlighter-rouge">InputSourceDataInputStream</code> and <code class="language-plaintext highlighter-rouge">InfosetOutputter</code> objects have been added via
 <code class="language-plaintext highlighter-rouge">Daffodil.newInputSourceDataInputStream</code> and <code class="language-plaintext highlighter-rouge">Infoset.new*InfosetOutputter</code></p>
 
@@ -302,7 +306,7 @@ daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</s
 <span class="k">val</span> <span class="nv">outputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newJsonInfosetOutputter</span><span class="o">()</span>
 </code></pre></div></div>
 
-<h4 id="unparse">Unparse</h4>
+<h2 id="unparse">Unparse</h2>
 <p>Factory methods to get an <code class="language-plaintext highlighter-rouge">InfosetInputter</code> object has been added via <code class="language-plaintext highlighter-rouge">Daffodil.new*InfosetInputter</code></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- BEFORE -----</span>
@@ -319,7 +323,7 @@ daffiduk parse <span class="nt">--validate</span> <span class="nv">schematron</s
 <span class="k">val</span> <span class="nv">inputter</span> <span class="k">=</span> <span class="nv">Daffodil</span><span class="o">.</span><span class="py">newScalaXMLInfosetInputter</span><span class="o">(</span><span class="nv">outputter</span><span class="o">.</span><span class="py">getResult</span><span class="o">())</span>
 </code></pre></div></div>
 
-<h4 id="debuggers">Debuggers</h4>
+<h2 id="debuggers">Debuggers</h2>
 <p>The different ways debuggers are defined and enabled have changed. 
 Factory methods to get a <code class="language-plaintext highlighter-rouge">Debugger</code> object have been added via <code class="language-plaintext highlighter-rouge">Daffodil.newDaffodilDebugger</code>.</p>
 
@@ -436,7 +440,7 @@ Factory methods to get a <code class="language-plaintext highlighter-rouge">Debu
 <span class="nv">dp</span><span class="o">.</span><span class="py">withDebugger</span><span class="o">(</span><span class="n">traceDebugger</span><span class="o">)</span>
 </code></pre></div></div>
 
-<h4 id="layers">Layers</h4>
+<h2 id="layers">Layers</h2>
 <p>Custom Plug-in layers must extend the <code class="language-plaintext highlighter-rouge">org.apache.daffodil.api.layers.Layer</code> class, and be 
 referenced in a <code class="language-plaintext highlighter-rouge">META-INF/services</code> file with the same class reference as the name. This 
 path has changed in Daffodil 4.0.0.</p>
@@ -491,7 +495,7 @@ path has changed in Daffodil 4.0.0.</p>
 <span class="nv">com</span><span class="o">.</span><span class="py">example</span><span class="o">.</span><span class="py">layers</span><span class="o">.</span><span class="py">CustomLayer</span>
 </code></pre></div></div>
 
-<h4 id="user-defined-functions">User Defined Functions</h4>
+<h2 id="user-defined-functions">User Defined Functions</h2>
 <p>UDF Providers must extend the <code class="language-plaintext highlighter-rouge">org.apache.daffodil.api.udf.UserDefinedFunctionProvider</code> class, and be
 referenced in a <code class="language-plaintext highlighter-rouge">META-INF/services</code> file with the same class reference as the name. This
 path has changed in Daffodil 4.0.0.</p>

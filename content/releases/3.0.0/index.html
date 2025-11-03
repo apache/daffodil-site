@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.0.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.0.0</h1>
+</div>
+
 
 
 
@@ -262,9 +266,9 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
-<h4 id="sax-support-and-streaming">SAX Support and Streaming</h4>
+<h2 id="sax-support-and-streaming">SAX Support and Streaming</h2>
 
 <p>Numerous changes were made to improve streaming and reduce memory usage during parse
 and unparse operations.</p>
@@ -302,7 +306,7 @@ including those with blobs.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2425">DAFFODIL-2425</a>] unparse fail with large blob</li>
 </ul>
 
-<h4 id="api-changes">API Changes</h4>
+<h2 id="api-changes">API Changes</h2>
 
 <p>A new experimental API is added to allow traversing the Daffodil internal DFDL
 Schema Object Model, enabling API users the ability to build an alternative
@@ -321,7 +325,7 @@ is difficult to use from a Java application.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2382">DAFFODIL-2382</a>] JAPI withExternalVariables requires Scala Map</li>
 </ul>
 
-<h4 id="diagnostics">Diagnostics</h4>
+<h2 id="diagnostics">Diagnostics</h2>
 
 <p>Multiple changes were made to improve ambiguous error messages, or to provide
 new error checks or warnings for behavior that may be unintuitive to users.</p>
@@ -338,7 +342,7 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2377">DAFFODIL-2377</a>] Abort instead of diagnostic message</li>
 </ul>
 
-<h4 id="bug-fixes">Bug Fixes</h4>
+<h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1894">DAFFODIL-1894</a>] NoSuchElementException when getting namedTypes in union restrictions</li>
@@ -361,7 +365,7 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2394">DAFFODIL-2394</a>] IllegalFormatConversionException related to BacktrackingException</li>
 </ul>
 
-<h4 id="miscellaneous-changes">Miscellaneous Changes</h4>
+<h2 id="miscellaneous-changes">Miscellaneous Changes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1533">DAFFODIL-1533</a>] Rename: NoRep should really be InputValueCalc</li>
@@ -383,7 +387,7 @@ new error checks or warnings for behavior that may be unintuitive to users.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2428">DAFFODIL-2428</a>] Update to sbt-native-packager caused inability to build windows MSI</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>Daffodil no longer provides support for Scala 2.11.x. Scala API users must
 upgrade to Scala 2.12.</p>

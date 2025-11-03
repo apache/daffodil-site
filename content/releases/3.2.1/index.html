@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.2.1</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.2.1</h1>
+</div>
+
 
 
 
@@ -262,7 +266,7 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <p>This release is a patch on top of <a href="../3.2.0">Release 3.2.0</a> to improve security and fix a major functional bug.</p>
 
@@ -270,7 +274,7 @@ Run the folllowing command:
 are still relevant to understand the features
 and functionality in this 3.2.1 patch release.</p>
 
-<h4 id="security-improvements">Security Improvements</h4>
+<h2 id="security-improvements">Security Improvements</h2>
 
 <p>This release fixes three security CVEs by updating dependency versions.</p>
 
@@ -279,7 +283,7 @@ and functionality in this 3.2.1 patch release.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2611">DAFFODIL-2611</a>] Update JDOM dependency to fix CVE-2021-33813</li>
 </ul>
 
-<h4 id="functional-improvements">Functional Improvements</h4>
+<h2 id="functional-improvements">Functional Improvements</h2>
 
 <p>A major feature, layering transforms with checksum/CRC capability, which was planned for the prior release (3.2.0) was found to be buggy when unparsing. 
 This has been fixed.</p>
@@ -288,7 +292,7 @@ This has been fixed.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2608">DAFFODIL-2608</a>] PCAP fails with Daf 3.2.0 and IPv4 layers with checksum</li>
 </ul>
 
-<h4 id="miscellaneous-changes">Miscellaneous Changes</h4>
+<h2 id="miscellaneous-changes">Miscellaneous Changes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2577">DAFFODIL-2577</a>] remove Info message about compiler component counts</li>
@@ -300,15 +304,15 @@ This has been fixed.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2602">DAFFODIL-2602</a>] Daffodil uses different versions of log4j-api and log4j-core</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>There are no deprecations. This release is fully compatible with all functionality of the prior release.</p>
 
-<h4 id="dependency-changes">Dependency Changes</h4>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>Log4j core 2.17.0 <small>(update)</small></li>
@@ -316,7 +320,7 @@ This has been fixed.</p>
   <li>JDOM2 2.0.6.1 <small>(update)</small></li>
 </ul>
 
-<p><strong>Code Generator</strong></p>
+<h3 id="code-generator">Code Generator</h3>
 
 <ul>
   <li>OS-Lib 0.8.0 <small>(update)</small></li>

@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 2.1.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 2.1.0</h1>
+</div>
+
 
 
 
@@ -249,7 +253,7 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <p>Daffodil 2.1.0 is the first release of Daffodil as an Apache incubator project.
 This release includes relicensing the source to Apache v2, changing the
@@ -259,7 +263,7 @@ additions to support more DFDL schemas.</p>
 <p><strong>This release contains changes which break compatibility with past releases.</strong>
 Please see the deprecation / compatibility notes section for more information.</p>
 
-<h4 id="packed-decimal">Packed Decimal</h4>
+<h2 id="packed-decimal">Packed Decimal</h2>
 
 <p>Added support for binary packed decimal data types. In addition to <code class="language-plaintext highlighter-rouge">standard</code>,
 the <code class="language-plaintext highlighter-rouge">dfdl:binaryNumberRep</code> property now also accepts values of <code class="language-plaintext highlighter-rouge">bcd</code>,
@@ -274,7 +278,7 @@ Also implemented are <code class="language-plaintext highlighter-rouge">dfdl:bin
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1739">DAFFODIL-1739</a>] Implement 'packed' and 'bcd'</li>
 </ul>
 
-<h4 id="apache-incubation-support">Apache Incubation Support</h4>
+<h2 id="apache-incubation-support">Apache Incubation Support</h2>
 
 <p>Multiple changes were made to support the move to the Apache incubator. This
 includes changes to the source directory structure, relicensing files to Apache
@@ -298,7 +302,7 @@ infrastructure to SBT 1.x, and adding TravisCI continuous integration support.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1906">DAFFODIL-1906</a>] Updates to LICENSE/NOTICE files</li>
 </ul>
 
-<h4 id="ambiguous-path-expressions">Ambiguous Path Expressions</h4>
+<h2 id="ambiguous-path-expressions">Ambiguous Path Expressions</h2>
 
 <p>Previously, ambiguous path expressions (i.e. path expressions that could
 potentially reference multiple non-array elements of the same name) were
@@ -318,7 +322,7 @@ only ever evaluate to a single element in practice.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1877">DAFFODIL-1877</a>] Slow schema compilation due to unambiguous checks</li>
 </ul>
 
-<h4 id="tdml-runner-enhancements">TDML Runner Enhancements</h4>
+<h2 id="tdml-runner-enhancements">TDML Runner Enhancements</h2>
 
 <p>Changes were made to the TDML runner to support an embedded defaultConfig
 option and to verify expected schema definition warnings.</p>
@@ -329,7 +333,7 @@ option and to verify expected schema definition warnings.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1868">DAFFODIL-1868</a>] TDML Runner defaultConfig cannot be embedded. Not checked properly.</li>
 </ul>
 
-<h4 id="bitorderbyteorderencoding-refactoring">BitOrder/ByteOrder/Encoding Refactoring</h4>
+<h2 id="bitorderbyteorderencoding-refactoring">BitOrder/ByteOrder/Encoding Refactoring</h2>
 
 <p>The way bitOrder, byteOrder, and encoding consistency was checked required
 fairly complicated logic at schema compilation time. Not only was this logic
@@ -349,7 +353,7 @@ compilation.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1884">DAFFODIL-1884</a>] Regression in bitOrder changing</li>
 </ul>
 
-<h4 id="xml-output">XML Output</h4>
+<h2 id="xml-output">XML Output</h2>
 
 <p>The XML infoset output (via the XMLTextInfosetOutputter) now writes an XML
 declaration <code class="language-plaintext highlighter-rouge">&lt;?xml version="1.0" ... ?&gt;</code> at the beginning of output. It also
@@ -361,7 +365,7 @@ users reported of receiving only partial data.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1871">DAFFODIL-1871</a>] XMLTextInfosetOutputter endDocument should flush the writer</li>
 </ul>
 
-<h4 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h4>
+<h2 id="miscellaneous-bug-fixes">Miscellaneous Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1473">DAFFODIL-1473</a>] DFDL Schema Validation not happening properly</li>
@@ -387,19 +391,19 @@ users reported of receiving only partial data.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1921">DAFFODIL-1921</a>] option to bypass Java 8 check</li>
 </ul>
 
-<h4 id="deprecationcompatability">Deprecation/Compatability</h4>
+<h2 id="deprecationcompatability">Deprecation/Compatability</h2>
 
 <p>As of 2.1.0, the following changes have been made which affect compatibility
 with past releases:</p>
 
-<p><strong>Package Organization Change</strong></p>
+<h3 id="package-organization-change">Package Organization Change</h3>
 
 <p>Now that Daffodil is an Apache incubator project, the package organization has been
 changed from <code class="language-plaintext highlighter-rouge">edu.illinois.ncsa</code> to <code class="language-plaintext highlighter-rouge">org.apache.daffodil</code>.
 Developers using the Daffodil Java and Scala API will need to update their
 source code and SBT/Maven configurations to use the new organization.</p>
 
-<p><strong>Daffodil Extension <code class="language-plaintext highlighter-rouge">daf</code> XML Namespace Change</strong></p>
+<h3 id="daffodil-extension-daf-xml-namespace-change">Daffodil Extension <code class="language-plaintext highlighter-rouge">daf</code> XML Namespace Change</h3>
 
 <p>The Daffodil extension <code class="language-plaintext highlighter-rouge">daf</code> XML namespace has been modified to represent the
 move to Apache, changing from
@@ -410,7 +414,7 @@ considered deprecated. All future Daffodil extensions will only be supported in
 the new namespace, so it is recommended that one update schemas to use the new
 namespace.</p>
 
-<p><strong>Deprecation of built-in-formats.xsd</strong></p>
+<h3 id="deprecation-of-built-in-formatsxsd">Deprecation of built-in-formats.xsd</h3>
 
 <p>The built-in-formats.xsd file is a schema that defines a set defaults for a
 wide array of DFDL properties. This file was intended for use only during

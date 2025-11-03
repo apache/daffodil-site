@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.1.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.1.0</h1>
+</div>
+
 
 
 
@@ -262,9 +266,9 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
-<h4 id="code-generation-backend">Code Generation Backend</h4>
+<h2 id="code-generation-backend">Code Generation Backend</h2>
 
 <p>A new code generation backend, called <code class="language-plaintext highlighter-rouge">daffodil-runtime2</code>, is added
 supporting generating C code with limited parse and unparse
@@ -281,7 +285,7 @@ and planned future work.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2508">DAFFODIL-2508</a>] Missing LICENSE and NOTICE files in daffodil-runtime2</li>
 </ul>
 
-<h4 id="pluggable-validation">Pluggable Validation</h4>
+<h2 id="pluggable-validation">Pluggable Validation</h2>
 
 <p>A new capability allowing pluggable infoset validation mechanisms is added. A
 Schematron validator is now available, which allows for validating the infoset
@@ -299,7 +303,7 @@ via the Java/Scala API.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2482">DAFFODIL-2482</a>] Output SVRL from Schematron Validator</li>
 </ul>
 
-<h4 id="dfdl-variables">DFDL Variables</h4>
+<h2 id="dfdl-variables">DFDL Variables</h2>
 
 <p>Multiple bugs have been fixed to improve conformance with the DFDL
 specification related to DFDL <code class="language-plaintext highlighter-rouge">newVariableInstance</code> and <code class="language-plaintext highlighter-rouge">setVariable</code>
@@ -315,7 +319,7 @@ variables should only be evaluated during parse, unparse, or both.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2481">DAFFODIL-2481</a>] newVariableInstance does not use external values when defaultValue is not defined</li>
 </ul>
 
-<h4 id="sax-updates">SAX Updates</h4>
+<h2 id="sax-updates">SAX Updates</h2>
 
 <p>The SAX API has been updated, including improved conformance with SAX API
 namespace/prefix properties and improved unparse performance.</p>
@@ -326,7 +330,7 @@ namespace/prefix properties and improved unparse performance.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2457">DAFFODIL-2457</a>] xmlns="" incorrectly introduced due to prefixOrNull</li>
 </ul>
 
-<h4 id="bug-fixes">Bug Fixes</h4>
+<h2 id="bug-fixes">Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-774">DAFFODIL-774</a>] Improve detection of disallowed entities in property values</li>
@@ -353,7 +357,7 @@ namespace/prefix properties and improved unparse performance.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2517">DAFFODIL-2517</a>] IBM DFDL Crosstester always reports left over data</li>
 </ul>
 
-<h4 id="miscellaneous-changes">Miscellaneous Changes</h4>
+<h2 id="miscellaneous-changes">Miscellaneous Changes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-817">DAFFODIL-817</a>] CLI: Remove –validation from save-parser options</li>
@@ -389,7 +393,7 @@ namespace/prefix properties and improved unparse performance.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2514">DAFFODIL-2514</a>] Prepare for 3.1.0 Release</li>
 </ul>
 
-<h4 id="known-issues">Known Issues</h4>
+<h2 id="known-issues">Known Issues</h2>
 
 <p>A number of issues remain open that have been marked as critical, and are
 expected to be fixed in the next release. These issues are:</p>
@@ -400,7 +404,7 @@ expected to be fixed in the next release. These issues are:</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2512">DAFFODIL-2512</a>] Unordered sequences with initiated content or discriminators does not parse correctly</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>The use of the <code class="language-plaintext highlighter-rouge">ParseResult.isAtEnd()</code> function has been deprecated, because it
 can cause unexpected blocking in some cases. Instead, the final bit position
@@ -413,11 +417,11 @@ least 1 byte of data is available to parse, or end-of-file is reached.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2502">DAFFODIL-2502</a>] Parse must behave properly for reading data from TCP sockets</li>
 </ul>
 
-<h4 id="dependency-changes">Dependency Changes</h4>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>FasterXML Jackson Core 2.12.3 <small>(update)</small></li>
@@ -426,7 +430,7 @@ least 1 byte of data is available to parse, or end-of-file is reached.</p>
   <li>Xerces 2.12.1 <small>(update)</small></li>
 </ul>
 
-<p><strong>Command Line Interface</strong></p>
+<h3 id="command-line-interface">Command Line Interface</h3>
 
 <ul>
   <li>JLine 3.20.0 <small>(update)</small></li>
@@ -434,20 +438,20 @@ least 1 byte of data is available to parse, or end-of-file is reached.</p>
   <li>Scallop 4.0.2 <small>(update)</small></li>
 </ul>
 
-<p><strong>Code Generator</strong></p>
+<h3 id="code-generator">Code Generator</h3>
 
 <ul>
   <li>OS-Lib 0.7.6 <small>(new)</small></li>
 </ul>
 
-<p><strong>Schematron Validator</strong></p>
+<h3 id="schematron-validator">Schematron Validator</h3>
 
 <ul>
   <li>Lightbend Config 1.4.1 <small>(new)</small></li>
   <li>Saxon-HE 10.5 <small>(new)</small></li>
 </ul>
 
-<p><strong>Test</strong></p>
+<h3 id="test">Test</h3>
 
 <ul>
   <li>JUnit 4.13.2 <small>(update)</small></li>

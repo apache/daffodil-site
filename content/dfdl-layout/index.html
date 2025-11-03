@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Standard DFDL Schema Project Layout</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Standard DFDL Schema Project Layout</h1>
+</div>
+
 
 
 
@@ -102,7 +106,7 @@ correspond to directory names. It also uses the
 <a href="https://www.scala-sbt.org/">SBT</a> build tool with the <a href="/sbt">Daffodil SBT Plugin</a>
 to more easily manage, build, and test DFDL schema projects.</p>
 
-<h3 id="quick-start">Quick Start</h3>
+<h2 id="quick-start">Quick Start</h2>
 
 <p>To quickly get started and generate this directory structure, you can install
 <a href="https://www.scala-sbt.org/">SBT</a> and run the following command:</p>
@@ -114,7 +118,7 @@ to more easily manage, build, and test DFDL schema projects.</p>
 described below, including git and sbt configuration files, a basic DFDL schema
 file, and TDML and test files.</p>
 
-<h3 id="conventions">Conventions</h3>
+<h2 id="conventions">Conventions</h2>
 
 <p>This set of conventions provides a number of benefits:</p>
 
@@ -145,7 +149,7 @@ a library of pieces to be included/imported by other formats.</li>
 they're not really DFDL-specific conventions. They're general conventions for
 organizing projects so as to achieve the above benefits.</p>
 
-<h3 id="standard-file-tree">Standard File Tree</h3>
+<h2 id="standard-file-tree">Standard File Tree</h2>
 
 <p>Let's assume the DFDL schema contains two files named rfmt.dfdl.xsd, and
 format.dfdl.xsd, and that our format is named RFormat (rfmt) with an
@@ -191,7 +195,7 @@ organization web identity of example.com.</p>
                         └── Tests1.scala   - Scala test driver file
 </code></pre></div></div>
 
-<h3 id="projectpluginssbt">project/plugins.sbt</h3>
+<h2 id="projectpluginssbt">project/plugins.sbt</h2>
 
 <p>Add the Daffodil SBT plugin to the project/plugins.sbt file:</p>
 
@@ -203,7 +207,7 @@ settings and capabilities commonly needed to manage, build, and test DFDL schema
 projects. For more information about the settings that can be added to build.sbt
 or commands to run via SBT, see the <a href="https://github.com/apache/daffodil-sbt/">GitHub README</a>.</p>
 
-<h3 id="buildsbt">build.sbt</h3>
+<h2 id="buildsbt">build.sbt</h2>
 
 <p>Use the below template for the build.sbt file:</p>
 
@@ -216,7 +220,7 @@ or commands to run via SBT, see the <a href="https://github.com/apache/daffodil-
 <span class="nf">enablePlugins</span><span class="o">(</span><span class="nc">DaffodilPlugin</span><span class="o">)</span>
 </code></pre></div></div>
 
-<h3 id="gitattributes">.gitattributes</h3>
+<h2 id="gitattributes">.gitattributes</h2>
 
 <p>In some cases, git may mangle line endings of files so that they match the line
 ending of the system. In most cases, this is done in such a way that it you may
@@ -230,7 +234,7 @@ directory with the following content to disabling the mangline:</p>
 <p>The above tells git that any test files in the data directory should be treated
 as if they were binary, and thus not to mangle newlines.</p>
 
-<h3 id="xsd-conventions">XSD Conventions</h3>
+<h2 id="xsd-conventions">XSD Conventions</h2>
 
 <p>DFDL schemas should have the <code class="language-plaintext highlighter-rouge">.dfdl.xsd</code> suffix to distinguish them from
 ordinary XML Schema files.</p>
@@ -240,7 +244,7 @@ ordinary XML Schema files.</p>
 <p>Stylistically, the XSD <code class="language-plaintext highlighter-rouge">elementFormDefault="unqualified"</code> is the preferred
 style for DFDL schemas.</p>
 
-<h3 id="using-a-dfdl-schema">Using a DFDL Schema</h3>
+<h2 id="using-a-dfdl-schema">Using a DFDL Schema</h2>
 
 <p>The <code class="language-plaintext highlighter-rouge">xs:include</code> or <code class="language-plaintext highlighter-rouge">xs:import</code> elements of a DFDL Schema can
 import/include a DFDL schema that follows these conventions like this:</p>
@@ -271,7 +275,7 @@ format.dfdl.xsd. Those names only need to be unique within a single schema
 project. Across schema projects our standard DFDL schema project layout insures
 unambiguous qualification is available.</p>
 
-<h3 id="git-revision-control">Git Revision Control</h3>
+<h2 id="git-revision-control">Git Revision Control</h2>
 
 <p>You don't have to use Git version control, but many people do, and github.com
 is one of the reasons for this popularity.</p>
@@ -284,7 +288,7 @@ other formats that are not publicly available, one may want to put a
 placeholder for them on DFDLSchemas anyway (as IBM has done for some formats
 like Swift-MT.)</p>
 
-<h3 id="jar-file-packaging">Jar File Packaging</h3>
+<h2 id="jar-file-packaging">Jar File Packaging</h2>
 
 <p>A DFDL schema using the recommended file structure as described here, can be
 packaged into a jar for convenient import/include from other schemas.</p>

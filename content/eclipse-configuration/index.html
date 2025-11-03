@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Eclipse Configuration</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Eclipse Configuration</h1>
+</div>
+
 
 
 
@@ -101,16 +105,16 @@
 
 <p>Now, turns out there is an XML Schema for DFDL Schemas. It was created by taking the XML Schema for XML Schemas, and subsetting it to just what DFDL uses, and then adding into it the XML Schema for DFDL's annotation objects.</p>
 
-<h3 id="installing-eclipse-xml-plugin">Installing Eclipse XML Plugin</h3>
+<h2 id="installing-eclipse-xml-plugin">Installing Eclipse XML Plugin</h2>
 
 <p>The XML settings all assume you have installed Eclipse's XML support. If not already installed, 
 the "Eclipse XML Editors and Tools" plugin can be obtained from Eclipse's update site.</p>
 
-<h3 id="eclipse-xml-settings">Eclipse XML Settings</h3>
+<h2 id="eclipse-xml-settings">Eclipse XML Settings</h2>
 
 <p>Following are steps to modify the Eclipse XML settings to aid in the creation of DFDL schemas:</p>
 
-<h4 id="enable-validation-of-dfdl-files">Enable Validation of DFDL Files</h4>
+<h3 id="enable-validation-of-dfdl-files">Enable Validation of DFDL Files</h3>
 
 <ol>
   <li>Window &gt; Preferences &gt; Validation
@@ -145,7 +149,7 @@ the "Eclipse XML Editors and Tools" plugin can be obtained from Eclipse's update
 
 <p>If also editing TDML file in Eclipse, repeat the above steps, replacing all instances of <code class="language-plaintext highlighter-rouge">dfdl.xsd</code> with <code class="language-plaintext highlighter-rouge">tdml</code>.</p>
 
-<h4 id="add-xml-schemas-for-dfdl-to-the-xml-catalog">Add XML Schemas for DFDL to the XML Catalog</h4>
+<h3 id="add-xml-schemas-for-dfdl-to-the-xml-catalog">Add XML Schemas for DFDL to the XML Catalog</h3>
 
 <p>Download the following files to a local directory. Alternatively, these files are included in the Daffodil source code in the <code class="language-plaintext highlighter-rouge">src/main/resources/org/apache/daffodil/xsd/</code> directory in either <code class="language-plaintext highlighter-rouge">daffodil-lib/</code> or <code class="language-plaintext highlighter-rouge">daffodil-propgen/</code>.</p>
 

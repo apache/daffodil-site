@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.8.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.8.0</h1>
+</div>
+
 
 
 
@@ -262,11 +266,11 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <p>This release focused on providing a supported API for creating Daffodil Layers.</p>
 
-<h3 id="layers-feature">Layers Feature</h3>
+<h2 id="layers-feature">Layers Feature</h2>
 
 <p>A layer is an algorithmic transformation of the data stream that cannot be expressed using regular
 DFDL properties. 
@@ -282,7 +286,7 @@ to use.</p>
 See the <a href="#deprecationcompatibility">Deprecation/Compatibility</a> section for more
 details.</p>
 
-<h3 id="new-features">New Features</h3>
+<h2 id="new-features">New Features</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2569">DAFFODIL-2569</a>] document how to write layer transforms</li>
@@ -293,7 +297,7 @@ details.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2841">DAFFODIL-2841</a>] Layers do not support (or poorly documented) creating SDE or Parse/UnparseErrors</li>
 </ul>
 
-<h3 id="miscellaneous-bugs">Miscellaneous Bugs</h3>
+<h2 id="miscellaneous-bugs">Miscellaneous Bugs</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2900">DAFFODIL-2900</a>] enable javadoc and scaladoc for runtime1 api</li>
@@ -312,7 +316,7 @@ details.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2898">DAFFODIL-2898</a>] Compilation error with Java 21, add to CI</li>
 </ul>
 
-<h3 id="deprecationcompatibility">Deprecation/Compatibility</h3>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>This release removes the unsupported/experimental APIs for creating layer plug-ins that were
 present in releases 3.7.0 and prior.
@@ -325,11 +329,11 @@ use the new API in 3.8.0.</p>
 
 <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2825">DAFFODIL-2825</a>] Define supported layering API</p>
 
-<h3 id="dependency-changes">Dependency Changes</h3>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated:</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>Apache Commons IO 2.16.1 <small>(update)</small></li>
@@ -342,31 +346,31 @@ use the new API in 3.8.0.</p>
   <li>XML Resolver 1.2 <small>(update)</small></li>
 </ul>
 
-<p><strong>CLI</strong></p>
+<h3 id="cli">CLI</h3>
 
 <ul>
   <li>JLine 3.26.1 <small>(update)</small></li>
 </ul>
 
-<p><strong>Code Generator</strong></p>
+<h3 id="code-generator">Code Generator</h3>
 
 <ul>
   <li>OS Lib 0.10.2 <small>(update)</small></li>
 </ul>
 
-<p><strong>Logging</strong></p>
+<h3 id="logging">Logging</h3>
 
 <ul>
   <li>SLF4J API 2.0.13 <small>(update)</small></li>
 </ul>
 
-<p><strong>Schematron Validator</strong></p>
+<h3 id="schematron-validator">Schematron Validator</h3>
 
 <ul>
   <li>Saxon-HE 12.4 <small>(update)</small></li>
 </ul>
 
-<p><strong>Changes to Transitive Dependencies</strong></p>
+<h3 id="changes-to-transitive-dependencies">Changes to Transitive Dependencies</h3>
 
 <ul>
   <li>Woodstox Stax2 API 4.2.2 <small>(update, used by Woodstox Core)</small></li>

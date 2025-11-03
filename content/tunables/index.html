@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Tunables</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Tunables</h1>
+</div>
+
 
 
 
@@ -102,7 +106,7 @@
 Tunables are set by way of the <code class="language-plaintext highlighter-rouge">tunables</code> element in <a href="/configuration">config files</a>
 or from the <a href="/cli">cli</a> via the <code class="language-plaintext highlighter-rouge">-T</code> option.</p>
 
-<h4 id="config-example">Config Example</h4>
+<h3 id="config-example">Config Example</h3>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;daf:dfdlConfig</span>
 	<span class="na">xmlns:daf=</span><span class="s">"urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;daf:tunables&gt;</span>
@@ -115,13 +119,13 @@ or from the <a href="/cli">cli</a> via the <code class="language-plaintext highl
 
 <p>The config file can then be passed into daffodil subcommands via the <code class="language-plaintext highlighter-rouge">-c|--config</code> options.</p>
 
-<h4 id="cli-example">CLI Example</h4>
+<h3 id="cli-example">CLI Example</h3>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> daffodil parse <span class="nt">-s</span> schema.xsd <span class="nt">-TsuppressSchemaDefinitionWarnings</span><span class="o">=</span><span class="s2">"encodingErrorPolicyError"</span> data.bin
 </code></pre></div></div>
 
-<h3 id="definitions">Definitions</h3>
+<h2 id="definitions">Definitions</h2>
 
-<h4 id="allowexpressionresultcoercion">allowExpressionResultCoercion</h4>
+<h3 id="allowexpressionresultcoercion">allowExpressionResultCoercion</h3>
 <p>Defines how Daffodil coerces expressions where the result type differs
 from the expected type. As an example, assume the expected type of an
 expression is an xs:string, but the expression is { 3 }. In this case, the
@@ -134,7 +138,7 @@ type.</p>
 
 <p>default: true</p>
 
-<h4 id="allowexternalpathexpressions">allowExternalPathExpressions</h4>
+<h3 id="allowexternalpathexpressions">allowExternalPathExpressions</h3>
 <p>By default, path expressions in Daffodil will only work correctly if path
 steps are used in an expression defined in the schema when compiled. To
 enable the use of other expressions (e.g. during debugging, where not all
@@ -145,49 +149,49 @@ enabled when debugging is enabled.</p>
 
 <p>default: false</p>
 
-<h4 id="allowsignedintegerlength1bit">allowSignedIntegerLength1Bit</h4>
+<h3 id="allowsignedintegerlength1bit">allowSignedIntegerLength1Bit</h3>
 <p>When processing signed binary integers, which should have a length of at least 2 bits, issue
 a warning if the length is less than 2 bits by default, otherwise (if false) issue a SDE or Processing Error.</p>
 
 <p>default: true</p>
 
-<h4 id="blobchunksizeinbytes">blobChunkSizeInBytes</h4>
+<h3 id="blobchunksizeinbytes">blobChunkSizeInBytes</h3>
 <p>When reading/writing blob data, the maximum number of bytes to read/write
 at a time. This is also used when parsing xs:hexBinary data.</p>
 
 <p>default: 4096</p>
 
-<h4 id="defaultemptyelementparsepolicy">defaultEmptyElementParsePolicy</h4>
+<h3 id="defaultemptyelementparsepolicy">defaultEmptyElementParsePolicy</h3>
 <p>Defines the default empty element parse policy to use if it is not defined
 in a schema. This is only used if requireEmptyElementParsePolicyProperty is
 false.</p>
 
 <p>default: treatAsEmpty</p>
 
-<h4 id="escalatewarningstoerrors">escalateWarningsToErrors</h4>
+<h3 id="escalatewarningstoerrors">escalateWarningsToErrors</h3>
 <p>This tunable allows the escalation of Schema Definition Warnings to Errors.</p>
 
 <p>default: false</p>
 
-<h4 id="generatednamespaceprefixstem">generatedNamespacePrefixStem</h4>
+<h3 id="generatednamespaceprefixstem">generatedNamespacePrefixStem</h3>
 <p>Stem to use when generating a namespace prefix when one is not defined for
 the target naespace.</p>
 
 <p>default: tns</p>
 
-<h4 id="initialelementoccurrenceshint">initialElementOccurrencesHint</h4>
+<h3 id="initialelementoccurrenceshint">initialElementOccurrencesHint</h3>
 <p>Initial array buffer size allocated for recurring elements/arrays.</p>
 
 <p>default: 10</p>
 
-<h4 id="initialregexmatchlimitincharacters">initialRegexMatchLimitInCharacters</h4>
+<h3 id="initialregexmatchlimitincharacters">initialRegexMatchLimitInCharacters</h3>
 <p>Initial number of characters to match when performing regular expression
 matches on input data. When a regex fails to match, more data may be
 consumed up to the maximumRegexMatchLengthInCharacters tunable.</p>
 
 <p>default: 64</p>
 
-<h4 id="infosetwalkerskipmin">infosetWalkerSkipMin</h4>
+<h3 id="infosetwalkerskipmin">infosetWalkerSkipMin</h3>
 <p>Daffodil periodically walks the internal infoset to send events to the configured
 InfosetOutputter, skipping at least this number of walk attempts. Larger values
 mean delayed InfosetOutputter events and more memory usage; Smaller values mean
@@ -196,7 +200,7 @@ specifically for advanced testing behavior and should not need to be changed by 
 
 <p>default: 32</p>
 
-<h4 id="infosetwalkerskipmax">infosetWalkerSkipMax</h4>
+<h3 id="infosetwalkerskipmax">infosetWalkerSkipMax</h3>
 <p>Daffodil periodically walks the internal infoset to send events to the configured
 InfosetOutputter. On walks where no progress is made, the number of walks to skip
 is increased with the assumption that something is blocking it (like an
@@ -207,7 +211,7 @@ specifically for advanced testing behavior and should not need to be changed by 
 
 <p>default: 2048</p>
 
-<h4 id="invalidrestrictionpolicy">invalidRestrictionPolicy</h4>
+<h3 id="invalidrestrictionpolicy">invalidRestrictionPolicy</h3>
 <p>DFDL only allows a subset of restrictions that XML Schema defines. For example, DFDL
 disallows the use of the xs:pattern restriction on simple types other than xs:string.
 This tunable configures this behavior to allow use of some of these restrictions. The
@@ -220,54 +224,54 @@ allowed values are:</p>
 
 <p>default: error</p>
 
-<h4 id="maxbinarydecimalvirtualpoint">maxBinaryDecimalVirtualPoint</h4>
+<h3 id="maxbinarydecimalvirtualpoint">maxBinaryDecimalVirtualPoint</h3>
 <p>The largest allowed value of the dfdl:binaryDecimalVirtualPoint property.</p>
 
 <p>default: 200</p>
 
-<h4 id="maxbytearrayoutputstreambuffersizeinbytes">maxByteArrayOutputStreamBufferSizeInBytes</h4>
+<h3 id="maxbytearrayoutputstreambuffersizeinbytes">maxByteArrayOutputStreamBufferSizeInBytes</h3>
 <p>When unparsing, this is the maximum size of the buffer that the
 ByteArrayOutputStream can grow to before switching to a file based
 output stream.</p>
 
 <p>default: 2097152000</p>
 
-<h4 id="maxdatadumpsizeinbytes">maxDataDumpSizeInBytes</h4>
+<h3 id="maxdatadumpsizeinbytes">maxDataDumpSizeInBytes</h3>
 <p>The maximum size of data to retrive when when getting data to display
 for debugging.</p>
 
 <p>default: 256</p>
 
-<h4 id="maxhexbinarylengthinbytes">maxHexBinaryLengthInBytes</h4>
+<h3 id="maxhexbinarylengthinbytes">maxHexBinaryLengthInBytes</h3>
 <p>The maximum size allowed for an xs:hexBinary element.</p>
 
 <p>default: 1073741823</p>
 
-<h4 id="maxlengthforvariablelengthdelimiterdisplay">maxLengthForVariableLengthDelimiterDisplay</h4>
+<h3 id="maxlengthforvariablelengthdelimiterdisplay">maxLengthForVariableLengthDelimiterDisplay</h3>
 <p>When unexpected text is found where a delimiter is expected, this is the maximum
 number of bytes (characters) to display when the expected delimiter is a variable
 length delimiter.</p>
 
 <p>default: 10</p>
 
-<h4 id="maxlookaheadfunctionbits">maxLookaheadFunctionBits</h4>
+<h3 id="maxlookaheadfunctionbits">maxLookaheadFunctionBits</h3>
 <p>Max distance that the DPath lookahead function is permitted to look.
 Distance is defined by the distance to the last bit accessed, and
 so it is offset+bitsize.</p>
 
 <p>default: 512</p>
 
-<h4 id="maxoccursbounds">maxOccursBounds</h4>
+<h3 id="maxoccursbounds">maxOccursBounds</h3>
 <p>Maximum number of occurances of an array element.</p>
 
 <p>default: 2147483647</p>
 
-<h4 id="maxskiplengthinbytes">maxSkipLengthInBytes</h4>
+<h3 id="maxskiplengthinbytes">maxSkipLengthInBytes</h3>
 <p>Maximum number of bytes allowed to skip in a skip region.</p>
 
 <p>default: 1024</p>
 
-<h4 id="maxvalidyear">maxValidYear</h4>
+<h3 id="maxvalidyear">maxValidYear</h3>
 <p>Due to differences in the DFDL spec and ICU4J SimpleDateFormat, we must
 have SimpleDateFormat parse in lenient mode, which allows the year value
 to overflow with very large years into possibly negative years. This
@@ -275,23 +279,23 @@ tunable tunable sets an upper limit for values to prevent overflow.</p>
 
 <p>default: 9999</p>
 
-<h4 id="maximumregexmatchlengthincharacters">maximumRegexMatchLengthInCharacters</h4>
+<h3 id="maximumregexmatchlengthincharacters">maximumRegexMatchLengthInCharacters</h3>
 <p>Maximum number of characters to match when performing regular expression
 matches on input data.</p>
 
 <p>default: 1048576</p>
 
-<h4 id="maximumsimpleelementsizeincharacters">maximumSimpleElementSizeInCharacters</h4>
+<h3 id="maximumsimpleelementsizeincharacters">maximumSimpleElementSizeInCharacters</h3>
 <p>Maximum number of characters to parse when parsing string data.</p>
 
 <p>default: 1048576</p>
 
-<h4 id="minbinarydecimalvirtualpoint">minBinaryDecimalVirtualPoint</h4>
+<h3 id="minbinarydecimalvirtualpoint">minBinaryDecimalVirtualPoint</h3>
 <p>The smallest allowed value of the dfdl:binaryDecimalVirtualPoint property.</p>
 
 <p>default: -200</p>
 
-<h4 id="minvalidyear">minValidYear</h4>
+<h3 id="minvalidyear">minValidYear</h3>
 <p>Due to differences in the DFDL spec and ICU4J SimpleDateFormat, we must
 have SimpleDateFormat parse in lenient mode, which allows the year value
 to overflow with very large years into possibly negative years. This
@@ -299,20 +303,20 @@ tunable tunable sets an upper limit for values to prevent underflow.</p>
 
 <p>default: 0</p>
 
-<h4 id="outputstreamchunksizeinbytes">outputStreamChunkSizeInBytes</h4>
+<h3 id="outputstreamchunksizeinbytes">outputStreamChunkSizeInBytes</h3>
 <p>When writing file data to the output stream during unparse, this
 is the maximum number of bytes to write at a time.</p>
 
 <p>default: 65536</p>
 
-<h4 id="parseunparsepolicy">parseUnparsePolicy</h4>
+<h3 id="parseunparsepolicy">parseUnparsePolicy</h3>
 <p>Whether to compile a schema to support only parsing, only unparsing, both, or to
 use the daf:parseUnparsePolicy from the root node. All child elements of the root
 must have a compatable daf:parseUnaprsePolicy property.</p>
 
 <p>default: fromRoot</p>
 
-<h4 id="releaseunneededinfoset">releaseUnneededInfoset</h4>
+<h3 id="releaseunneededinfoset">releaseUnneededInfoset</h3>
 <p>Daffodil will periodically release internal infoset elements that it determines
 are no longer needed, thus freeing memory. Setting this value to false will
 prevent this from taking place. This should usually only be used while debugging
@@ -320,44 +324,44 @@ or with very specific tests.</p>
 
 <p>default: true</p>
 
-<h4 id="requirebitorderproperty">requireBitOrderProperty</h4>
+<h3 id="requirebitorderproperty">requireBitOrderProperty</h3>
 <p>If true, require that the dfdl:bitOrder property is specified. If false, use a
 default value if the property is not defined in the schema.</p>
 
 <p>default: false</p>
 
-<h4 id="requireemptyelementparsepolicyproperty">requireEmptyElementParsePolicyProperty</h4>
+<h3 id="requireemptyelementparsepolicyproperty">requireEmptyElementParsePolicyProperty</h3>
 <p>If true, require that the dfdl:emptyElementParsePolicy property is specified in
 the schema. If false, and not defined in the schema, uses the
 defaultEmptyElementParsePolicy as the value of emptyElementParsePolicy.</p>
 
 <p>default: false</p>
 
-<h4 id="requireencodingerrorpolicyproperty">requireEncodingErrorPolicyProperty</h4>
+<h3 id="requireencodingerrorpolicyproperty">requireEncodingErrorPolicyProperty</h3>
 <p>If true, require that the dfdl:encodingErrorPolicy property is specified. If
 false, use a default value if the property is not defined in the schema.</p>
 
 <p>default: false</p>
 
-<h4 id="requirefloatingproperty">requireFloatingProperty</h4>
+<h3 id="requirefloatingproperty">requireFloatingProperty</h3>
 <p>If true, require that the dfdl:floating property is specified. If
 false, use a default value if the property is not defined in the schema.</p>
 
 <p>default: false</p>
 
-<h4 id="requiretextbidiproperty">requireTextBidiProperty</h4>
+<h3 id="requiretextbidiproperty">requireTextBidiProperty</h3>
 <p>If true, require that the dfdl:testBidi property is specified. If
 false, use a default value if the property is not defined in the schema.</p>
 
 <p>default: false</p>
 
-<h4 id="requiretextstandardbaseproperty">requireTextStandardBaseProperty</h4>
+<h3 id="requiretextstandardbaseproperty">requireTextStandardBaseProperty</h3>
 <p>If true, require that the dfdl:textStandardBase property is specified. If false
 and the property is missing, behave as if the property is set to 10.</p>
 
 <p>default: false</p>
 
-<h4 id="saxunparseeventbatchsize">saxUnparseEventBatchSize</h4>
+<h3 id="saxunparseeventbatchsize">saxUnparseEventBatchSize</h3>
 <p>Daffodil's SAX Unparse API allows events to be batched in memory to minimize the
 frequency of context switching between the SAXInfosetInputter thread that processes
 the events, and the DaffodilUnparseContentHandler thread that generates the events.
@@ -367,20 +371,20 @@ frequency of context switching, but increase the memory footprint.</p>
 
 <p>default: 100</p>
 
-<h4 id="suppressschemadefinitionwarnings">suppressSchemaDefinitionWarnings</h4>
+<h3 id="suppressschemadefinitionwarnings">suppressSchemaDefinitionWarnings</h3>
 <p>Space-separated list of schema definition warnings that should be ignored,
 or "all" to ignore all warnings.</p>
 
 <p>default: emptyElementParsePolicyError</p>
 
-<h4 id="tempfilepath">tempFilePath</h4>
+<h3 id="tempfilepath">tempFilePath</h3>
 <p>When unparsing, use this path to store temporary files that may be genrated.
 The default value (empty string) will result in the use of the java.io.tmpdir
 property being used as the path.</p>
 
 <p>default: This string is ignored. Default value is taken from java.io.tmpdir property</p>
 
-<h4 id="unqualifiedpathsteppolicy">unqualifiedPathStepPolicy</h4>
+<h3 id="unqualifiedpathsteppolicy">unqualifiedPathStepPolicy</h3>
 <p>Defines how to lookup DFDL expression path steps that to not include a
 namespace prefix. Values are:</p>
 <ul>
@@ -392,7 +396,7 @@ if non are found, match elemnts that do not have a namespace</li>
 
 <p>default: noNamespace</p>
 
-<h4 id="unparsesuspensionwaitold">unparseSuspensionWaitOld</h4>
+<h3 id="unparsesuspensionwaitold">unparseSuspensionWaitOld</h3>
 <p>While unparsing, some unparse actions require "suspending" which
 requires buffering unparse output until the suspension can be
 evaluated. Daffodil periodically attempts to reevaluate these
@@ -409,12 +413,12 @@ young and old suspensions, respectively.</p>
 
 <p>default: 100</p>
 
-<h4 id="unparsesuspensionwaityoung">unparseSuspensionWaitYoung</h4>
+<h3 id="unparsesuspensionwaityoung">unparseSuspensionWaitYoung</h3>
 <p>See unparseSuspensionWaitOld</p>
 
 <p>default: 5</p>
 
-<h3 id="deprecated">Deprecated</h3>
+<h2 id="deprecated">Deprecated</h2>
 <ul>
   <li>allowBigIntegerBits</li>
   <li>defaultInitialRegexMatchLimitInChars</li>

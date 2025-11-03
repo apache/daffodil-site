@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 3.10.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 3.10.0</h1>
+</div>
+
 
 
 
@@ -262,13 +266,13 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <p>This release focused on bug fixes. Of note is the removal of redundant schema
 validation during schema compilation that has resulted in some large schemas
 compilation time dropping from more than 2 minutes to under 20 seconds.</p>
 
-<h3 id="new-daffodil-tdml-junit-library">New daffodil-tdml-junit library</h3>
+<h2 id="new-daffodil-tdml-junit-library">New daffodil-tdml-junit library</h2>
 
 <p>This removes a lot of boilerplate and duplications when declaring test cases.
   Test suites can now be defined as follows:</p>
@@ -293,14 +297,14 @@ class MyTests extends TdmlTests {
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2958">DAFFODIL-2958</a>] TDML Runner needs feature to run test using method name as test name</li>
 </ul>
 
-<h3 id="additional-new-features">Additional New Features</h3>
+<h2 id="additional-new-features">Additional New Features</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2736">DAFFODIL-2736</a>] Need warning when multiple child elements with same name</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2810">DAFFODIL-2810</a>] option to escalate schema definition warnings to errors</li>
 </ul>
 
-<h3 id="miscellaneous-bugsimprovements">Miscellaneous Bugs/Improvements</h3>
+<h2 id="miscellaneous-bugsimprovements">Miscellaneous Bugs/Improvements</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-561">DAFFODIL-561</a>] If you do not specify a type for documentPart, results in Abort</li>
@@ -350,7 +354,7 @@ class MyTests extends TdmlTests {
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2959">DAFFODIL-2959</a>] Clean up core TestUtils and FuzzData rigs</li>
 </ul>
 
-<h3 id="deprecationcompatibility">Deprecation/Compatibility</h3>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <ul>
   <li>
@@ -392,11 +396,11 @@ require some changes to schemas that were reliant on this faulty behavior and ma
   </li>
 </ul>
 
-<h3 id="dependency-changes">Dependency Changes</h3>
+<h2 id="dependency-changes">Dependency Changes</h2>
 
 <p>The following dependencies have been added or updated:</p>
 
-<p><strong>Core</strong></p>
+<h3 id="core">Core</h3>
 
 <ul>
   <li>ICU4J 76.1 <small>(update)</small></li>
@@ -404,20 +408,20 @@ require some changes to schemas that were reliant on this faulty behavior and ma
   <li>FasterXML Woodstox Core 7.1.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>CLI</strong></p>
+<h3 id="cli">CLI</h3>
 
 <ul>
   <li>JLine 3.28.0 <small>(update)</small></li>
   <li>Scallop 5.2.0 <small>(update)</small></li>
 </ul>
 
-<p><strong>Code Generator</strong></p>
+<h3 id="code-generator">Code Generator</h3>
 
 <ul>
   <li>OS Lib 0.11.3 <small>(update)</small></li>
 </ul>
 
-<p><strong>Testing</strong></p>
+<h3 id="testing">Testing</h3>
 
 <ul>
   <li>JUnit 4.13.2</li>

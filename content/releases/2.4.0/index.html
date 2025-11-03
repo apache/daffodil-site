@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 2.4.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 2.4.0</h1>
+</div>
+
 
 
 
@@ -262,9 +266,9 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
-<h4 id="explicit-length-choices">Explicit Length Choices</h4>
+<h2 id="explicit-length-choices">Explicit Length Choices</h2>
 
 <p>Support is added for the property <code class="language-plaintext highlighter-rouge">dfdl:choiceLengthKind="explicit"</code> and
 <code class="language-plaintext highlighter-rouge">dfdl:choiceLength</code>. Previously, Daffodil ignored the <code class="language-plaintext highlighter-rouge">choiceLengthKind</code>
@@ -275,7 +279,7 @@ now required to be defined in scope for all choices.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-640">DAFFODIL-640</a>] choiceLengthKind='explicit'</li>
 </ul>
 
-<h4 id="extension-namespace">Extension Namespace</h4>
+<h2 id="extension-namespace">Extension Namespace</h2>
 
 <p>A new <code class="language-plaintext highlighter-rouge">dfdlx</code> namespace (<code class="language-plaintext highlighter-rouge">http://www.ogf.org/dfdl/dfdl-1.0/extensions</code>) was
 created to support Daffodil extensions to the DFDL specification. The existing
@@ -289,7 +293,7 @@ future release.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2096">DAFFODIL-2096</a>] Add dfdlx extensions namespace prefix. Convert existing extensions to this namespace.</li>
 </ul>
 
-<h4 id="extension-empty-element-parse-policy-proposal">Extension: Empty Element Parse Policy [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+dfdlx%3AemptyElementParsePolicy+Property">Proposal</a>]</h4>
+<h2 id="extension-empty-element-parse-policy-proposal">Extension: Empty Element Parse Policy [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+dfdlx%3AemptyElementParsePolicy+Property">Proposal</a>]</h2>
 
 <p>A new DFDL property named <code class="language-plaintext highlighter-rouge">dfdlx:emptyElementParsePolicy</code> is added to
 control the behavior of empty string and hexBinary elements. This property
@@ -312,7 +316,7 @@ v1.0 specification which also increase compatibility with IBM DFDL.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2162">DAFFODIL-2162</a>] direct dispatch choice that has an array branch causes abort during compilation</li>
 </ul>
 
-<h4 id="extension-enumeration-values-proposal">Extension: Enumeration Values [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Feature+to+support+enumerations+and+typeValueCalc">Proposal</a>]</h4>
+<h2 id="extension-enumeration-values-proposal">Extension: Enumeration Values [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+Feature+to+support+enumerations+and+typeValueCalc">Proposal</a>]</h2>
 
 <p>New DFDL properties and functions are added to support translation of
 enumeration values.</p>
@@ -324,7 +328,7 @@ enumeration values.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2165">DAFFODIL-2165</a>] Add *Double functions to the typeCalc family of functions</li>
 </ul>
 
-<h4 id="extension-ranged-direct-dispatch-proposal">Extension: Ranged Direct Dispatch [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+choiceBranchKeyRanges">Proposal</a>]</h4>
+<h2 id="extension-ranged-direct-dispatch-proposal">Extension: Ranged Direct Dispatch [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+choiceBranchKeyRanges">Proposal</a>]</h2>
 
 <p>A new property named <code class="language-plaintext highlighter-rouge">dfdlx:choiceBranchKeyRanges</code> is added to support direct
 dispatch based on a range of numeric values.</p>
@@ -333,7 +337,7 @@ dispatch based on a range of numeric values.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2157">DAFFODIL-2157</a>] Implement choiceBranchKeyRanges</li>
 </ul>
 
-<h4 id="extension-lookahead-expression-function-proposal">Extension: Lookahead Expression Function [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+DFDLX+lookAhead">Proposal</a>]</h4>
+<h2 id="extension-lookahead-expression-function-proposal">Extension: Lookahead Expression Function [<a href="https://cwiki.apache.org/confluence/display/DAFFODIL/Proposal%3A+DFDLX+lookAhead">Proposal</a>]</h2>
 
 <p>A new DFDL expression function named <code class="language-plaintext highlighter-rouge">dfdlx:lookAhead()</code> is added to support a
 simple way to consider data that occurs at a future point in the bitstream.</p>
@@ -342,7 +346,7 @@ simple way to consider data that occurs at a future point in the bitstream.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2140">DAFFODIL-2140</a>] Implement dfdl:lookAhead()</li>
 </ul>
 
-<h4 id="improved-dfdl-schema-validation">Improved DFDL Schema Validation</h4>
+<h2 id="improved-dfdl-schema-validation">Improved DFDL Schema Validation</h2>
 
 <p>Daffodil now does a better job at validating attribute-, short-, and
 element-form DFDL properties, which will now result in an error if unknown
@@ -358,7 +362,7 @@ properties are ignored (e.g. <code class="language-plaintext highlighter-rouge">
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2163">DAFFODIL-2163</a>] False warning about unused dfdl:choiceBranchKey on direct dispatch array</li>
 </ul>
 
-<h4 id="deprecationcompatibility">Deprecation/Compatibility</h4>
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
 
 <p>The following changes have been made which affect compatibility with past releases:</p>
 
@@ -389,7 +393,7 @@ namespace, with backwards compatibility supported for now:
   </li>
 </ul>
 
-<h4 id="dfdl-schema-compatibility">DFDL Schema Compatibility</h4>
+<h2 id="dfdl-schema-compatibility">DFDL Schema Compatibility</h2>
 
 <p>Many changes and bug fixes specifically made to improve compatibility with more
 DFDL schemas. With these fixes and features, the schemas
@@ -410,7 +414,7 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2156">DAFFODIL-2156</a>] daffodil-test-ibm1-crossTest now fails</li>
 </ul>
 
-<h4 id="infrastructure-and-website">Infrastructure and Website</h4>
+<h2 id="infrastructure-and-website">Infrastructure and Website</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1380">DAFFODIL-1380</a>] Update genjavadoc plugin to 10 when released and enable doclint</li>
@@ -431,7 +435,7 @@ now work with Daffodil.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2166">DAFFODIL-2166</a>] TravisCI open jdk 11 fails to download</li>
 </ul>
 
-<h4 id="miscellaneous-changes-and-bug-fixes">Miscellaneous Changes and Bug Fixes</h4>
+<h2 id="miscellaneous-changes-and-bug-fixes">Miscellaneous Changes and Bug Fixes</h2>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1024">DAFFODIL-1024</a>] Property inputValueCalc should not be on element that is optional, global, or an array</li>

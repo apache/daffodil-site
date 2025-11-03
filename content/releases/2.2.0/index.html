@@ -80,11 +80,15 @@
     </div>
 
 
+
+
 <div class="title">
-  <div class="container">
-    <h2>Apache Daffodil 2.2.0</h2>
-  </div>
+  <div class="container"></div>
 </div>
+<div class="container">
+  <h1>Apache Daffodil 2.2.0</h1>
+</div>
+
 
 
 
@@ -249,15 +253,15 @@ Run the folllowing command:
   </div>
 </div>
 
-<h3 id="release-notes">Release Notes</h3>
+<h2 id="release-notes">Release Notes</h2>
 
 <p>Daffodil 2.2.0 is the second release of Daffodil as an Apache incubator project.
 This release includes numerous bug fixes and DFDL feature
 additions to support more DFDL schemas.</p>
 
-<h3 id="new-features">New Features</h3>
+<h2 id="new-features">New Features</h2>
 
-<h4 id="layering">Layering</h4>
+<h3 id="layering">Layering</h3>
 
 <p>A experimental DFDL language feature known as layering has been added to Daffodil. This feature has been discussed for future inclusion in the DFDL standard by the DFDL working group.
 The syntax of the properties is subject to some change in the future. The layering feature is described at <a href="https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=75979671">Data Layering</a>.</p>
@@ -271,7 +275,7 @@ The syntax of the properties is subject to some change in the future. The layeri
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1935">DAFFODIL-1935</a>] Debugger/trace broken with new layering</li>
 </ul>
 
-<h4 id="message-streaming-api">Message Streaming API</h4>
+<h3 id="message-streaming-api">Message Streaming API</h3>
 
 <p>Daffodil's parser API has been enhanced to allow parsing of unbounded streams of messages, symmetric with the Daffodil unparser. The API enables calling the <code class="language-plaintext highlighter-rouge">parse</code> method repeatedly on the same data stream so as to parse one data element (typically a message, but could be any DFDL-described element) at a time from the stream. In prior releases, Daffodil had only a parse API that expected data for the parse to consume the entire data stream.</p>
 
@@ -287,7 +291,7 @@ The syntax of the properties is subject to some change in the future. The layeri
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1987">DAFFODIL-1987</a>] Buckets not released with small bucket sizes</li>
 </ul>
 
-<h4 id="scala-212-support-and-library-dependencies-updated">Scala 2.12 Support and Library Dependencies Updated</h4>
+<h3 id="scala-212-support-and-library-dependencies-updated">Scala 2.12 Support and Library Dependencies Updated</h3>
 
 <p>Daffodil now supports both Scala 2.11 and Scala 2.12. Most testing is now done on Scala 2.12 with only occasional regression checking done on Scala 2.11. Support for Scala 2.11 will eventually be elminated in a future release.</p>
 
@@ -299,7 +303,7 @@ The syntax of the properties is subject to some change in the future. The layeri
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1430">DAFFODIL-1430</a>] macroLib should not be needed after scala compilation, but seems to be required</li>
 </ul>
 
-<h4 id="zoned-decimal-text-numbers-and-packed-decimal-calendars">Zoned Decimal Text Numbers and Packed Decimal Calendars</h4>
+<h3 id="zoned-decimal-text-numbers-and-packed-decimal-calendars">Zoned Decimal Text Numbers and Packed Decimal Calendars</h3>
 
 <p>Support for the <code class="language-plaintext highlighter-rouge">dfdl:textNumberRep</code> of <code class="language-plaintext highlighter-rouge">zoned</code> has been added along with the related DFDL properties that specify zoned-number format.</p>
 
@@ -316,12 +320,12 @@ Packed Decimal, and IBM 4690 Packed Decimal, respectively are supported.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-99">DAFFODIL-99</a>] Date, Time, DateTime - Binary - binaryCalendarRep='binary'</li>
 </ul>
 
-<h3 id="deprecationcompatability">Deprecation/Compatability</h3>
+<h2 id="deprecationcompatability">Deprecation/Compatability</h2>
 
 <p>As of 2.2.0, the following changes have been made which affect compatibility
 with past releases:</p>
 
-<h4 id="dfdlgeneralformatdfdlxsd-changes">DFDLGeneralFormat.dfdl.xsd changes</h4>
+<h3 id="dfdlgeneralformatdfdlxsd-changes">DFDLGeneralFormat.dfdl.xsd changes</h3>
 
 <p>This DFDL schema is used as a starting point by many schemas. Some changes to it can
 lead to incompatibilities.</p>
@@ -341,7 +345,7 @@ lead to incompatibilities.</p>
 
 <p>Property <code class="language-plaintext highlighter-rouge">dfdl:textNumberRoundingMode</code> - was <code class="language-plaintext highlighter-rouge">roundUnnecessary</code> now <code class="language-plaintext highlighter-rouge">roundHalfEven</code>. This change should be compatible, and was necessary due to an update of the underlying ICU libraries used by Daffodil. The behavior of that library with respect to rounding modes was fixed, allowing us to change the rounding mode to the more reasonable <code class="language-plaintext highlighter-rouge">roundHalfEven</code> behavior.</p>
 
-<h4 id="the-maxoccursbound-limit">The <code class="language-plaintext highlighter-rouge">maxOccursBound</code> limit</h4>
+<h3 id="the-maxoccursbound-limit">The <code class="language-plaintext highlighter-rouge">maxOccursBound</code> limit</h3>
 
 <p>Prior Daffodil releases had a very small limit on the number of repeating occurrences an element could have, 1024, which was not being checked in some cases. It is now checked in all cases; however, with this checking it was discovered that many schemas break on this small limit. The limit was changed to Int.MaxValue (maximum positive value of a 32-bit integer), and must be tuned downward by users who wish to catch situations where there are an excessive number of repeats much larger than is reasonable for the data described by their DFDL schema. In addition, rather than a Parse Error, which causes backtracking, exceeding this tuned value will result in a runtime Schema Definition Error - which halts processing. If desired, in a DFDL Schema, a Parse Error can still be obtained by way of a <code class="language-plaintext highlighter-rouge">dfdl:assert</code> statement on the recurring element which tests that the <code class="language-plaintext highlighter-rouge">dfdl:occursIndex()</code> is less than the desired maximum bound.</p>
 
@@ -349,7 +353,7 @@ lead to incompatibilities.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1519">DAFFODIL-1519</a>] occursCount that is greater than maxOccursBounds causes PE/UE rather than SDE</li>
 </ul>
 
-<h4 id="the-suppressschemadefinitionwarnings-tunable">The <code class="language-plaintext highlighter-rouge">suppressSchemaDefinitionWarnings</code> Tunable</h4>
+<h3 id="the-suppressschemadefinitionwarnings-tunable">The <code class="language-plaintext highlighter-rouge">suppressSchemaDefinitionWarnings</code> Tunable</h3>
 
 <p>Some schemas produce large number of schema definition warnings, and it is desirable to tolerate, and suppress these. The name of the tunable is now <code class="language-plaintext highlighter-rouge">suppressSchemaDefinitionWarnings</code>. Prior releases used <code class="language-plaintext highlighter-rouge">suppressWarnings</code> which was inconsistent with the API-level access names/symbols for the same concept.</p>
 
@@ -357,7 +361,7 @@ lead to incompatibilities.</p>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1980">DAFFODIL-1980</a>] suppressWarnings vs. suppressSchemaDefinitionWarnings in config files</li>
 </ul>
 
-<h4 id="tdml-runner-enhancements">TDML Runner Enhancements</h4>
+<h3 id="tdml-runner-enhancements">TDML Runner Enhancements</h3>
 
 <p>The TDML Runner was enhanced to eliminate some false-positive test situations. Specifically it now requires
 controlled selections on round-trip testing. The TDML <code class="language-plaintext highlighter-rouge">defaultRoundTrip</code> and <code class="language-plaintext highlighter-rouge">roundTrip</code> attributes can now take on the values
@@ -370,9 +374,9 @@ Please see the <a href="../../tdml">Test Data Markup Language (TDML)</a> page.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1947">DAFFODIL-1947</a>] TDMLRunner - incorrect error on left-over data: TDMLException: Left over data. Consumed 48 bit(s) with 0 bit(s) remaining.</li>
 </ul>
 
-<h3 id="additional-changes">Additional Changes</h3>
+<h2 id="additional-changes">Additional Changes</h2>
 
-<h4 id="infrastructure">Infrastructure</h4>
+<h3 id="infrastructure">Infrastructure</h3>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1962">DAFFODIL-1962</a>] TravisCI builds fail with error 137 out of memory</li>
@@ -384,7 +388,7 @@ Please see the <a href="../../tdml">Test Data Markup Language (TDML)</a> page.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1925">DAFFODIL-1925</a>] Remove testWSPStar.dfdl.xsd and json5.dfdl.xsd</li>
 </ul>
 
-<h4 id="bugs-fixed">Bugs Fixed</h4>
+<h3 id="bugs-fixed">Bugs Fixed</h3>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1923">DAFFODIL-1923</a>] Excel export CSV escaping - can't be handled with standard block escape</li>
@@ -401,7 +405,7 @@ Please see the <a href="../../tdml">Test Data Markup Language (TDML)</a> page.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1970">DAFFODIL-1970</a>] Exception instead of error message - expression variable on wrong level</li>
 </ul>
 
-<h4 id="other-miscellaneous">Other Miscellaneous</h4>
+<h3 id="other-miscellaneous">Other Miscellaneous</h3>
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1918">DAFFODIL-1918</a>] Update JSON schema in tests to use Boolean type</li>
@@ -411,7 +415,6 @@ Please see the <a href="../../tdml">Test Data Markup Language (TDML)</a> page.</
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1924">DAFFODIL-1924</a>] DaffodilXMLLoader needs to explicitly specify which instance to use</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1939">DAFFODIL-1939</a>] Errata 5.32 to 5.38 status is not on the Unimplemented Features/Errata page</li>
 </ul>
-
 
 
       <footer>
