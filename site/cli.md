@@ -24,433 +24,577 @@ limitations under the License.
 <!-- markdownlint-disable line-length -->
 <!-- markdownlint-disable no-duplicate-heading -->
 
-The binary Daffodil [releases](/releases) contain a ``/bin`` directory with two scripts: ``daffodil.bat`` for Windows and ``daffodil`` for Linux. These files must be executed on the command line. The general usage is:
+The binary Daffodil [releases](/releases) contain a `/bin` directory with two scripts: `daffodil.bat` for Windows and `daffodil` for Linux.
+These files must be executed on the command line. The general usage is:
 
-    daffodil [GLOBAL_OPTIONS] <subcommand> [SUBCOMMAND_OPTIONS]
+```
+daffodil [GLOBAL_OPTIONS] <subcommand> [SUBCOMMAND_OPTIONS]
+```
 
 The available subcommands are:
 
-- [parse](#parse-subcommand)
-- [unparse](#unparse-subcommand)
-- [save-parser](#save-parser-subcommand)
-- [test](#test-subcommand)
-- [performance](#performance-subcommand)
-- [generate](#generate-subcommand)
+- [parse](#parse-subcommand) - parse a file, using either a DFDL schema or a saved parser
+- [unparse](#unparse-subcommand) - unparse an infoset file, using either a DFDL schema or a saved parser
+- [save-parser](#save-parser-subcommand) - save a parser that can be reused for parsing and unparsing
+- [test](#test-subcommand) - list or execute tests in a TDML file
+- [performance](#performance-subcommand) - run a performance test (parse or unparse), using either a DFDL schema or a saved parser
+- [generate](#generate-subcommand) - generate C code from a DFDL schema to parse or unparse data
+- [exi](#exi) - encode or decode an XML file with Efficient XML Interchange (EXI)
 
 # Environment Variables
 
 Setting environment variables may be necessary to allow imports, includes, and running TDML files to work.
 
-``DAFFODIL_CLASSPATH``
+`DAFFODIL_CLASSPATH`
 
-   : Daffodil will search its classpath for includes and imports, jars containing schemas, and some TDML files. To tell Daffodil to look for files in additional directories, set the ``DAFFODIL_CLASSPATH`` environment variable, for example:
+: Daffodil will search its classpath for includes and imports, and jars containing schemas and Daffodil plugins.
+  To tell Daffodil to look for files in additional directories, set the `DAFFODIL_CLASSPATH` environment variable, for example:
+  ```
+  export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/plugins/"
+  ```
+  In addition to defining directories to search for imports and includes, you can add a CatalogManager.properties file to `DAFFODIL_CLASSPATH` to direct Daffodil to a relative path location of a user XML Catalog.
 
-         export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/includes/"
+`DAFFODIL_JAVA_OPTS`
 
-     In addition to defining directories to search for imports and includes, you can add a CatalogManager.properties file to ``DAFFODIL_CLASSPATH`` to direct Daffodil to a relative path location of a user XML Catalog.
+: Specified additionalify java options to provide to Daffodil.
+  If not specified, the `JAVA_OPTS` environment variable will be used.
+  If that is not specified, reasonable defaults for Daffodil will be used.
 
-``DAFFODIL_JAVA_OPTS``
+`DAFFODIL_TDML_API_INFOSETS`
 
-   : If you need to specify java options specific to Daffodil, you can set the ``DAFFODIL_JAVA_OPTS`` environment variable. If not specified, the ``JAVA_OPTS`` environment variable will be used. If that is not specified, reasonable defaults for Daffodil will be used.
+: Controls which Daffodil APIs and infoset types are used when running TDML tests with the [test](#test-subcommand) subcommand.
 
-``DAFFODIL_TDML_API_INFOSETS``
+  If not set or has a value of `scala`, the standard Daffodil API and Scala infoset type is used.
 
-   : If you need to specify which API (legacy or both (SAX and legacy)) should be called when running TDML files with the ``test`` subcommand, you can set the ``DAFFODIL_TDML_API_INFOSETS`` environment variable to either `scala` or `all`. If that environment variable is not specified, then Daffodil will default to `scala`, using the legacy API and only creating a Scala infoset. Otherwise, if `all` is specified, Daffodil will use both the SAX and Legacy APIs and will create infosets from all the available Infoset Outputters: Scala, JDOM, W3CDOM, JSON and XML Text, to ensure correctness. Since the default option only creates one infoset, it is more efficient, which can speed up TDML tests.
+  If set to `all`, both the standard Daffodil API and SAX APIs are used, an all available infoset inputters/outputters are used, including Scala, JDOM, W3CDOM, JSON, and XML text.
+  The results of the different infosets are compared to ensure equality.
+  This can have a negative impact on TDML performance, but can be useful for regression testing.
 
-``CC``
+`CC`
 
-   : If you need to specify which C compiler should be called when running TDML files with the ``test`` subcommand using Daffodil's codegen-c backend, you can set the ``CC`` environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the ``PATH`` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
+: Specifies which C compiler should be called when running TDML files with the [test](#test-subcommand) subcommand using Daffodil's codegen-c backend.
+  If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the `PATH` environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order).
+  The reason for "zig cc" coming first is because [zig cc](https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html) uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.
 
 # Global Options
 
-``-v, --verbose``
+`-v, --verbose`
 
-   : Enable verbose mode and increment verbosity level. Each additional ``-v`` provides a new level of information.
+: Enable verbose mode and increment verbosity level. Each additional `-v` provides a new level of information.
 
-``--version``
+`--version`
 
-   : Display Daffodil's version.
+: Display Daffodil's version.
 
-``-h, --help``
+`-h, --help`
 
-   : Display a help message.
+: Display a help message.
 
 # Parse Subcommand
 
 Parse a file, using either a DFDL schema or a saved parser.
 
+`--` can be used to separate command-line options from trailing arguments.
+
 ## Usage
 
-    daffodil parse (-s <schema> [-r <root>] | -P <parser>)
-                   [PARSE_OPTS] [infile]
+```
+daffodil parse (-s <schema> | -P <parser>) [PARSE_OPTS] [infile]
+```
 
-## Parse Options
+## Options
 
-``-c, --config FILE``
+`-c, --config <file>`
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
+: XML file containing configuration items, such as external variables or Daffodil tunables.
+  See [Configuration](/configuration) for details on the file format.
 
-``-D VARIABLE=VALUE``
+`-Dvariable=value [variable=value]...`
 
-   : Variables to be used when parsing. A namespace may be specified by prefixing ``VARIABLE`` with ``{NAMESPACE}``, for example:
+: Variables to be used when parsing.
+  A namespace may be specified by prefixing `variable` with `{namespace}`, for example:
+  ```
+  -D{http://example.com}var1=var
+  ```
 
-     ```-D{http://example.com}var1=var```
+`-d, --debug [file]`
 
-``-d, --debug [FILE]``
+: Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+  The optional `[file]` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+  This option cannot be used with the `--trace` option.
 
-   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
-   
-        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
-   
-        This option cannot be used with the ``--trace`` option.
+`-I, --infoset-type <type>`
 
-``-I, --infoset-type TYPE``
+: Infoset type to output.
+  `<type>` must be one of `xml`, `scala-xml`, `json`, `jdom`, `sax`, `exi`, `exisa`, `w3cdom`, or `null`.
+  Defaults to `xml` if not provided.
 
-   : Infoset type to output. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, ``sax``, or ``null``. Defaults to ``xml`` if not provided.
+`-o, --output <file>`
 
-``-o, --output FILE``
+: Output file to write the infoset to.
+  If the option is not given or `<file>` is `-`, the infoset is written to standard output.
 
-   : Output file to write the infoset to. If the option is not given or ``FILE`` is -, the infoset is written to standard output.
+`-P, --parser <file>`
 
-``-P, --parser FILE``
+: Use a previously saved parser inside `<file>`, created using the [save-parser](#save-parser-subcommand) subcommand.
+ This option cannot be used with the `--schema`.
 
-   : Use a previously saved parser inside ``FILE``, created using the ``save-parser`` subcommand. This option cannot be used with the ``--schema`` option or with the ``--validate`` option set to ``on``.
+`-r, --root <root>`
 
-``-r, --root ROOT``
+: The root element to use. This must be one of the top-level elements of the DFDL schema defined with `--schema`.
+  This requires the `--schema` option to be defined.
+  Defaults to the schemas first top-level element if not provided.
+  A namespace may be specified by prefixing `<root>` with `{namespace}`.
 
-   : The root element to use. This must be one of the top-level elements of the DFDL schema defined with ``--schema``. This requires the ``--schema`` option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing ``ROOT`` with ``{NAMESPACE}``.
+`-s, --schema <file>`
 
-``-s, --schema FILE``
+: The annotated DFDL schema to use to create the parser.
+  This option cannot be used with the `--parser` option.
 
-   : The annotated DFDL schema to use to create the parser. This option cannot be used with the ``--parser`` option.
+`--stream`
 
-``--stream``
+: Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data.
+  Parsing repeats until end of data is reached, an error occurs, or no data is consumed.
+  Output infosets are separated by a NUL character.
 
-   : Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data. Parsing repeats until end of data is reached, an error occurs, or no data is consumed. Output infosets are separated by a NUL character.
+`--nostream`
 
-``--nostream``
+: Stop after the first parse, throwing an error if left over data exists.
+  This is the default behavior.
 
-   : Stop after the first parse, throwing an error if left over data exists. This is the default behavior.
+`-Ttunable=value [tunable=value]...`
 
-``-T TUNABLE=VALUE``
+: Tunable configuration options to change Daffodil's behavior.
+  See [Configuration](/configuration) for the list of tunable parameters.
 
-   : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
+`-t, --trace`
 
-``-t, --trace``
+: Enable trace mode. This mode prints out helpful information during every stage of parsing.
+  This option cannot be used with the `--debug` option.
 
-   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+`-V, --validate <validator_name>`
 
-        This option cannot be used with the ``--debug`` option.
+: Specify a validator to use. `<validator_name>` can be one of `off`, `daffodil`, `xerces[=value]`, `schematron[=value]`, or a `custom validator_name[=value]`.
+  The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+  If using --parser, some validators may require that a config file be specified.
 
-``-V, --validate MODE``
+`-h, --help`
 
-   : The validation mode. ``MODE`` must be one of ``on``, ``limited``, ``off``, or a validator plugin name. Defaults to ``off`` if not provided. Validator plugins are provided by SPI and are referenced here using the ``name`` defined by the plugin. ``MODE`` cannot be ``on`` when used with the ``--parser`` option.
+: Display a help message.
 
-``[INFILE]``
+`[infile]`
 
-   : Input file to parse. If not specified, or is a value of -, reads from standard input. If supplied, the input file must be the last option on the command line.
-
-``-h, --help``
-
-   : Display a help message.
+: Input file to parse.
+  If not specified, or is a value of `-`, reads from standard input.
+  If supplied, the input file must be the last option on the command line.
 
 ## Example
 
-    daffodil parse -s csv.dfdl.xsd test_file.csv
+```
+daffodil parse -s csv.dfdl.xsd test_file.csv
+```
 
 # Unparse Subcommand
 
-Unparse an infoset file, using either a DFDL schema or a saved parser.
+Unparse an infoset file, using either a DFDL schema or a saved parser
+
+`--` can be used to separate command-line options from trailing arguments
 
 ## Usage
 
-    daffodil unparse (-s <schema> [-r <root>] | -P <parser>)
-                     [UNPARSE_OPTS] [infile]
+```
+daffodil unparse (-s <schema> | -P <parser>) [UNPARSE_OPTS] [infile]
+```
 
-## Unparse Options
+## Options
 
-``-c, --config FILE``
+`-c, --config <file>`
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
+: XML file containing configuration items, such as external variables or Daffodil tunables.
+  See [Configuration](/configuration) for details on the file format.
 
-``-D VARIABLE=VALUE``
+`-Dvariable=value [variable=value]...`
 
-   : Variables to be used when unparsing. A namespace may be specified by prefixing ``VARIABLE`` with ``{NAMESPACE}``, for example:
+: Variables to be used when parsing.
+  A namespace may be specified by prefixing `variable` with `{namespace}`, for example:
 
-     ```-D{http://example.com}var1=var```
+```
+-D{http://example.com}var1=var
+```
 
-``-d, --debug [FILE]``
+`-d, --debug [file]`
 
-   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+: Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+  The optional `[file]` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+  This option cannot be used with the `--trace` option.
 
-        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
-   
-        This option cannot be used with the ``--trace`` option.
+`-I, --infoset-type <type>`
 
-``-I, --infoset-type TYPE``
+: Infoset type to unparse.
+  `<type>` must be one of `xml`, `scala-xml`, `json`, `jdom`, `sax`, `exi`, `exisa`, `w3cdom`, or `null`.
+  Defaults to `xml` if not provided.
 
-   : Infoset type to unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, or ``sax``. Defaults to ``xml`` if not provided.
+`-o, --output <file>`
 
-``-o, --output FILE``
+: Output file to write the data to.
+  If the option is not given or `<file>` is `-`, the infoset is written to standard output.
 
-   : Output file to write the data to. If the option is not given or ``FILE`` is -, the data is written to standard output.
+`-P, --parser <file>`
 
-``-P, --parser FILE``
+: Use a previously saved parser inside `<file>`, created using the [save-parser](#save-parser-subcommand) subcommand.
+  This option cannot be used with the `--schema`.
 
-   : Use a previously saved parser inside ``FILE``, created using the ``save-parser`` subcommand. This option cannot be used with the ``--schema`` option or with the ``--validate`` option set to ``on``.
+`-r, --root <root>`
 
-``-r, --root ROOT``
+: The root element to use. This must be one of the top-level elements of the DFDL schema defined with `--schema`.
+  This requires the `--schema` option to be defined.
+  Defaults to the schemas first top-level element if not provided.
+  A namespace may be specified by prefixing `<root>` with `{namespace}`.
 
-   : The root element to use. This must be one of the top-level elements of the DFDL schema defined with ``--schema``. This requires the ``--schema`` option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing ``ROOT`` with ``{NAMESPACE}``.
+`-s, --schema <file>`
 
-``-s, --schema FILE``
+: The annotated DFDL schema to use to create the parser.
+  This option cannot be used with the `--parser` option.
 
-   : The annotated DFDL schema to use to create the parser. This option cannot be used with the ``--parser`` option.
+`--stream`
 
-``--stream``
+: Split the input data on the NUL character, and unparse each chunk separatly.
 
-   : Split the input data at NUL characters and unparse each chunk separately to the same output file.
+`--nostream`
 
-``--nostream``
+: Treat the entire input data as on infoset.
+  This is the default behavior.
 
-   : Treat the entire input data as one infoset. This is the default behavior.
+`-Ttunable=value [tunable=value]...`
 
-``-T TUNABLE=VALUE``
+: Tunable configuration options to change Daffodil's behavior.
+  See [Configuration](/configuration) for the list of tunable parameters.
 
-   : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
+`-t, --trace`
 
-``-t, --trace``
+: Enable trace mode. This mode prints out helpful information during every stage of unparsing.
+  This option cannot be used with the `--debug` option.
 
-   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+`-V, --validate <validator_name>`
 
-        This option cannot be used with the ``--debug`` option.
+: Specify a validator to use. `<validator_name>` can be one of `off`, `daffodil`, `xerces[=value]`, `schematron[=value]`, or a `custom validator_name[=value]`.
+  The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+  If using --parser, some validators may require that a config file be specified.
+  Note that using this flag doesn't use the created validator as unpase validation is currently unsupported.
 
-``-V, --validate MODE``
+`-h, --help`
 
-   : The validation mode. ``MODE`` must be one of ``on``, ``limited``, ``off``, or a validator plugin name. Defaults to ``off`` if not provided. Validator plugins are provided by SPI and are referenced here using the ``name`` defined by the plugin. ``MODE`` cannot be ``on`` when used with the ``--parser`` option.
+: Display a help message.
 
-``[INFILE]``
+`[infile]`
 
-   : Input file to unparse. If not specified, or is a value of -, reads from standard input. If supplied, the input file must be the last option on the command line.
-
-``-h, --help``
-
-   : Display a help message.
+: Input file to unparse.
+  If not specified, or is a value of `-`, reads from standard input.
+  If supplied, the input file must be the last option on the command line.
 
 ## Example
 
-    daffodil unparse -s csv.dfdl.xsd test_file.infoset
+```
+daffodil unparse -s csv.dfdl.xsd test_file.infoset
+```
 
 # Save Parser Subcommand
 
 Save a parser that can be reused for parsing and unparsing.
 
+`--` can be used to separate command-line options from trailing arguments
+
 ## Usage
 
-    daffodil save-parser -s <schema> [-r <root>]
-                        [SAVE_PARSER_OPTS] [outfile]
+```
+daffodil save-parser -s <schema> [SAVE_PARSER_OPTS] [outfile]
+```
 
-## Save Parser Options
+## Options
 
-``-c, --config FILE``
+`-c, --config <file>`
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
+: XML file containing configuration items, such as external variables or Daffodil tunables.
+  Note variable values defined in the configuration file will not be included in the saved parser--the saved parser only embeds variable values defined in the schema.
+  See [Configuration](/configuration) for details on the file format.
 
-``-D VARIABLE=VALUE``
+`-r, --root <root>`
 
-   : Variables to be used when parsing or unparsing. A namespace may be specified by prefixing ``VARIABLE`` with ``{NAMESPACE}``, for example:
+: The root element to use. This must be one of the top-level elements of the DFDL schema defined with `--schema`.
+  This requires the `--schema` option to be defined.
+  Defaults to the schemas first top-level element if not provided.
+  A namespace may be specified by prefixing `<root>` with `{namespace}`.
 
-     ```-D{http://example.com}var1=var```
+`-s, --schema <file>`
 
-``-r, --root ROOT``
+: The annotated DFDL schema to use to create the parser.
+  This option must be supplied.
 
-   : The root element to use. This must be one of the top-level elements of the DFDL schema defined with ``--schema``. This requires the ``--schema`` option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing ``ROOT`` with ``{NAMESPACE}``.
+`-Ttunable=value [tunable=value]...`
 
-``-s, --schema FILE``
+: Tunable configuration options to change Daffodil's behavior.
+  See [Configuration](/configuration) for the list of tunable parameters.
 
-   : The annotated DFDL schema to use to create the parser. This option must be supplied.
+`-h, --help`
 
-``-T TUNABLE=VALUE``
+: Display a help message.
 
-   : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
+`[outfile]`
 
-``[OUTFILE]``
-
-   : Output file to save the parser to. If the option is not given or is -, the parser is saved to standard output. If supplied, the output file must be the last option on the command line.
-
-``-h, --help``
-
-   : Display a help message.
+: Output file to write the saved parser to.
+  If the option is not given or is `-`, the parser is written to standard output.
+  If supplied, the output file must be the last option on the command line.
 
 ## Example
 
-    daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
+```
+daffodil save-parser -s csv.dfdl.xsd csv_parser.bin
+```
 
 # Test Subcommand
 
 List or execute tests in a TDML file.
 
+`--` can be used to separate command-line options from trailing arguments
+
 ## Usage
 
-    daffodil test [TEST_OPTS] <tdmlfile> [testnames...]
+```
+daffodil test [TEST_OPTS] <tdmlfile> [testnames...]
+```
 
-## Test Options
+## Options
 
-``-d, --debug [FILE]``
+`-d, --debug [file]`
 
-   : Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
-
-        The optional ``FILE`` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+: Enable the interactive debugger. See the [Interactive Debugger](/debugger) documentation for more information.
+  The optional `[file]` argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+  This option cannot be used with the `--trace` option.
    
-        This option cannot be used with the ``--trace`` option.
+`-I, --implementation <implementation>`
 
-``-I, --implementation  <implementation>``
+: Implementation to run TDML tests.
+  Choose `daffodil` or `daffodilC`.
+  Defaults to daffodil.
 
-   : Implementation to run TDML tests. Choose daffodil or
-     daffodilC. Defaults to daffodil.
+`-i, --info`
 
-``-i, --info``
+: Increment test result information output level, one level for each `-i`.
 
-   : Increment test result information output level, one level for each -i.
+`-l, --list`
 
-``-l, --list``
+: Show names and descriptions of test cases in a TDML file instead of running them.
 
-   : Show names and descriptions of test cases in a TDML file instead of running them.
+`-r, --regex`
 
-``-r, --regex``
+: Treat `[testnames...]` as regular expressions.
 
-   : Treat ``TESTNAMES...`` as regular expressions.
+`-t, --trace`
 
-``-t, --trace``
+: Enable a trace mode.
+  This mode prints out helpful information during every stage of parsing.
+  This option cannot be used with the `--debug` option.
 
-   : Enable a trace mode. This mode prints out helpful information during every stage of parsing.
+`-h, --help`
 
-        This option cannot be used with the ``--debug`` option.
+: Display a help message.
 
-``TDMLFILE``
+`<tdmlfile>`
 
-   : Test Data Markup Language (TDML) file.
+: Test Data Markup Language (TDML) file.
 
-``[TESTNAMES...]``
+`[testnames...]`
 
-   : Name(s) of test cases in the TDML file. If not given, all tests in ``TDMLFILE`` are run.
-
-``-h, --help``
-
-   : Display a help message.
+: Name(s) of test cases in the TDML file.
+  If not given, all tests in `<tdmlfile>` are run.
 
 ## Example
 
-    daffodil test csv.tdml
+```
+daffodil test csv.tdml
+```
 
 # Performance Subcommand
 
 Run a performance test (parse or unparse), using either a DFDL schema or a saved parser.
 
+`--`  can be used to separate command-line options from trailing arguments
+
 ## Usage
 
-    daffodil performance (-s <schema> [-r <root>] | -P <parser>)
-                         [PERFORMANCE_OPTS] <infile>
+```
+daffodil performance (-s <schema> | -P <parser>) [PERFORMANCE_OPTS] <infile>
+```
 
-## Performance Options
+## Options
 
-``-c, --config FILE``
+### `-c, --config <file>`
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
+XML file containing configuration items, such as external variables or Daffodil tunables.
+See [Configuration](/configuration) for details on the file format.
 
-``-D VARIABLE=VALUE``
+`-Dvariable=value [variable=value]...`
 
-   : Variables to be used when parsing or unparsing. ``VARIABLE`` can be prefixed with ``{NAMESPACE}`` to define which namespace the variable belongs in, for example:
+: Variables to be used when parsing.
+  A namespace may be specified by prefixing `variable` with `{namespace}`, for example:
+  ```
+  -D{http://example.com}var1=var
+  ```
 
-     ```-D{http://example.com}var1=var```
+`-I, --infoset-type <type>`
 
-``-I, --infoset-type TYPE``
+: Infoset type to output.
+  `<type>` must be one of `xml`, `scala-xml`, `json`, `jdom`, `sax`, `exi`, `exisa`, `w3cdom`, or `null`.
+  Defaults to `xml` if not provided.
 
-   : Infoset type to output or unparse. ``TYPE`` must be one of ``xml``, ``scala-xml``, ``json``, ``jdom``, ``sax``, or ``null``. Defaults to ``xml`` if not provided. Note that ``null`` is not valid if the ``--unparse`` option is provided.
+`-N, --number <number>`
 
-``-N, --number NUMBER``
+: The total number of files to process. Defaults to 1.
 
-   : The total number of files to process. Defaults to 1.
+`-P, --parser <file>`
 
-``-P, --parser FILE``
+: Use a previously saved parser inside `<file>`, created using the [save-parser](#save-parser-subcommand) subcommand.
+  This option cannot be used with the `--schema`.
 
-   : Use a previously saved parser inside ``FILE``, created using the ``save-parser`` subcommand. This option cannot be used with the ``--schema`` option or with the ``--validate`` option set to ``on``.
+`-r, --root <root>`
 
-``-r, --root ROOT``
+: The root element to use. This must be one of the top-level elements of the DFDL schema defined with `--schema`.
+  This requires the `--schema` option to be defined.
+  Defaults to the schemas first top-level element if not provided.
+  A namespace may be specified by prefixing `<root>` with `{namespace}`.
 
-   : The root element to use. This must be one of the top-level elements of the DFDL schema defined with ``--schema``. This requires the ``--schema`` option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing ``ROOT`` with ``{NAMESPACE}``.
+`-s, --schema <file>`
 
-``-s, --schema FILE``
+: The annotated DFDL schema to use to create the parser.
+  This option cannot be used with the `--parser` option.
 
-   : The annotated DFDL schema to use to create the parser. This option cannot be used with the ``--parser`` option.
+`-t, --threads <threads>`
 
-``-t, --threads THREADS``
+: The number of threads to use. Defaults to 1.
 
-   : The number of threads to use. Defaults to 1.
+`-Ttunable=value [tunable=value]...`
 
-``-T TUNABLE=VALUE``
+: Tunable configuration options to change Daffodil's behavior.
+  See [Configuration](/configuration) for the list of tunable parameters.
 
-   : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
+`-u, --unparse`
 
-``-u, --unparse``
+: Perform unparse instead of parse for performance test.
 
-   : Perform unparse instead of parse for performance test.
+`-V, --validate <validator_name>`
 
-``-V, --validate MODE``
+: Specify a validator to use. `<validator_name>` can be one of `off`, `daffodil`, `xerces[=value]`, `schematron[=value]`, or a `custom validator_name[=value]`.
+  The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+  If using --parser, some validators may require that a config file be specified.
 
-   : The validation mode. ``MODE`` must be one of ``on``, ``limited``, ``off``, or a validator plugin name. Defaults to ``off`` if not provided. Validator plugins are provided by SPI and are referenced here using the ``name`` defined by the plugin. ``MODE`` cannot be ``on`` when used with the ``--parser`` option.
+`-h, --help`
 
-``INFILE``
+: Display a help message.
 
-   : Input file or directory containing input files to parse or unparse. Required argument.
+`<infile>`
 
-``-h, --help``
-
-   : Display a help message.
+: Input file or directory containing input files to parse or unparse. Required argument.
 
 ## Example
 
-    daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
+```
+daffodil performance -s csv.dfdl.xsd -N 1000 -t 5 test_file.csv
+```
 
 # Generate Subcommand
 
 Generate C code from a DFDL schema to parse or unparse data.
 
+`--` can be used to separate command-line options from trailing arguments
+
 ## Usage
 
-    daffodil generate <language> [SUBCOMMAND_OPTS]
+```
+daffodil generate <language> -s <schema> [GENERATE_OPTIONS] [outdir]
+```
 
-    --- there is only one choice for <language> at this time ---
+There is only one choice for `<language>` at this time: `c`
 
-    daffodil generate c -s <schema> [-r <root>]
-                        [GENERATE_OPTIONS] [outdir]
 
-## Generate Options
+## Options
 
-``-c, --config FILE``
+`-c, --config <file>`
 
-   : XML file containing configuration items, such as external variables or Daffodil tunables. See [Configuration](/configuration) for details on the file format.
+: XML file containing configuration items, such as external variables or Daffodil tunables.
+  See [Configuration](/configuration) for details on the file format.
 
-``-r, --root ROOT``
+`-r, --root <root>`
 
-   : The root element to use. This must be one of the top-level elements of the DFDL schema defined with ``--schema``. This requires the ``--schema`` option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing ``ROOT`` with ``{NAMESPACE}``.
+: The root element to use. This must be one of the top-level elements of the DFDL schema defined with `--schema`.
+  This requires the `--schema` option to be defined.
+  Defaults to the schemas first top-level element if not provided.
+  A namespace may be specified by prefixing `<root>` with `{namespace}`.
 
-``-s, --schema FILE``
+`-s, --schema <file>`
 
-   : The annotated DFDL schema to use to generate C code. This option must be supplied.
+: The annotated DFDL schema to use to create the parser.
+  This option must be supplied.
 
-``-T TUNABLE=VALUE``
+`-Ttunable=value [tunable=value]...`
 
-   : Tunable configuration options to change Daffodil's behavior. See [Configuration](/configuration) for the list of tunable parameters.
+: Tunable configuration options to change Daffodil's behavior.
+  See [Configuration](/configuration) for the list of tunable parameters.
 
-``[OUTDIR]``
+`-h, --help`
 
-   : The output directory in which to create or replace a `c` subdirectory containing the generated C code. If the option is not given, a `c` subdirectory within the current directory will be created/replaced. If supplied, the output directory must be the last option on the command line.
+: Display a help message.
 
-``-h, --help``
+`[outdir]`
 
-   : Display a help message.
+: The output directory in which to create or replace a `c` subdirectory containing the generated C code.
+  If the option is not given, a `c` subdirectory within the current directory will be created/replaced.
+  If supplied, the output directory must be the last option on the command line.
 
 ## Example
 
-    daffodil generate c -s csv.dfdl.xsd
+```
+daffodil generate c -s csv.dfdl.xsd
+```
+
+# EXI Subcommand
+
+Encode/decode an XML file with Efficient XML Interchange (EXI). If a schema is specified, it will use schema aware encoding/decoding.
+
+`--` can be used to separate command-line options from trailing arguments
+
+## Usage
+
+```
+daffodil exi [EXI_OPTIONS] [infile]
+```
+
+## Options
+
+`-d, --decode`
+
+: Decode `[infile]` from EXI to XML.
+
+`-o, --output <file>`
+
+: Output file to write the encoded/decoded data to.
+  If the option is not given or `<file>` is `-`, the infoset is written to standard output.
+
+`-s, --schema <file>`
+
+: The annotated DFDL schema to use for schema aware encoding/decoding.
+
+`-h, --help`
+
+: Display a help message.
+
+`[infile]`
+
+: Input file to encode/decode.
+  If not specified, or is a value of `-`, reads from standard input.
+  If supplied, the input file must be the last option on the command line.
+
+## Example
+
+```
+daffodil exi -s csv.dfdl.xsd --decode file.exi
+```

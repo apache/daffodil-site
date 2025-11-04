@@ -495,7 +495,8 @@ dd {
 	margin-left: 30px;
 }
 
-dt code {
+dt code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
 	color: inherit;
 	background-color: inherit;
+	padding: 0;
 }
