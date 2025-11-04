@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | Binary Large Objects Feature</title>
+    <meta name="description" content="Binary Large Objects Feature">
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/img/apache-daffodil-icon.png" rel="icon" type="image/png">
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+<div class="title">
+  <div class="container"></div>
+</div>
+<div class="container">
+  <h1>Binary Large Objects Feature</h1>
+</div>
+
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#type-xsanyuri-and-property-dfdlxobjectkind" id="markdown-toc-type-xsanyuri-and-property-dfdlxobjectkind">Type <code class="language-plaintext highlighter-rouge">xs:anyURI</code> and Property <code class="language-plaintext highlighter-rouge">dfdlx:objectKind</code></a></li>
+  <li><a href="#daffodil-blob-api" id="markdown-toc-daffodil-blob-api">Daffodil BLOB API</a></li>
+  <li><a href="#dfdl-expressions" id="markdown-toc-dfdl-expressions">DFDL Expressions</a></li>
+  <li><a href="#testing-dfdl-schemas-using-blobs-via-the-tdml-runner" id="markdown-toc-testing-dfdl-schemas-using-blobs-via-the-tdml-runner">Testing DFDL Schemas using BLOBs via the TDML Runner</a></li>
+  <li><a href="#command-line-interface" id="markdown-toc-command-line-interface">Command Line Interface</a></li>
+</ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
+
+<!--
+This page is linked from https://s.apache.org/daffodil-blob-feature.
+ If this page content moves, please update that link from https://s.apache.org.
+-->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Daffodil has implemented a DFDL extension that allows data much larger than memory to be manipulated.</p>
+
+<p>A variety of data formats, such as for image and video files, consist of fields of what is effectively metadata, surrounding large blocks of data containing compressed image or video data.</p>
+
+<p>An important use case for DFDL is to expose this metadata for easy use, and to provide access to 
+the large data via a streaming mechanism akin to opening a file, thereby avoiding
+large <code class="language-plaintext highlighter-rouge">xs:hexBinary</code> strings in the infoset.</p>
+
+<p>In RDBMS systems, BLOB (Binary Large Object) is the type used when the data row returned from an SQL query will not contain the actual value data, but rather a handle that can be used to open/read/write/close the BLOB.</p>
+
+<p>Daffodil has an analogous BLOB capability. 
+This enables processing of images or video of arbitrary size without the need to ever hold all the data in memory.</p>
+
+<p>This also bypasses the limitation on object size.</p>
+
+<h2 id="type-xsanyuri-and-property-dfdlxobjectkind">Type <code class="language-plaintext highlighter-rouge">xs:anyURI</code> and Property <code class="language-plaintext highlighter-rouge">dfdlx:objectKind</code></h2>
+
+<p>DFDL is extended to allow simple types to have the <code class="language-plaintext highlighter-rouge">xs:anyURI</code> type. 
+Elements with this type will be treated as BLOB objects.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dfdlx:objectKind</code> property is added to define what type of object it is. 
+The valid value for this property is only <code class="language-plaintext highlighter-rouge">"bytes"</code> specifying binary large objects.
+All other values reserved for future extensions of this feature.</p>
+
+<p>An example of this usage in a DFDL schema may look something like this:</p>
+
+<pre><code class="language-xsd">&lt;xs:schema
+  xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"&gt;
+
+  &lt;xs:element name="data" type="xs:anyURI" 
+    dfdlx:objectKind="bytes"
+    dfdl:lengthUnits="bytes"
+    dfdl:length="1024" /&gt;
+
+&lt;/xs:schema&gt;
+</code></pre>
+
+<p>The resulting infoset (as XML) will look something like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;data&gt;</span>file:///path/to/blob/data<span class="nt">&lt;/data&gt;</span>
+</code></pre></div></div>
+
+<p>With the 1024 bytes of data being written to a file at location <code class="language-plaintext highlighter-rouge">/path/to/blob/data</code>.</p>
+
+<p>The BLOB URI must always use the <em>file scheme</em> and must be absolute.</p>
+
+<h2 id="daffodil-blob-api">Daffodil BLOB API</h2>
+
+<p>API calls are used to specify where Daffodil should write the BLOB files.</p>
+
+<p>Two functions are used on the Daffodil <code class="language-plaintext highlighter-rouge">InfosetOutputter</code>.</p>
+
+<p>The first API function allows a way to set the properties used when
+creating BLOB files, including the output directory, and prefix/suffix
+for the BLOB file.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Set the attributes for how to create blob files.
+ *
+ * @param dir the Path the the directory to create files. If the directory
+ *            does not exist, Daffodil will attempt to create it before
+ *            writing a blob.
+ * @param prefix the prefix string to be used in generating a blob file name
+ * @param suffix the suffix string to be used in generating a blob file name
+ */</span>
+<span class="k">final</span> <span class="k">def</span> <span class="nf">setBlobAttributes</span><span class="o">(</span><span class="n">directory</span><span class="k">:</span> <span class="kt">Path</span><span class="o">,</span> <span class="n">prefix</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">suffix</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>The second API function allows a way for the API user to get a list of
+all BLOB files that were created during <code class="language-plaintext highlighter-rouge">parse()</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Get the list of blob paths that were output in the infoset.
+ *
+ * This is the same as what would be found by iterating over the infoset.
+ */</span>
+<span class="k">final</span> <span class="k">def</span> <span class="nf">getBlobFiles</span><span class="o">()</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Path</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Note that no changes to the <code class="language-plaintext highlighter-rouge">unparse()</code> API are required, since the BLOB URI provides 
+all the necessary information to retrieve files containing BLOB data.</p>
+
+<p>BLOB files are not automatically deleted.
+It is the responsibility of the API user to determine when files are no 
+longer needed and remove them.</p>
+
+<h2 id="dfdl-expressions">DFDL Expressions</h2>
+
+<p>Any expression access to the <em>data</em> of a BLOB element will result in a
+Schema Definition Error during schema compilation.</p>
+
+<p>The <em>length</em> of a BLOB element is available since it is very common in
+data formats to include both a BLOB payload and the length of that
+payload. On unparse, we can calculate the length of the BLOB data so
+that the value can be output in a length field in the data. This is
+done using the regular <code class="language-plaintext highlighter-rouge">dfdl:contentLength()</code> and <code class="language-plaintext highlighter-rouge">dfdl:valueLength()</code>
+functions.</p>
+
+<h2 id="testing-dfdl-schemas-using-blobs-via-the-tdml-runner">Testing DFDL Schemas using BLOBs via the TDML Runner</h2>
+
+<p>The TDML language is extended to support the <code class="language-plaintext highlighter-rouge">xsi:type="xs:anyURI"</code> annotation on XML data elements.</p>
+
+<p>For example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;tdml:dfdlInfoset&gt;</span>
+  <span class="nt">&lt;data</span> <span class="na">xsi:type=</span><span class="s">"xs:anyURI"</span><span class="nt">&gt;</span>path/to/blob/data<span class="nt">&lt;/data&gt;</span>
+<span class="nt">&lt;/tdml:dfdlInfoset&gt;</span>
+</code></pre></div></div>
+
+<p>The path provided as the URI value can be, and usually will be, a relative path within the 
+<code class="language-plaintext highlighter-rouge">src/test/resources</code> directory of the DFDL schema project. 
+During Infoset comparisons the TDML Runner will compare the contents of this file 
+with the BLOB file in the corresponding element (having type <code class="language-plaintext highlighter-rouge">xs:anyURI</code>) of the infoset.</p>
+
+<p>BLOB files created when running the tests are deleted when the test completes.</p>
+
+<h2 id="command-line-interface">Command Line Interface</h2>
+
+<p>The CLI supports ad-hoc testing of the use of BLOBs.
+BLOBs are written to the directory given by the JVM <em>System Property</em> <code class="language-plaintext highlighter-rouge">user.dir</code> into 
+a subdirectory of it named <code class="language-plaintext highlighter-rouge">daffodil-blobs</code>. 
+If it does not exist, Daffodil will attempt to create the <code class="language-plaintext highlighter-rouge">daffodil-blobs</code> directory.
+The CLI does not delete any BLOB files.</p>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+

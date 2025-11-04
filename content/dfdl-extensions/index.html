@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Apache Daffodil | DFDL Extensions</title>
+    <title>Apache Daffodil | Daffodil Extensions to the DFDL Language</title>
     
     <meta name="author" content="">
 
@@ -88,7 +88,7 @@
   <div class="container"></div>
 </div>
 <div class="container">
-  <h1>DFDL Extensions</h1>
+  <h1>Daffodil Extensions to the DFDL Language</h1>
 </div>
 
 
@@ -101,35 +101,96 @@
 
 -->
 
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#binary-large-objects-blob-feature" id="markdown-toc-binary-large-objects-blob-feature">Binary Large Objects (BLOB) Feature</a></li>
+  <li><a href="#expression-functions" id="markdown-toc-expression-functions">Expression Functions</a>    <ol>
+      <li><a href="#dfdlxtracevalue-label" id="markdown-toc-dfdlxtracevalue-label"><code class="language-plaintext highlighter-rouge">dfdlx:trace(value, label)</code></a></li>
+      <li><a href="#dfdlxlookaheadoffset-bitsize" id="markdown-toc-dfdlxlookaheadoffset-bitsize"><code class="language-plaintext highlighter-rouge">dfdlx:lookAhead(offset, bitSize)</code></a>        <ol>
+          <li><a href="#examples-of-dfdlxlookahead" id="markdown-toc-examples-of-dfdlxlookahead">Examples of <code class="language-plaintext highlighter-rouge">dfdlx:lookAhead</code></a></li>
+        </ol>
+      </li>
+      <li><a href="#bitwise-functions-bitand-bitor-bitxor-bitnot-leftshift-rightshift" id="markdown-toc-bitwise-functions-bitand-bitor-bitxor-bitnot-leftshift-rightshift">Bitwise Functions: <code class="language-plaintext highlighter-rouge">bitAnd</code>, <code class="language-plaintext highlighter-rouge">bitOr</code>, <code class="language-plaintext highlighter-rouge">bitXor</code>, <code class="language-plaintext highlighter-rouge">bitNot</code>, <code class="language-plaintext highlighter-rouge">leftShift</code>, <code class="language-plaintext highlighter-rouge">rightShift</code></a>        <ol>
+          <li><a href="#dfdlxbitandarg1-arg2" id="markdown-toc-dfdlxbitandarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitAnd(arg1, arg2)</code></a></li>
+          <li><a href="#dfdlxbitorarg1-arg2" id="markdown-toc-dfdlxbitorarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitOr(arg1, arg2)</code></a></li>
+          <li><a href="#dfdlxbitxorarg1-arg2" id="markdown-toc-dfdlxbitxorarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitXor(arg1, arg2)</code></a></li>
+          <li><a href="#dfdlxbitnotarg" id="markdown-toc-dfdlxbitnotarg"><code class="language-plaintext highlighter-rouge">dfdlx:bitNot(arg)</code></a></li>
+          <li><a href="#dfdlxleftshiftvalue-shiftcount" id="markdown-toc-dfdlxleftshiftvalue-shiftcount"><code class="language-plaintext highlighter-rouge">dfdlx:leftShift(value, shiftCount)</code></a></li>
+          <li><a href="#dfdlxrightshiftvalue-shiftcount" id="markdown-toc-dfdlxrightshiftvalue-shiftcount"><code class="language-plaintext highlighter-rouge">dfdlx:rightShift(value, shiftCount)</code></a></li>
+        </ol>
+      </li>
+      <li><a href="#dfdlxdoublefromrawlonglongarg-and-dfdlxdoubletorawlongdoublearg" id="markdown-toc-dfdlxdoublefromrawlonglongarg-and-dfdlxdoubletorawlongdoublearg"><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong(longArg)</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong(doubleArg)</code></a></li>
+    </ol>
+  </li>
+  <li><a href="#properties" id="markdown-toc-properties">Properties</a>    <ol>
+      <li><a href="#dfdlxalignmentkind" id="markdown-toc-dfdlxalignmentkind"><code class="language-plaintext highlighter-rouge">dfdlx:alignmentKind</code></a></li>
+      <li><a href="#dfdlxparseunparsepolicy" id="markdown-toc-dfdlxparseunparsepolicy"><code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code></a></li>
+      <li><a href="#dfdlxlayer" id="markdown-toc-dfdlxlayer"><code class="language-plaintext highlighter-rouge">dfdlx:layer</code></a></li>
+      <li><a href="#dfdlxdirection" id="markdown-toc-dfdlxdirection"><code class="language-plaintext highlighter-rouge">dfdlx:direction</code></a></li>
+      <li><a href="#enumerations-dfdlxreptype-dfdlxrepvalues" id="markdown-toc-enumerations-dfdlxreptype-dfdlxrepvalues">Enumerations: <code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code></a>        <ol>
+          <li><a href="#dfdlxreptype" id="markdown-toc-dfdlxreptype"><code class="language-plaintext highlighter-rouge">dfdlx:repType</code></a></li>
+          <li><a href="#dfdlxrepvalues" id="markdown-toc-dfdlxrepvalues"><code class="language-plaintext highlighter-rouge">dfdlx:repValues</code></a></li>
+          <li><a href="#examples-of-enumerations-in-daffodil-dfdl" id="markdown-toc-examples-of-enumerations-in-daffodil-dfdl">Examples of Enumerations in Daffodil DFDL</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#extended-behaviors-for-dfdl-types" id="markdown-toc-extended-behaviors-for-dfdl-types">Extended Behaviors for DFDL Types</a>    <ol>
+      <li><a href="#type-xshexbinary" id="markdown-toc-type-xshexbinary">Type <code class="language-plaintext highlighter-rouge">xs:hexBinary</code></a></li>
+    </ol>
+  </li>
+</ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
+
+<h2 id="introduction">Introduction</h2>
+
 <p>Daffodil provides extensions to the DFDL specification. 
-These properties are in the namespace defined by the URI 
+These functions and properties are in the namespace defined by the URI 
 <code class="language-plaintext highlighter-rouge">http://www.ogf.org/dfdl/dfdl-1.0/extensions</code> which is normally bound to the <code class="language-plaintext highlighter-rouge">dfdlx</code> prefix 
 like so:</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:schema</span> <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
-           <span class="na">xmlns:dfdlx=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/extensions"</span>
-<span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;schema</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span>
+        <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
+        <span class="na">xmlns:dfdlx=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/extensions"</span><span class="nt">&gt;</span>
 </code></pre></div></div>
 
-<p>The following symbols defined in this namespace are described below.</p>
+<p>The DFDL language extensions described below have Long Term Support (LTS) in Daffodil 
+going forward, and are proposed for inclusion in a future revision of the DFDL 
+standard. 
+DFDL schema authors can depend on the features and behaviors defined here without fear 
+that these extensions will be withdrawn in the future.</p>
+
+<h2 id="binary-large-objects-blob-feature">Binary Large Objects (BLOB) Feature</h2>
+
+<p>Daffodil supports processing data that contains large opaque binary objects,
+also known as <em>BLOBs</em>. 
+These enable processing of data types such as images, audio, or video where the 
+data content is surrounded by important metadata. 
+The DFDL Schema can expose the metadata fields for processing and carry 
+along the opaque BLOB data in files.</p>
+
+<p>There is 
+<a href="/binary-large-objects">separate documentation for the Binary Large Object (BLOB) feature</a>.</p>
 
 <h2 id="expression-functions">Expression Functions</h2>
 
-<h3 id="daferror"><code class="language-plaintext highlighter-rouge">daf:error()</code></h3>
+<h3 id="dfdlxtracevalue-label"><code class="language-plaintext highlighter-rouge">dfdlx:trace(value, label)</code></h3>
 
-<p>A function that can be used in DFDL expressions. This functions does not return a value or accept any arguments. When called, it causes a Parse Error or Unparse Error.</p>
-
-<p><em>This function is deprecated as of Daffodil 2.0.0. Use the <code class="language-plaintext highlighter-rouge">fn:error(...)</code> function instead.</em></p>
-
-<h3 id="dfdlxtracevalue-label"><code class="language-plaintext highlighter-rouge">dfdlx:trace($value, $label)</code></h3>
-
-<p>A function that can be used in DFDL expressions, similar to the <code class="language-plaintext highlighter-rouge">fn:trace()</code> function. This logs the string <code class="language-plaintext highlighter-rouge">$label</code> followed by <code class="language-plaintext highlighter-rouge">$value</code> converted to a string and returns <code class="language-plaintext highlighter-rouge">$value</code>. The second argument must be of type <code class="language-plaintext highlighter-rouge">xs:string</code>.</p>
+<p>A function that can be used to debug DFDL expressions, similar to 
+the <a href="https://www.w3.org/TR/xpath-functions-31/#func-trace">XPath <code class="language-plaintext highlighter-rouge">fn:trace(value, label)</code></a> 
+function. 
+This creates a message from the string argument <code class="language-plaintext highlighter-rouge">label</code> followed by <code class="language-plaintext highlighter-rouge">value</code> converted to a 
+string and logs the message. 
+The function returns the <code class="language-plaintext highlighter-rouge">value</code>. 
+The second <code class="language-plaintext highlighter-rouge">label</code> argument must be of type <code class="language-plaintext highlighter-rouge">xs:string</code>.</p>
 
 <h3 id="dfdlxlookaheadoffset-bitsize"><code class="language-plaintext highlighter-rouge">dfdlx:lookAhead(offset, bitSize)</code></h3>
 
 <p>Read <code class="language-plaintext highlighter-rouge">bitSize</code> bits, where the first bit is located at an <code class="language-plaintext highlighter-rouge">offset</code> (in bits)
-from the current location. The result is a <code class="language-plaintext highlighter-rouge">xs:nonNegativeInteger</code>. Restrictions:</p>
+   from the current location. The result is a <code class="language-plaintext highlighter-rouge">xs:nonNegativeInteger</code>. Restrictions:</p>
 
 <ul>
   <li>offset &gt;=0</li>
@@ -148,38 +209,126 @@ the data being read will not be used.</li>
 <h4 id="examples-of-dfdlxlookahead">Examples of <code class="language-plaintext highlighter-rouge">dfdlx:lookAhead</code></h4>
 
 <p>The following two elements both populate element <code class="language-plaintext highlighter-rouge">a</code> with the value of the next 3 bits as an 
-unsignedInt. They are not completely equivalent because the first will consume 3 bits of the 
+unsignedInt. 
+They are not completely equivalent because the first will consume 3 bits of the 
 input stream where the second will not advance the input stream.</p>
+
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"3"</span> <span class="na">dfdl:lengthUnits=</span><span class="s">"bits"</span> <span class="nt">/&gt;</span>
 
 <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:inputValueCalc=</span><span class="s">"{ dfdlx:lookAhead(0,3) }"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
 <p>The following example demonstrates using lookAhead to branch based on a field in the future. 
 In this case the choice of elements <code class="language-plaintext highlighter-rouge">a</code> vs. <code class="language-plaintext highlighter-rouge">b</code> depends on the value of the <code class="language-plaintext highlighter-rouge">tag</code> field which is 
-found after fields <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>:
-```</p>
-<xs:choice dfdl:choiceDispatchKey="{ dfdlx:lookAhead(16,8) }">
-<xs:element name="a" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="1" />
-<xs:element name="b" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="2" />
-</xs:choice>
-<xs:element name="tag" type="xs:int" dfdl:length="8" />
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ``` # Bitwise Functions
+found after fields <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;xs:choice dfdl:choiceDispatchKey="{ dfdlx:lookAhead(16,8) }"&gt;
+  &lt;xs:element name="a" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="1"/&gt;
+  &lt;xs:element name="b" type="xs:int" dfdl:length="16" dfdl:choiceBranchKey="2"/&gt;
+&lt;/xs:choice&gt;
+&lt;xs:element name="tag" type="xs:int" dfdl:length="8" /&gt;
 </code></pre></div></div>
 
-<p>TBD, but the complete list (all <code class="language-plaintext highlighter-rouge">dfdlx</code>) is <code class="language-plaintext highlighter-rouge">BitAnd</code>, <code class="language-plaintext highlighter-rouge">BitNot</code>, <code class="language-plaintext highlighter-rouge">BitOr</code>, <code class="language-plaintext highlighter-rouge">BitXor</code>, <code class="language-plaintext highlighter-rouge">LeftShift</code>, 
-<code class="language-plaintext highlighter-rouge">RightShift</code></p>
+<h3 id="bitwise-functions-bitand-bitor-bitxor-bitnot-leftshift-rightshift">Bitwise Functions: <code class="language-plaintext highlighter-rouge">bitAnd</code>, <code class="language-plaintext highlighter-rouge">bitOr</code>, <code class="language-plaintext highlighter-rouge">bitXor</code>, <code class="language-plaintext highlighter-rouge">bitNot</code>, <code class="language-plaintext highlighter-rouge">leftShift</code>, <code class="language-plaintext highlighter-rouge">rightShift</code></h3>
 
-<h3 id="dfdlxdoublefromrawlong-and-dfdlxdoubletorawlong"><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong</code></h3>
+<p>These functions are defined on types <code class="language-plaintext highlighter-rouge">long</code>, <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">short</code>, <code class="language-plaintext highlighter-rouge">byte</code>, <code class="language-plaintext highlighter-rouge">unsignedLong</code>, 
+<code class="language-plaintext highlighter-rouge">unsignedInt</code>, <code class="language-plaintext highlighter-rouge">unsignedShort</code>, and <code class="language-plaintext highlighter-rouge">unsignedByte</code></p>
 
-<p>Converting binary floating point numbers to/from base 10 text can result in lost information.
-The base 10 representation, converted back to binary representation, may not be bit-for-bit 
-identical. These functions can be used to carry 8-byte double precision IEEE floating point 
-numbers as type <code class="language-plaintext highlighter-rouge">xs:long</code> so that no information is lost. The DFDL schema can still obtain 
-and operate on the floating point value by converting these <code class="language-plaintext highlighter-rouge">xs:long</code> values into type 
-<code class="language-plaintext highlighter-rouge">xs:double</code>, and back if necessary for unparsing a new value.</p>
+<h4 id="dfdlxbitandarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitAnd(arg1, arg2)</code></h4>
+
+<p>This computes the bitwise AND of two integers.</p>
+
+<ul>
+  <li>Both arguments must be signed, or both must be unsigned.</li>
+  <li>If the two arguments are not the same type the smaller one is converted into the type of the 
+larger one.</li>
+  <li>If the smaller argument is signed, this conversion does sign-extension.</li>
+  <li>The result type is the that of the largest argument.</li>
+</ul>
+
+<h4 id="dfdlxbitorarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitOr(arg1, arg2)</code></h4>
+
+<p>This computes the bitwise OR of two integers.</p>
+
+<ul>
+  <li>Both arguments must be signed, or both must be unsigned.</li>
+  <li>If the two arguments are not the same type the smaller one is converted into the type of the
+larger one.</li>
+  <li>If the smaller argument is signed, this conversion does sign-extension.</li>
+  <li>The result type is the that of the largest argument.</li>
+</ul>
+
+<h4 id="dfdlxbitxorarg1-arg2"><code class="language-plaintext highlighter-rouge">dfdlx:bitXor(arg1, arg2)</code></h4>
+
+<p>This computes the bitwise Exclusive OR of two integers.</p>
+
+<ul>
+  <li>Both arguments must be signed, or both must be unsigned.</li>
+  <li>If the two arguments are not the same type the smaller one is converted into the type of the
+larger one.</li>
+  <li>If the smaller argument is signed, this conversion does sign-extension.</li>
+  <li>The result type is the that of the largest argument.</li>
+</ul>
+
+<h4 id="dfdlxbitnotarg"><code class="language-plaintext highlighter-rouge">dfdlx:bitNot(arg)</code></h4>
+
+<p>This computes the bitwise NOT of an integer. Every bit is inverted. The result type is the same 
+as the argument type.</p>
+
+<h4 id="dfdlxleftshiftvalue-shiftcount"><code class="language-plaintext highlighter-rouge">dfdlx:leftShift(value, shiftCount)</code></h4>
+
+<p>This is the <em>logical</em> shift left, meaning that bits are shifted from less-significant positions 
+to more-significant positions.</p>
+
+<ul>
+  <li>The left-most bits shifted out are discarded.</li>
+  <li>Zeros are shifted in for the right-most bits.</li>
+  <li>The result type is the same as the <code class="language-plaintext highlighter-rouge">value</code> argument type.</li>
+  <li>It is a processing error if the <code class="language-plaintext highlighter-rouge">shiftCount</code> argument is &lt; 0.</li>
+  <li>It is a processing error if the <code class="language-plaintext highlighter-rouge">shiftCount</code> argument is greater than the number of 
+bits in the type of the value argument.</li>
+</ul>
+
+<h4 id="dfdlxrightshiftvalue-shiftcount"><code class="language-plaintext highlighter-rouge">dfdlx:rightShift(value, shiftCount)</code></h4>
+
+<p>This is the <em>arithmetic</em> shift right, meaning bits move from most-significant to 
+less-significant positions.
+If <em>logical</em> (zero-filling) shift right is needed, you must use unsigned types.</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">value</code> argument is shifted by the <code class="language-plaintext highlighter-rouge">shiftCount</code>.</li>
+  <li>The right-most bits shifted out are discarded.</li>
+  <li>If the <code class="language-plaintext highlighter-rouge">value</code> is signed, then the sign bit is shifted in for the left-most bits.</li>
+  <li>If the <code class="language-plaintext highlighter-rouge">value</code> is unsigned, then zeros are shifted in for the left-most bits.</li>
+  <li>The result type is the same as the <code class="language-plaintext highlighter-rouge">value</code> argument type.</li>
+  <li>It is a processing error if the <code class="language-plaintext highlighter-rouge">shiftCount</code> argument is &lt; 0.</li>
+  <li>It is a processing error if the <code class="language-plaintext highlighter-rouge">shiftCount</code> argument is greater than the number of
+bits in the type of the value argument.</li>
+</ul>
+
+<h3 id="dfdlxdoublefromrawlonglongarg-and-dfdlxdoubletorawlongdoublearg"><code class="language-plaintext highlighter-rouge">dfdlx:doubleFromRawLong(longArg)</code> and <code class="language-plaintext highlighter-rouge">dfdlx:doubleToRawLong(doubleArg)</code></h3>
+
+<p>IEEE binary float and double values that are not NaN will parse to base 10 text and unparse back
+to the same exact IEEE binary bits. 
+However, the same cannot be said for NaN (not a number) values, of which there are many bit 
+patterns. 
+To preserve float and double NaN values bit for bit you can use these functions to compute
+<code class="language-plaintext highlighter-rouge">xs:long</code> values that enable the DFDL Infoset to preserve the bits of a float or double value 
+even if it is a NaN.</p>
 
 <h2 id="properties">Properties</h2>
+
+<h3 id="dfdlxalignmentkind"><code class="language-plaintext highlighter-rouge">dfdlx:alignmentKind</code></h3>
+
+<p>Valid values for this property are <code class="language-plaintext highlighter-rouge">manual</code> or <code class="language-plaintext highlighter-rouge">automatic</code> with <code class="language-plaintext highlighter-rouge">automatic</code> being the default 
+behavior.
+When specified, the <code class="language-plaintext highlighter-rouge">manual</code> value turns off all automatic alignment based on the 
+<code class="language-plaintext highlighter-rouge">dfdl:alignment</code> and <code class="language-plaintext highlighter-rouge">dfdl:alignmentUnits</code> properties.
+The schema author must use <code class="language-plaintext highlighter-rouge">dfdl:leadingSkip</code>, <code class="language-plaintext highlighter-rouge">dfdl:trailingSkip</code>, or just ensure all the 
+elements/terms are aligned based on their length.</p>
+
+<p>This property is sometimes needed to facilitate creation of schemas where interactions occur 
+between computed lengths (that is, stored length fields) and 
+alignment regions that are automatically being inserted. 
+It can be easier to do all alignment manually than to debug these interactions.</p>
 
 <h3 id="dfdlxparseunparsepolicy"><code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code></h3>
 
@@ -191,23 +340,199 @@ and operate on the floating point value by converting these <code class="languag
 
 <h3 id="dfdlxlayer"><code class="language-plaintext highlighter-rouge">dfdlx:layer</code></h3>
 
-<p><a href="/layers">Layers</a> provide algorithmic capabilities for decoding/encoding data or computing 
-checksums. Some are built-in to Daffodil. New layers can be created in Java/Scala and 
-plugged-in to Daffodil dynamically.</p>
+<p><em>Layers</em> provide algorithmic capabilities for decoding/encoding data or computing 
+   checksums. Some are built-in to Daffodil. New layers can be created in Java/Scala and 
+   plugged-in to Daffodil dynamically. 
+There is <a href="/layers">separate Layer documentation</a>.</p>
 
 <h3 id="dfdlxdirection"><code class="language-plaintext highlighter-rouge">dfdlx:direction</code></h3>
 
-<p>TBD</p>
+<p>This property can appear only on DFDL <code class="language-plaintext highlighter-rouge">defineVariable</code> statement annotations.
+This property has possible values <code class="language-plaintext highlighter-rouge">both</code> (the default), <code class="language-plaintext highlighter-rouge">parseOnly</code>, or <code class="language-plaintext highlighter-rouge">unparseOnly</code>. 
+It declares 
+whether the variable is to be available for only parsing, only unparsing, or both. 
+Since this is a newly introduced extension property and existing schemas won't contain a definition 
+for it, it has a default value of <code class="language-plaintext highlighter-rouge">both</code>.</p>
 
-<h3 id="dfdlxreptype-dfdlxrepvalues-and-dfdlxrepvalueranges"><code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code>, and <code class="language-plaintext highlighter-rouge">dfdlx:repValueRanges</code></h3>
+<p>This property can conflict with the <code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code> property which takes the same 
+values (<code class="language-plaintext highlighter-rouge">both</code>, <code class="language-plaintext highlighter-rouge">parseOnly</code>, and <code class="language-plaintext highlighter-rouge">unparseOnly</code>).
+If <code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy='parseOnly'</code> then it is a Schema Definition Error if 
+variables in the DFDL schema have <code class="language-plaintext highlighter-rouge">dfdlx:direction='unparseOnly'</code>. 
+Similarly if <code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy='unparseOnly'</code> then it is a Schema Definition Error if
+variables in the DFDL schema have <code class="language-plaintext highlighter-rouge">dfdlx:direction='parseOnly'</code>.</p>
 
-<p>TBD</p>
+<p>It is a Schema Definition Error if a variable defined with direction <code class="language-plaintext highlighter-rouge">parseOnly</code> is accessed 
+from an expression used by the unparser. 
+Symmetrically, it is a Schema Definition Error if a variable defined with direction
+<code class="language-plaintext highlighter-rouge">unparseOnly</code> is accessed from an expression used by the parser.
+This error is detected at DFDL schema compilation time, not runtime.</p>
 
-<h2 id="extended-behaviors">Extended Behaviors</h2>
+<p>These properties take expressions for their values and are generally evaluated at both parse and 
+unparse time. 
+Hence, unless the whole schema is constrained by <code class="language-plaintext highlighter-rouge">dfdlx:parseUnparsePolicy</code>, any expressions for 
+these properties<sup id="fnref:moreProps"><a href="#fn:moreProps" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> cannot<br />
+cannot reference DFDL variables with <code class="language-plaintext highlighter-rouge">dfdlx:direction</code> of <code class="language-plaintext highlighter-rouge">parseOnly</code> or <code class="language-plaintext highlighter-rouge">unparseOnly</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">byteOrder</code></li>
+  <li><code class="language-plaintext highlighter-rouge">encoding</code></li>
+  <li><code class="language-plaintext highlighter-rouge">initiator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">terminator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">separator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">escapeCharacter</code></li>
+  <li><code class="language-plaintext highlighter-rouge">escapeEscapeCharacter</code></li>
+  <li><code class="language-plaintext highlighter-rouge">length</code></li>
+  <li><code class="language-plaintext highlighter-rouge">occursCount</code></li>
+  <li><code class="language-plaintext highlighter-rouge">textStandardDecimalSeparator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">textStandardGroupingSeparator</code></li>
+  <li><code class="language-plaintext highlighter-rouge">textStandardExponentRep</code></li>
+  <li><code class="language-plaintext highlighter-rouge">binaryFloatRep</code></li>
+  <li><code class="language-plaintext highlighter-rouge">textBooleanTrueRep</code></li>
+  <li><code class="language-plaintext highlighter-rouge">textbooleanFalseRep</code></li>
+  <li><code class="language-plaintext highlighter-rouge">calendarLanguage</code></li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:setVariable</code>, a <code class="language-plaintext highlighter-rouge">dfdl:newVariableInstance</code> default value expression, or a
+<code class="language-plaintext highlighter-rouge">dfdl:defineVariable</code> default value expression when
+that variable being set/defaulted is itself referenced from a another expression and the variable 
+being set/defaulted has <code class="language-plaintext highlighter-rouge">dfdlx:direction</code> of <code class="language-plaintext highlighter-rouge">both</code> (the default)</li>
+</ul>
+
+<!-- footnotes must be all one big long line -->
+
+<p>Parser-specific expressions include</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:inputValueCalc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:length</code> (when dfdl:lengthKind='explicit')</li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:occursCount</code> (when `dfdl:occursCountKind='expression')</li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:choiceDispatchKey</code></li>
+  <li>the <code class="language-plaintext highlighter-rouge">message</code> and <code class="language-plaintext highlighter-rouge">test</code> attributes of the <code class="language-plaintext highlighter-rouge">dfdl:assert</code> and <code class="language-plaintext highlighter-rouge">dfdl:discriminator</code> statement annotations</li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:setVariable</code>, a <code class="language-plaintext highlighter-rouge">dfdl:newVariableInstance</code> default value expression, or a
+<code class="language-plaintext highlighter-rouge">dfdl:defineVariable</code> default value expression when
+that variable being set/defaulted is itself referenced from a another expression being
+accessed at parser creation time, and the variable being set/defaulted has <code class="language-plaintext highlighter-rouge">dfdlx:direction</code>
+of <code class="language-plaintext highlighter-rouge">parseOnly</code></li>
+</ul>
+
+<p>Unparser-specific expressions include:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:length</code> (when `dfdl:lengthKind='explicit')</li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:outputNewLine</code></li>
+  <li><code class="language-plaintext highlighter-rouge">dfdl:setVariable</code>, a <code class="language-plaintext highlighter-rouge">dfdl:newVariableInstance</code> default value expression, or a 
+<code class="language-plaintext highlighter-rouge">dfdl:defineVariable</code> default value expression when 
+that variable being set/defaulted is itself referenced from a another expression being 
+accessed at unparser creation time, and the variable being set/defaulted has <code class="language-plaintext highlighter-rouge">dfdlx:direction</code> 
+of <code class="language-plaintext highlighter-rouge">unparseOnly</code></li>
+</ul>
+
+<h3 id="enumerations-dfdlxreptype-dfdlxrepvalues">Enumerations: <code class="language-plaintext highlighter-rouge">dfdlx:repType</code>, <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code></h3>
+
+<p>These properties work together to allow DFDL schemas to define <em>enumerations</em>;
+that is, symbolic representations for integer constants. 
+When parsing, Daffodil will convert these integers into the corresponding string values. 
+When unparsing, Daffodil will convert strings into the corresponding integers.</p>
+
+<p>An element of type (or derived from) <code class="language-plaintext highlighter-rouge">xs:string</code> can be defined using XSD <code class="language-plaintext highlighter-rouge">enumeration</code> facets 
+which constrain the valid values of this string. 
+These enumeration values are effectively symbolic constants. 
+The <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> and <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> properties are then used to define the correspondence of 
+the symbolic strings to the corresponding integer values.</p>
+
+<h4 id="dfdlxreptype"><code class="language-plaintext highlighter-rouge">dfdlx:repType</code></h4>
+
+<p>The value of this property is an XSD QName of a simple type definition that must be derived
+from <code class="language-plaintext highlighter-rouge">xs:int</code>, or <code class="language-plaintext highlighter-rouge">xs:unsignedInt</code>. 
+A simple type definition for a string can be annotated with <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> 
+in order to declare that the representation of the string is not as text characters but is a 
+numeric integer value. 
+The type referenced from <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> is usually a fixed length binary integer, but can be any
+DFDL type derived from <code class="language-plaintext highlighter-rouge">xs:int</code> or <code class="language-plaintext highlighter-rouge">xs:unsignedInt</code>, with any DFDL representation properties.</p>
+
+<p>The mapping between the representation integer and the symbolic constants is specified using the 
+<code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> property.</p>
+
+<h4 id="dfdlxrepvalues"><code class="language-plaintext highlighter-rouge">dfdlx:repValues</code></h4>
+
+<p>The value of this property is one or more integer values within 
+the numeric range defined for the type referenced by <code class="language-plaintext highlighter-rouge">dfdlx:repType</code>. When more than one value 
+is specified, they are in a whitespace separated list.</p>
+
+<p>This property is placed on the <code class="language-plaintext highlighter-rouge">xs:enumeration</code> facets of a symbolic string constant having a 
+<code class="language-plaintext highlighter-rouge">dfdlx:repType</code>. 
+At parse time, if the value of the <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> integer is found within the <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> 
+list, then the infoset value for the symbolic string gets the corresponing enumeration facet value.
+It is a parse error if the <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> integer is not found in any of the <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> 
+lists of the <code class="language-plaintext highlighter-rouge">xs:enumeration</code> facets.
+At unparse time, the symbolic constant is mapped to the first integer in the <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> list. 
+It is an unparse error if the symbolic string value is not found among the <code class="language-plaintext highlighter-rouge">xs:enumeration</code> 
+facet values of the symbolic string type.</p>
+
+<h4 id="examples-of-enumerations-in-daffodil-dfdl">Examples of Enumerations in Daffodil DFDL</h4>
+
+<p>A simple example of a basic enum is:</p>
+
+<pre><code class="language-xsd">  &lt;simpleType name="rep3Bit" dfdl:lengthUnits="bits" dfdl:length="3" dfdl:lengthKind="explicit"&gt;
+    &lt;restriction base="xs:unsignedInt"/&gt;
+  &lt;/simpleType&gt;
+    
+  &lt;simpleType name="precedenceEnum" dfdlx:repType="pre:rep3Bit"&gt;
+    &lt;restriction base="xs:string"&gt;
+      &lt;enumeration value="Reserved_0" dfdlx:repValues="0"/&gt;
+      &lt;enumeration value="Reserved_1" dfdlx:repValues="1"/&gt;
+      &lt;enumeration value="Emergency" dfdlx:repValues="2"/&gt;
+      &lt;enumeration value="Reserved_3" dfdlx:repValues="3"/&gt;
+      &lt;enumeration value="Flash" dfdlx:repValues="4"/&gt;
+      &lt;enumeration value="Immediate" dfdlx:repValues="5"/&gt;
+      &lt;enumeration value="Priority" dfdlx:repValues="6"/&gt;
+      &lt;enumeration value="Routine" dfdlx:repValues="7"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+</code></pre>
+
+<p>Above we see the <code class="language-plaintext highlighter-rouge">dfdlx:repType</code> is <code class="language-plaintext highlighter-rouge">rep3Bit</code> which is a 3 bit <code class="language-plaintext highlighter-rouge">xs:unsignedInt</code>. This can
+represent the values 0 to 7 which one can see are the <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> of the <code class="language-plaintext highlighter-rouge">xs:enumeration</code>
+facets for this enumeration string type which is named <code class="language-plaintext highlighter-rouge">precedenceEnum</code>.</p>
+
+<p>In the above you can also see that the symbolic strings are in one-to-one correspondence with 
+every possible value of the 3-bit representation integer. 
+This one-to-one correspondence assures that data that is first parsed and then unparsed will 
+recreate the exact numeric bits used.</p>
+
+<p>However, in data security applications the following may be preferred:</p>
+<pre><code class="language-xsd"> &lt;simpleType name="precedenceEnum" dfdlx:repType="pre:rep3Bit"&gt;
+    &lt;restriction base="xs:string"&gt;
+      &lt;enumeration value="Reserved" dfdlx:repValues="0 1 3"/&gt;
+      &lt;enumeration value="Emergency" dfdlx:repValues="2"/&gt;
+      &lt;enumeration value="Flash" dfdlx:repValues="4"/&gt;
+      &lt;enumeration value="Immediate" dfdlx:repValues="5"/&gt;
+      &lt;enumeration value="Priority" dfdlx:repValues="6"/&gt;
+      &lt;enumeration value="Routine" dfdlx:repValues="7"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+</code></pre>
+
+<p>In the above we see that three numeric values, 0, 1, and 3 are the <code class="language-plaintext highlighter-rouge">dfdlx:repValues</code> mapped to 
+the symbolic string <code class="language-plaintext highlighter-rouge">Reserved</code>. 
+This technique has the advantage of blocking covert signals being transmitted by use of the 
+different reserved values since when unparsed, the constant string <code class="language-plaintext highlighter-rouge">Reserved</code> will always be 
+<em>canonicalized</em> to integer 0. 
+Putting data into canonical form when unparsing generally improves data security.</p>
+
+<h2 id="extended-behaviors-for-dfdl-types">Extended Behaviors for DFDL Types</h2>
 
 <h3 id="type-xshexbinary">Type <code class="language-plaintext highlighter-rouge">xs:hexBinary</code></h3>
 
 <p>Daffodil allows <code class="language-plaintext highlighter-rouge">dfdlx:lengthUnits='bits'</code> for this simple type.</p>
+
+<hr />
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:moreProps">
+      <p>New properties added as part of errata corrections to the DFDL v1.0 standard which take expressions for their values will need to be added to this list or those for parser-specific or unparser-specific properties. <a href="#fnref:moreProps" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 </div>

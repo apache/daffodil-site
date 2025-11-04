@@ -100,16 +100,18 @@
     <!--
 
 -->
-
 <h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
 
 <ol id="markdown-toc">
-  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
-  <li><a href="#built-in-layers" id="markdown-toc-built-in-layers">Built-in Layers</a></li>
-  <li><a href="#custom-plug-in-layers" id="markdown-toc-custom-plug-in-layers">Custom Plug-In Layers</a></li>
-  <li><a href="#layer-kinds-transforming-layers-and-checksum-layers" id="markdown-toc-layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</a>    <ol>
-      <li><a href="#transforming-layers" id="markdown-toc-transforming-layers">Transforming Layers</a></li>
-      <li><a href="#checksum-layers" id="markdown-toc-checksum-layers">Checksum Layers</a></li>
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ol>
+      <li><a href="#built-in-layers" id="markdown-toc-built-in-layers">Built-in Layers</a></li>
+      <li><a href="#custom-plug-in-layers" id="markdown-toc-custom-plug-in-layers">Custom Plug-In Layers</a></li>
+      <li><a href="#layer-kinds-transforming-layers-and-checksum-layers" id="markdown-toc-layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</a>        <ol>
+          <li><a href="#transforming-layers" id="markdown-toc-transforming-layers">Transforming Layers</a></li>
+          <li><a href="#checksum-layers" id="markdown-toc-checksum-layers">Checksum Layers</a></li>
+        </ol>
+      </li>
     </ol>
   </li>
   <li><a href="#using-layers" id="markdown-toc-using-layers">Using Layers</a>    <ol>
@@ -121,11 +123,8 @@
       </li>
     </ol>
   </li>
-  <li><a href="#examples" id="markdown-toc-examples">Examples</a>    <ol>
-      <li><a href="#line-folding" id="markdown-toc-line-folding">Line Folding</a></li>
-      <li><a href="#base64-gzip-and-boundarymark-layers-used-together" id="markdown-toc-base64-gzip-and-boundarymark-layers-used-together">Base64, GZip, and BoundaryMark Layers used Together</a></li>
-    </ol>
-  </li>
+  <li><a href="#example-line-folding" id="markdown-toc-example-line-folding">Example: Line Folding</a></li>
+  <li><a href="#example-base64-gzip-and-boundarymark-layers-used-together" id="markdown-toc-example-base64-gzip-and-boundarymark-layers-used-together">Example: Base64, GZip, and BoundaryMark Layers used Together</a></li>
   <li><a href="#using-custom-plug-in-layers" id="markdown-toc-using-custom-plug-in-layers">Using Custom Plug-In Layers</a></li>
   <li><a href="#daffodil-built-in-layer-documentation" id="markdown-toc-daffodil-built-in-layer-documentation">Daffodil Built-In Layer Documentation</a>    <ol>
       <li><a href="#base64-mime-layer" id="markdown-toc-base64-mime-layer">Base64 MIME Layer</a></li>
@@ -142,6 +141,7 @@
     </ol>
   </li>
 </ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
 
 <h2 id="introduction">Introduction</h2>
 
@@ -170,7 +170,7 @@ There is no limit to this depth.</p>
 <p>In the section on <a href="#UsingLayers">Using Layers</a> below we will look at an example that uses 
 multiple layers together.</p>
 
-<h2 id="built-in-layers">Built-in Layers</h2>
+<h3 id="built-in-layers">Built-in Layers</h3>
 
 <p>Daffodil includes several built-in layers:</p>
 <ul>
@@ -194,20 +194,20 @@ These are:</p>
 <a href="#daffodil-built-in-layer-documentation">documented separately below</a> with examples of their 
 usage.</p>
 
-<h2 id="custom-plug-in-layers">Custom Plug-In Layers</h2>
+<h3 id="custom-plug-in-layers">Custom Plug-In Layers</h3>
 
 <p>Additional layers can be written in Java or Scala and deployed as <em>plug-ins</em> for Daffodil.
 These are generally packaged as DFDL <em>layer schemas</em>, a kind of <em>component schema</em>,
 that provide the layer packaged for import by other DFDL <em>assembly</em> schemas that use the 
 layer in the data format they describe.</p>
 
-<h2 id="layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</h2>
+<h3 id="layer-kinds-transforming-layers-and-checksum-layers">Layer Kinds: Transforming Layers and Checksum Layers</h3>
 
 <p>There are two different kinds of layers, though they share many characteristics. They are 
 <em>transforming</em> layers, and <em>checksum</em> layers. Both run small algorithms over part (or all) of 
 the data stream. The difference is the purpose of the algorithm and its output.</p>
 
-<h3 id="transforming-layers">Transforming Layers</h3>
+<h4 id="transforming-layers">Transforming Layers</h4>
 
 <p>These layers decode data (when parsing), and encode data (when unparsing). 
 The simplest example of a transforming layer is the <code class="language-plaintext highlighter-rouge">base64_MIME</code> layer which 
@@ -222,7 +222,7 @@ They can also assign computed result values to DFDL variables, though this is un
 <a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a> class 
 which is introduced in a later section.</p>
 
-<h3 id="checksum-layers">Checksum Layers</h3>
+<h4 id="checksum-layers">Checksum Layers</h4>
 
 <p>Checksum layers are a simplified kind of layer which do not decode or encode data, they simply 
 pass through the data unmodified, but while doing so they compute a checksum, hash, or Cyclic
@@ -244,6 +244,8 @@ DFDL schema, which uses a Daffodil layer to describe the IPv4 packet header chec
 <a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.
 html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a> 
 class, which is introduced in a later section.</p>
+
+<hr />
 
 <h2 id="using-layers">Using Layers</h2>
 
@@ -320,9 +322,7 @@ use the DFDL <code class="language-plaintext highlighter-rouge">layerLength</cod
 <p>Layers may specify restrictions on the minimum and maximum allowed values of these lengths, 
 and passing an out-of-range value for the variable is a processing error.</p>
 
-<h2 id="examples">Examples</h2>
-
-<h3 id="line-folding">Line Folding</h3>
+<h2 id="example-line-folding">Example: Line Folding</h2>
 
 <p>Consider the line folding layer, specifically the <code class="language-plaintext highlighter-rouge">lineFolded_IMF</code> layer, 
 which is built-in to Daffodil.</p>
@@ -338,7 +338,7 @@ a limited line length.</p>
 </code></pre></div></div>
 <p>This data has been <em>line folded</em> at roughly 72 characters by inserting a CRLF
 before an existing space in the data. 
-Each line ends with a CRLF (\r\n) and the second through fourth lines begin 
+Each line ends with a CRLF (<code class="language-plaintext highlighter-rouge">\r\n</code>) and the second through fourth lines begin 
 with a space as a way of indicating that they are extension lines. 
 This data is supposed to be reassembled to form a long single-line string by removing
 all CRLF pairs.</p>
@@ -379,7 +379,7 @@ Other examples will show how the layer length can be limited to a sub-region of 
 
 <p>More detailed documentation for the <a href="#line-folded-layers">Line Folded Layers</a> is below.</p>
 
-<h3 id="base64-gzip-and-boundarymark-layers-used-together">Base64, GZip, and BoundaryMark Layers used Together</h3>
+<h2 id="example-base64-gzip-and-boundarymark-layers-used-together">Example: Base64, GZip, and BoundaryMark Layers used Together</h2>
 
 <p>In this example, the data consists of a preliminary string, a section of CSV-like data, and a 
 final string element.
@@ -539,6 +539,8 @@ This group definition is the last thing in the schema:</p>
 </code></pre></div></div>
 <p>The above schema works both to parse, but also to unparse this data.</p>
 
+<hr />
+
 <h2 id="using-custom-plug-in-layers">Using Custom Plug-In Layers</h2>
 
 <p>A custom plug-in layer is used in the same manner as the built-in Daffodil layers with just a few
@@ -571,6 +573,9 @@ base class.</p>
 <p>Further details on how to define custom plug-in layers is in the Javadoc for the 
 <a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/package-summary.html">Layer API</a></p>
 
+<hr />
+<hr />
+
 <h2 id="daffodil-built-in-layer-documentation">Daffodil Built-In Layer Documentation</h2>
 
 <p>Each of the layers built-in to the Daffodil implementation are documented in a section below 
@@ -585,6 +590,8 @@ which gives the name, namespace, variables, and some usage notes.</p>
   <li><a href="#line-folded-layers">lineFolded_IMF</a></li>
   <li><a href="#line-folded-layers">lineFolded_iCalendar</a></li>
 </ul>
+
+<hr />
 
 <h3 id="base64-mime-layer">Base64 MIME Layer</h3>
 
@@ -603,10 +610,12 @@ which gives the name, namespace, variables, and some usage notes.</p>
 
 <p>This is specified by <a href="https://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
 The encoded output must be represented in lines of no more than 76 characters 
-each and uses a carriage return '\r' followed immediately by a linefeed '\n' as the line separator. 
+each and uses a carriage return <code class="language-plaintext highlighter-rouge">\r</code> followed immediately by a linefeed <code class="language-plaintext highlighter-rouge">\n</code> as the line separator. 
 No line separator is added to the end of the encoded output. 
 All line separators or other characters not found in the base64 alphabet table are ignored in
 decoding operation.</p>
+
+<hr />
 
 <h3 id="boundarymark-layer">BoundaryMark Layer</h3>
 
@@ -657,6 +666,8 @@ of any child element enclosed within the layer, or even the lengths of other lay
 within the scope of this boundary mark layer are not considered and do not disrupt the search 
 for the boundary mark string.</p>
 
+<hr />
+
 <h3 id="byte-swapping-layers">Byte-Swapping Layers</h3>
 
 <ul>
@@ -698,6 +709,8 @@ order 2 1 4 3 6 5 8 7 10 9.</p>
 <p>If <code class="language-plaintext highlighter-rouge">requireLengthInWholeWords</code> is bound to "yes", then if the length is not a multiple of the 
 word size a processing error occurs.</p>
 
+<hr />
+
 <h3 id="fixedlength-layer">FixedLength Layer</h3>
 
 <ul>
@@ -720,6 +733,8 @@ This length is enforced on both parsing and unparsing the layer.</li>
 The entire fixed length region of the data will be pulled into a byte buffer in memory.</p>
   </li>
 </ul>
+
+<hr />
 
 <h3 id="gzip-layer">GZIP Layer</h3>
 
@@ -745,6 +760,8 @@ depending on the Java version used.
 To avoid inconsistent behavior of test failures that expect a certain byte value this layer
 always writes a consistent header (header byte 9 of 255) regardless of the Java version.</p>
 
+<hr />
+
 <h3 id="line-folded-layers">Line Folded Layers</h3>
 
 <ul>
@@ -762,10 +779,9 @@ always writes a consistent header (header byte 9 of 255) regardless of the Java 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.lineFolded"
        schemaLocation="/org/apache/daffodil/layers/xsd/lineFoldedLayer.dfdl.xsd"/&gt;
 </code></pre></div>    </div>
+    <h4 id="general-usage">General Usage</h4>
   </li>
 </ul>
-
-<h4 id="general-usage">General Usage</h4>
 
 <p>There is a limitation on the compatibility of line folding of data
 with adjacent parts of the format which also use line-endings.
@@ -773,7 +789,7 @@ For example, line folding can interact badly with surrounding elements of <code 
 'pattern'</code> if the pattern is, for example <code class="language-plaintext highlighter-rouge">".*?\\r\\n(?!(?:\\t|\\ ))"</code> which is anything up to
 and including a CRLF not followed by a space or tab. 
 The problem is that line folding
-converts isolated \n or \r into \r\n, and if this just happens to be followed by a
+converts isolated <code class="language-plaintext highlighter-rouge">\n</code> or <code class="language-plaintext highlighter-rouge">\r</code> into <code class="language-plaintext highlighter-rouge">\r\n</code>, and if this just happens to be followed by a
 non space/tab character this will have inserted an end-of-data in the middle of the
 data.</p>
 
