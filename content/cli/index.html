@@ -103,7 +103,8 @@
 <!-- markdownlint-disable line-length -->
 <!-- markdownlint-disable no-duplicate-heading -->
 
-<p>The binary Daffodil <a href="/releases">releases</a> contain a <code class="language-plaintext highlighter-rouge">/bin</code> directory with two scripts: <code class="language-plaintext highlighter-rouge">daffodil.bat</code> for Windows and <code class="language-plaintext highlighter-rouge">daffodil</code> for Linux. These files must be executed on the command line. The general usage is:</p>
+<p>The binary Daffodil <a href="/releases">releases</a> contain a <code class="language-plaintext highlighter-rouge">/bin</code> directory with two scripts: <code class="language-plaintext highlighter-rouge">daffodil.bat</code> for Windows and <code class="language-plaintext highlighter-rouge">daffodil</code> for Linux.
+These files must be executed on the command line. The general usage is:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil [GLOBAL_OPTIONS] &lt;subcommand&gt; [SUBCOMMAND_OPTIONS]
 </code></pre></div></div>
@@ -111,12 +112,13 @@
 <p>The available subcommands are:</p>
 
 <ul>
-  <li><a href="#parse-subcommand">parse</a></li>
-  <li><a href="#unparse-subcommand">unparse</a></li>
-  <li><a href="#save-parser-subcommand">save-parser</a></li>
-  <li><a href="#test-subcommand">test</a></li>
-  <li><a href="#performance-subcommand">performance</a></li>
-  <li><a href="#generate-subcommand">generate</a></li>
+  <li><a href="#parse-subcommand">parse</a> - parse a file, using either a DFDL schema or a saved parser</li>
+  <li><a href="#unparse-subcommand">unparse</a> - unparse an infoset file, using either a DFDL schema or a saved parser</li>
+  <li><a href="#save-parser-subcommand">save-parser</a> - save a parser that can be reused for parsing and unparsing</li>
+  <li><a href="#test-subcommand">test</a> - list or execute tests in a TDML file</li>
+  <li><a href="#performance-subcommand">performance</a> - run a performance test (parse or unparse), using either a DFDL schema or a saved parser</li>
+  <li><a href="#generate-subcommand">generate</a> - generate C code from a DFDL schema to parse or unparse data</li>
+  <li><a href="#exi">exi</a> - encode or decode an XML file with Efficient XML Interchange (EXI)</li>
 </ul>
 
 <h2 id="environment-variables">Environment Variables</h2>
@@ -126,24 +128,33 @@
 <dl>
   <dt><code class="language-plaintext highlighter-rouge">DAFFODIL_CLASSPATH</code></dt>
   <dd>
-    <p>Daffodil will search its classpath for includes and imports, jars containing schemas, and some TDML files. To tell Daffodil to look for files in additional directories, set the <code class="language-plaintext highlighter-rouge">DAFFODIL_CLASSPATH</code> environment variable, for example:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/includes/"
+    <p>Daffodil will search its classpath for includes and imports, and jars containing schemas and Daffodil plugins.
+To tell Daffodil to look for files in additional directories, set the <code class="language-plaintext highlighter-rouge">DAFFODIL_CLASSPATH</code> environment variable, for example:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DAFFODIL_CLASSPATH="/path/to/imports/:/path/to/plugins/"
 </code></pre></div>    </div>
-
     <p>In addition to defining directories to search for imports and includes, you can add a CatalogManager.properties file to <code class="language-plaintext highlighter-rouge">DAFFODIL_CLASSPATH</code> to direct Daffodil to a relative path location of a user XML Catalog.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">DAFFODIL_JAVA_OPTS</code></dt>
   <dd>
-    <p>If you need to specify java options specific to Daffodil, you can set the <code class="language-plaintext highlighter-rouge">DAFFODIL_JAVA_OPTS</code> environment variable. If not specified, the <code class="language-plaintext highlighter-rouge">JAVA_OPTS</code> environment variable will be used. If that is not specified, reasonable defaults for Daffodil will be used.</p>
+    <p>Specified additionalify java options to provide to Daffodil.
+If not specified, the <code class="language-plaintext highlighter-rouge">JAVA_OPTS</code> environment variable will be used.
+If that is not specified, reasonable defaults for Daffodil will be used.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">DAFFODIL_TDML_API_INFOSETS</code></dt>
   <dd>
-    <p>If you need to specify which API (legacy or both (SAX and legacy)) should be called when running TDML files with the <code class="language-plaintext highlighter-rouge">test</code> subcommand, you can set the <code class="language-plaintext highlighter-rouge">DAFFODIL_TDML_API_INFOSETS</code> environment variable to either <code class="language-plaintext highlighter-rouge">scala</code> or <code class="language-plaintext highlighter-rouge">all</code>. If that environment variable is not specified, then Daffodil will default to <code class="language-plaintext highlighter-rouge">scala</code>, using the legacy API and only creating a Scala infoset. Otherwise, if <code class="language-plaintext highlighter-rouge">all</code> is specified, Daffodil will use both the SAX and Legacy APIs and will create infosets from all the available Infoset Outputters: Scala, JDOM, W3CDOM, JSON and XML Text, to ensure correctness. Since the default option only creates one infoset, it is more efficient, which can speed up TDML tests.</p>
+    <p>Controls which Daffodil APIs and infoset types are used when running TDML tests with the <a href="#test-subcommand">test</a> subcommand.</p>
+
+    <p>If not set or has a value of <code class="language-plaintext highlighter-rouge">scala</code>, the standard Daffodil API and Scala infoset type is used.</p>
+
+    <p>If set to <code class="language-plaintext highlighter-rouge">all</code>, both the standard Daffodil API and SAX APIs are used, an all available infoset inputters/outputters are used, including Scala, JDOM, W3CDOM, JSON, and XML text.
+The results of the different infosets are compared to ensure equality.
+This can have a negative impact on TDML performance, but can be useful for regression testing.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">CC</code></dt>
   <dd>
-    <p>If you need to specify which C compiler should be called when running TDML files with the <code class="language-plaintext highlighter-rouge">test</code> subcommand using Daffodil's codegen-c backend, you can set the <code class="language-plaintext highlighter-rouge">CC</code> environment variable. If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order). The reason for "zig cc" coming first is because <a href="https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html">zig cc</a> uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.</p>
+    <p>Specifies which C compiler should be called when running TDML files with the <a href="#test-subcommand">test</a> subcommand using Daffodil's codegen-c backend.
+If that environment variable is not specified, then Daffodil will call the first C compiler driver command it finds within the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable from the following list: "zig cc", "cc", "clang", "gcc" (in that order).
+The reason for "zig cc" coming first is because <a href="https://andrewkelley.me/post/zig-cc-powerful-drop-in-replacement-gcc-clang.html">zig cc</a> uses a sophisticated caching system to avoid recompiling the same C source files, which can speed up TDML tests.</p>
   </dd>
 </dl>
 
@@ -168,82 +179,98 @@
 
 <p>Parse a file, using either a DFDL schema or a saved parser.</p>
 
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments.</p>
+
 <h3 id="usage">Usage</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-               [PARSE_OPTS] [infile]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil parse (-s &lt;schema&gt; | -P &lt;parser&gt;) [PARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h3 id="parse-options">Parse Options</h3>
+<h3 id="options">Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-c, --config &lt;file&gt;</code></dt>
   <dd>
-    <p>XML file containing configuration items, such as external variables or Daffodil tunables. See <a href="/configuration">Configuration</a> for details on the file format.</p>
+    <p>XML file containing configuration items, such as external variables or Daffodil tunables.
+See <a href="/configuration">Configuration</a> for details on the file format.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-D VARIABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Dvariable=value [variable=value]...</code></dt>
   <dd>
-    <p>Variables to be used when parsing. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">VARIABLE</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>, for example:</p>
-
-    <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
+    <p>Variables to be used when parsing.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">variable</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>, for example:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-D{http://example.com}var1=var
+</code></pre></div>    </div>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [file]</code></dt>
   <dd>
-    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
-
-    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.
+The optional <code class="language-plaintext highlighter-rouge">[file]</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type TYPE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type &lt;type&gt;</code></dt>
   <dd>
-    <p>Infoset type to output. <code class="language-plaintext highlighter-rouge">TYPE</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, <code class="language-plaintext highlighter-rouge">sax</code>, or <code class="language-plaintext highlighter-rouge">null</code>. Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided.</p>
+    <p>Infoset type to output.
+<code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, <code class="language-plaintext highlighter-rouge">sax</code>, <code class="language-plaintext highlighter-rouge">exi</code>, <code class="language-plaintext highlighter-rouge">exisa</code>, <code class="language-plaintext highlighter-rouge">w3cdom</code>, or <code class="language-plaintext highlighter-rouge">null</code>.
+Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-o, --output FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-o, --output &lt;file&gt;</code></dt>
   <dd>
-    <p>Output file to write the infoset to. If the option is not given or <code class="language-plaintext highlighter-rouge">FILE</code> is -, the infoset is written to standard output.</p>
+    <p>Output file to write the infoset to.
+If the option is not given or <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code> is <code class="language-plaintext highlighter-rouge">-</code>, the infoset is written to standard output.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-P, --parser FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-P, --parser &lt;file&gt;</code></dt>
   <dd>
-    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">FILE</code>, created using the <code class="language-plaintext highlighter-rouge">save-parser</code> subcommand. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code> option or with the <code class="language-plaintext highlighter-rouge">--validate</code> option set to <code class="language-plaintext highlighter-rouge">on</code>.</p>
+    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code>, created using the <a href="#save-parser-subcommand">save-parser</a> subcommand.
+ This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-r, --root ROOT</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-r, --root &lt;root&gt;</code></dt>
   <dd>
-    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>. This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">ROOT</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>.</p>
+    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>.
+This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined.
+Defaults to the schemas first top-level element if not provided.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">&lt;root&gt;</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-s, --schema FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
   <dd>
-    <p>The annotated DFDL schema to use to create the parser. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
+    <p>The annotated DFDL schema to use to create the parser.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">--stream</code></dt>
   <dd>
-    <p>Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data. Parsing repeats until end of data is reached, an error occurs, or no data is consumed. Output infosets are separated by a NUL character.</p>
+    <p>Rather than throwing an error when left over data exists after a parse, repeat the parse with the remaining data.
+Parsing repeats until end of data is reached, an error occurs, or no data is consumed.
+Output infosets are separated by a NUL character.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">--nostream</code></dt>
   <dd>
-    <p>Stop after the first parse, throwing an error if left over data exists. This is the default behavior.</p>
+    <p>Stop after the first parse, throwing an error if left over data exists.
+This is the default behavior.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-T TUNABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Ttunable=value [tunable=value]...</code></dt>
   <dd>
-    <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
+    <p>Tunable configuration options to change Daffodil's behavior.
+See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
   <dd>
-    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
+    <p>Enable trace mode. This mode prints out helpful information during every stage of parsing.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-V, --validate MODE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-V, --validate &lt;validator_name&gt;</code></dt>
   <dd>
-    <p>The validation mode. <code class="language-plaintext highlighter-rouge">MODE</code> must be one of <code class="language-plaintext highlighter-rouge">on</code>, <code class="language-plaintext highlighter-rouge">limited</code>, <code class="language-plaintext highlighter-rouge">off</code>, or a validator plugin name. Defaults to <code class="language-plaintext highlighter-rouge">off</code> if not provided. Validator plugins are provided by SPI and are referenced here using the <code class="language-plaintext highlighter-rouge">name</code> defined by the plugin. <code class="language-plaintext highlighter-rouge">MODE</code> cannot be <code class="language-plaintext highlighter-rouge">on</code> when used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">[INFILE]</code></dt>
-  <dd>
-    <p>Input file to parse. If not specified, or is a value of -, reads from standard input. If supplied, the input file must be the last option on the command line.</p>
+    <p>Specify a validator to use. <code class="language-plaintext highlighter-rouge">&lt;validator_name&gt;</code> can be one of <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">daffodil</code>, <code class="language-plaintext highlighter-rouge">xerces[=value]</code>, <code class="language-plaintext highlighter-rouge">schematron[=value]</code>, or a <code class="language-plaintext highlighter-rouge">custom validator_name[=value]</code>.
+The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+If using –parser, some validators may require that a config file be specified.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[infile]</code></dt>
+  <dd>
+    <p>Input file to parse.
+If not specified, or is a value of <code class="language-plaintext highlighter-rouge">-</code>, reads from standard input.
+If supplied, the input file must be the last option on the command line.</p>
   </dd>
 </dl>
 
@@ -254,84 +281,103 @@
 
 <h2 id="unparse-subcommand">Unparse Subcommand</h2>
 
-<p>Unparse an infoset file, using either a DFDL schema or a saved parser.</p>
+<p>Unparse an infoset file, using either a DFDL schema or a saved parser</p>
+
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments</p>
 
 <h3 id="usage-1">Usage</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-                 [UNPARSE_OPTS] [infile]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil unparse (-s &lt;schema&gt; | -P &lt;parser&gt;) [UNPARSE_OPTS] [infile]
 </code></pre></div></div>
 
-<h3 id="unparse-options">Unparse Options</h3>
+<h3 id="options-1">Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-c, --config &lt;file&gt;</code></dt>
   <dd>
-    <p>XML file containing configuration items, such as external variables or Daffodil tunables. See <a href="/configuration">Configuration</a> for details on the file format.</p>
+    <p>XML file containing configuration items, such as external variables or Daffodil tunables.
+See <a href="/configuration">Configuration</a> for details on the file format.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-D VARIABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Dvariable=value [variable=value]...</code></dt>
   <dd>
-    <p>Variables to be used when unparsing. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">VARIABLE</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>, for example:</p>
+    <p>Variables to be used when parsing.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">variable</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>, for example:</p>
+  </dd>
+</dl>
 
-    <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
-  <dd>
-    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-D{http://example.com}var1=var
+</code></pre></div></div>
 
-    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type TYPE</code></dt>
+<dl>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [file]</code></dt>
   <dd>
-    <p>Infoset type to unparse. <code class="language-plaintext highlighter-rouge">TYPE</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, or <code class="language-plaintext highlighter-rouge">sax</code>. Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided.</p>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.
+The optional <code class="language-plaintext highlighter-rouge">[file]</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-o, --output FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type &lt;type&gt;</code></dt>
   <dd>
-    <p>Output file to write the data to. If the option is not given or <code class="language-plaintext highlighter-rouge">FILE</code> is -, the data is written to standard output.</p>
+    <p>Infoset type to unparse.
+<code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, <code class="language-plaintext highlighter-rouge">sax</code>, <code class="language-plaintext highlighter-rouge">exi</code>, <code class="language-plaintext highlighter-rouge">exisa</code>, <code class="language-plaintext highlighter-rouge">w3cdom</code>, or <code class="language-plaintext highlighter-rouge">null</code>.
+Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-P, --parser FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-o, --output &lt;file&gt;</code></dt>
   <dd>
-    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">FILE</code>, created using the <code class="language-plaintext highlighter-rouge">save-parser</code> subcommand. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code> option or with the <code class="language-plaintext highlighter-rouge">--validate</code> option set to <code class="language-plaintext highlighter-rouge">on</code>.</p>
+    <p>Output file to write the data to.
+If the option is not given or <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code> is <code class="language-plaintext highlighter-rouge">-</code>, the infoset is written to standard output.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-r, --root ROOT</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-P, --parser &lt;file&gt;</code></dt>
   <dd>
-    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>. This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">ROOT</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>.</p>
+    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code>, created using the <a href="#save-parser-subcommand">save-parser</a> subcommand.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-s, --schema FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-r, --root &lt;root&gt;</code></dt>
   <dd>
-    <p>The annotated DFDL schema to use to create the parser. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
+    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>.
+This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined.
+Defaults to the schemas first top-level element if not provided.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">&lt;root&gt;</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
+  <dd>
+    <p>The annotated DFDL schema to use to create the parser.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">--stream</code></dt>
   <dd>
-    <p>Split the input data at NUL characters and unparse each chunk separately to the same output file.</p>
+    <p>Split the input data on the NUL character, and unparse each chunk separatly.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">--nostream</code></dt>
   <dd>
-    <p>Treat the entire input data as one infoset. This is the default behavior.</p>
+    <p>Treat the entire input data as on infoset.
+This is the default behavior.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-T TUNABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Ttunable=value [tunable=value]...</code></dt>
   <dd>
-    <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
+    <p>Tunable configuration options to change Daffodil's behavior.
+See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
   <dd>
-    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
+    <p>Enable trace mode. This mode prints out helpful information during every stage of unparsing.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-V, --validate MODE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-V, --validate &lt;validator_name&gt;</code></dt>
   <dd>
-    <p>The validation mode. <code class="language-plaintext highlighter-rouge">MODE</code> must be one of <code class="language-plaintext highlighter-rouge">on</code>, <code class="language-plaintext highlighter-rouge">limited</code>, <code class="language-plaintext highlighter-rouge">off</code>, or a validator plugin name. Defaults to <code class="language-plaintext highlighter-rouge">off</code> if not provided. Validator plugins are provided by SPI and are referenced here using the <code class="language-plaintext highlighter-rouge">name</code> defined by the plugin. <code class="language-plaintext highlighter-rouge">MODE</code> cannot be <code class="language-plaintext highlighter-rouge">on</code> when used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">[INFILE]</code></dt>
-  <dd>
-    <p>Input file to unparse. If not specified, or is a value of -, reads from standard input. If supplied, the input file must be the last option on the command line.</p>
+    <p>Specify a validator to use. <code class="language-plaintext highlighter-rouge">&lt;validator_name&gt;</code> can be one of <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">daffodil</code>, <code class="language-plaintext highlighter-rouge">xerces[=value]</code>, <code class="language-plaintext highlighter-rouge">schematron[=value]</code>, or a <code class="language-plaintext highlighter-rouge">custom validator_name[=value]</code>.
+The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+If using –parser, some validators may require that a config file be specified.
+Note that using this flag doesn't use the created validator as unpase validation is currently unsupported.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[infile]</code></dt>
+  <dd>
+    <p>Input file to unparse.
+If not specified, or is a value of <code class="language-plaintext highlighter-rouge">-</code>, reads from standard input.
+If supplied, the input file must be the last option on the command line.</p>
   </dd>
 </dl>
 
@@ -344,80 +390,85 @@
 
 <p>Save a parser that can be reused for parsing and unparsing.</p>
 
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments</p>
+
 <h3 id="usage-2">Usage</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [-r &lt;root&gt;]
-                    [SAVE_PARSER_OPTS] [outfile]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s &lt;schema&gt; [SAVE_PARSER_OPTS] [outfile]
 </code></pre></div></div>
 
-<h3 id="save-parser-options">Save Parser Options</h3>
+<h3 id="options-2">Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-c, --config &lt;file&gt;</code></dt>
   <dd>
-    <p>XML file containing configuration items, such as external variables or Daffodil tunables. See <a href="/configuration">Configuration</a> for details on the file format.</p>
+    <p>XML file containing configuration items, such as external variables or Daffodil tunables.
+Note variable values defined in the configuration file will not be included in the saved parser–the saved parser only embeds variable values defined in the schema.
+See <a href="/configuration">Configuration</a> for details on the file format.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-D VARIABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-r, --root &lt;root&gt;</code></dt>
   <dd>
-    <p>Variables to be used when parsing or unparsing. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">VARIABLE</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>, for example:</p>
-
-    <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
+    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>.
+This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined.
+Defaults to the schemas first top-level element if not provided.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">&lt;root&gt;</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-r, --root ROOT</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
   <dd>
-    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>. This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">ROOT</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>.</p>
+    <p>The annotated DFDL schema to use to create the parser.
+This option must be supplied.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-s, --schema FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Ttunable=value [tunable=value]...</code></dt>
   <dd>
-    <p>The annotated DFDL schema to use to create the parser. This option must be supplied.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-T TUNABLE=VALUE</code></dt>
-  <dd>
-    <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">[OUTFILE]</code></dt>
-  <dd>
-    <p>Output file to save the parser to. If the option is not given or is -, the parser is saved to standard output. If supplied, the output file must be the last option on the command line.</p>
+    <p>Tunable configuration options to change Daffodil's behavior.
+See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
   </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[outfile]</code></dt>
+  <dd>
+    <p>Output file to write the saved parser to.
+If the option is not given or is <code class="language-plaintext highlighter-rouge">-</code>, the parser is written to standard output.
+If supplied, the output file must be the last option on the command line.</p>
+  </dd>
 </dl>
 
 <h3 id="example-2">Example</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s csv.dfdl.xsd csv_parser.xml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil save-parser -s csv.dfdl.xsd csv_parser.bin
 </code></pre></div></div>
 
 <h2 id="test-subcommand">Test Subcommand</h2>
 
 <p>List or execute tests in a TDML file.</p>
 
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments</p>
+
 <h3 id="usage-3">Usage</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil test [TEST_OPTS] &lt;tdmlfile&gt; [testnames...]
 </code></pre></div></div>
 
-<h3 id="test-options">Test Options</h3>
+<h3 id="options-3">Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [FILE]</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --debug [file]</code></dt>
   <dd>
-    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.</p>
-
-    <p>The optional <code class="language-plaintext highlighter-rouge">FILE</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
+    <p>Enable the interactive debugger. See the <a href="/debugger">Interactive Debugger</a> documentation for more information.
+The optional <code class="language-plaintext highlighter-rouge">[file]</code> argument contains a list of debugger commands that are provided to the debugger as if they were typed by the user.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--trace</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-I, --implementation  &lt;implementation&gt;</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-I, --implementation &lt;implementation&gt;</code></dt>
   <dd>
-    <p>Implementation to run TDML tests. Choose daffodil or
-daffodilC. Defaults to daffodil.</p>
+    <p>Implementation to run TDML tests.
+Choose <code class="language-plaintext highlighter-rouge">daffodil</code> or <code class="language-plaintext highlighter-rouge">daffodilC</code>.
+Defaults to daffodil.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-i, --info</code></dt>
   <dd>
-    <p>Increment test result information output level, one level for each -i.</p>
+    <p>Increment test result information output level, one level for each <code class="language-plaintext highlighter-rouge">-i</code>.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-l, --list</code></dt>
   <dd>
@@ -425,25 +476,26 @@ daffodilC. Defaults to daffodil.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-r, --regex</code></dt>
   <dd>
-    <p>Treat <code class="language-plaintext highlighter-rouge">TESTNAMES...</code> as regular expressions.</p>
+    <p>Treat <code class="language-plaintext highlighter-rouge">[testnames...]</code> as regular expressions.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-t, --trace</code></dt>
   <dd>
-    <p>Enable a trace mode. This mode prints out helpful information during every stage of parsing.</p>
-
-    <p>This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">TDMLFILE</code></dt>
-  <dd>
-    <p>Test Data Markup Language (TDML) file.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">[TESTNAMES...]</code></dt>
-  <dd>
-    <p>Name(s) of test cases in the TDML file. If not given, all tests in <code class="language-plaintext highlighter-rouge">TDMLFILE</code> are run.</p>
+    <p>Enable a trace mode.
+This mode prints out helpful information during every stage of parsing.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--debug</code> option.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">&lt;tdmlfile&gt;</code></dt>
+  <dd>
+    <p>Test Data Markup Language (TDML) file.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[testnames...]</code></dt>
+  <dd>
+    <p>Name(s) of test cases in the TDML file.
+If not given, all tests in <code class="language-plaintext highlighter-rouge">&lt;tdmlfile&gt;</code> are run.</p>
   </dd>
 </dl>
 
@@ -456,68 +508,81 @@ daffodilC. Defaults to daffodil.</p>
 
 <p>Run a performance test (parse or unparse), using either a DFDL schema or a saved parser.</p>
 
+<p><code class="language-plaintext highlighter-rouge">--</code>  can be used to separate command-line options from trailing arguments</p>
+
 <h3 id="usage-4">Usage</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; [-r &lt;root&gt;] | -P &lt;parser&gt;)
-                     [PERFORMANCE_OPTS] &lt;infile&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil performance (-s &lt;schema&gt; | -P &lt;parser&gt;) [PERFORMANCE_OPTS] &lt;infile&gt;
 </code></pre></div></div>
 
-<h3 id="performance-options">Performance Options</h3>
+<h3 id="options-4">Options</h3>
+
+<h4 id="-c---config-file"><code class="language-plaintext highlighter-rouge">-c, --config &lt;file&gt;</code></h4>
+
+<p>XML file containing configuration items, such as external variables or Daffodil tunables.
+See <a href="/configuration">Configuration</a> for details on the file format.</p>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Dvariable=value [variable=value]...</code></dt>
   <dd>
-    <p>XML file containing configuration items, such as external variables or Daffodil tunables. See <a href="/configuration">Configuration</a> for details on the file format.</p>
+    <p>Variables to be used when parsing.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">variable</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>, for example:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-D{http://example.com}var1=var
+</code></pre></div>    </div>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-D VARIABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type &lt;type&gt;</code></dt>
   <dd>
-    <p>Variables to be used when parsing or unparsing. <code class="language-plaintext highlighter-rouge">VARIABLE</code> can be prefixed with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code> to define which namespace the variable belongs in, for example:</p>
-
-    <p><code class="language-plaintext highlighter-rouge">-D{http://example.com}var1=var</code></p>
+    <p>Infoset type to output.
+<code class="language-plaintext highlighter-rouge">&lt;type&gt;</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, <code class="language-plaintext highlighter-rouge">sax</code>, <code class="language-plaintext highlighter-rouge">exi</code>, <code class="language-plaintext highlighter-rouge">exisa</code>, <code class="language-plaintext highlighter-rouge">w3cdom</code>, or <code class="language-plaintext highlighter-rouge">null</code>.
+Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-I, --infoset-type TYPE</code></dt>
-  <dd>
-    <p>Infoset type to output or unparse. <code class="language-plaintext highlighter-rouge">TYPE</code> must be one of <code class="language-plaintext highlighter-rouge">xml</code>, <code class="language-plaintext highlighter-rouge">scala-xml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">jdom</code>, <code class="language-plaintext highlighter-rouge">sax</code>, or <code class="language-plaintext highlighter-rouge">null</code>. Defaults to <code class="language-plaintext highlighter-rouge">xml</code> if not provided. Note that <code class="language-plaintext highlighter-rouge">null</code> is not valid if the <code class="language-plaintext highlighter-rouge">--unparse</code> option is provided.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-N, --number NUMBER</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-N, --number &lt;number&gt;</code></dt>
   <dd>
     <p>The total number of files to process. Defaults to 1.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-P, --parser FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-P, --parser &lt;file&gt;</code></dt>
   <dd>
-    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">FILE</code>, created using the <code class="language-plaintext highlighter-rouge">save-parser</code> subcommand. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code> option or with the <code class="language-plaintext highlighter-rouge">--validate</code> option set to <code class="language-plaintext highlighter-rouge">on</code>.</p>
+    <p>Use a previously saved parser inside <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code>, created using the <a href="#save-parser-subcommand">save-parser</a> subcommand.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--schema</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-r, --root ROOT</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-r, --root &lt;root&gt;</code></dt>
   <dd>
-    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>. This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">ROOT</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>.</p>
+    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>.
+This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined.
+Defaults to the schemas first top-level element if not provided.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">&lt;root&gt;</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-s, --schema FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
   <dd>
-    <p>The annotated DFDL schema to use to create the parser. This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
+    <p>The annotated DFDL schema to use to create the parser.
+This option cannot be used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-t, --threads THREADS</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-t, --threads &lt;threads&gt;</code></dt>
   <dd>
     <p>The number of threads to use. Defaults to 1.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-T TUNABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Ttunable=value [tunable=value]...</code></dt>
   <dd>
-    <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
+    <p>Tunable configuration options to change Daffodil's behavior.
+See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-u, --unparse</code></dt>
   <dd>
     <p>Perform unparse instead of parse for performance test.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-V, --validate MODE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-V, --validate &lt;validator_name&gt;</code></dt>
   <dd>
-    <p>The validation mode. <code class="language-plaintext highlighter-rouge">MODE</code> must be one of <code class="language-plaintext highlighter-rouge">on</code>, <code class="language-plaintext highlighter-rouge">limited</code>, <code class="language-plaintext highlighter-rouge">off</code>, or a validator plugin name. Defaults to <code class="language-plaintext highlighter-rouge">off</code> if not provided. Validator plugins are provided by SPI and are referenced here using the <code class="language-plaintext highlighter-rouge">name</code> defined by the plugin. <code class="language-plaintext highlighter-rouge">MODE</code> cannot be <code class="language-plaintext highlighter-rouge">on</code> when used with the <code class="language-plaintext highlighter-rouge">--parser</code> option.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">INFILE</code></dt>
-  <dd>
-    <p>Input file or directory containing input files to parse or unparse. Required argument.</p>
+    <p>Specify a validator to use. <code class="language-plaintext highlighter-rouge">&lt;validator_name&gt;</code> can be one of <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">daffodil</code>, <code class="language-plaintext highlighter-rouge">xerces[=value]</code>, <code class="language-plaintext highlighter-rouge">schematron[=value]</code>, or a <code class="language-plaintext highlighter-rouge">custom validator_name[=value]</code>.
+The optional value parameter provides a file to the validator (e.g. .xsd, .sch, .conf, .properties) used for validator configuration.
+If using –parser, some validators may require that a config file be specified.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">&lt;infile&gt;</code></dt>
+  <dd>
+    <p>Input file or directory containing input files to parse or unparse. Required argument.</p>
   </dd>
 </dl>
 
@@ -530,48 +595,99 @@ daffodilC. Defaults to daffodil.</p>
 
 <p>Generate C code from a DFDL schema to parse or unparse data.</p>
 
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments</p>
+
 <h3 id="usage-5">Usage</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil generate &lt;language&gt; [SUBCOMMAND_OPTS]
-
---- there is only one choice for &lt;language&gt; at this time ---
-
-daffodil generate c -s &lt;schema&gt; [-r &lt;root&gt;]
-                    [GENERATE_OPTIONS] [outdir]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil generate &lt;language&gt; -s &lt;schema&gt; [GENERATE_OPTIONS] [outdir]
 </code></pre></div></div>
 
-<h3 id="generate-options">Generate Options</h3>
+<p>There is only one choice for <code class="language-plaintext highlighter-rouge">&lt;language&gt;</code> at this time: <code class="language-plaintext highlighter-rouge">c</code></p>
+
+<h3 id="options-5">Options</h3>
 
 <dl>
-  <dt><code class="language-plaintext highlighter-rouge">-c, --config FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-c, --config &lt;file&gt;</code></dt>
   <dd>
-    <p>XML file containing configuration items, such as external variables or Daffodil tunables. See <a href="/configuration">Configuration</a> for details on the file format.</p>
+    <p>XML file containing configuration items, such as external variables or Daffodil tunables.
+See <a href="/configuration">Configuration</a> for details on the file format.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-r, --root ROOT</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-r, --root &lt;root&gt;</code></dt>
   <dd>
-    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>. This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined. Defaults to the schema's first top-level element if not provided. A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">ROOT</code> with <code class="language-plaintext highlighter-rouge">{NAMESPACE}</code>.</p>
+    <p>The root element to use. This must be one of the top-level elements of the DFDL schema defined with <code class="language-plaintext highlighter-rouge">--schema</code>.
+This requires the <code class="language-plaintext highlighter-rouge">--schema</code> option to be defined.
+Defaults to the schemas first top-level element if not provided.
+A namespace may be specified by prefixing <code class="language-plaintext highlighter-rouge">&lt;root&gt;</code> with <code class="language-plaintext highlighter-rouge">{namespace}</code>.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-s, --schema FILE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
   <dd>
-    <p>The annotated DFDL schema to use to generate C code. This option must be supplied.</p>
+    <p>The annotated DFDL schema to use to create the parser.
+This option must be supplied.</p>
   </dd>
-  <dt><code class="language-plaintext highlighter-rouge">-T TUNABLE=VALUE</code></dt>
+  <dt><code class="language-plaintext highlighter-rouge">-Ttunable=value [tunable=value]...</code></dt>
   <dd>
-    <p>Tunable configuration options to change Daffodil's behavior. See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
-  </dd>
-  <dt><code class="language-plaintext highlighter-rouge">[OUTDIR]</code></dt>
-  <dd>
-    <p>The output directory in which to create or replace a <code class="language-plaintext highlighter-rouge">c</code> subdirectory containing the generated C code. If the option is not given, a <code class="language-plaintext highlighter-rouge">c</code> subdirectory within the current directory will be created/replaced. If supplied, the output directory must be the last option on the command line.</p>
+    <p>Tunable configuration options to change Daffodil's behavior.
+See <a href="/configuration">Configuration</a> for the list of tunable parameters.</p>
   </dd>
   <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
   <dd>
     <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[outdir]</code></dt>
+  <dd>
+    <p>The output directory in which to create or replace a <code class="language-plaintext highlighter-rouge">c</code> subdirectory containing the generated C code.
+If the option is not given, a <code class="language-plaintext highlighter-rouge">c</code> subdirectory within the current directory will be created/replaced.
+If supplied, the output directory must be the last option on the command line.</p>
   </dd>
 </dl>
 
 <h3 id="example-5">Example</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil generate c -s csv.dfdl.xsd
+</code></pre></div></div>
+
+<h2 id="exi-subcommand">EXI Subcommand</h2>
+
+<p>Encode/decode an XML file with Efficient XML Interchange (EXI). If a schema is specified, it will use schema aware encoding/decoding.</p>
+
+<p><code class="language-plaintext highlighter-rouge">--</code> can be used to separate command-line options from trailing arguments</p>
+
+<h3 id="usage-6">Usage</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil exi [EXI_OPTIONS] [infile]
+</code></pre></div></div>
+
+<h3 id="options-6">Options</h3>
+
+<dl>
+  <dt><code class="language-plaintext highlighter-rouge">-d, --decode</code></dt>
+  <dd>
+    <p>Decode <code class="language-plaintext highlighter-rouge">[infile]</code> from EXI to XML.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-o, --output &lt;file&gt;</code></dt>
+  <dd>
+    <p>Output file to write the encoded/decoded data to.
+If the option is not given or <code class="language-plaintext highlighter-rouge">&lt;file&gt;</code> is <code class="language-plaintext highlighter-rouge">-</code>, the infoset is written to standard output.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-s, --schema &lt;file&gt;</code></dt>
+  <dd>
+    <p>The annotated DFDL schema to use for schema aware encoding/decoding.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">-h, --help</code></dt>
+  <dd>
+    <p>Display a help message.</p>
+  </dd>
+  <dt><code class="language-plaintext highlighter-rouge">[infile]</code></dt>
+  <dd>
+    <p>Input file to encode/decode.
+If not specified, or is a value of <code class="language-plaintext highlighter-rouge">-</code>, reads from standard input.
+If supplied, the input file must be the last option on the command line.</p>
+  </dd>
+</dl>
+
+<h3 id="example-6">Example</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daffodil exi -s csv.dfdl.xsd --decode file.exi
 </code></pre></div></div>
 
   </div>
