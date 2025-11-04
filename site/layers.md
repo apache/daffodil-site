@@ -3,8 +3,7 @@ description: Pluggable Extensions to Enable Algorithmic Transformations
   in DFDL
 group: 'nav-right'
 layout: page
-title: 'Layers - Algorithmic
-  Extensions for DFDL'
+title: 'Layers - Algorithmic Extensions for DFDL'
 ---
 <!--
 {% comment %}
@@ -24,12 +23,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 {% endcomment %}
 -->
-
 ## Table of Contents
 {:.no_toc}
+<!-- The {: .no_toc } excludes the above heading from the ToC --> 
 
-1. use ordered table of contents
+1. yes, this is the standard Jekyll way to do a ToC (this line gets removed)
 {:toc}
+<!-- note the above line {:toc} cannot have whitespace at the start --> 
 
 # Introduction
 
@@ -58,7 +58,7 @@ There is no limit to this depth.
 In the section on [Using Layers](#UsingLayers) below we will look at an example that uses 
 multiple layers together. 
 
-# Built-in Layers
+## Built-in Layers
 
 Daffodil includes several built-in layers:
 - [base64_MIME](#base64-mime-layer)
@@ -78,20 +78,20 @@ Each of the built-in layers will be
 [documented separately below](#daffodil-built-in-layer-documentation) with examples of their 
 usage.
 
-# Custom Plug-In Layers
+## Custom Plug-In Layers
 
 Additional layers can be written in Java or Scala and deployed as _plug-ins_ for Daffodil.
 These are generally packaged as DFDL _layer schemas_, a kind of _component schema_,
 that provide the layer packaged for import by other DFDL _assembly_ schemas that use the 
 layer in the data format they describe. 
 
-# Layer Kinds: Transforming Layers and Checksum Layers
+## Layer Kinds: Transforming Layers and Checksum Layers
 
 There are two different kinds of layers, though they share many characteristics. They are 
 _transforming_ layers, and _checksum_ layers. Both run small algorithms over part (or all) of 
 the data stream. The difference is the purpose of the algorithm and its output. 
 
-## Transforming Layers
+### Transforming Layers
 
 These layers decode data (when parsing), and encode data (when unparsing). 
 The simplest example of a transforming layer is the `base64_MIME` layer which 
@@ -106,7 +106,7 @@ Custom transforming layers are created by deriving an implementation from the Da
 [`Layer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html) class 
 which is introduced in a later section. 
 
-## Checksum Layers
+### Checksum Layers
 
 Checksum layers are a simplified kind of layer which do not decode or encode data, they simply 
 pass through the data unmodified, but while doing so they compute a checksum, hash, or Cyclic
@@ -128,6 +128,8 @@ Custom checksum layers are created by deriving an implementation class from the 
 [`ChecksumLayer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.
 html) 
 class, which is introduced in a later section.
+
+----
 
 # Using Layers
 
@@ -201,9 +203,7 @@ Layers may specify restrictions on the minimum and maximum allowed values of the
 and passing an out-of-range value for the variable is a processing error.
 
 
-# Examples
-
-## Line Folding
+# Example: Line Folding
 
 Consider the line folding layer, specifically the `lineFolded_IMF` layer, 
 which is built-in to Daffodil.
@@ -220,7 +220,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 ```
 This data has been _line folded_ at roughly 72 characters by inserting a CRLF
 before an existing space in the data. 
-Each line ends with a CRLF (\r\n) and the second through fourth lines begin 
+Each line ends with a CRLF (`\r\n`) and the second through fourth lines begin 
 with a space as a way of indicating that they are extension lines. 
 This data is supposed to be reassembled to form a long single-line string by removing
 all CRLF pairs.
@@ -265,7 +265,7 @@ Other examples will show how the layer length can be limited to a sub-region of 
 
 More detailed documentation for the [Line Folded Layers](#line-folded-layers) is below.
 
-## Base64, GZip, and BoundaryMark Layers used Together
+# Example: Base64, GZip, and BoundaryMark Layers used Together
 
 In this example, the data consists of a preliminary string, a section of CSV-like data, and a 
 final string element.
@@ -433,6 +433,8 @@ This group definition is the last thing in the schema:
 ```
 The above schema works both to parse, but also to unparse this data. 
 
+----
+
 # Using Custom Plug-In Layers
 
 A custom plug-in layer is used in the same manner as the built-in Daffodil layers with just a few
@@ -463,6 +465,9 @@ base class.
 Further details on how to define custom plug-in layers is in the Javadoc for the 
 [Layer API](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/package-summary.html)
 
+----
+----
+
 # Daffodil Built-In Layer Documentation
 
 Each of the layers built-in to the Daffodil implementation are documented in a section below 
@@ -475,6 +480,8 @@ The built-in layers are:
 - [gzip](#gzip-layer)
 - [lineFolded_IMF](#line-folded-layers)
 - [lineFolded_iCalendar](#line-folded-layers)
+
+----
 
 ## Base64 MIME Layer
 
@@ -491,10 +498,12 @@ This uses the standard `java.util.Base64` classes, specifically the MIME encodin
 
 This is specified by [RFC 2045](https://www.ietf.org/rfc/rfc2045.txt).
 The encoded output must be represented in lines of no more than 76 characters 
-each and uses a carriage return '\r' followed immediately by a linefeed '\n' as the line separator. 
+each and uses a carriage return `\r` followed immediately by a linefeed `\n` as the line separator. 
 No line separator is added to the end of the encoded output. 
 All line separators or other characters not found in the base64 alphabet table are ignored in
 decoding operation.
+
+----
 
 ## BoundaryMark Layer
 
@@ -537,6 +546,9 @@ of any child element enclosed within the layer, or even the lengths of other lay
 within the scope of this boundary mark layer are not considered and do not disrupt the search 
 for the boundary mark string.
 
+
+----
+
 ## Byte-Swapping Layers
 
 - Layer Names:
@@ -570,6 +582,8 @@ order 2 1 4 3 6 5 8 7 10 9.
 If `requireLengthInWholeWords` is bound to "yes", then if the length is not a multiple of the 
 word size a processing error occurs. 
 
+----
+
 ## FixedLength Layer
 
 - Name: fixedLength
@@ -587,6 +601,8 @@ word size a processing error occurs.
 ```
 Suitable only for small sections of data, not large data streams or large files.
 The entire fixed length region of the data will be pulled into a byte buffer in memory.
+
+----
 
 ## GZIP Layer
 
@@ -610,6 +626,8 @@ depending on the Java version used.
 To avoid inconsistent behavior of test failures that expect a certain byte value this layer
 always writes a consistent header (header byte 9 of 255) regardless of the Java version.
 
+----
+
 ## Line Folded Layers
 
 - Layer Names:
@@ -624,7 +642,6 @@ always writes a consistent header (header byte 9 of 255) regardless of the Java 
       <xs:import namespace="urn:org.apache.daffodil.layers.lineFolded"
          schemaLocation="/org/apache/daffodil/layers/xsd/lineFoldedLayer.dfdl.xsd"/>
 ```
-
 ### General Usage
 
 There is a limitation on the compatibility of line folding of data
@@ -633,7 +650,7 @@ For example, line folding can interact badly with surrounding elements of `dfdl:
 'pattern'` if the pattern is, for example `".*?\\r\\n(?!(?:\\t|\\ ))"` which is anything up to
 and including a CRLF not followed by a space or tab. 
 The problem is that line folding
-converts isolated \n or \r into \r\n, and if this just happens to be followed by a
+converts isolated `\n` or `\r` into `\r\n`, and if this just happens to be followed by a
 non space/tab character this will have inserted an end-of-data in the middle of the
 data.
 
