@@ -219,7 +219,7 @@ parameterized using DFDL variables.
 They can also assign computed result values to DFDL variables, though this is uncommon.</p>
 
 <p>Custom transforming layers are created by deriving an implementation from the Daffodil API's 
-<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a> class 
+<a href="/docs/latest/javadoc/org/apache/daffodil/api/layers/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a> class 
 which is introduced in a later section.</p>
 
 <h4 id="checksum-layers">Checksum Layers</h4>
@@ -241,7 +241,7 @@ When unparsing, the value of this DFDL variable can be written to an element usi
 DFDL schema, which uses a Daffodil layer to describe the IPv4 packet header checksum algorithm.</p>
 
 <p>Custom checksum layers are created by deriving an implementation class from the Daffodil API's
-<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.
+<a href="/docs/latest/javadoc/org/apache/daffodil/api/layers/ChecksumLayer.
 html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a> 
 class, which is introduced in a later section.</p>
 
@@ -563,15 +563,15 @@ either Java or Scala.<br />
 that one can write a Layer in Java.)</p>
 
 <p>Transformer layer classes are derived from the 
-<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a>
+<a href="/docs/latest/javadoc/org/apache/daffodil/api/layers/Layer.html"><code class="language-plaintext highlighter-rouge">Layer</code></a>
 base class.</p>
 
 <p>Checksum layer classes are derived from the
-<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a>
+<a href="/docs/latest/javadoc/org/apache/daffodil/api/layers/ChecksumLayer.html"><code class="language-plaintext highlighter-rouge">ChecksumLayer</code></a>
 base class.</p>
 
 <p>Further details on how to define custom plug-in layers is in the Javadoc for the 
-<a href="/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/package-summary.html">Layer API</a></p>
+<a href="/docs/latest/javadoc/org/apache/daffodil/api/layers/package-summary.html">Layer API</a></p>
 
 <hr />
 <hr />
