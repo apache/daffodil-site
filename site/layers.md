@@ -103,7 +103,7 @@ parameterized using DFDL variables.
 They can also assign computed result values to DFDL variables, though this is uncommon. 
 
 Custom transforming layers are created by deriving an implementation from the Daffodil API's 
-[`Layer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html) class 
+[`Layer`](/docs/latest/javadoc/org/apache/daffodil/api/layers/Layer.html) class 
 which is introduced in a later section. 
 
 ### Checksum Layers
@@ -125,7 +125,7 @@ An example of a checksum layer plug-in is in the
 DFDL schema, which uses a Daffodil layer to describe the IPv4 packet header checksum algorithm.  
 
 Custom checksum layers are created by deriving an implementation class from the Daffodil API's
-[`ChecksumLayer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.
+[`ChecksumLayer`](/docs/latest/javadoc/org/apache/daffodil/api/layers/ChecksumLayer.
 html) 
 class, which is introduced in a later section.
 
@@ -455,15 +455,15 @@ either Java or Scala.
 that one can write a Layer in Java.)
 
 Transformer layer classes are derived from the 
-[`Layer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/Layer.html)
+[`Layer`](/docs/latest/javadoc/org/apache/daffodil/api/layers/Layer.html)
 base class.
 
 Checksum layer classes are derived from the
-[`ChecksumLayer`](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/ChecksumLayer.html)
+[`ChecksumLayer`](/docs/latest/javadoc/org/apache/daffodil/api/layers/ChecksumLayer.html)
 base class.
 
 Further details on how to define custom plug-in layers is in the Javadoc for the 
-[Layer API](/docs/latest/javadoc/org/apache/daffodil/runtime1/layers/api/package-summary.html)
+[Layer API](/docs/latest/javadoc/org/apache/daffodil/api/layers/package-summary.html)
 
 ----
 ----
