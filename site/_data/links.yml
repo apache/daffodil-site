@@ -1,0 +1,60 @@
+
+# These links would be hard to maintain if embedded directly in
+# markdown files, especially these which use the generated Toc links
+# to sections of the DFDL spec document.
+
+dfdlSpec:
+  specStart: "/docs/dfdl"
+  glossary: "/docs/dfdl/#_Toc62570272"
+  intro: "/docs/dfdl/#_Toc62570039"
+
+xml:
+  introWho: "w3schools"
+  introXML: "https://www.w3schools.com/xml"
+  introXSD: "https://www.w3schools.com/xml/schema_intro.asp"
+  exificient: "https://github.com/EXIficient/exificient"
+
+slides:
+  overviewDFDL: "/presentations/2025-11-13-ASF-Overview-DFDL-v4.0.0.pdf"
+  introXML: "/tutorials/P-DFDL-Intro-to-XML.pdf"
+  introXSD: "/tutorials/P-DFDL-Intro-to-XML-Schema.pdf"
+  comp: "/tutorials/P-DFDL-Schema-Composition.pdf"
+
+reference:
+  bnf: "https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form#Example"
+  endianness: "https://en.wikipedia.org/wiki/Endianness"
+  ntpPacketHeaderDiagram: "https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format"
+  exi: "https://en.wikipedia.org/wiki/Efficient_XML_Interchange"
+  hex: "https://en.wikipedia.org/wiki/Hexadecimal"
+
+schemas:
+  dfdlSchemasSite: "https://github.com/DFDLSchemas"
+  fakeTDL: "https://github.com/DFDLSchemas/faketdl"
+  fakeTDLSpec: "https://github.com/DFDLSchemas/faketdl/blob/main/FakeTDLSpecification.md"
+  ntp: "https://github.com/DFDLSchemas/ntp"
+  ntpType: "https://github.com/DFDLSchemas/ntp/blob/main/src/main/resources/com/owlcyberdefense/ntp/xsd/ntp-type.dfdl.xsd"
+  envPay: "https://github.com/DFDLSchemas/envelope-payload"
+  tcpMsg: "https://github.com/DFDLSchemas/tcpMessage"
+  ms2045: "https://github.com/DFDLSchemas/mil-std-2045"
+  pcap: "https://github.com/DFDLSchemas/PCAP"
+  ethIP: "https://github.com/DFDLSchemas/ethernetIP"
+
+tools:
+  git: "https://git-scm.com/install/"
+  sbt: "https://www.scala-sbt.org/"
+  idea: "https://www.jetbrains.com/idea"
+
+training:
+  csvToBin: "https://github.com/OpenDFDL/training"
+  csvToBinSlides: "https://github.com/OpenDFDL/training/blob/master/slides/P-DFDL-CSVToBin-Training-Slides.pdf"
+  fakeTDL: "https://github.com/OpenDFDL/training-dfdl-using-fakeTDL"
+  fakeTDLSlides: "https://github.com/OpenDFDL/training-dfdl-using-fakeTDL/blob/main/slides/P-DFDL-FakeTDL-Lab-Training.pdf"
+  xfront: "https://xfront.com/DFDL"
+  ibmGetStarted: "https://community.ibm.com/community/user/viewdocument/get-started-with-the-data-format-de"
+  ogfTutorials: "https://github.com/OpenGridForum/DFDL/tree/master/docs/current"
+
+examples:
+  openDFDL: "https://github.com/OpenDFDL"
+  helloWorld: "https://github.com/OpenDFDL/examples/tree/master/helloWorld"
+  helloWorldExificient: "https://github.com/OpenDFDL/examples/tree/master/helloWorldExificient"
+  hexWords: "https://github.com/OpenDFDL/examples/tree/master/hexWords"
