@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | DFDL Training</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/img/apache-daffodil-icon.png" rel="icon" type="image/png">
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/dfdl-training/">DFDL Training</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+<div class="title">
+  <div class="container"></div>
+</div>
+<div class="container">
+  <h1>DFDL Training</h1>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a>    <ol>
+      <li><a href="#xml---extensible-markup-language" id="markdown-toc-xml---extensible-markup-language">XML - Extensible Markup Language</a></li>
+      <li><a href="#xml-schema-aka-xsd-or-xsdl" id="markdown-toc-xml-schema-aka-xsd-or-xsdl">XML Schema (aka XSD or XSDL)</a></li>
+      <li><a href="#basic-data-format-concepts" id="markdown-toc-basic-data-format-concepts">Basic Data Format Concepts</a></li>
+      <li><a href="#dfdl-basic-terminology" id="markdown-toc-dfdl-basic-terminology">DFDL Basic Terminology</a></li>
+    </ol>
+  </li>
+  <li><a href="#training-courses-with-lab-exercises" id="markdown-toc-training-courses-with-lab-exercises">Training Courses with Lab Exercises</a>    <ol>
+      <li><a href="#tools-needed-for-hands-on-training" id="markdown-toc-tools-needed-for-hands-on-training">Tools Needed for Hands-On Training</a></li>
+      <li><a href="#csv-to-bin-training-course" id="markdown-toc-csv-to-bin-training-course">CSV to Bin Training Course</a></li>
+      <li><a href="#faketdl-dfdl-training-course" id="markdown-toc-faketdl-dfdl-training-course">FakeTDL DFDL Training Course</a></li>
+    </ol>
+  </li>
+  <li><a href="#learning-from-example-dfdl-schemas" id="markdown-toc-learning-from-example-dfdl-schemas">Learning from Example DFDL Schemas</a></li>
+  <li><a href="#other-learning-resources" id="markdown-toc-other-learning-resources">Other Learning Resources</a></li>
+  <li><a href="#intermediate-and-advanced-dfdl-training-topics" id="markdown-toc-intermediate-and-advanced-dfdl-training-topics">Intermediate and Advanced DFDL Training Topics</a>    <ol>
+      <li><a href="#dfdl-schema-composition" id="markdown-toc-dfdl-schema-composition">DFDL Schema Composition</a></li>
+      <li><a href="#learning-the-daffodil-api" id="markdown-toc-learning-the-daffodil-api">Learning the Daffodil API</a></li>
+    </ol>
+  </li>
+</ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>There are a few paths to take in order to learn DFDL depending on your goals and background.
+This page provides resources allowing you to learn by working your way through labs that 
+gradually introduce DFDL concepts, or you can plunge right into well-crafted DFDL schemas for 
+basic data formats, and gradually work up to more complex ones.</p>
+
+<p>There is a general <a href="/presentations/2025-11-13-ASF-Overview-DFDL-v4.0.0.pdf">Overview Presentation about DFDL</a> with sections about:</p>
+<ul>
+  <li>Motivation: Why we need DFDL</li>
+  <li>Introduction to DFDL - including a tiny example</li>
+  <li>Larger Examples: CSV, PCAP, MIL-STD-2045</li>
+</ul>
+
+<p>The remaining sections are perhaps less interesting for DFDL beginners.</p>
+<ul>
+  <li>Where to get DFDL Schemas</li>
+  <li>Apache Daffodil - What is in it</li>
+  <li>Example of using Daffodil's Java API (yes it's "Hello World!")</li>
+</ul>
+
+<p>Reading <a href="/docs/dfdl/#_Toc62570039">Section 1</a>(the introduction) of the 
+<a href="/docs/dfdl">DFDL Specification</a>
+is also a basic introduction to DFDL.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>There are several things that you need to be familiar with to learn DFDL.
+These include:</p>
+<ul>
+  <li>XML - Extensible Markup Language</li>
+  <li>XML Schema (aka XSDL or XSD)</li>
+  <li>Basic Data Format Concepts</li>
+  <li>DFDL Basic Terminology</li>
+</ul>
+
+<h4 id="xml---extensible-markup-language">XML - Extensible Markup Language</h4>
+
+<p>Daffodil supports both JSON and XML, but the learning/training materials are very biased towards 
+using XML.</p>
+
+<ul>
+  <li><a href="https://www.w3schools.com/xml">w3schools XML Tutorial</a> - Gives a basic 
+introduction to XML.</li>
+  <li><a href="/tutorials/P-DFDL-Intro-to-XML.pdf">Our Slides: Introduction to XML</a> - Provides a deeper dig 
+into XML use as a data language and some of the challenges with escaping, CRLF/LF, NUL, and 
+whitespace.</li>
+</ul>
+
+<h4 id="xml-schema-aka-xsd-or-xsdl">XML Schema (aka XSD or XSDL)</h4>
+
+<p>DFDL uses a subset of the XML Schema Definition Language (XSDL or XSD) to express 
+the structure of data, meaning the field names,
+their order, and nesting of hierarchical structure. 
+This means that <em>a DFDL Schema <strong>is</strong> an XML Schema</em>.</p>
+
+<p>If you are familiar with the notion of a 
+<a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form#Example"><em>grammar</em> or <em>BNF</em></a>,
+XML Schema is conceptually similar.
+It is more verbose, but provides standardized places to add <em>annotations</em> to the schema
+which allows DFDL to add the data format information onto the schema in a standard way.</p>
+
+<ul>
+  <li><a href="https://www.w3schools.com/xml/schema_intro.asp">w3schools XML Schema Tutorial</a> - Gives the basics about XML Schema.
+    <ul>
+      <li><em>Ignore anything about DTD, which are an older kind of schema for XML.
+ DFDL does not use DTDs and in fact prohibits their use.</em></li>
+    </ul>
+  </li>
+  <li><a href="/tutorials/P-DFDL-Intro-to-XML-Schema.pdf">Our Slides: Introduction to XML Schema</a> - Deeper 
+introduction giving more of the motivation for why DFDL is built on top of XML Schema.</li>
+</ul>
+
+<h4 id="basic-data-format-concepts">Basic Data Format Concepts</h4>
+
+<p>You will need to be familiar with these concepts:</p>
+<ul>
+  <li>bit</li>
+  <li>byte</li>
+  <li>character set - ASCII, Unicode, UTF-8.
+Also called a character <em>encoding</em>.</li>
+  <li><a href="">byte order - big-endian and little-endian</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal (aka hex)</a></li>
+</ul>
+
+<h4 id="dfdl-basic-terminology">DFDL Basic Terminology</h4>
+
+<p>DFDL uses these terms often:</p>
+<ul>
+  <li>Native - the raw data format of the input to a DFDL parse process</li>
+  <li>Infoset - the output representation of the parsed data. For learning purposes we'll assume 
+the Infoset is represented in XML.</li>
+  <li>Parse - to convert data from native format to an infoset</li>
+  <li>Unparse - The preferred term for the opposite of parse: to convert data from an infoset back into 
+native form. 
+This is often called <em>serialization</em> or <em>marshalling</em> in other non-DFDL contexts.</li>
+  <li>DFDL Processor - either a DFDL Parser or DFDL Unparser</li>
+  <li>Well-Formed - data is well-formed if a DFDL Parser can successfully produce an infoset. Note 
+that well-formed data may be <em>invalid</em>.</li>
+  <li>Valid - A formal term meaning the infoset (as XML) is <em>schema valid</em> in that 
+it has-been (or can be) validated using the DFDL schema (as an XML Schema). Note that the DFDL 
+schema can express more complex rules beyond just the usual XSD constraints by way of Schematron.</li>
+</ul>
+
+<p>There is also a <a href="/docs/dfdl/#_Toc62570272">Glossary of DFDL Terms</a> in the DFDL Specification.</p>
+
+<h2 id="training-courses-with-lab-exercises">Training Courses with Lab Exercises</h2>
+
+<p>There are training courses for DFDL which include hands-on lab exercises.</p>
+
+<h3 id="tools-needed-for-hands-on-training">Tools Needed for Hands-On Training</h3>
+
+<p>To do hands-on learning of DFDL you will want to interact with many of the open-source 
+<a href="https://github.com/DFDLSchemas">DFDL schema projects on github</a>.</p>
+
+<p>You will need to download and install these tools:</p>
+<ul>
+  <li><a href="https://git-scm.com/install/">git</a> - This may be pre-installed if you are running Linux.</li>
+  <li><a href="https://www.scala-sbt.org/">SBT (Simple Build Tool)</a> - This build tool is used by most 
+DFDL Schemas created for use with Apache Daffodil. It will automatically pull in the
+<a href="/sbt">Daffodil SBT Plugin</a> when a DFDL schema project requires it.</li>
+  <li><a href="/releases">Apache Daffodil</a> - The Daffodil libraries and its Command Line Interface (CLI)</li>
+</ul>
+
+<p>If you are familiar with the VSCode IDE, you may also want to install:</p>
+<ul>
+  <li><a href="/vscode">Apache Daffodil Extension for Visual Study Code</a></li>
+</ul>
+
+<p>Many developers use their preferred Java IDE such as 
+<a href="https://www.jetbrains.com/idea">JetBrains IntelliJ IDEA</a>. 
+Others like the low level approach of just using the 
+<a href="/cli">Daffodil Command Line Interface (CLI)</a>.</p>
+
+<h3 id="csv-to-bin-training-course"><a href="https://github.com/OpenDFDL/training">CSV to Bin</a> Training Course</h3>
+
+<p>The <a href="https://github.com/OpenDFDL/training">CSV to Bin</a> course has 7 labs starting from CSV 
+(Comma Separated Values) and creating variants of it eventually ending with 
+simple binary data examples. 
+This course was intended to take 3 days, the last day being 
+implementation of the <a href="https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format">NTP (Network Time Protocol)</a> message format.</p>
+
+<p>You can <a href="https://github.com/OpenDFDL/training/blob/master/slides/P-DFDL-CSVToBin-Training-Slides.pdf">review the slides</a> which accompany the labs.</p>
+
+<h3 id="faketdl-dfdl-training-course"><a href="https://github.com/OpenDFDL/training-dfdl-using-fakeTDL">FakeTDL DFDL Training</a> Course</h3>
+
+<p>The <a href="https://github.com/OpenDFDL/training-dfdl-using-fakeTDL">FakeTDL DFDL Training</a> course
+has 5 labs all of which are about developing your own version of the <em>Fake TDL</em> data format 
+starting from its specification document.
+On completion the DFDL schema should be equivalent to the 
+official <a href="https://github.com/DFDLSchemas/faketdl">FakeTDL DFDL Schema</a>.</p>
+
+<p>You can <a href="https://github.com/OpenDFDL/training-dfdl-using-fakeTDL/blob/main/slides/P-DFDL-FakeTDL-Lab-Training.pdf">review the slides</a> which accompany the labs.</p>
+
+<h2 id="learning-from-example-dfdl-schemas">Learning from Example DFDL Schemas</h2>
+
+<p>There are several simple DFDL Schemas that are well-structured, 
+follow best-practices, include self-testing, 
+and so serve as good starting points for learning DFDL.</p>
+
+<p>If a data layout diagram like <a href="https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format">this one for NTP (Network Time Protocol)</a> doesn't intimidate you, then perhaps you will want to 
+just dig directly into:</p>
+
+<ul>
+  <li><a href="https://github.com/DFDLSchemas/ntp">DFDL Schema for NTP</a> - You should recognize the field names
+from the diagram in the <a href="https://github.com/DFDLSchemas/ntp/blob/main/src/main/resources/com/owlcyberdefense/ntp/xsd/ntp-type.dfdl.xsd">primary <em>complex type</em> definition in the <code class="language-plaintext highlighter-rouge">ntp-type.dfdl.xsd</code> file</a>.</li>
+</ul>
+
+<p>Another publicly available schema intended to help with understanding of binary data, 
+specifically military messaging formats, is:</p>
+<ul>
+  <li><a href="https://github.com/DFDLSchemas/faketdl">DFDL Schema: Fake TDL</a> - This includes a <a href="https://github.com/DFDLSchemas/faketdl/blob/main/FakeTDLSpecification.md">Fake 
+TDL specification document</a> from which the DFDL schema is derived.</li>
+</ul>
+
+<p>The <a href="https://github.com/DFDLSchemas/mil-std-2045">MIL-STD-2045 Header Schema</a> is a useful example 
+showcasing:</p>
+<ul>
+  <li><em>enums</em> - a Daffodil extension of the DFDL v1.0 language.</li>
+  <li><em>bit order</em> - this format numbers the bits of each byte starting <em>least-significant-bit-first</em>.</li>
+  <li>Multi-version support - this schema handles both revisions C and D1 of the format 
+simultaneously.</li>
+</ul>
+
+<h2 id="other-learning-resources">Other Learning Resources</h2>
+
+<p>There are a variety of other materials on the Internet that provide some DFDL training:</p>
+
+<ul>
+  <li><a href="https://xfront.com/DFDL">xFront Tutorials on DFDL</a></li>
+  <li>IBM
+    <ul>
+      <li>YouTube videos and numerous articles - search web for "IBM DFDL"</li>
+      <li><a href="https://community.ibm.com/community/user/viewdocument/get-started-with-the-data-format-de">Getting Started with the Data Format Description Language</a></li>
+    </ul>
+  </li>
+  <li>Open Grid Forum DFDL Workgroup has 6 tutorials. 
+<a href="https://github.com/OpenGridForum/DFDL/tree/master/docs/current">Download PDFs from here</a>.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Note:</strong> AI bots like ChatGPT and Gemini don't know much about
+DFDL yet. (as of December 2025)</p>
+</blockquote>
+
+<h2 id="intermediate-and-advanced-dfdl-training-topics">Intermediate and Advanced DFDL Training Topics</h2>
+
+<h3 id="dfdl-schema-composition">DFDL Schema Composition</h3>
+
+<p>The DFDL language is designed to allow large DFDL schemas to be created as compositions of other 
+schemas.
+Large complex schemas can be built up as <em>assemblies</em> of <em>component schemas</em>.
+This way a library of reusable DFDL component schemas can be built up and reused.
+Each <em>component</em> can be developed and tested in isolation.</p>
+
+<p>The <a href="https://github.com/DFDLSchemas">DFDLSchemas site</a> has these schemas
+which provide an extensive example of the techniques for composing a larger DFDL schema 
+from smaller components:</p>
+<ul>
+  <li><a href="https://github.com/DFDLSchemas/envelope-payload">Envelope Payload</a> - an assembly of the next 3 schemas</li>
+  <li><a href="https://github.com/DFDLSchemas/tcpMessage">TCP Message</a></li>
+  <li><a href="https://github.com/DFDLSchemas/mil-std-2045">MIL-STD-2045 Header</a></li>
+  <li><a href="https://github.com/DFDLSchemas/PCAP">PCAP</a> - a component of the above, but also assembles 
+PCAP-specific schema content with the next schema.
+    <ul>
+      <li><a href="https://github.com/DFDLSchemas/ethernetIP">EthernetIP</a> - schema for Ethernet packets
+        <ul>
+          <li>EthernetIP makes use of an advanced Daffodil DFDL Language Extension 
+called <a href="/layers">Layers</a> to compute IPv4 packet checksums.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>A <a href="/tutorials/P-DFDL-Schema-Composition.pdf">slide deck on Schema Composition</a> illustrates the nesting 
+of DFDL schema payload components with surrounding DFDL schema headers/envelopes, which are also 
+components.</p>
+
+<h3 id="learning-the-daffodil-api">Learning the Daffodil API</h3>
+
+<p>Most uses of Apache Daffodil will embed it within a data processing system by way of its API.
+As of Daffodil 4.0.0 there is only a Java API for Daffodil, though it is usable from other JVM 
+languages such as Scala. 
+Prior versions of Daffodil had a Java API and a separate Scala API.
+All the API documentation is available on this site via links such as:</p>
+<ul>
+  <li><a href="/docs/latest/javadoc">Latest (Java) API</a></li>
+  <li><a href="/docs/3.11.0/javadoc">Daffodil v3.11.0 API - for Java</a> or <a href="/docs/3.11.0/scaladoc">for Scala</a>.</li>
+</ul>
+
+<p>Examples showing how to use the API from Java are available on the 
+<a href="https://github.com/OpenDFDL">OpenDFDL</a> site. See:</p>
+<ul>
+  <li><a href="https://github.com/OpenDFDL/examples/tree/master/helloWorld">helloWorld</a> - Shows how to parse, perform an XSLT 
+transformation, and unparse data from Java code. Slides that walk through this hello-world API 
+example are included at the end of the
+<a href="/presentations/2025-11-13-ASF-Overview-DFDL-v4.0.0.pdf">Overview Presentation about DFDL</a>.
+    <ul>
+      <li>A variation using
+ <a href="https://en.wikipedia.org/wiki/Efficient_XML_Interchange">EXI - a dense binary XML representation</a> for efficiency, 
+is also provided, called 
+<a href="https://github.com/OpenDFDL/examples/tree/master/helloWorldExificient">helloWorldExificient</a>. 
+Using EXI avoids the creation of large XML text representations of the 
+data, but otherwise does the same parse, XSLT Transform, and unparse of data.</li>
+    </ul>
+  </li>
+  <li><a href="https://github.com/OpenDFDL/examples/tree/master/hexWords">hexWords</a> is an advanced example of a DFDL 
+schema for a data format that is not byte-oriented.
+The data records are a multiple of 4 bits in length, hence, a data record can end in the 
+middle of a byte. 
+Using Daffodil via its API, <em>hexWords</em> shows one can parse such data from a data stream, letting 
+Daffodil keep track of the bit position internally.</li>
+</ul>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
