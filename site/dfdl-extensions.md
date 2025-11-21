@@ -89,6 +89,9 @@ a ``dfdl:lengthKind="explicit"`` surrounding element.
 and data location. 
 - DFDL property changes between the current location and the location containing
 the data being read will not be used.
+
+The motivation for this look-ahead capability is explained in 
+these [two slides](/tutorials/P-forward-reference-in-fixed-length-data.pdf).
   
 ### Examples of `dfdlx:lookAhead`
    
