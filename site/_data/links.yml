@@ -7,6 +7,7 @@ dfdlSpec:
   specStart: "/docs/dfdl"
   glossary: "/docs/dfdl/#_Toc62570272"
   intro: "/docs/dfdl/#_Toc62570039"
+  issue71: "https://github.com/OpenGridForum/DFDL/issues/71"
 
 xml:
   introWho: "w3schools"
@@ -26,6 +27,19 @@ reference:
   ntpPacketHeaderDiagram: "https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format"
   exi: "https://en.wikipedia.org/wiki/Efficient_XML_Interchange"
   hex: "https://en.wikipedia.org/wiki/Hexadecimal"
+  xercesc: "https://xerces.apache.org/xerces-c/"
+  libxml2: "https://gitlab.gnome.org/GNOME/libxml2"
+  venetianBlind: "https://www.balisage.net/Proceedings/vol25/print/Bruggemann-Klein01/BalisageVol25-Bruggemann-Klein01.html"
+  urn: "https://en.wikipedia.org/wiki/Uniform_Resource_Name"
+  java7Xpath: "http://docs.oracle.com/javase/7/docs/api/index.html?javax/xml/xpath/XPath.html"
+  java7NamespaceContext: "http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html"
+
+dafLists:
+  emptyBranchesEmail: "https://lists.apache.org/thread/dw0y9xy2z9r78fw4yyojvgc9cj6npoh4"
+
+apacheJira:
+  daf2916: "https://issues.apache.org/jira/browse/DAFFODIL-2916"
+  xercesc2243: "https://issues.apache.org/jira/browse/XERCESC-2243"
 
 schemas:
   dfdlSchemasSite: "https://github.com/DFDLSchemas"

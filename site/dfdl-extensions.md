@@ -89,6 +89,9 @@ a ``dfdl:lengthKind="explicit"`` surrounding element.
 and data location. 
 - DFDL property changes between the current location and the location containing
 the data being read will not be used.
+
+The motivation for this look-ahead capability is explained in these 
+[two slides about forward reference](/tutorials/P-forward-reference-in-fixed-length-data.pdf).
   
 ### Examples of `dfdlx:lookAhead`
    
@@ -298,7 +301,7 @@ Unparser-specific expressions include:
   of `unparseOnly` 
 
 
-## Enumerations: `dfdlx:repType`, `dfdlx:repValues`
+## Enumerations: `dfdlx:repType`, `dfdlx:repValues` {#dfdlxEnumerations}
 
 These properties work together to allow DFDL schemas to define _enumerations_;
 that is, symbolic representations for integer constants. 
@@ -344,7 +347,7 @@ facet values of the symbolic string type.
 
 A simple example of a basic enum is:
 
-```xsd
+```xml
   <simpleType name="rep3Bit" dfdl:lengthUnits="bits" dfdl:length="3" dfdl:lengthKind="explicit">
     <restriction base="xs:unsignedInt"/>
   </simpleType>
@@ -373,7 +376,7 @@ This one-to-one correspondence assures that data that is first parsed and then u
 recreate the exact numeric bits used.
 
 However, in data security applications the following may be preferred:
-```xsd
+```xml
  <simpleType name="precedenceEnum" dfdlx:repType="pre:rep3Bit">
     <restriction base="xs:string">
       <enumeration value="Reserved" dfdlx:repValues="0 1 3"/>
