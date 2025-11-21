@@ -173,10 +173,10 @@ You can [review the slides]({{ site.data.links.training.fakeTDLSlides}}) which a
 
 
 
-# Learning from Example DFDL Schemas
+# Learning from Example DFDL Schemas  {#exampleSchemas}
 
 There are several simple DFDL Schemas that are well-structured, 
-follow best-practices, include self-testing, 
+follow [best-practices](/dfdl-best-practices), include self-testing, 
 and so serve as good starting points for learning DFDL. 
 
 If a data layout diagram like [this one for NTP (Network Time Protocol)](
@@ -216,6 +216,30 @@ There are a variety of other materials on the Internet that provide some DFDL tr
 
 > **Note:** AI bots like ChatGPT and Gemini don't know much about
 DFDL yet. (as of December 2025)
+
+There is also a separate page about
+[best-practices](/dfdl-best-practices) for DFDL schema authors to follow. 
+
+## Presentations about DFDL/Daffodil
+
+This site contains a 
+[library of the Daffodil project team's presentations](/presentations) at 
+events including the ASF annual conference, various MeetUps and user groups, etc. 
+Both PDF and source (".pptx") forms of the slide presentations are available there. 
+
+The most common use case for DFDL is to describe files of data thereby enabling 
+_data integration_ into a common unified accessible form. DFDL for data integration 
+is often _parse only_, as there is often no need to _unparse_ the data back into its original form.
+However, there is also the
+[Cybersecurity Use Case for DFDL](/presentations/P-DFDL-Cyber-Use-Case.pdf). 
+This places a stronger emphasis on DFDL schemas that are able to both parse and unparse. 
+Important features in DFDL, specifically the `dfdl:outputValueCalc` property, exist to support 
+unparsing for this cybersecurity case. 
+
+> **Note:** The ASF annual conference is now (since 2023) called 
+> [_Community Over Code_](https://communityovercode.org/).
+> It was formerly known as 
+> [_ApacheCon_.](https://www.apachecon.com/history.html)
 
 # Intermediate and Advanced DFDL Training Topics
 

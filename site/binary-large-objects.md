@@ -65,7 +65,7 @@ All other values reserved for future extensions of this feature.
 
 An example of this usage in a DFDL schema may look something like this:
 
-```xsd
+```xml
 <xs:schema
   xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/">
