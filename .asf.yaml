@@ -16,6 +16,9 @@
 github:
   description: "Apache Daffodil Website"
   homepage: https://daffodil.apache.org/
+  labels:
+    - website
+    - jekyll
   features:
     wiki:     false
     issues:   false
