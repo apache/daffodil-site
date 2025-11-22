@@ -33,9 +33,6 @@ limitations under the License.
 
 # Introduction
 
-> **NOTE:** This other page: XPath Expressions and Namespaces should be integrated into this
-> overall style guide.
-
 This page is a collection of notes on how to create DFDL schemas to obtain some real benefits:
 - Minmizes XML and XSD namespace complexity
 - Provides composition properties so DFDL schemas can be reused as libraries in larger schemas
@@ -76,6 +73,9 @@ namespaces, following this guidance keeps DFDL schemas compatible with those rep
 
 The conventions are:
 - DFDL Schemas should use `elementFormDefault="unqualified"` (which is the default for XML Schemas).
+- Daffodil tunable 
+  [`unqualifiedPathStepPolicy`](https://daffodil.apache.org/tunables/#unqualifiedpathsteppolicy)
+  should be defined to be `noNamespace` (which is its default value)
 - DFDL schemas should not use element references.
 - Most DFDL Schema files should contain only definitions of types, groups, DFDL formats, and DFDL
   variables.
@@ -462,6 +462,8 @@ See issue: [XERCESC-2243 - choice validation with branch an empty sequence does 
 correctly](
 https://issues.apache.org/jira/browse/XERCESC-2243).
 
+
+
 # Appendix: Namespaces, Namespace Prefixes, Import, Include, and the `schemaLocation` Attribute
 
 > _This section provides rationale for the conventions already described above for avoiding
@@ -594,3 +596,118 @@ prefix can still show up and cause confusion in XML instance documents.
 
 Best practice is just avoid this `tns` convention entirely, and furthermore avoid having any
 elements in namespaces at all.
+
+# Appendix: Path Expressions and Namespaces
+
+DFDL includes an expression language based on XPath.
+
+Turns out that there are some "issues" with XPath 1.0 and XML namespaces.
+
+## No XPath way to bind prefixes
+If you have XML data that has a namespace, such as:
+```xml
+<data xmlns="urn:someNamespaceOrOther"><a>75</a></data>
+```
+Well, it turns out that there is no standard way to get this XPath to work:
+```xsd
+    /data/a
+``` 
+There is no XPath 1.0-standard mechanism for associating a namespace with a prefix (or with the default namespace).
+By that I mean there is nothing you can put in the path expression itself to specify the namespaces.  
+Such mechanisms are available on APIs specific to the XPath-1.0 processor.
+
+XPath-1.0 processors typically provide a way to bind namespace external to the XPath 1.0 expression.
+For example, in JAXB, namespaces are bound to prefixes (and to the default namespace) using
+the `NamespaceContext` method.
+
+See [XPath.html](http://docs.oracle.com/javase/7/docs/api/index.html?javax/xml/xpath/XPath.html)
+and the discussion on QNames in the class overview.
+Also see
+[NamespaceContext.html](
+http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html)
+for details on how to bind the default namespace.
+
+The `xmllint` command (and `libxml2` library on which it is based), binds unqualified names in XML 
+Schema paths (such as in `xs:key` and `xs:unique` selectors) and applies a default namespace if 
+one is defined.
+
+XSLT however, does NOT do this.
+Any default namespace binding is ignored in XSLT match and selector paths.
+
+## Coping with Schemas having Elements in Namespaces
+
+The above inconsistencies are yet another reason why the best practice is to avoid elements being
+defined in any namespace at all.
+
+However, some DFDL schemas do not follow these best practice guidelines. 
+In that case, managing namespace prefixes can be a little bit tricky.
+
+Daffodil constructs a namespace context object to provide resolution of prefixes on QNames.
+
+In Daffodil the way this works, is that whenever we have a DFDL expression, we also have the 
+encapsulating XML schema object that contained it.
+The namespace scope of that XML schema object defines what the prefixes in the expression mean.
+So we grab the namespace scope from the XML schema object, and use it to provide those definitions.
+This applies to every kind of name reference _except unqualified path steps_.
+
+Daffodil has a specific tunable parameter
+called [`unqualifiedPathStepPolicy`](
+https://daffodil.apache.org/tunables/#unqualifiedpathsteppolicy).
+This tunable defaults to `noNamespace`, but if a DFDL schema is not using no-namespace 
+elements in the recommended way, it can be set to
+`defaultNamespace` or `preferDefaultNamespace`.
+
+Suppose you write a schema and use the recommended convention of
+`xmlns="http://www.w3.org/2001/XMLSchema"`.
+This allows you to avoid the clutter of the `xs:` prefix on all the XML Schema elements.
+However, the schema does have a target namespace, let's say `urn:myFormat`
+bound to prefix `mf`.
+Furthermore, let's say the schemas specifies `elementFormDefault="qualified"`.
+That means all the local element names are also found in the target namespace.
+
+Now how are unqualified path steps in such a DFDL schema to be 
+interpreted?
+For example, in the `dfdl:length` expression in this element declaration:
+```xsd
+   <element name="data" type="int"
+      dfdl:length="{ /a/b/c }" />
+```
+By default, Daffodil will assume the path steps in `/a/b/c` have no namespace.
+But since your schema has a target namespace, and uses qualified local element names,
+you really want the above to be equivalent to if you had qualified all the names with
+prefixes:
+```xsd
+   <xs:element name="data" type="xs:int"
+      dfdl:length="{ /mf:a/mf:b/mf:c }" />
+```
+There is a way to get Daffodil to choose that interpretation which is binding the tunable
+[`unqualifiedPathStepPolicy`](
+https://daffodil.apache.org/tunables/#unqualifiedpathsteppolicy) tunable to 
+`defaultNamespace` or `preferDefaultNamespace`.
+This lets you write the path expression without qualified names, but at the cost of having
+to change the default namespace for the surrounding element declaration or perhaps the whole 
+schema, to be the target namespace using `xmlns="urn:myFormat` like so:
+```xsd
+<xs:schema xmlns="urn:myFormat" ...>
+  ...
+  <xs:element name="data" type="xs:int" 
+      dfdl:length="{ /a/b/c }" />
+  ...
+</xs:schema>  
+```
+Now Daffodil will properly interpret the path `/a/b/c` as if you had written `/mf:a/mf:b/mf:c`.
+
+All names in the schema referring to other elements, types, groups,
+defineFormat, defineVariable, or defineEscapeScheme also must be prefixed QNames in this case. 
+But for path expressions it is very easy to forget that one must prefix all the steps
+since those are QNames as well.
+
+If you really want to write expressions like `/a/b/c`, i.e., without any prefixes on the steps, 
+then you have to use the default namespace the same as the schema's target namespace,
+and set the Daffodil `unqualifiedPathStepPolicy` tunable appropriately. 
+
+But really you should just write or update your schema following the best practice recommendations 
+herein, and avoid all of this complexity. 
+
+The Daffodil tunables like `unqualifiedPathStepPolicy` are [documented here]( 
+https://daffodil.apache.org/configuration/).
