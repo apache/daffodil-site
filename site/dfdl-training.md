@@ -217,6 +217,18 @@ There are a variety of other materials on the Internet that provide some DFDL tr
 > **Note:** AI bots like ChatGPT and Gemini don't know much about
 DFDL yet. (as of December 2025)
 
+## Presentations about DFDL/Daffodil
+
+This site contains a 
+[library of the Daffodil project team's presentations](/presentations) at 
+events including the ASF annual conference, various MeetUps and user groups, etc. 
+Both PDF and source (".pptx") forms of the slide presentations are available there. 
+
+> **Note:** The ASF annual conference is now (since 2023) called 
+> [_Community Over Code_](https://communityovercode.org/).
+> It was formerly known as 
+> [_ApacheCon_.](https://www.apachecon.com/history.html)
+
 # Intermediate and Advanced DFDL Training Topics
 
 ## DFDL Schema Composition
