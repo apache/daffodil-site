@@ -42,6 +42,7 @@
               <ul class="dropdown-menu dropdown-left">
                 <li><a href="/getting-started/">Getting Started</a></li>
                 <li><a href="/dfdl-training/">DFDL Training</a></li>
+                <li><a href="/dfdl-best-practices/">Best Practices for DFDL Schemas</a></li>
                 <li><a href="/examples/">Examples</a></li>
                 <li><a href="/docs/latest/javadoc/">API</a></li>
                 <li><a href="/docs/dfdl/">DFDL Specification</a></li>
@@ -146,17 +147,17 @@ All other values reserved for future extensions of this feature.</p>
 
 <p>An example of this usage in a DFDL schema may look something like this:</p>
 
-<pre><code class="language-xsd">&lt;xs:schema
-  xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"&gt;
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:schema</span>
+  <span class="na">xmlns:dfdlx=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/extensions"</span>
+  <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span><span class="nt">&gt;</span>
 
-  &lt;xs:element name="data" type="xs:anyURI" 
-    dfdlx:objectKind="bytes"
-    dfdl:lengthUnits="bytes"
-    dfdl:length="1024" /&gt;
+  <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"data"</span> <span class="na">type=</span><span class="s">"xs:anyURI"</span> 
+    <span class="na">dfdlx:objectKind=</span><span class="s">"bytes"</span>
+    <span class="na">dfdl:lengthUnits=</span><span class="s">"bytes"</span>
+    <span class="na">dfdl:length=</span><span class="s">"1024"</span> <span class="nt">/&gt;</span>
 
-&lt;/xs:schema&gt;
-</code></pre>
+<span class="nt">&lt;/xs:schema&gt;</span>
+</code></pre></div></div>
 
 <p>The resulting infoset (as XML) will look something like this:</p>
 

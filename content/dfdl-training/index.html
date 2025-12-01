@@ -42,6 +42,7 @@
               <ul class="dropdown-menu dropdown-left">
                 <li><a href="/getting-started/">Getting Started</a></li>
                 <li><a href="/dfdl-training/">DFDL Training</a></li>
+                <li><a href="/dfdl-best-practices/">Best Practices for DFDL Schemas</a></li>
                 <li><a href="/examples/">Examples</a></li>
                 <li><a href="/docs/latest/javadoc/">API</a></li>
                 <li><a href="/docs/dfdl/">DFDL Specification</a></li>
@@ -119,8 +120,11 @@
       <li><a href="#faketdl-dfdl-training-course" id="markdown-toc-faketdl-dfdl-training-course">FakeTDL DFDL Training Course</a></li>
     </ol>
   </li>
-  <li><a href="#learning-from-example-dfdl-schemas" id="markdown-toc-learning-from-example-dfdl-schemas">Learning from Example DFDL Schemas</a></li>
-  <li><a href="#other-learning-resources" id="markdown-toc-other-learning-resources">Other Learning Resources</a></li>
+  <li><a href="#exampleSchemas" id="markdown-toc-exampleSchemas">Learning from Example DFDL Schemas</a></li>
+  <li><a href="#other-learning-resources" id="markdown-toc-other-learning-resources">Other Learning Resources</a>    <ol>
+      <li><a href="#presentations-about-dfdldaffodil" id="markdown-toc-presentations-about-dfdldaffodil">Presentations about DFDL/Daffodil</a></li>
+    </ol>
+  </li>
   <li><a href="#intermediate-and-advanced-dfdl-training-topics" id="markdown-toc-intermediate-and-advanced-dfdl-training-topics">Intermediate and Advanced DFDL Training Topics</a>    <ol>
       <li><a href="#dfdl-schema-composition" id="markdown-toc-dfdl-schema-composition">DFDL Schema Composition</a></li>
       <li><a href="#learning-the-daffodil-api" id="markdown-toc-learning-the-daffodil-api">Learning the Daffodil API</a></li>
@@ -283,10 +287,10 @@ official <a href="https://github.com/DFDLSchemas/faketdl">FakeTDL DFDL Schema</a
 
 <p>You can <a href="https://github.com/OpenDFDL/training-dfdl-using-fakeTDL/blob/main/slides/P-DFDL-FakeTDL-Lab-Training.pdf">review the slides</a> which accompany the labs.</p>
 
-<h2 id="learning-from-example-dfdl-schemas">Learning from Example DFDL Schemas</h2>
+<h2 id="exampleSchemas">Learning from Example DFDL Schemas</h2>
 
 <p>There are several simple DFDL Schemas that are well-structured, 
-follow best-practices, include self-testing, 
+follow <a href="/dfdl-best-practices">best-practices</a>, include self-testing, 
 and so serve as good starting points for learning DFDL.</p>
 
 <p>If a data layout diagram like <a href="https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format">this one for NTP (Network Time Protocol)</a> doesn't intimidate you, then perhaps you will want to 
@@ -332,6 +336,32 @@ simultaneously.</li>
 <blockquote>
   <p><strong>Note:</strong> AI bots like ChatGPT and Gemini don't know much about
 DFDL yet. (as of December 2025)</p>
+</blockquote>
+
+<p>There is also a separate page about
+<a href="/dfdl-best-practices">best-practices</a> for DFDL schema authors to follow.</p>
+
+<h3 id="presentations-about-dfdldaffodil">Presentations about DFDL/Daffodil</h3>
+
+<p>This site contains a 
+<a href="/presentations">library of the Daffodil project team's presentations</a> at 
+events including the ASF annual conference, various MeetUps and user groups, etc. 
+Both PDF and source (".pptx") forms of the slide presentations are available there.</p>
+
+<p>The most common use case for DFDL is to describe files of data thereby enabling 
+<em>data integration</em> into a common unified accessible form. DFDL for data integration 
+is often <em>parse only</em>, as there is often no need to <em>unparse</em> the data back into its original form.
+However, there is also the
+<a href="/presentations/P-DFDL-Cyber-Use-Case.pdf">Cybersecurity Use Case for DFDL</a>. 
+This places a stronger emphasis on DFDL schemas that are able to both parse and unparse. 
+Important features in DFDL, specifically the <code class="language-plaintext highlighter-rouge">dfdl:outputValueCalc</code> property, exist to support 
+unparsing for this cybersecurity case.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The ASF annual conference is now (since 2023) called 
+<a href="https://communityovercode.org/"><em>Community Over Code</em></a>.
+It was formerly known as 
+<a href="https://www.apachecon.com/history.html"><em>ApacheCon</em>.</a></p>
 </blockquote>
 
 <h2 id="intermediate-and-advanced-dfdl-training-topics">Intermediate and Advanced DFDL Training Topics</h2>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | Best Practices Guide for DFDL Schema Authors</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/img/apache-daffodil-icon.png" rel="icon" type="image/png">
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/releases">Releases</a></li>
+            <li id="extensions">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Extensions<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/vscode">VS Code</a></li>
+                <li><a href="/sbt">SBT</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/dfdl-training/">DFDL Training</a></li>
+                <li><a href="/dfdl-best-practices/">Best Practices for DFDL Schemas</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+<div class="title">
+  <div class="container"></div>
+</div>
+<div class="container">
+  <h1>Best Practices Guide for DFDL Schema Authors</h1>
+</div>
+
+
+
+    <div class="container">
+      <div class="row">
+  <div class="col-md-12">
+    <!--
+
+-->
+
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#avoid-element-namespaces" id="markdown-toc-avoid-element-namespaces">Avoid Element Namespaces</a>    <ol>
+      <li><a href="#namespace-uri-conventions" id="markdown-toc-namespace-uri-conventions">Namespace URI Conventions</a></li>
+      <li><a href="#noVersionsInNamespaceURIs" id="markdown-toc-noVersionsInNamespaceURIs">Versioning - In the Infoset/Data, Not the Namespace URI</a></li>
+    </ol>
+  </li>
+  <li><a href="#express-dfdl-properties-on-the-simple-types-not-the-elements" id="markdown-toc-express-dfdl-properties-on-the-simple-types-not-the-elements">Express DFDL Properties on the Simple Types, not the Elements</a></li>
+  <li><a href="#avoid-child-elements-with-the-same-name" id="markdown-toc-avoid-child-elements-with-the-same-name">Avoid Child Elements with the Same Name</a></li>
+  <li><a href="#avoid-anonymous-choices" id="markdown-toc-avoid-anonymous-choices">Avoid Anonymous Choices</a></li>
+  <li><a href="#versionInMarkerElements" id="markdown-toc-versionInMarkerElements">Versioning and Choices - Using Marker Elements</a></li>
+  <li><a href="#parse-and-unparse-symmetry" id="markdown-toc-parse-and-unparse-symmetry">Parse and Unparse Symmetry</a></li>
+  <li><a href="#avoid-choices-with-empty-branches" id="markdown-toc-avoid-choices-with-empty-branches">Avoid Choices with Empty Branches</a></li>
+  <li><a href="#normalizing-units-of-measure" id="markdown-toc-normalizing-units-of-measure">Normalizing Units of Measure</a></li>
+  <li><a href="#large-schemas-and-schema-generators-coping-with-large-data-format-specifications" id="markdown-toc-large-schemas-and-schema-generators-coping-with-large-data-format-specifications">Large Schemas and Schema Generators: Coping with Large Data Format Specifications</a>    <ol>
+      <li><a href="#include-documentation-strings" id="markdown-toc-include-documentation-strings">Include Documentation Strings</a></li>
+      <li><a href="#preserve-naming-and-connection-back-to-the-specification-document" id="markdown-toc-preserve-naming-and-connection-back-to-the-specification-document">Preserve Naming and Connection back to the Specification Document</a></li>
+      <li><a href="#style-of-generated-schemas" id="markdown-toc-style-of-generated-schemas">Style of Generated Schemas</a></li>
+      <li><a href="#plan-ahead-for-multiple-versions" id="markdown-toc-plan-ahead-for-multiple-versions">Plan Ahead for Multiple Versions</a>        <ol>
+          <li><a href="#about-spec-deltas" id="markdown-toc-about-spec-deltas">About Spec Deltas</a></li>
+        </ol>
+      </li>
+      <li><a href="#version-fields-and-dfdl-variables-for-versions" id="markdown-toc-version-fields-and-dfdl-variables-for-versions">Version Fields and DFDL Variables for Versions</a></li>
+      <li><a href="#how-many-files-in-a-dfdl-schema" id="markdown-toc-how-many-files-in-a-dfdl-schema">How Many Files in a DFDL Schema?</a></li>
+      <li><a href="#large-data-dictionaries-in-single-files" id="markdown-toc-large-data-dictionaries-in-single-files">Large Data Dictionaries in Single Files</a></li>
+    </ol>
+  </li>
+  <li><a href="#appendix-namespaces-namespace-prefixes-import-include-and-the-schemalocation-attribute" id="markdown-toc-appendix-namespaces-namespace-prefixes-import-include-and-the-schemalocation-attribute">Appendix: Namespaces, Namespace Prefixes, Import, Include, and the <code class="language-plaintext highlighter-rouge">schemaLocation</code> Attribute</a>    <ol>
+      <li><a href="#staying-out-of-namespace-hell" id="markdown-toc-staying-out-of-namespace-hell">Staying out of Namespace Hell</a></li>
+      <li><a href="#things-that-dont-work" id="markdown-toc-things-that-dont-work">Things that Don't Work</a></li>
+      <li><a href="#what-is-the-problem-with-the-tns-prefix" id="markdown-toc-what-is-the-problem-with-the-tns-prefix">What is the problem with the <code class="language-plaintext highlighter-rouge">tns</code> prefix?</a></li>
+    </ol>
+  </li>
+  <li><a href="#appendix-path-expressions-and-namespaces" id="markdown-toc-appendix-path-expressions-and-namespaces">Appendix: Path Expressions and Namespaces</a>    <ol>
+      <li><a href="#no-xpath-way-to-bind-prefixes" id="markdown-toc-no-xpath-way-to-bind-prefixes">No XPath way to bind prefixes</a></li>
+      <li><a href="#coping-with-schemas-having-elements-in-namespaces" id="markdown-toc-coping-with-schemas-having-elements-in-namespaces">Coping with Schemas having Elements in Namespaces</a></li>
+    </ol>
+  </li>
+</ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This page is a collection of notes on how to create DFDL schemas to obtain some real benefits:</p>
+<ul>
+  <li>Minmizes XML and XSD namespace complexity</li>
+  <li>Provides composition properties so DFDL schemas can be reused as libraries in larger schemas</li>
+  <li>Ensures compatibility of the schema with more restrictive infosets than XML.
+For example: JSON, Apache NiFi Records, or Apache Spark Structs.</li>
+  <li>Ensures portability of the DFDL schema for use to validate XML infosets
+using multiple different <em>XML Schema Validation libraries</em> such as <a href="https://xerces.apache.org/xerces-c/">Xerces C</a> and <a href="https://gitlab.gnome.org/GNOME/libxml2">libxml2</a>.</li>
+</ul>
+
+<p>The <a href="/dfdl-training#exampleSchemas">DFDL Training page lists several example schemas</a>  which follow 
+this style guide fully which you can use as good starting points.</p>
+
+<p>This set of notes represents best practices after learning <em>the hard way</em> from many debugging
+exercises and creating a wide variety of DFDL schemas from small teaching examples to large
+production schemas for major data formats with more than 100K lines of DFDL.</p>
+
+<p>For those familiar with XML Schema (XSD) design patterns, our schema style is a variation of
+what is called the
+<a href="https://www.balisage.net/Proceedings/vol25/print/Bruggemann-Klein01/BalisageVol25-Bruggemann-Klein01.html"><em>Venetian Blind</em> pattern</a>,
+that one might call <em>Strict Venetian-Blind Type Library</em>.</p>
+
+<ul>
+  <li>"Strict" because we strongly minimize the use of global elements, namespaces,
+and some other XSD constructs that are highly specialized to XML as the data representation.</li>
+  <li>"Type-Library" because we structure DFDL schemas so that there is always
+the option for a user to use the schema as a library within a larger encompassing
+DFDL schema by referencing a complex type definition provided by the library schema.</li>
+</ul>
+
+<p>Below are the details.</p>
+
+<h2 id="avoid-element-namespaces">Avoid Element Namespaces</h2>
+
+<p>Much of the complexity of XML and XML Schema comes from their namespace features.
+This can be avoided entirely by following simple conventions.</p>
+
+<p>Since many data representations (such as JSON, Apache NiFi Records) have no notion of
+namespaces, following this guidance keeps DFDL schemas compatible with those representations.</p>
+
+<p>The conventions are:</p>
+<ul>
+  <li>DFDL Schemas should use <code class="language-plaintext highlighter-rouge">elementFormDefault="unqualified"</code> (which is the default for XML Schemas).</li>
+  <li>Daffodil tunable 
+<a href="/tunables/#unqualifiedpathsteppolicy"><code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code></a>
+should be defined to be <code class="language-plaintext highlighter-rouge">noNamespace</code> (which is its default value)</li>
+  <li>DFDL schemas should not use element references.</li>
+  <li>Most DFDL Schema files should contain only definitions of types, groups, DFDL formats, and DFDL
+variables.
+    <ul>
+      <li>These schema files should share a single target namespace
+with a <a href="#namespace-uri-conventions">well-chosen unique URI</a>.</li>
+    </ul>
+  </li>
+  <li>A DFDL Schema should define global elements only for root elements.
+    <ul>
+      <li>These should be in a single separate file with <em>no target namespace</em>.</li>
+      <li>These should be <em>one liner</em> declarations which just reference types imported from the other
+schema files.</li>
+      <li>Most DFDL schemas will need only 1 or 2 such global elements.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The real content of the schema should always be in a named complex type definition.
+This gives the schema user the choice of what they want to call their elements,
+and enables use of the schema as a child element within a
+larger structure.</p>
+
+<p>Defining only global types and groups – leaving the global elements only for testing or the
+end-user of the schema – provides greater flexibility.
+All schemas are available to use as libraries.
+Hence, the standard start of a DFDL schema is doing to be:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- mySchemaType.dfdl.xsd --&gt;</span>
+<span class="nt">&lt;schema</span>
+  <span class="na">targetNamespace=</span><span class="s">"urn:example.com:schema:dfdl:mySchema:ms"</span>
+  <span class="na">xmlns:ms=</span><span class="s">"urn:example.com:schema:dfdl:mySchema:msns"</span>
+  <span class="na">xmlns:dfdl=</span><span class="s">"http://www.ogf.org/dfdl/dfdl-1.0/"</span>
+  <span class="na">xmlns:xs=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> 
+  <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span> 
+  <span class="err">...</span> <span class="nt">&gt;</span>
+
+  ... import/include statements and top level format annotations...
+
+  <span class="nt">&lt;complexType</span> <span class="na">name=</span><span class="s">"mySchemaType"</span><span class="nt">&gt;</span>
+     ... the real schema contents is all here or reachable from here. ...
+  <span class="nt">&lt;/complexType&gt;</span>
+
+  ... other types and groups ...
+
+<span class="nt">&lt;/schema&gt;</span>
+</code></pre></div></div>
+
+<p>Included files, and imported files that are part of the same DFDL schema project should have
+no global elements at all.</p>
+
+<p>The only global element(s) defined should be <em>one liners</em> defined in a single <em>root</em>
+schema file like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- mySchemaRoot.dfdl.xsd --&gt;</span> 
+<span class="nt">&lt;schema</span>
+  <span class="na">xmlns:ms=</span><span class="s">"urn:example.com:schema:dfdl:mySchema:ms"</span>
+  <span class="err">...</span> <span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Root elements only - no target namespace --&gt;</span>
+
+  <span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:example.com:schema:dfdl:mySchema:ms"</span> 
+          <span class="na">schemaLocation=</span><span class="s">".../mySchemaType.dfdl.xsd"</span><span class="nt">/&gt;</span>
+
+  ... a top level dfdl:format declaration ...
+
+ <span class="c">&lt;!-- 
+   The root element - a type-reference only to an individual item 
+   of the data format
+ --&gt;</span> 
+  
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"myRoot"</span> <span class="na">type=</span><span class="s">"ms:mySchemaType"</span><span class="nt">/&gt;</span> 
+  
+  <span class="c">&lt;!--
+    If needed (for testing) optional second root element for files containing 
+    repetitions of the mySchemaType data format. Also a type reference only.
+   --&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"myRootFile"</span> <span class="na">type=</span><span class="s">"ms:mySchemaFileType"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/schema&gt;</span>
+</code></pre></div></div>
+
+<p>Rationale:</p>
+
+<ul>
+  <li>This makes schemas more flexible for reuse because it takes no position on element
+names that the schema user can't avoid if they so choose.</li>
+  <li>JSON compatible.</li>
+  <li>When the only global elements are defined in a no-namespace schema, XML instance documents:
+    <ul>
+      <li>never use prefixes on element names</li>
+      <li>never (almost) have namespace prefix definitions in them</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The only namespace prefix definitions one <em>may</em> still require in XML instance documents are
+exactly these:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</code> - used for <code class="language-plaintext highlighter-rouge">xsi:nil</code> and <code class="language-plaintext highlighter-rouge">xsi:type</code>
+attributes</li>
+  <li><code class="language-plaintext highlighter-rouge">xmlns:xs="http://www.w3.org/2001/XMLSchema"</code> - used for values of <code class="language-plaintext highlighter-rouge">xsi:type</code> attributes</li>
+</ul>
+
+<p>For example:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;data</span> <span class="na">xsi:nil=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;start</span> <span class="na">xsi:type=</span><span class="s">"xs:dateTime"</span> <span class="nt">&gt;</span>1961-02-01T06:02:03Z<span class="nt">&lt;/start&gt;</span>
+</code></pre></div></div>
+<p>The <code class="language-plaintext highlighter-rouge">xsi:nil</code> attribute is only needed if a DFDL schema uses nillable elements.
+The <code class="language-plaintext highlighter-rouge">xsi:type</code> attribute is only used during test/debug activities to 
+enable type-sensitive equality comparison<sup id="fnref:ztime"><a href="#fn:ztime" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.
+These exceptions never create the need for an <em>element</em> to have a namespace prefix.</p>
+
+<blockquote>
+  <p><strong>Security Note:</strong> Avoiding element prefixes and namespace prefix definitions is also
+considered a
+cyber-security improvement for XML since they can be used for covert channels without
+making the document invalid.
+A primary use case for DFDL and Daffodil is in <em>data cybersecurity</em> where this principle
+is important!</p>
+</blockquote>
+
+<p>Summary:</p>
+<ul>
+  <li>A DFDL schema should consist almost entirely of type and group definitions.
+    <ul>
+      <li>The type and group definitions should have a target namespace.</li>
+      <li>These files should contain no global elements at all.</li>
+    </ul>
+  </li>
+  <li>Schema files that define global elements should have one or at most two global element
+declarations in them, and those should be the only definitions in that file.</li>
+  <li>These global elements should have <em>no target namespace</em>.</li>
+  <li>If the DFDL schema is a component library, then the global elements exist for testing only
+and are ignored entirely when the schema is reused as part of a larger schema.</li>
+</ul>
+
+<h3 id="namespace-uri-conventions">Namespace URI Conventions</h3>
+
+<p>There are good conventions to use when</p>
+<ul>
+  <li>choosing a namespace URI for a DFDL schema, and</li>
+  <li>choosing namespace prefixes</li>
+</ul>
+
+<p>Suppose you work for example.com, and you have XML Schemas, DFDL Schemas, and JSON schemas.</p>
+
+<p>Let's suppose you have a DFDL schema for a format named "ebx data".<br />
+Suppose there are various versions of this format.</p>
+
+<p>The following is a useful namespace URI and prefix definition for this format:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xmlns:ebx="urn:example.com:schema:dfdl:ebxData:ebx"
+</code></pre></div></div>
+<p>This has these benefits:</p>
+<ul>
+  <li>The URI is a
+<a href="https://en.wikipedia.org/wiki/Uniform_Resource_Name">URN (Universal Resource Name)</a>
+which means it is not an identifier nor a location to retrieve from.</li>
+  <li>It is unique to your company/organization</li>
+  <li>It identifies it as a DFDL schema namespace</li>
+  <li>It contains the format name</li>
+  <li>It ends with the suggested prefix to be used for this namespace</li>
+</ul>
+
+<p>Note also that there is no version information at the end of this URI.
+This turns out to be a best practice.</p>
+
+<p>Everyone who sees this namespace URI alone as in an import statement like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"urn:example.com:schema:dfdl:ebxData:ebx"</span>
+        <span class="na">schemaLocation=</span><span class="s">"/com/example/schema/dfdl/ebxData.dfdl.xsd"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>From this one automatically knows the prefix to use by convention, because it is the
+last part of the namespace URI.</p>
+
+<p>These conventions for the <code class="language-plaintext highlighter-rouge">schemaLocation</code> are also useful as they provide something like
+the Java package system to avoid name collisions.</p>
+
+<h3 id="noVersionsInNamespaceURIs">Versioning - In the Infoset/Data, Not the Namespace URI</h3>
+
+<p>It's become clear in XML Schemas (not just DFDL) that having version specific namespace URIs 
+causes difficulty.</p>
+
+<p>One issue is that the path expressions that navigate such elements become version specific even if 
+the elements they are ultimately accessing are common to multiple versions. Such paths are 
+monomorphic to specific versions. It is much nicer if path expressions are as polymorphic 
+across versions as possible.</p>
+
+<p>Hence, define an element in your schema to hold the version information.
+Don't append a version number to a namespace URI.</p>
+
+<p>(Since JSON has no namespaces, you can't use namespaces to carry version information if you want
+to use JSON.
+Hence carrying version information in an element makes your schema more JSON
+compatible.)</p>
+
+<h2 id="express-dfdl-properties-on-the-simple-types-not-the-elements">Express DFDL Properties on the Simple Types, not the Elements</h2>
+
+<p>Data formats usually are repetitive.
+The same format properties are often needed repeatedly for many different elements in the overall
+format.</p>
+
+<p>This is best captured by defining named types and groups.
+Redundancy is then avoided by sharing use of types for every element having that same format.</p>
+
+<p>One then avoids repetitive DFDL properties by placing the properties on the simple type
+definitions rather than on the elements having that type.</p>
+
+<p>It would be nice to say this applies for both simple and complex types, but alas the same exact
+style is not usable on complex type definitions, which do not carry DFDL properties in
+DFDL version 1.0.
+To avoid redundant properties on complex types it is suggested that named format definitions
+are created and used on each complex type variation.
+This is not quite as clean, but minimizes redundancy within what is allowed.</p>
+
+<p>Note that the DFDL Workgroup is considering adding the ability to <a href="https://github.com/OpenGridForum/DFDL/issues/71">put DFDL properties on complex
+types</a> in a future version of the DFDL standard.</p>
+
+<h2 id="avoid-child-elements-with-the-same-name">Avoid Child Elements with the Same Name</h2>
+
+<p>XML Schema has a data model with some flexibility needed only for markup languages.</p>
+
+<p>DFDL uses XML Schema to describe structured data, where this flexibility is not needed.</p>
+
+<p>DFDL omits many XML Schema constructs, but DFDL version 1.0 still allows some things that are
+best avoided to insure the ability to interoperate with other data models.</p>
+
+<p>One such feature is the ability in XML Schema to have multiple child elements with the same name.
+So long as it is unambiguous what element declaration is intended, XML Schema allows things like:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+<span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"foo"</span> <span class="err">....</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"bar"</span> <span class="err">....</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"foo"</span> <span class="err">....</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>This is allowed because the element <code class="language-plaintext highlighter-rouge">bar</code> separates the two different declarations of
+the <code class="language-plaintext highlighter-rouge">foo</code> element;
+hence, when parsing XML, the first <code class="language-plaintext highlighter-rouge">foo</code> declaration is used until a <code class="language-plaintext highlighter-rouge">bar</code> element is
+encountered, and after that the second <code class="language-plaintext highlighter-rouge">foo</code> declaration is used.</p>
+
+<p>That's all interesting and useful for markup languages, but no other structured data system allows this.
+Hence, while DFDL v1.0 allows this, it is best avoided to enable DFDL schemas to be interfaced to
+data systems having more typical data models.</p>
+
+<p>You can see why XML Schema allows this if you think about markup as in HTML.
+XML is for markup languages and XSD is for describing them.
+In a markup language you are often going to need lots of the same tag to appear within text
+repeatedly, separated by other tags at that same level of nesting.
+The fact that the instance data is XML means the tag-names make it easy to tease apart the document.</p>
+
+<p>DFDL is for describing data that has no tags or specific syntax that the schema language
+can depend upon.
+So it provides only a subset of XSD features, and best practice is to avoid things that aren't
+typical in structured data systems.</p>
+
+<p>JSON also has no notion of child elements with the same name, so avoiding this enables a
+DFDL schema to be JSON compatible.</p>
+
+<h2 id="avoid-anonymous-choices">Avoid Anonymous Choices</h2>
+<p>XML Schema allows a choice to be anonymous within the data model of an element. For example:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"myElement"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;complexType&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+       ... various elements ...
+       <span class="nt">&lt;choice&gt;</span>
+         ... choice branches ...
+       <span class="nt">&lt;/choice&gt;</span>
+       ... various more elements
+    <span class="nt">&lt;/sequence&gt;</span>
+  <span class="nt">&lt;/complexType&gt;</span>
+<span class="nt">&lt;/element&gt;</span>
+</code></pre></div></div>
+<p>The choice above appears in the middle of a sequence group, with elements and/or other groups
+before and after it.
+Note that there is no element name associated with the choice.
+Rather in XML data, the choice branches would at some level within them contain elements
+and these would appear as direct children of the <code class="language-plaintext highlighter-rouge">myElement</code> parent element.</p>
+
+<p>Many other data modeling languages do not have this capability.
+They require choices to be named.</p>
+
+<p>Hence, this sort of anonymous choice is to be avoided.</p>
+
+<p>There are two ways to avoid trouble here.</p>
+
+<ul>
+  <li>Choice groups should always be the model-groups of named elements.</li>
+  <li>Choice branches within the choice are all just <em>scalar</em> elements (meaning non-dimensioned:
+<code class="language-plaintext highlighter-rouge">minOccurs</code> and <code class="language-plaintext highlighter-rouge">maxOccurs</code> are both absent or are both "1").</li>
+</ul>
+
+<p>So for example, this is fine:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;complexType</span> <span class="na">name=</span><span class="s">"TransportLayer"</span><span class="nt">&gt;</span>    
+   <span class="nt">&lt;choice</span> <span class="na">dfdl:choiceDispatchKey=</span><span class="s">"{ xs:string(../Protocol) }"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"TCP"</span> <span class="na">type=</span><span class="s">"eth:TCP"</span> <span class="na">dfdl:choiceBranchKey=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"UDP"</span> <span class="na">type=</span><span class="s">"eth:UDP"</span> <span class="na">dfdl:choiceBranchKey=</span><span class="s">"17"</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/choice&gt;</span>
+ <span class="nt">&lt;/complexType&gt;</span>
+</code></pre></div></div>
+<p>because the choice is the model group of a complex type.
+That can only be the type of an element, so this choice is the model group of that element's content.
+It's not anonymous.</p>
+
+<p>The other way of avoiding trouble is having each choice branch be a scalar element:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;sequence&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"Type"</span> <span class="na">type=</span><span class="s">"bb:bit"</span> <span class="na">dfdl:length=</span><span class="s">"8"</span><span class="err">...</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"Code"</span> <span class="na">type=</span><span class="s">"bb:bit"</span> <span class="na">dfdl:length=</span><span class="s">"8"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"Checksum"</span> <span class="na">type=</span><span class="s">"bb:bit"</span> <span class="na">dfdl:length=</span><span class="s">"16"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;choice</span> <span class="na">dfdl:choiceDispatchKey=</span><span class="s">"{ fn:concat(xs:string(./Type), '_', xs:string(./Code)) }"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"EchoRequest"</span> <span class="na">dfdl:choiceBranchKey=</span><span class="s">"8_0"</span><span class="err">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"EchoReply"</span> <span class="na">dfdl:choiceBranchKey=</span><span class="s">"0_0"</span> <span class="err">...</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/choice&gt;</span>
+<span class="nt">&lt;/sequence&gt;</span>
+</code></pre></div></div>
+<p>Here we see that the choice is anonymous within the sequence, but the choice branches are just scalar elements.
+Data modeling systems with no notion of a choice can model these two choice branch
+elements each as an optional element.<br />
+Apache Spark Struct has no equivalent of choice in it; hence, choice branches must be modeled as
+optional elements.</p>
+
+<p>By using using these techniques, one insures one's DFDL schema can be mapped to the data
+structures of the other data systems which do not allow anonymous choices.</p>
+
+<h2 id="versionInMarkerElements">Versioning and Choices - Using Marker Elements</h2>
+
+<p>Given two different versions of a schema, consider:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;choice&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;complexType&gt;</span>
+        <span class="nt">&lt;sequence&gt;</span>
+           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sequence&gt;</span>
+     <span class="nt">&lt;/complexType&gt;</span>
+  <span class="nt">&lt;/element&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;complexType&gt;</span>
+        <span class="nt">&lt;sequence&gt;</span>
+           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+         <span class="nt">&lt;/sequence&gt;</span>
+     <span class="nt">&lt;/complexType&gt;</span>
+  <span class="nt">&lt;/element&gt;</span>
+<span class="nt">&lt;/choice&gt;</span>
+</code></pre></div></div>
+<p>Note both versions 1 and 2 have a child named <code class="language-plaintext highlighter-rouge">c</code> which is an <code class="language-plaintext highlighter-rouge">xs:int</code>.</p>
+
+<p>This has the drawback that the path to reach element <code class="language-plaintext highlighter-rouge">c</code> must have a parent that is version
+specific even though element <code class="language-plaintext highlighter-rouge">c</code> is common to both versions.
+The two differ only by a DFDL property (<code class="language-plaintext highlighter-rouge">dfdl:length</code>).</p>
+
+<p>Consider instead using this technique:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;choice&gt;</span>
+  <span class="nt">&lt;sequence&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/sequence&gt;</span>
+  <span class="nt">&lt;sequence&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/sequence&gt;</span>
+<span class="nt">&lt;/choice&gt;</span>
+</code></pre></div></div>
+<p>This uses a marker element which will be <code class="language-plaintext highlighter-rouge">&lt;v1/&gt;</code> or <code class="language-plaintext highlighter-rouge">&lt;v2/&gt;</code> before the other elements.
+A path to the <code class="language-plaintext highlighter-rouge">c</code> element will not have a <code class="language-plaintext highlighter-rouge">v1</code> nor <code class="language-plaintext highlighter-rouge">v2</code> element parent.</p>
+
+<p>Such paths are then version polymorphic, which is very much preferable.</p>
+
+<p>The type <code class="language-plaintext highlighter-rouge">pre:empty</code> can be defined to be an unaligned empty sequence so that it has no
+representation in the data stream.</p>
+
+<h2 id="parse-and-unparse-symmetry">Parse and Unparse Symmetry</h2>
+
+<p>Some DFDL schemas are written to parse data only.
+This section is about the other case where the schema is also being used to unparse the data.</p>
+
+<p>It is generally considered best practice for a schema that parses and unparses data to have
+symmetric behavior, meaning: if the parse produces an infoset, that infoset can be unparsed
+successfully.</p>
+
+<p>There are exceptions to this if the DFDL schema is designed to tolerate malformed data by
+capturing it explicitly into <em>reject elements</em> to allow debug or analysis.
+Such reject elements should fail to unparse.</p>
+
+<h2 id="avoid-choices-with-empty-branches">Avoid Choices with Empty Branches</h2>
+
+<p>See also <a href="https://lists.apache.org/thread/dw0y9xy2z9r78fw4yyojvgc9cj6npoh4">this email about choices with empty branches</a>, for example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;choice&gt;</span>
+  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"foo"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;sequence</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/choice&gt;</span>
+</code></pre></div></div>
+<p>This is best avoided as it causes incorrect XSD validation in current versions of Xerces C,
+a popular XML validator library.</p>
+
+<p>See issue: <a href="https://issues.apache.org/jira/browse/XERCESC-2243">XERCESC-2243 - choice validation with branch an empty sequence does not validate
+correctly</a>.</p>
+
+<h2 id="normalizing-units-of-measure">Normalizing Units of Measure</h2>
+
+<p>Binary data often uses integers to represent quantities that are scaled in some manner.
+These slides illustrate how DFDL should be created to 
+<a href="/best-practices/P-DFDL-Units-Normalization.pdf"><em>normalize the units of measure</em></a>
+to make the data convenient to use and easy to understand.</p>
+
+<h2 id="large-schemas-and-schema-generators-coping-with-large-data-format-specifications">Large Schemas and Schema Generators: Coping with Large Data Format Specifications</h2>
+
+<p>DFDL schema projects for large data formats often start from a large specification document 
+having thousands of pages. If you are lucky there is a database description of the format, but 
+if not these slides illustrate 
+<a href="/best-practices/P-DFDL-Schema-Generation.pdf">how to scrape and generate DFDL</a>, 
+that is, reverse engineer a machine-readable specification 
+from the spec document and then generate the DFDL schema from that.</p>
+
+<h3 id="include-documentation-strings">Include Documentation Strings</h3>
+
+<p>When capturing element names and types from a format specification it is best practice, when 
+possible, to also capture documentation blocks. 
+Incorporating this documentation into annotations on the DFDL schema simply makes the schema 
+more useful. 
+For example one can generate online help text from the DFDL schema rather than forcing users to 
+search through the specification document.</p>
+
+<h3 id="preserve-naming-and-connection-back-to-the-specification-document">Preserve Naming and Connection back to the Specification Document</h3>
+
+<p>Large data format specifications often have conventions in the way things are named which makes 
+finding them in the specification easier. 
+For example, in the data dictionary for a format, each entry may have a specific identification 
+number allowing similarly named data dictionary items to be robustly distinguished.</p>
+
+<p>In a DFDL schema for this format it is best to reproduce and use these identification numbers, 
+not to the exclusion of meaningful names, but as an adjunct to them.
+This enables users who are familiar with the format specification and these identification 
+numbers to immediately understand the 
+connection between that specification and the DFDL schema.</p>
+
+<h3 id="style-of-generated-schemas">Style of Generated Schemas</h3>
+
+<p>The best practice for generated DFDL schemas is that they should be generated so they look 
+as if they were written by hand in that they should follow DFDL schema best practices.
+End users of large DFDL schemas will often need to subset or customize them by hand, so the 
+organization of the DFDL schema into files should lend itself to this kind of customization.</p>
+
+<h3 id="plan-ahead-for-multiple-versions">Plan Ahead for Multiple Versions</h3>
+
+<p>Large data format specifications often have many versions that are in active use. 
+DFDL schema generators should be planned with this in mind.</p>
+
+<p>For example, the <em>machine readable</em> version of the format specification
+(such as would be output from a 
+<a href="/best-practices/P-DFDL-Schema-Generation.pdf">Spec Scraper</a>)
+should be designed to 
+enable identification of the deltas/differences between versions of the schema.
+For a large data format, it is most often the case that the differences from one version to the next
+are small.</p>
+
+<blockquote>
+
+  <h4 id="about-spec-deltas">About Spec Deltas</h4>
+
+  <p>A deltas between two versions of a format specification document can be classified as one of 
+these kinds:</p>
+  <ol>
+    <li>Prose Correction: A clarification or correction to the text of the document that improves it, 
+but does not represent any actual change to the data format.</li>
+    <li>Spec Format Correction: An update to the specification that makes the spec properly reflect 
+the defacto data format. 
+For example, a specific data field is defacto 3 bytes long, but a prior version of the 
+spec incorrectly stated it was 4 bytes long.
+The new version of the spec corrects this mistake.</li>
+    <li>Spec Infoset Correction: An update to the specification that changes the infoset but not the 
+underlying format. 
+For example, the name of a field might be corrected or changed.</li>
+    <li>Addition: An update to the specification that extends it in a way that is compatible 
+with the prior version, for example, adding a new message type to a message data format.</li>
+    <li>Change: An update to the specification that indicates data conforming to the new version will 
+be different from data conforming to the prior specification.</li>
+  </ol>
+
+  <p>Notice that the first two kinds of deltas do not affect the DFDL schema for a format.</p>
+</blockquote>
+
+<p>Use of the delta information enables generation of a DFDL schema which is much easier to use 
+because the common parts that do not vary with different versions are going to make up the bulk 
+of the schema.</p>
+
+<p>The goal is that access (using DFDL or XPath <em>expressions</em>) to the infoset uses paths which are 
+usually <em>polymorphic</em> across versions - it is not necessary to have path components that specify a 
+version if there are no deltas between versions for the fields of data being accessed. 
+Version-specific differences are then the only places where users must be version aware when 
+accessing or creating infosets.</p>
+
+<p>For example suppose a data format has specifications with revisions A, B, C, and forthcoming 
+revision D. 
+In the future additional revisions could also occur. 
+While one may only have need for revision B for a specific data processing need, it is 
+best to plan for the schema to be able to handle many revisions. 
+If in the future you also need to handle revision C, then it is best to issue an updated
+DFDL schema for the format that is able to handle <em>both</em> revisions B and C, rather than 
+separate DFDL schemas for each version.</p>
+
+<p>See other version-related guidance about:</p>
+<ul>
+  <li><a href="#noVersionsInNamespaceURIs">Avoid Versions in Namespace URIs</a></li>
+  <li><a href="#versionInMarkerElements">Versioning using Marker Elements</a></li>
+</ul>
+
+<h3 id="version-fields-and-dfdl-variables-for-versions">Version Fields and DFDL Variables for Versions</h3>
+
+<p>If the data contains a version identifier field, then this field can be used to select 
+the version using DFDL choices. 
+If the data does <em>not</em> contain a version identifier field, then an external <em>DFDL Variable</em> 
+should be defined by the schema which specifies the version. 
+The value of this variable should be captured in an element of the infoset.
+This enables the schema to be used as a payload component with, for example, a header schema which 
+provides the version of the payload. 
+The assembly schema that combines the header and payload component schemas would simply bind the 
+DFDL variable using <code class="language-plaintext highlighter-rouge">dfdl:newVariableInstance</code> so that the payload part of the data would be 
+properly processed.</p>
+
+<h3 id="how-many-files-in-a-dfdl-schema">How Many Files in a DFDL Schema?</h3>
+
+<p>From experience, it is worth limiting the number of files generated for a schema in a manner 
+consistent with user needs to modify or subset the schema. 
+For example, a schema for a message data format with 
+100 message types should have approximately 100 files, i.e., one per message, along with a 
+small number of other files to define a common type library, dispatch to the different message 
+types, etc. 
+This enables users to create schemas that handle only a subset of the messages, or to readily 
+customize or create variant messages by modifying or duplicating single files of the schema by 
+hand appropriately.</p>
+
+<p>Because DFDL schemas are often used as XML schemas for data that has been converted into
+XML, there is some justification to creating even fewer files so long as the ability to
+modify/subset the content remains feasible given the organization and order of the items in the 
+file.
+Limiting the number of files can make use of the schema with other XML utilities and tools much
+easier, as experience has shown that such tools are commonly built with the assumption that a
+schema consists of a few files only.</p>
+
+<p>We would not go so far as to recommend DFDL schemas be created as single files only except for
+very small examples intended for teaching/illustration or bug reporting.
+For example, within <a href="/tdml">TDML (Test Data Markup Language) files</a> small DFDL schemas that
+illustrate tests can be embedded directly.</p>
+
+<h3 id="large-data-dictionaries-in-single-files">Large Data Dictionaries in Single Files</h3>
+
+<p>Many large data formats come with a <em>data dictionary</em> that defines a large number of field types 
+that are reused multiple times in the format. 
+In one large format there are over 1200 different entries in the data dictionary. 
+An example of what a DFDL schema generator should <em>not</em> do, it's clearly unreasonable to generate
+one schema file per data dictionary entry. 
+Rather, a single somewhat large, even multiple megabyte-sized, DFDL schema file containing the 
+DFDL definitions for the entire data dictionary is more sensible despite the fact that if a user 
+wants to subset the schema they would not be able to easily determine the parts of the data 
+dictionary they need without creating tools to isolate this.</p>
+
+<p>One valuable exception to this policy is for 
+<a href="/dfdl-extensions#dfdlxEnumerations">large enumerations</a>. 
+Placing those in separate files, or having a separate file where all the enumerations are 
+defined often helps users avoid having to scroll past thousands of lines of enumeration constants.</p>
+
+<h2 id="appendix-namespaces-namespace-prefixes-import-include-and-the-schemalocation-attribute">Appendix: Namespaces, Namespace Prefixes, Import, Include, and the <code class="language-plaintext highlighter-rouge">schemaLocation</code> Attribute</h2>
+
+<blockquote>
+  <p>This section provides rationale for the conventions already described above for avoiding
+elements with namespaces entirely, choosing schema target namespace URIs methodically, etc.</p>
+</blockquote>
+
+<p>Namespaces and namespace prefixes in XSD seem simple enough until you start building a very
+large DFDL schema from multiple disjoint component schemas that are intended for reuse.</p>
+
+<p>DFDL does not have any namespace features of its own, it simply passes through XML Schema's
+namespace and prefix system.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> DFDL does not have the XML Schema "redefine" construct, but neither do
+many other XML Schema software platforms.</p>
+</blockquote>
+
+<p>Without following a reasonable set of standard practices it is quite easy to end up in
+what we call <em>namespace hell</em>.
+In this situation you get all sorts of diagnostic messages about symbols not being defined,
+but your import/include files seem to be well specified.
+Debugging this can be problematic and you end up with roughly the situation that the
+guidance below specifies, just after much work and wasted time.</p>
+
+<p>It's also the case that many DFDL applications do not use XML as their output data format.
+JSON is very popular also, and direct connectors to other data transformation and
+processing fabrics are in the works which have their own particular data models.
+XML's data model, and namespace system, really have no corresponding features in many
+of these other systems like JSON. (E.g., JSON does not have namespaces.)</p>
+
+<p>The practices here insure a DFDL schema's use of namespaces does not prevent parser/unparser
+creation/consumption of JSON, or other kinds of data output, using a DFDL processor.</p>
+
+<h3 id="staying-out-of-namespace-hell">Staying out of Namespace Hell</h3>
+
+<p>The first set of simple rules for staying out of trouble is this:</p>
+
+<ul>
+  <li>For every target namespace, choose a unique prefix to use everywhere in your schema to refer to
+that namespace.</li>
+  <li>The practice of using xmlns:tns prefix within schemas to refer to "this target namespace"
+should not be used.</li>
+  <li>Schema type and group definitions should, with few exceptions, have a target namespace.
+    <ul>
+      <li>Issue: <a href="https://issues.apache.org/jira/browse/DAFFODIL-2916">DAFFODIL-2916</a> - xs:include of
+no-namespace schema does not chameleon the references
+properly (closed now, but existed in Daffodil versions prior to 3.9.0) means reuse of
+no-namespace schemas is nearly impossible.</li>
+    </ul>
+  </li>
+  <li>A default namespace should be used only for the XML Schema namespace to avoid having to type
+"xs:" or "xsd:" everywhere.</li>
+  <li>Global "root" elements should be defined with <em>no target namespace</em>.</li>
+</ul>
+
+<p>Different schema projects can use different prefixes, but within one schema project one
+namespace should mean one prefix globally across all files.</p>
+
+<p>The most critical guidance rules are these:</p>
+
+<ul>
+  <li>For every target namespace, one file must be the <em>single distinguished file</em> providing that
+namespace.
+It is the one-and-only <code class="language-plaintext highlighter-rouge">schemaLocation</code> file that is <code class="language-plaintext highlighter-rouge">xs:import</code>-ed anywhere one must import that
+namespace.</li>
+  <li>That distinguished file must <code class="language-plaintext highlighter-rouge">xs:include</code> all the other files that share that target namespace.</li>
+</ul>
+
+<p>Note that cyclic usage between namespaces is allowed. Two schema files can <code class="language-plaintext highlighter-rouge">xs:import</code> each other.
+So long as they have different target namespaces.</p>
+
+<p>However, <code class="language-plaintext highlighter-rouge">xs:include</code> relationships cannot be cyclic.</p>
+
+<p>The rest of this section is effectively just providing rationale for the above guidance.</p>
+
+<h3 id="things-that-dont-work">Things that Don't Work</h3>
+
+<p>Sometimes people want to decompose one namespace into several sub-units, and only import the
+symbols for the  features of that namespace they need and are using.
+So they expect they can import a namespace by importing only a specific file that contributes
+part of the definitions for that namespace.</p>
+
+<p>This does not work.</p>
+
+<p>To achieve that sort of modularity you must decompose to different namespaces.</p>
+
+<p>The best mental model to understand this is: imagine all the <code class="language-plaintext highlighter-rouge">schemaLocation</code> attributes
+were erased from all <code class="language-plaintext highlighter-rouge">xs:import</code> statements.
+Imagine the namespace URIs are actually being used to retrieve the namespace file.
+With this erasure you can only have one place where everything is getting that namespace
+because that namespace is defined by its URI, and that's also how you retrieve it.</p>
+
+<p>That's how XSD works. One namespace == one source == one file providing its definition.</p>
+
+<p>Some people actually create schemas this way, without <code class="language-plaintext highlighter-rouge">schemaLocation</code> on <code class="language-plaintext highlighter-rouge">xs:import</code> statements.
+Then they use an XML Catalog to provide the 1 to 1 mapping of namespaces to the single
+distinguished file that provides its definition.</p>
+
+<p>We have not used XMLCatalogs much and they are not recommended, as they introduce their own complexities.
+(Daffodil does support them.)</p>
+
+<p>Going back to practices for <code class="language-plaintext highlighter-rouge">xs:import</code>, adding back in <code class="language-plaintext highlighter-rouge">schemaLocation</code> attributes, it should
+be clear now that all across a schema, there is a 1 to 1 association of namespaces to a
+specific <code class="language-plaintext highlighter-rouge">schemaLocation</code>. So every <code class="language-plaintext highlighter-rouge">xs:import</code> anywhere in your schema, for a given namespace <code class="language-plaintext highlighter-rouge">X</code>
+must provide the same exact schemaLocation <code class="language-plaintext highlighter-rouge">Y</code>.</p>
+
+<p>If you have, anywhere in your schema….</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;import</span> <span class="na">namespace=</span><span class="s">"ns"</span> <span class="na">schemaLocation=</span><span class="s">"location"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>then for any specific <code class="language-plaintext highlighter-rouge">ns</code>, the <code class="language-plaintext highlighter-rouge">location</code> must always be the exact same file path/name.</p>
+
+<h3 id="what-is-the-problem-with-the-tns-prefix">What is the problem with the <code class="language-plaintext highlighter-rouge">tns</code> prefix?</h3>
+
+<p>If you follow this style guide and have no global elements in namespaces then this won't come up</p>
+
+<p>However, if you do have global elements in namespaces then using <code class="language-plaintext highlighter-rouge">tns</code> for "target namespace" as a
+prefix causes trouble.</p>
+
+<p>It often results in bigger XML due to the need to have <code class="language-plaintext highlighter-rouge">xmlns:tns="...." </code> rebindings in
+multiple places in XML instance documents.
+When these are deep in the element nest they can be hard to find.</p>
+
+<p>It also makes XML instance documents harder to interpret (for people), as deep inside an
+XML document an element has <code class="language-plaintext highlighter-rouge">tns:someName</code> , but the binding of <code class="language-plaintext highlighter-rouge">tns</code> prefix is far away
+(textually, for example many pages of text prior, but not necessarily at the start),
+and so not clear in that context.<br />
+Basically, when looking at an XML instance document, a person gets very little information
+from a <code class="language-plaintext highlighter-rouge">tns</code> prefix.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">tns</code> prefixes are used only for type and group references, and never for element references,
+one might find that this reduces some editing, and as element references are generally frowned
+upon this should not come up often.
+However, if the prefix definition <code class="language-plaintext highlighter-rouge">xmlns:tns="...."</code> appears on the <code class="language-plaintext highlighter-rouge">xs:schema</code> element
+then even when there is some other prefix also bound to the same namespace there is no telling
+whether a given XSD tool will actually use <code class="language-plaintext highlighter-rouge">tns</code> or the other prefix when identifying an element
+in XML instance documents.
+So even if the schema author only ever uses <code class="language-plaintext highlighter-rouge">tns</code> for type and group references, the <code class="language-plaintext highlighter-rouge">tns</code>
+prefix can still show up and cause confusion in XML instance documents.</p>
+
+<p>Best practice is just avoid this <code class="language-plaintext highlighter-rouge">tns</code> convention entirely, and furthermore avoid having any
+elements in namespaces at all.</p>
+
+<h2 id="appendix-path-expressions-and-namespaces">Appendix: Path Expressions and Namespaces</h2>
+
+<p>DFDL includes an expression language based on XPath.</p>
+
+<p>Turns out that there are some "issues" with XPath 1.0 and XML namespaces.</p>
+
+<h3 id="no-xpath-way-to-bind-prefixes">No XPath way to bind prefixes</h3>
+<p>If you have XML data that has a namespace, such as:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;data</span> <span class="na">xmlns=</span><span class="s">"urn:someNamespaceOrOther"</span><span class="nt">&gt;&lt;a&gt;</span>75<span class="nt">&lt;/a&gt;&lt;/data&gt;</span>
+</code></pre></div></div>
+<p>Well, it turns out that there is no standard way to get this XPath to work:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    /data/a
+</code></pre></div></div>
+<p>There is no XPath 1.0-standard mechanism for associating a namespace with a prefix (or with the default namespace).
+By that I mean there is nothing you can put in the path expression itself to specify the namespaces.<br />
+Such mechanisms are available on APIs specific to the XPath-1.0 processor.</p>
+
+<p>XPath-1.0 processors typically provide a way to bind namespace external to the XPath 1.0 expression.
+For example, in JAXB, namespaces are bound to prefixes (and to the default namespace) using
+the <code class="language-plaintext highlighter-rouge">NamespaceContext</code> method.</p>
+
+<p>See <a href="http://docs.oracle.com/javase/7/docs/api/index.html?javax/xml/xpath/XPath.html">XPath.html</a>
+and the discussion on QNames in the class overview.
+Also see
+<a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html">NamespaceContext.html</a>
+for details on how to bind the default namespace.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">xmllint</code> command (and <code class="language-plaintext highlighter-rouge">libxml2</code> library on which it is based), binds unqualified names in XML 
+Schema paths (such as in <code class="language-plaintext highlighter-rouge">xs:key</code> and <code class="language-plaintext highlighter-rouge">xs:unique</code> selectors) and applies a default namespace if 
+one is defined.</p>
+
+<p>XSLT however, does NOT do this.
+Any default namespace binding is ignored in XSLT match and selector paths.</p>
+
+<h3 id="coping-with-schemas-having-elements-in-namespaces">Coping with Schemas having Elements in Namespaces</h3>
+
+<p>The above inconsistencies are yet another reason why the best practice is to avoid elements being
+defined in any namespace at all.</p>
+
+<p>However, some DFDL schemas do not follow these best practice guidelines. 
+In that case, managing namespace prefixes can be a little bit tricky.</p>
+
+<p>Daffodil constructs a namespace context object to provide resolution of prefixes on QNames.</p>
+
+<p>In Daffodil the way this works, is that whenever we have a DFDL expression, we also have the 
+encapsulating XML schema object that contained it.
+The namespace scope of that XML schema object defines what the prefixes in the expression mean.
+So we grab the namespace scope from the XML schema object, and use it to provide those definitions.
+This applies to every kind of name reference <em>except unqualified path steps</em>.</p>
+
+<p>Daffodil has a specific tunable parameter
+called <a href="/tunables/#unqualifiedpathsteppolicy"><code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code></a>.
+This tunable defaults to <code class="language-plaintext highlighter-rouge">noNamespace</code>, but if a DFDL schema is not using no-namespace 
+elements in the recommended way, it can be set to
+<code class="language-plaintext highlighter-rouge">defaultNamespace</code> or <code class="language-plaintext highlighter-rouge">preferDefaultNamespace</code>.</p>
+
+<p>Suppose you write a schema and use the recommended convention of
+<code class="language-plaintext highlighter-rouge">xmlns="http://www.w3.org/2001/XMLSchema"</code>.
+This allows you to avoid the clutter of the <code class="language-plaintext highlighter-rouge">xs:</code> prefix on all the XML Schema elements.
+However, the schema does have a target namespace, let's say <code class="language-plaintext highlighter-rouge">urn:myFormat</code>
+bound to prefix <code class="language-plaintext highlighter-rouge">mf</code>.
+Furthermore, let's say the schemas specifies <code class="language-plaintext highlighter-rouge">elementFormDefault="qualified"</code>.
+That means all the local element names are also found in the target namespace.</p>
+
+<p>Now how are unqualified path steps in such a DFDL schema to be 
+interpreted?
+For example, in the <code class="language-plaintext highlighter-rouge">dfdl:length</code> expression in this element declaration:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"data"</span> <span class="na">type=</span><span class="s">"int"</span>
+      <span class="na">dfdl:length=</span><span class="s">"{ /a/b/c }"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>By default, Daffodil will assume the path steps in <code class="language-plaintext highlighter-rouge">/a/b/c</code> have no namespace.
+But since your schema has a target namespace, and uses qualified local element names,
+you really want the above to be equivalent to if you had qualified all the names with
+prefixes:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"data"</span> <span class="na">type=</span><span class="s">"xs:int"</span>
+      <span class="na">dfdl:length=</span><span class="s">"{ /mf:a/mf:b/mf:c }"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+<p>There is a way to get Daffodil to choose that interpretation which is binding the tunable
+<a href="/tunables/#unqualifiedpathsteppolicy"><code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code></a> tunable to 
+<code class="language-plaintext highlighter-rouge">defaultNamespace</code> or <code class="language-plaintext highlighter-rouge">preferDefaultNamespace</code>.
+This lets you write the path expression without qualified names, but at the cost of having
+to change the default namespace for the surrounding element declaration or perhaps the whole 
+schema, to be the target namespace using <code class="language-plaintext highlighter-rouge">xmlns="urn:myFormat</code> like so:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xs:schema</span> <span class="na">xmlns=</span><span class="s">"urn:myFormat"</span> <span class="err">...</span><span class="nt">&gt;</span>
+  ...
+  <span class="nt">&lt;xs:element</span> <span class="na">name=</span><span class="s">"data"</span> <span class="na">type=</span><span class="s">"xs:int"</span> 
+      <span class="na">dfdl:length=</span><span class="s">"{ /a/b/c }"</span> <span class="nt">/&gt;</span>
+  ...
+<span class="nt">&lt;/xs:schema&gt;</span>  
+</code></pre></div></div>
+<p>Now Daffodil will properly interpret the path <code class="language-plaintext highlighter-rouge">/a/b/c</code> as if you had written <code class="language-plaintext highlighter-rouge">/mf:a/mf:b/mf:c</code>.</p>
+
+<p>All names in the schema referring to other elements, types, groups,
+defineFormat, defineVariable, or defineEscapeScheme also must be prefixed QNames in this case. 
+But for path expressions it is very easy to forget that one must prefix all the steps
+since those are QNames as well.</p>
+
+<p>If you really want to write expressions like <code class="language-plaintext highlighter-rouge">/a/b/c</code>, i.e., without any prefixes on the steps, 
+then you have to use the default namespace the same as the schema's target namespace,
+and set the Daffodil <code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code> tunable appropriately.</p>
+
+<p>But really you should just write or update your schema following the best practice recommendations 
+herein, and avoid all of this complexity.</p>
+
+<p>The Daffodil tunables like <code class="language-plaintext highlighter-rouge">unqualifiedPathStepPolicy</code> are part of 
+<a href="/configuration/"><em>Configuration</em> of Daffodil</a>.</p>
+
+<hr />
+<!-- Footnotes go below this line -->
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:ztime">
+      <p>For example the <code class="language-plaintext highlighter-rouge">xs:dateTime</code> value <code class="language-plaintext highlighter-rouge">1961-02-01T01:02:03-05:00</code> is US.EST equivalent
+to <code class="language-plaintext highlighter-rouge">1961-02-01T06:02:03Z</code> which is UTC. <a href="#fnref:ztime" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</div>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
