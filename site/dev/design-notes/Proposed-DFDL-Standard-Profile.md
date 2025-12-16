@@ -22,9 +22,25 @@ limitations under the License.
 {% endcomment %}
 -->
 
-*Version  0.3  2023-12-08*
+*Version  0.4  2025-12-22*
+
+
+## Table of Contents
+{:.no_toc}
+<!-- The {: .no_toc } excludes the above heading from the ToC --> 
+
+1. yes, this is the standard Jekyll way to do a ToC (this line gets removed)
+{:toc}
+<!-- note the above line {:toc} cannot have whitespace at the start --> 
+
 
 # Introduction
+
+> **Note:** This proposed standard profile overlaps a great deal with the 
+> [DFDL Schema Best Practices](/dfdl-best-practices) and can be viewed as a 
+> mechanism to enforce many of those practices. 
+> 
+> This page needs to be revised in light of the best practices page.
 
 In attempting to integrate Apache Daffodil with other data processing software, the need to make
 DFDL schemas interoperate properly in conjunction with other data models has arisen.
@@ -40,10 +56,12 @@ structured data.
 
 The following things are allowed in DFDL v1.0, but are difficult to map into most data models:
 
-- anonymous choices
-- duplicate element child names
+- [anonymous choices](/dfdl-best-practices#avoidAnonymousChoices)
+- [duplicate element child names](/dfdl-best-practices#AvoidChildElementsWithSameName)
 - namespaces that are different, but where the prefixes are not unique
-- global names for element children
+  - There are numerous guidelines about namespaces and avoiding prefixes in the 
+    [DFDL Schema Best Practices](/dfdl-best-practices)
+- [global names for element children](/dfdl-best-practices#avoidElementNamespaces)
 
 A more restrictive subset of DFDL, a _standard profile_, is needed which can be enforced (on
 request) to ensure that DFDL schemas will be usable with a variety of data processing systems.
@@ -55,15 +73,9 @@ standard profile (which is a subset of DFDL).
 
 # Standard Profile Restrictions
 
-## No Anonymous Choices
+## Group References Cannot Carry DFDL Properties {#groupReferencesCannotCarryDFDLProperties}
 
-Choices must be the model groups of complex type definitions and are not allowed in any other
-context.
-
-Each choice branch must begin with a different element. (This is already a XML Schema requirement -
-Unique Particle Attribution.)
-
-## Group References Cannot Carry DFDL Properties
+> **Note:** This is not mentioned in the best practices, but should be. 
 
 Group references are allowed, but DFDL format properties cannot be expressed on group references; hence,
 combining those properties with those of the group definition is not required.
@@ -82,7 +94,7 @@ Allowing groups and group references reduces the difficulty of converting many l
 schemas to conform to the standard profile, and makes this possible without introducing many 
 otherwise unneeded element and type definitions. 
 
-## No Element References
+## No Element References {#noElementReferences}
 
 There is no corresponding form of sharing in most data structure systems.
 
@@ -97,7 +109,7 @@ All namespace prefixes must be unique in the entire schema.
 
 This enables one to create unique identifiers by concatenating prefix_local to create global names.
 
-## All Element Children Have Unique Names
+## All Element Children Have Unique Names {#allElementChildrenHaveUniqueNames}
 
 All children element declarations must have unique names within their enclosing parent element.
 
@@ -228,7 +240,7 @@ it, requiring instead that an inner sequence carrying the assertion or
 discriminator with NO child content, be inserted in the sequence at the
 point where the evaluation is required to occur.
 
- Requesting/Enabling the Standard Profile
+# Requesting/Enabling the Standard Profile
 
 If the standard profile is requested, then use of constructs outside of the standard profile is a
 Schema Definition Error.
@@ -281,4 +293,3 @@ Including such an explicitly non-standard-profile schema into a schema that requ
 profile should cause a Schema Definition Error. 
 The inverse however, is not true. 
 A schema that explicitly obeys the standard profile can be included/imported into any schema. 
-

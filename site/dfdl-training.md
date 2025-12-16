@@ -202,6 +202,14 @@ showcasing:
 - Multi-version support - this schema handles both revisions C and D1 of the format 
   simultaneously.
 
+# Specific DFDL Properties
+Short training slide decks or pages about specific properties.
+- [DFDL `lengthKind`, `lengthUnits`, `bitOrder`, and `byteOrder` properties](
+/tutorials/P-DFDL-Properties-lengthKind-bitOrder.pdf)
+- [DFDL Pad and Fill (`dfdl:fillByte`)](
+/tutorials/P-Filling-vs-Padding-Trimming.pdf)
+
+
 # Other Learning Resources
 
 There are a variety of other materials on the Internet that provide some DFDL training:
