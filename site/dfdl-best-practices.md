@@ -42,8 +42,21 @@ This page is a collection of notes on how to create DFDL schemas to obtain some 
   using multiple different _XML Schema Validation libraries_ such as [Xerces C](
   {{ site.data.links.reference.xercesc}}) and [libxml2]({{ site.data.links.reference.libxml2}}).
 
-The [DFDL Training page lists several example schemas](/dfdl-training#exampleSchemas)  which follow 
+The [DFDL Training page lists several example schemas](/dfdl-training#exampleSchemas)  which follow
 this style guide fully which you can use as good starting points.
+
+There are also best-practice materials on:
+- [Slides on Well-Formed vs. Valid (Avoiding `dfdl:checkConstraints(.)`)](
+/best-practices/P-Avoid-Check-Constraints.pdf)
+- [Slides on Handling large opaque BLOBs of binary data](
+/best-practices/P-DFDL-BLOBs-v-HexBinary-array.pdf)
+- [Slides on Using _Reject Elements_ to capture bad data](
+/best-practices/P-DFDL-Reject-Elements.pdf)
+- [Slides on Round-trip (parse + unparse) testing (with TDML)](
+/best-practices/P-DFDL-Round-Trip-Testing.pdf)
+- [Slides on DFDL Schemas for ad-hoc structured text formats](
+/best-practices/P-DFDL-Structured-Text.pdf)
+
 
 This set of notes represents best practices after learning _the hard way_ from many debugging
 exercises and creating a wide variety of DFDL schemas from small teaching examples to large
@@ -62,7 +75,7 @@ that one might call _Strict Venetian-Blind Type Library_.
 
 Below are the details.
 
-# Avoid Element Namespaces
+# Avoid Element Namespaces {#avoidElementNamespaces}
 
 Much of the complexity of XML and XML Schema comes from their namespace features.
 This can be avoided entirely by following simple conventions.
@@ -276,7 +289,7 @@ This is not quite as clean, but minimizes redundancy within what is allowed.
 Note that the DFDL Workgroup is considering adding the ability to [put DFDL properties on complex
 types]({{site.data.links.dfdlSpec.issue71}}) in a future version of the DFDL standard.
 
-# Avoid Child Elements with the Same Name
+# Avoid Child Elements with the Same Name {#AvoidChildElementsWithSameName}
 
 XML Schema has a data model with some flexibility needed only for markup languages.
 
@@ -316,7 +329,7 @@ typical in structured data systems.
 JSON also has no notion of child elements with the same name, so avoiding this enables a
 DFDL schema to be JSON compatible.
 
-# Avoid Anonymous Choices
+# Avoid Anonymous Choices {#avoidAnonymousChoices}
 XML Schema allows a choice to be anonymous within the data model of an element. For example:
 ```xml
 <element name="myElement">
@@ -387,25 +400,27 @@ structures of the other data systems which do not allow anonymous choices.
 Given two different versions of a schema, consider:
 
 ```xml
-<choice>
-  <element name="v1">
-     <complexType>
-        <sequence>
-           <element name="a" .../>
-           <element name="c" type="xs:int" dfdl:length="7"/>
-        </sequence>
-     </complexType>
-  </element>
-  <element name="v2">
-     <complexType>
-        <sequence>
-           <element name="b" .../>
-           <element name="c" type="xs:int" dfdl:length="6"/>
-           <element name="spare" type="xs:unsignedInt" dfdl:length="1"/>
-         </sequence>
-     </complexType>
-  </element>
-</choice>
+<complexType name="v1OrV2">
+  <choice>
+    <element name="v1">
+       <complexType>
+          <sequence>
+             <element name="a" .../>
+             <element name="c" type="xs:int" dfdl:length="7"/>
+          </sequence>
+       </complexType>
+    </element>
+    <element name="v2">
+       <complexType>
+            <sequence>
+             <element name="b" .../>
+             <element name="c" type="xs:int" dfdl:length="6"/>
+             <element name="spare" type="xs:unsignedInt" dfdl:length="1"/>
+           </sequence>
+       </complexType>
+    </element>
+  </choice>
+</complexType>
 ```
 Note both versions 1 and 2 have a child named `c` which is an `xs:int`.
 
@@ -415,19 +430,21 @@ The two differ only by a DFDL property (`dfdl:length`).
 
 Consider instead using this technique:
 ```xml
-<choice>
-  <sequence>
-    <element name="v1" type="pre:empty"/>
-    <element name="a" .../>
-    <element name="c" type="xs:int" dfdl:length="7"/>
-  </sequence>
-  <sequence>
-    <element name="v2" type="pre:empty"/>
-    <element name="b" .../>
-    <element name="c" type="xs:int" dfdl:length="6"/>
-    <element name="spare" type="xs:unsignedInt" dfdl:length="1"/>
-  </sequence>
-</choice>
+<complexType name="v1OrV2">
+  <choice>
+    <sequence>
+      <element name="v1" type="pre:empty"/>
+      <element name="a" .../>
+      <element name="c" type="xs:int" dfdl:length="7"/>
+    </sequence>
+    <sequence>
+      <element name="v2" type="pre:empty"/>
+      <element name="b" .../>
+      <element name="c" type="xs:int" dfdl:length="6"/>
+      <element name="spare" type="xs:unsignedInt" dfdl:length="1"/>
+    </sequence>
+  </choice>
+</complexType>
 ```
 This uses a marker element which will be `<v1/>` or `<v2/>` before the other elements.
 A path to the `c` element will not have a `v1` nor `v2` element parent.
@@ -528,7 +545,7 @@ are small.
 >
 > ### About Spec Deltas
 >
-> A deltas between two versions of a format specification document can be classified as one of 
+> A delta between two versions of a format specification document can be classified as one of 
 > these kinds:
 > 1. Prose Correction: A clarification or correction to the text of the document that improves it, 
 >    but does not represent any actual change to the data format.

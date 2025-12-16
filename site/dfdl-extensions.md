@@ -396,6 +396,15 @@ different reserved values since when unparsed, the constant string `Reserved` wi
 _canonicalized_ to integer 0. 
 Putting data into canonical form when unparsing generally improves data security.
 
+> **Best Practices Note:** Avoid whitespace of any kind in enumerated constant values.
+> It is best to replace spaces by underscores ("_"). 
+> This avoids problems when the infoset, represented in XML, is pretty printed or otherwise 
+> formatted. 
+> Whitespace is generally fungible in XML, and a space could be turned into a line
+> break by a variety of XML processing resulting in data that will
+> not validate (as an XML document) nor unparse successfully.
+
+
 # Extended Behaviors for DFDL Types
 
 ## Type ``xs:hexBinary``
