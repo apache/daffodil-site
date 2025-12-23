@@ -102,9 +102,56 @@
 
 -->
 
-<p><em>Version  0.3  2023-12-08</em></p>
+<p><em>Version  0.4  2025-12-22</em></p>
+
+<h3 class="no_toc" id="table-of-contents">Table of Contents</h3>
+<!-- The {: .no_toc } excludes the above heading from the ToC -->
+
+<ol id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#standard-profile-restrictions" id="markdown-toc-standard-profile-restrictions">Standard Profile Restrictions</a>    <ol>
+      <li><a href="#groupReferencesCannotCarryDFDLProperties" id="markdown-toc-groupReferencesCannotCarryDFDLProperties">Group References Cannot Carry DFDL Properties</a></li>
+      <li><a href="#noElementReferences" id="markdown-toc-noElementReferences">No Element References</a></li>
+      <li><a href="#no-namespace-qualified-names" id="markdown-toc-no-namespace-qualified-names">No Namespace-Qualified Names</a></li>
+      <li><a href="#unique-namespace-prefixes" id="markdown-toc-unique-namespace-prefixes">Unique Namespace Prefixes</a></li>
+      <li><a href="#allElementChildrenHaveUniqueNames" id="markdown-toc-allElementChildrenHaveUniqueNames">All Element Children Have Unique Names</a>        <ol>
+          <li><a href="#discussion" id="markdown-toc-discussion">Discussion</a></li>
+        </ol>
+      </li>
+      <li><a href="#nillable-simple-types-only-tbd-may-not-be-necessary" id="markdown-toc-nillable-simple-types-only-tbd-may-not-be-necessary">Nillable Simple Types Only (TBD: May not be necessary)</a>        <ol>
+          <li><a href="#rationale" id="markdown-toc-rationale">Rationale</a></li>
+        </ol>
+      </li>
+      <li><a href="#element-nameidentifier-restrictions" id="markdown-toc-element-nameidentifier-restrictions">Element Name/Identifier Restrictions</a></li>
+      <li><a href="#string-content-restrictions" id="markdown-toc-string-content-restrictions">String Content Restrictions</a>        <ol>
+          <li><a href="#rationale-1" id="markdown-toc-rationale-1">Rationale</a></li>
+        </ol>
+      </li>
+      <li><a href="#import-schemalocation" id="markdown-toc-import-schemalocation">Import <code class="language-plaintext highlighter-rouge">schemaLocation</code></a></li>
+    </ol>
+  </li>
+  <li><a href="#existing-dfdl-restrictions" id="markdown-toc-existing-dfdl-restrictions">Existing DFDL Restrictions</a></li>
+  <li><a href="#possible-additional-restrictions" id="markdown-toc-possible-additional-restrictions">Possible additional restrictions</a>    <ol>
+      <li><a href="#troublesome-placement-of-dfdlassert-and-dfdldiscriminator-on-sequences--choices" id="markdown-toc-troublesome-placement-of-dfdlassert-and-dfdldiscriminator-on-sequences--choices">Troublesome Placement of dfdl:assert and dfdl:discriminator on Sequences &amp; Choices</a></li>
+    </ol>
+  </li>
+  <li><a href="#requestingenabling-the-standard-profile" id="markdown-toc-requestingenabling-the-standard-profile">Requesting/Enabling the Standard Profile</a></li>
+  <li><a href="#use-cases" id="markdown-toc-use-cases">Use Cases</a>    <ol>
+      <li><a href="#mechanisms-for-requesting-the-standard-profile" id="markdown-toc-mechanisms-for-requesting-the-standard-profile">Mechanisms for Requesting the Standard Profile</a></li>
+    </ol>
+  </li>
+</ol>
+<!-- note the above line {:toc} cannot have whitespace at the start -->
 
 <h2 id="introduction">Introduction</h2>
+
+<blockquote>
+  <p><strong>Note:</strong> This proposed standard profile overlaps a great deal with the 
+<a href="/dfdl-best-practices">DFDL Schema Best Practices</a> and can be viewed as a 
+mechanism to enforce many of those practices.</p>
+
+  <p>This page needs to be revised in light of the best practices page.</p>
+</blockquote>
 
 <p>In attempting to integrate Apache Daffodil with other data processing software, the need to make
 DFDL schemas interoperate properly in conjunction with other data models has arisen.</p>
@@ -121,10 +168,15 @@ structured data.</p>
 <p>The following things are allowed in DFDL v1.0, but are difficult to map into most data models:</p>
 
 <ul>
-  <li>anonymous choices</li>
-  <li>duplicate element child names</li>
-  <li>namespaces that are different, but where the prefixes are not unique</li>
-  <li>global names for element children</li>
+  <li><a href="/dfdl-best-practices#avoidAnonymousChoices">anonymous choices</a></li>
+  <li><a href="/dfdl-best-practices#AvoidChildElementsWithSameName">duplicate element child names</a></li>
+  <li>namespaces that are different, but where the prefixes are not unique
+    <ul>
+      <li>There are numerous guidelines about namespaces and avoiding prefixes in the 
+<a href="/dfdl-best-practices">DFDL Schema Best Practices</a></li>
+    </ul>
+  </li>
+  <li><a href="/dfdl-best-practices#avoidElementNamespaces">global names for element children</a></li>
 </ul>
 
 <p>A more restrictive subset of DFDL, a <em>standard profile</em>, is needed which can be enforced (on
@@ -137,15 +189,11 @@ standard profile (which is a subset of DFDL).</p>
 
 <h2 id="standard-profile-restrictions">Standard Profile Restrictions</h2>
 
-<h3 id="no-anonymous-choices">No Anonymous Choices</h3>
+<h3 id="groupReferencesCannotCarryDFDLProperties">Group References Cannot Carry DFDL Properties</h3>
 
-<p>Choices must be the model groups of complex type definitions and are not allowed in any other
-context.</p>
-
-<p>Each choice branch must begin with a different element. (This is already a XML Schema requirement -
-Unique Particle Attribution.)</p>
-
-<h3 id="group-references-cannot-carry-dfdl-properties">Group References Cannot Carry DFDL Properties</h3>
+<blockquote>
+  <p><strong>Note:</strong> This is not mentioned in the best practices, but should be.</p>
+</blockquote>
 
 <p>Group references are allowed, but DFDL format properties cannot be expressed on group references; hence,
 combining those properties with those of the group definition is not required.</p>
@@ -164,7 +212,7 @@ Allowing groups and group references reduces the difficulty of converting many l
 schemas to conform to the standard profile, and makes this possible without introducing many 
 otherwise unneeded element and type definitions.</p>
 
-<h3 id="no-element-references">No Element References</h3>
+<h3 id="noElementReferences">No Element References</h3>
 
 <p>There is no corresponding form of sharing in most data structure systems.</p>
 
@@ -179,7 +227,7 @@ Note that this is the default for XML Schema and DFDL.</p>
 
 <p>This enables one to create unique identifiers by concatenating prefix_local to create global names.</p>
 
-<h3 id="all-element-children-have-unique-names">All Element Children Have Unique Names</h3>
+<h3 id="allElementChildrenHaveUniqueNames">All Element Children Have Unique Names</h3>
 
 <p>All children element declarations must have unique names within their enclosing parent element.</p>
 
@@ -311,7 +359,7 @@ it, requiring instead that an inner sequence carrying the assertion or
 discriminator with NO child content, be inserted in the sequence at the
 point where the evaluation is required to occur.</p>
 
-<p>Requesting/Enabling the Standard Profile</p>
+<h2 id="requestingenabling-the-standard-profile">Requesting/Enabling the Standard Profile</h2>
 
 <p>If the standard profile is requested, then use of constructs outside of the standard profile is a
 Schema Definition Error.</p>
@@ -370,7 +418,6 @@ standard profile, should also be allowed to be placed in any of these locations.
 profile should cause a Schema Definition Error. 
 The inverse however, is not true. 
 A schema that explicitly obeys the standard profile can be included/imported into any schema.</p>
-
 
   </div>
 </div>

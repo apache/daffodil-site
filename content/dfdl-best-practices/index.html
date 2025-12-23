@@ -107,14 +107,14 @@
 
 <ol id="markdown-toc">
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
-  <li><a href="#avoid-element-namespaces" id="markdown-toc-avoid-element-namespaces">Avoid Element Namespaces</a>    <ol>
+  <li><a href="#avoidElementNamespaces" id="markdown-toc-avoidElementNamespaces">Avoid Element Namespaces</a>    <ol>
       <li><a href="#namespace-uri-conventions" id="markdown-toc-namespace-uri-conventions">Namespace URI Conventions</a></li>
       <li><a href="#noVersionsInNamespaceURIs" id="markdown-toc-noVersionsInNamespaceURIs">Versioning - In the Infoset/Data, Not the Namespace URI</a></li>
     </ol>
   </li>
   <li><a href="#express-dfdl-properties-on-the-simple-types-not-the-elements" id="markdown-toc-express-dfdl-properties-on-the-simple-types-not-the-elements">Express DFDL Properties on the Simple Types, not the Elements</a></li>
-  <li><a href="#avoid-child-elements-with-the-same-name" id="markdown-toc-avoid-child-elements-with-the-same-name">Avoid Child Elements with the Same Name</a></li>
-  <li><a href="#avoid-anonymous-choices" id="markdown-toc-avoid-anonymous-choices">Avoid Anonymous Choices</a></li>
+  <li><a href="#AvoidChildElementsWithSameName" id="markdown-toc-AvoidChildElementsWithSameName">Avoid Child Elements with the Same Name</a></li>
+  <li><a href="#avoidAnonymousChoices" id="markdown-toc-avoidAnonymousChoices">Avoid Anonymous Choices</a></li>
   <li><a href="#versionInMarkerElements" id="markdown-toc-versionInMarkerElements">Versioning and Choices - Using Marker Elements</a></li>
   <li><a href="#parse-and-unparse-symmetry" id="markdown-toc-parse-and-unparse-symmetry">Parse and Unparse Symmetry</a></li>
   <li><a href="#avoid-choices-with-empty-branches" id="markdown-toc-avoid-choices-with-empty-branches">Avoid Choices with Empty Branches</a></li>
@@ -158,8 +158,17 @@ For example: JSON, Apache NiFi Records, or Apache Spark Structs.</li>
 using multiple different <em>XML Schema Validation libraries</em> such as <a href="https://xerces.apache.org/xerces-c/">Xerces C</a> and <a href="https://gitlab.gnome.org/GNOME/libxml2">libxml2</a>.</li>
 </ul>
 
-<p>The <a href="/dfdl-training#exampleSchemas">DFDL Training page lists several example schemas</a>  which follow 
+<p>The <a href="/dfdl-training#exampleSchemas">DFDL Training page lists several example schemas</a>  which follow
 this style guide fully which you can use as good starting points.</p>
+
+<p>There are also best-practice materials on:</p>
+<ul>
+  <li><a href="/best-practices/P-Avoid-Check-Constraints.pdf">Slides on Well-Formed vs. Valid (Avoiding <code class="language-plaintext highlighter-rouge">dfdl:checkConstraints(.)</code>)</a></li>
+  <li><a href="/best-practices/P-DFDL-BLOBs-v-HexBinary-array.pdf">Slides on Handling large opaque BLOBs of binary data</a></li>
+  <li><a href="/best-practices/P-DFDL-Reject-Elements.pdf">Slides on Using <em>Reject Elements</em> to capture bad data</a></li>
+  <li><a href="/best-practices/P-DFDL-Round-Trip-Testing.pdf">Slides on Round-trip (parse + unparse) testing (with TDML)</a></li>
+  <li><a href="/best-practices/P-DFDL-Structured-Text.pdf">Slides on DFDL Schemas for ad-hoc structured text formats</a></li>
+</ul>
 
 <p>This set of notes represents best practices after learning <em>the hard way</em> from many debugging
 exercises and creating a wide variety of DFDL schemas from small teaching examples to large
@@ -180,7 +189,7 @@ DFDL schema by referencing a complex type definition provided by the library sch
 
 <p>Below are the details.</p>
 
-<h2 id="avoid-element-namespaces">Avoid Element Namespaces</h2>
+<h2 id="avoidElementNamespaces">Avoid Element Namespaces</h2>
 
 <p>Much of the complexity of XML and XML Schema comes from their namespace features.
 This can be avoided entirely by following simple conventions.</p>
@@ -412,7 +421,7 @@ This is not quite as clean, but minimizes redundancy within what is allowed.</p>
 <p>Note that the DFDL Workgroup is considering adding the ability to <a href="https://github.com/OpenGridForum/DFDL/issues/71">put DFDL properties on complex
 types</a> in a future version of the DFDL standard.</p>
 
-<h2 id="avoid-child-elements-with-the-same-name">Avoid Child Elements with the Same Name</h2>
+<h2 id="AvoidChildElementsWithSameName">Avoid Child Elements with the Same Name</h2>
 
 <p>XML Schema has a data model with some flexibility needed only for markup languages.</p>
 
@@ -451,7 +460,7 @@ typical in structured data systems.</p>
 <p>JSON also has no notion of child elements with the same name, so avoiding this enables a
 DFDL schema to be JSON compatible.</p>
 
-<h2 id="avoid-anonymous-choices">Avoid Anonymous Choices</h2>
+<h2 id="avoidAnonymousChoices">Avoid Anonymous Choices</h2>
 <p>XML Schema allows a choice to be anonymous within the data model of an element. For example:</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"myElement"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;complexType&gt;</span>
@@ -520,25 +529,27 @@ structures of the other data systems which do not allow anonymous choices.</p>
 
 <p>Given two different versions of a schema, consider:</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;choice&gt;</span>
-  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;complexType&gt;</span>
-        <span class="nt">&lt;sequence&gt;</span>
-           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
-           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;/sequence&gt;</span>
-     <span class="nt">&lt;/complexType&gt;</span>
-  <span class="nt">&lt;/element&gt;</span>
-  <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;complexType&gt;</span>
-        <span class="nt">&lt;sequence&gt;</span>
-           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
-           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
-           <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
-         <span class="nt">&lt;/sequence&gt;</span>
-     <span class="nt">&lt;/complexType&gt;</span>
-  <span class="nt">&lt;/element&gt;</span>
-<span class="nt">&lt;/choice&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;complexType</span> <span class="na">name=</span><span class="s">"v1OrV2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;choice&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;complexType&gt;</span>
+          <span class="nt">&lt;sequence&gt;</span>
+             <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;/sequence&gt;</span>
+       <span class="nt">&lt;/complexType&gt;</span>
+    <span class="nt">&lt;/element&gt;</span>
+    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;complexType&gt;</span>
+            <span class="nt">&lt;sequence&gt;</span>
+             <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+           <span class="nt">&lt;/sequence&gt;</span>
+       <span class="nt">&lt;/complexType&gt;</span>
+    <span class="nt">&lt;/element&gt;</span>
+  <span class="nt">&lt;/choice&gt;</span>
+<span class="nt">&lt;/complexType&gt;</span>
 </code></pre></div></div>
 <p>Note both versions 1 and 2 have a child named <code class="language-plaintext highlighter-rouge">c</code> which is an <code class="language-plaintext highlighter-rouge">xs:int</code>.</p>
 
@@ -547,19 +558,21 @@ specific even though element <code class="language-plaintext highlighter-rouge">
 The two differ only by a DFDL property (<code class="language-plaintext highlighter-rouge">dfdl:length</code>).</p>
 
 <p>Consider instead using this technique:</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;choice&gt;</span>
-  <span class="nt">&lt;sequence&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/sequence&gt;</span>
-  <span class="nt">&lt;sequence&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/sequence&gt;</span>
-<span class="nt">&lt;/choice&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;complexType</span> <span class="na">name=</span><span class="s">"v1OrV2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;choice&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v1"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"a"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"7"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"v2"</span> <span class="na">type=</span><span class="s">"pre:empty"</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"b"</span> <span class="err">...</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"c"</span> <span class="na">type=</span><span class="s">"xs:int"</span> <span class="na">dfdl:length=</span><span class="s">"6"</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">"spare"</span> <span class="na">type=</span><span class="s">"xs:unsignedInt"</span> <span class="na">dfdl:length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+  <span class="nt">&lt;/choice&gt;</span>
+<span class="nt">&lt;/complexType&gt;</span>
 </code></pre></div></div>
 <p>This uses a marker element which will be <code class="language-plaintext highlighter-rouge">&lt;v1/&gt;</code> or <code class="language-plaintext highlighter-rouge">&lt;v2/&gt;</code> before the other elements.
 A path to the <code class="language-plaintext highlighter-rouge">c</code> element will not have a <code class="language-plaintext highlighter-rouge">v1</code> nor <code class="language-plaintext highlighter-rouge">v2</code> element parent.</p>
@@ -659,7 +672,7 @@ are small.</p>
 
   <h4 id="about-spec-deltas">About Spec Deltas</h4>
 
-  <p>A deltas between two versions of a format specification document can be classified as one of 
+  <p>A delta between two versions of a format specification document can be classified as one of 
 these kinds:</p>
   <ol>
     <li>Prose Correction: A clarification or correction to the text of the document that improves it, 
