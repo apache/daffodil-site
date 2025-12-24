@@ -139,7 +139,7 @@ You will need to download and install these tools:
 - [SBT (Simple Build Tool)]({{ site.data.links.tools.sbt}}) - This build tool is used by most 
   DFDL Schemas created for use with Apache Daffodil. It will automatically pull in the
   [Daffodil SBT Plugin](/sbt) when a DFDL schema project requires it. 
-- [Apache Daffodil](/releases) - The Daffodil libraries and its Command Line Interface (CLI)
+- [Apache Daffodil](/libraryAndCLI) - The Daffodil libraries and its Command Line Interface (CLI)
 
 If you are familiar with the VSCode IDE, you may also want to install:
 - [Apache Daffodil Extension for Visual Study Code](/vscode)

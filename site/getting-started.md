@@ -34,11 +34,11 @@ There are also [DFDL Training](/dfdl-training) materials available.
 
 [Command Line Interface](/cli)
 
-   : Linux and Windows command line tool with capabilities include parsing, unaparsing, an interactive debugger, and more. Available via download in binary [releases](/releases).
+   : Linux and Windows command line tool with capabilities include parsing, unaparsing, an interactive debugger, and more. Available via download in binary [releases](/libraryAndCLI).
 
 [API](/docs/latest/javadoc)
 
-   : Examples for using the API in both Java and Scala are available on the [OpenDFDL examples](https://github.com/OpenDFDL/examples.git) repository. Individual [releases](/releases) describe how to include a dependency to Daffodil via Maven and SBT.
+   : Examples for using the API in both Java and Scala are available on the [OpenDFDL examples](https://github.com/OpenDFDL/examples.git) repository. Individual [releases](/libraryAndCLI) describe how to include a dependency to Daffodil via Maven and SBT.
 
 [Apache NiFi Processors](https://github.com/TresysTechnology/nifi-daffodil)
 

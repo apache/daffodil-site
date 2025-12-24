@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Releases
+title: Daffodil Library and CLI
 group: nav-right
 ---
 <!--

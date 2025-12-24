@@ -24,8 +24,11 @@ limitations under the License.
 
 
 The [Data Format Description Language (DFDL)](https://www.ogf.org/ogf/doku.php/standards/dfdl/dfdl)
-is a specification, developed by the [Open Grid Forum](https://www.ogf.org/),
-capable of describing many data formats, including both textual and binary,
+is a specification, developed by the [Open Grid Forum](https://www.ogf.org/), and also
+published as
+[ISO/IEC 23415:2004](
+https://www.iso.org/standard/87444.html).
+DFDL is capable of describing many data formats, including both textual and binary,
 scientific and numeric, legacy and modern, commercial record-oriented, and many
 industry and military standards. It defines a language that is a subset of W3C
 XML schema to describe the logical format of the data, and annotations within

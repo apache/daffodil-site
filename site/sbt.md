@@ -1,6 +1,6 @@
 ---
 layout: page
-title: SBT Plugin
+title: SBT (Simple Build Tool) Plugin for DFDL Schema Projects
 group: nav-right
 ---
 <!--
