@@ -24,7 +24,7 @@ limitations under the License.
 <!-- markdownlint-disable line-length -->
 <!-- markdownlint-disable no-duplicate-heading -->
 
-The binary Daffodil [releases](/releases) contain a `/bin` directory with two scripts: `daffodil.bat` for Windows and `daffodil` for Linux.
+The binary Daffodil [releases](/libraryAndCLI) contain a `/bin` directory with two scripts: `daffodil.bat` for Windows and `daffodil` for Linux.
 These files must be executed on the command line. The general usage is:
 
 ```
