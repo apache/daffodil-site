@@ -1,0 +1,84 @@
+:page-layout: page
+:url-asciidoctor: http://asciidoctor.org
+:keywords: schema package jar
+// ///////////////////////////////////////////////////////////////////////////
+//
+// This file is written in AsciiDoc.
+//
+// If you can read this comment, your browser is not rendering asciidoc automatically.
+//
+// You need to install the asciidoc plugin to Chrome or Firefox
+// so that this page will be properly rendered for your viewing pleasure.
+//
+// You can get the plugins by searching the web for 'asciidoc plugin'
+//
+// You will want to change plugin settings to enable diagrams (they're off by default.)
+//
+// You need to view this page with Chrome or Firefox.
+//
+// ///////////////////////////////////////////////////////////////////////////
+//
+// When editing, please start each sentence on a new line.
+// See https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence-per-line writing technique.]
+// This makes textual diffs of this file useful in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+= Packaging DFDL Schemas for use in Daffodil Applications
+
+=== Advance Summary
+
+- The best way to use DFDL schemas is accessing them from Jar files
+- Include pre-compiled binary DFDL schema files also in the same Jar file.
+- Include any Daffodil plugins (class files for compiled scala/java code) required by the DFDL schema also in the same Jar file (with the appropriate META-INF files) and optionally with the source code for the plugins.
+- Create _glue_ DFDL schemas that combine other DFDL schemas using managed dependencies (e.g., maven/sbt) on the Jar files of the dependency DFDL schemas.
+- Managed dependencies can be used to obtain specific versions of DFDL schemas for applications in the same way that applications obtain and depend upon Java libraries.
+- Digital signatures (signed jars) can enhance security by providing trust in the creator of the packaged DFDL schema jar.
+- Standard sbt tools facilitate all of this.
+
+
+=== Introduction to DFDL Schema Packaging
+
+DFDL schemas can be large collections of files.
+There are DFDL schemas with over 100 files spread over numerous directories.
+
+The organization of the files into these directory structures is not arbitrary.
+It can be needed to avoid file name clashes and serves the same role as the Java package-name directory structure does for Java programs.
+The directory hierarchy defines a Java package-like namespace structure for DFDL schemas.
+Internal references to other files of the DFDL schema occurs within the DFDL schema, and those internal references contain the directory paths; hence, the internal integrity of the DFDL schema depends on the directory structure being preserved.
+
+==== DFDL Schema Composition and _Glue Schemas_
+
+They are often composed together in that if they are properly structured a schema for a header format can be created and tested in isolation, yet composed with another DFDL schema describing the _payload_ that follows the header.
+
+Done properly, this composition is done by a 3rd _glue schema_ which serves only to compose the header and payload schemas, and provide a place for tests that exercise the schemas against test data together as a unit.
+
+There are even DFDL schemas which compose a first header, the payload for which consists of a second header, the payload for which comes from yet a third schema. So that's 3 schemas combined together by a fourth glue schema.
+These schemas each reside in their own jar file and no modifications are made to any of the component schemas in order to combine them together.
+The Daffodil application depends on the glue schema only.
+The glue schema in turn depends on the other 3 DFDL schemas.
+Using standard managed dependencies, the application using Daffodil transitively depends on all 4 DFDL schemas and the jar files for all 4 are found and incorporated into the application in the same way that a transitive collection of Java library jar files are found and incorporated.
+
+==== Schema Namespaces and Directory 'Package' Structure
+
+Schema composition requires that the namespace structure and directory structure of the schemas are respected when the schemas are deployed. The xs:include and xs:import statements within the schemas contain directory paths that work the same way that the Java language package structure works.
+
+The Standard Schema Project Layout creates DFDL schema projects where the directory structure is setup so that namespace collisions do not occur when schemas are composed together.
+
+For a DFDL schema for a data format named CustomFormat42 created by an organization identified as myExampleCompany.com will use a directory structure like:
+
+    com/myExampleCompany/customFormat42/....
+
+The files for the schema will reside in this directory structure and include/import statements in other schemas that compose this CustomFormat42 will use this path to identify the file locations, and the schema will also use this as the target namespace URI (or something substantively similar).
+
+    urn:com/myExampleCompany/customFormat42
+
+For a Java-based runtime environment (like Daffodil Runtime1) the jar files are accessed by including them on the Java CLASSPATH.
+The order of this composition is sometimes important. A glue schema jar file should be earlier on the CLASSPATH than the DFDL schema jar files it is assembling together.
+
+=== Unpacking the DFDL Schema Jars
+
+Despite jar files being very helpful for packaging there are some applications which require the DFDL schemas to be provided as files.
+
+When this is the case, it remains important to preserve the shape of the file tree containing the DFDL schema's files.
+Use of package-like directory names ensures that a collection of DFDL schema jar files can all be decompressed on top of each other in a common directory tree without files overwriting each other unintentionally.
