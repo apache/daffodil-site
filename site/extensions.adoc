@@ -1,0 +1,60 @@
+:page-layout: page
+:url-asciidoctor: http://asciidoctor.org
+:keywords: plugins layering UDF charset
+// ///////////////////////////////////////////////////////////////////////////
+//
+// This file is written in AsciiDoc.
+//
+// If you can read this comment, your browser is not rendering asciidoc automatically.
+//
+// You need to install the asciidoc plugin to Chrome or Firefox
+// so that this page will be properly rendered for your viewing pleasure.
+//
+// You can get the plugins by searching the web for 'asciidoc plugin'
+//
+// You will want to change plugin settings to enable diagrams (they're off by default.)
+//
+// You need to view this page with Chrome or Firefox.
+//
+// ///////////////////////////////////////////////////////////////////////////
+//
+// When editing, please start each sentence on a new line.
+// See https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line[one sentence-per-line writing technique.]
+// This makes textual diffs of this file useful in a similar way to the way they work for code.
+//
+// //////////////////////////////////////////////////////////////////////////
+
+= DFDL Language Extensions in Daffodil
+
+Daffodil contains numerous extensions to the DFDL v1.0 language.
+
+Many of these have been, or will be proposed for inclusion in a future version of the DFDL standard. 
+
+This page provides a central starting point for the documentation of these extension features.
+
+== About Daffodil Plugins
+
+To provide some new advanced format capabilities such as checksums, compressed or encoded data regions, and user-defined-functions, DFDL schemas sometimes must use Daffodil-specific extensions and incorporate Daffodil plugins that provide the small algorithmic aspects needed by these formats.
+
+There are 2 kinds of plugins today supported by Daffodil 3.3.0
+
+- Layering Transformer (e.g., unzip/zip, verify/recompute checksums)
+- User Defined Function (UDF) (e.g., convert mean-sea-level elevation to height-above-ellipsoid)
+
+There is one additional kind of plugin that will be supported by Daffodil 3.4.0
+
+- Character Set Definitions (e.g., a specific 5-bit charset used only by a certain format)
+
+One needs to think of plugins as being part of the DFDL schema of a format, not part of Daffodil.
+
+Different DFDL schemas for different kinds of data will need their own such plugins.
+Hence the plugins, like the DFDL schema files themselves, are used in applications as part of a specific data-processing flow.
+
+Keeping in the spirit of DFDL in describing a format declaratively, plugins need to be very small pieces of code (ex: a character set definition should be 10 lines of code.)
+
+Plugins are compiled from Java/Scala code and would commonly be packaged into a jar file which may or may not also contain the DFDL schema files.
+The loading of the plugin is enabled using a standard Java technique for class loading where a special META-INF file identifies the jar as containing a particular type of plug-in.
+
+Configuring an application must put these jar files on the CLASSPATH so that the executing instance of Daffodil for a specific configured data processing flow finds them on the class path for the data format(s) that flow is processing.
+
+For greater assurance/trust, the plugin jars could be digitally signed by their creators, and applications could verify these signatures (using public keys) as a startup condition.
