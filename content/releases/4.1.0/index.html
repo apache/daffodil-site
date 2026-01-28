@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Apache Daffodil | 4.1.0</title>
+    
+    <meta name="author" content="">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/apache/img/apache-daffodil-icon.png" rel="icon" type="image/png">
+
+    <link href="/assets/themes/apache/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/apache/css/style.css?body=1" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/apache/css/syntax.css" rel="stylesheet"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/assets/themes/apache/img/apache-daffodil-logo.png" alt="Apache Daffodil"/></a></div>
+        <nav role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li id="projects">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Projects<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/libraryAndCLI">Daffodil Library and CLI</a></li>
+                <li><a href="/vscode">VS Code IDE for DFDL</a></li>
+                <li><a href="/sbt">SBT (Simple Build Tool) Plugin for DFDL Schema Projects</a></li>
+                <li><a href="/template">DFDL Schema Project Template</a></li>
+              </ul>
+            </li>
+            <li id="documentation">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/getting-started/">Getting Started</a></li>
+                <li><a href="/dfdl-training/">DFDL Training</a></li>
+                <li><a href="/dfdl-best-practices/">Best Practices for DFDL Schemas</a></li>
+                <li><a href="/examples/">Examples</a></li>
+                <li><a href="/docs/latest/javadoc/">API</a></li>
+                <li><a href="/docs/dfdl/">DFDL Specification</a></li>
+                <li><a href="/unsupported/">Unsupported Features</a></li>
+                <li><a href="/faq/">Frequently Asked Questions</a></li>
+                <li><a href="/dfdl-extensions/">Daffodil DFDL Language Extensions</a></li>
+              </ul>
+            </li>
+            <li id="community">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Community<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a href="/community">Get Involved</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li id="development">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Development<b class="caret"></b></a>
+              <ul class="dropdown-menu dropdown-left">
+                <li><a class="external" href="https://cwiki.apache.org/confluence/display/DAFFODIL/">Wiki</a></li>
+                <li><a class="external" href="https://github.com/apache/?q=daffodil">GitHub</a></li>
+                <li><a class="external" href="https://issues.apache.org/jira/projects/DAFFODIL/">JIRA</a></li>
+              </ul>
+            </li>
+            <li id="apache">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apache<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a class="external" href="https://www.apache.org/">Foundation</a></li>
+                <li><a class="external" href="https://www.apache.org/licenses/">License</a></li>
+                <li><a class="external" href="https://www.apache.org/events/current-event">Events</a></li>
+                <li><a class="external" href="https://www.apache.org/security">Security</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+                <li><a class="external" href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+                <li><a class="external" href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+<div class="title">
+  <div class="container"></div>
+</div>
+<div class="container">
+  <h1>Apache Daffodil 4.1.0</h1>
+</div>
+
+
+
+    <div class="container">
+      
+
+
+  <div class="alert alert-warning">
+    Apache Daffodil 4.1.0 has not yet been released! The artifacts
+    and release notes below are drafts for a proposed release of Apache
+    Daffodil which has not yet occurred.
+  </div>
+
+
+
+
+<div class="row">
+  <div class="col-md-3 text-right" style="float: right; z-index: 3;">
+    <h3>Documentation</h3>
+    <a href="/docs/4.1.0/javadoc/">Javadoc</a>
+  </div>
+
+  <div class="col-md-12">
+    <h3>Get Release</h3>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#download">Download</a></li>
+      <li><a data-toggle="tab" href="#maven">Maven</a></li>
+      <li><a data-toggle="tab" href="#sbt">SBT</a></li>
+      <li><a data-toggle="tab" href="#rpm">DNF</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="download" class="tab-pane fade in active">
+        
+          <h4>Source</h4>
+          <p>
+          
+
+
+
+
+
+
+
+  
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/src/apache-daffodil-4.1.0-src.zip">apache-daffodil-4.1.0-src.zip</a>
+  </div>
+  <div class="col-sm-6">
+    
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/src/apache-daffodil-4.1.0-src.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/src/apache-daffodil-4.1.0-src.zip.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+
+          </p>
+        
+
+        
+          <h4>Binaries</h4>
+          <p>
+          
+
+
+
+
+
+
+
+  
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.tgz">apache-daffodil-4.1.0-bin.tgz</a>
+  </div>
+  <div class="col-sm-6">
+    
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.tgz.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.tgz.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+  
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.zip">apache-daffodil-4.1.0-bin.zip</a>
+  </div>
+  <div class="col-sm-6">
+    
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.zip.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.zip.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+  
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.exe">apache-daffodil-4.1.0-bin.exe</a>
+  </div>
+  <div class="col-sm-6">
+    
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.exe.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-bin.exe.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+  
+<div class="row">
+  <div class="col-sm-6">
+    <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-1.noarch.rpm">apache-daffodil-4.1.0-1.noarch.rpm</a>
+  </div>
+  <div class="col-sm-6">
+    
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-1.noarch.rpm.asc">PGP</a> ]
+      [ <a href="https://dist.apache.org/repos/dist/dev/daffodil/4.1.0-rc1/bin/apache-daffodil-4.1.0-1.noarch.rpm.sha512">SHA512</a> ]
+    
+  </div>
+</div>
+
+
+          </p>
+        
+
+        
+          <hr />
+          <p>
+            <i>
+              The above release files should be verified using the PGP signatures and the
+              <a href='https://downloads.apache.org/daffodil/KEYS'>project release KEYS</a>. See
+              <a href='https://www.apache.org/info/verification.html'>verification instructions</a>
+              for a description of using the PGP and KEYS files for
+              verification. A SHA512 checksum is also provided as
+              an alternative verification method.
+            </i>
+          </p>
+        
+      </div>
+
+      <div id="maven" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.daffodil<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>daffodil-core_3<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>4.1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
+
+      </div>
+      <div id="sbt" class="tab-pane fade">
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.daffodil"</span> <span class="o">%%</span> <span class="s">"daffodil-core"</span> <span class="o">%</span> <span class="s">"4.1.0"</span></code></pre></figure>
+
+      </div>
+      <div id="rpm" class="tab-pane fade">
+Create the file <code>/etc/yum.repos.d/apache-daffodil.repo</code> with the following content:
+
+<div style="padding: 10px 15px;">
+
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="nn">[apache-daffodil]</span>
+<span class="py">name</span><span class="p">=</span><span class="s">Apache Daffodil</span>
+<span class="py">baseurl</span><span class="p">=</span><span class="s">https://apache.jfrog.io/artifactory/daffodil-rpm/</span>
+<span class="py">enabled</span><span class="p">=</span><span class="s">1</span>
+<span class="py">gpgkey</span><span class="p">=</span><span class="s">https://downloads.apache.org/daffodil/KEYS</span>
+<span class="py">gpgcheck</span><span class="p">=</span><span class="s">1</span>
+<span class="py">repo_gpgcheck</span><span class="p">=</span><span class="s">0</span></code></pre></figure>
+
+</div>
+
+Run the folllowing command:
+
+<div style="padding: 10px 15px;">
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo dnf install apache-daffodil</code></pre></figure>
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="release-notes">Release Notes</h2>
+
+<p>This release focused on bugs fixed and performance improvements. A number of
+changes resulted in deprecation or backwards incompatible changes. See
+<a href="#deprecationcompatibility">Deprecation/Compatibility</a> section for more
+details.</p>
+
+<h2 id="miscellaneous-bugsimprovements">Miscellaneous Bugs/Improvements</h2>
+
+<ul>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1392">DAFFODIL-1392</a>] escapeBlockStart partial match incorrectly drops characters</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-1590">DAFFODIL-1590</a>] setVar evaluates before element terminator</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2217">DAFFODIL-2217</a>] trailingEmptyStrict not being strict in this case</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2287">DAFFODIL-2287</a>] JApi throws checked exceptions without declaring</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2295">DAFFODIL-2295</a>] priorAlignmentApprox incorrect if term is preceded by separator with text bit alignment</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2324">DAFFODIL-2324</a>] Unparser choice branch selection not conformant to DFDL standard</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2539">DAFFODIL-2539</a>] Duplicate TDML file - rename, and remove overlapping tests and schemas</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2574">DAFFODIL-2574</a>] Cast error when multiplying two unsignedBytes</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2768">DAFFODIL-2768</a>] SAX unparse can lead to a hanging thread if the XMLReader stops sending events</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2769">DAFFODIL-2769</a>] update unimplemented features page for 4.0.0 release</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2801">DAFFODIL-2801</a>] Array with Choice parses incorrectly when occursCountKind is implicit</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2812">DAFFODIL-2812</a>] Exclude xml-apis from transitive dependencies</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2851">DAFFODIL-2851</a>] Excessive allocations in StringOfSpecifiedLengthMixin</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2855">DAFFODIL-2855</a>] Scoping different when using dfdlx:repType vs type</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2939">DAFFODIL-2939</a>] Remove UpMoveArray</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2957">DAFFODIL-2957</a>] dfdl:decimalSigned="no" bugs with negative values and data representations</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2963">DAFFODIL-2963</a>] decimalSigned boolean not passed into PackedDecimal* parsers</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2974">DAFFODIL-2974</a>] dfdlx:currentPosition() function for experiments</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2985">DAFFODIL-2985</a>] Remove ICU workaround related to decimal inf/nan and textNumberCheckPolicy strict</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2993">DAFFODIL-2993</a>] Support SBOM/SPDX</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2998">DAFFODIL-2998</a>] Convert DFDL Schema Style Guide into a daffodil site page</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3005">DAFFODIL-3005</a>] exi options to CLI are not documented on site</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3040">DAFFODIL-3040</a>] Release Candidate Workflow artifact should not contain files already in svn</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3041">DAFFODIL-3041</a>] Make SVN/NEXUS Credential Vars optional if not publishing</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3043">DAFFODIL-3043</a>] Update Site to new Logo and Branding for ASF</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3044">DAFFODIL-3044</a>] create LTS DFDL-extension documentation on daffodil-site</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3046">DAFFODIL-3046</a>] create DFDL training page on daffodil-site</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3047">DAFFODIL-3047</a>] Review/Contribute to next ISO/OGF DFDL Spec version</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3049">DAFFODIL-3049</a>] bitAnd, bitOr, bitXor args not properly restricted</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3051">DAFFODIL-3051</a>] Add Java 25 to CI</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3052">DAFFODIL-3052</a>] site menu and content fixes</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3053">DAFFODIL-3053</a>] Links to API doc broken on Layers page</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3055">DAFFODIL-3055</a>] Update release-candidate action to use getExecOutput instead of exec</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3056">DAFFODIL-3056</a>] priorAlignmentWithLeadingSkipApprox has incomplete implementation</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3057">DAFFODIL-3057</a>] endingAlignment has incomplete implementation</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3058">DAFFODIL-3058</a>] Remove old release candidate container</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3062">DAFFODIL-3062</a>] Disable JIRA notifications from GitHub pull requests</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3064">DAFFODIL-3064</a>] Reduce Future allocation in CLI performance command</li>
+</ul>
+
+<h2 id="deprecationcompatibility">Deprecation/Compatibility</h2>
+
+<ul>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2287">DAFFODIL-2287</a>] JApi throws checked exceptions without declaring</p>
+
+    <p>Previously Daffodil did not declare some checked exceptions that could have
+been thrown by some Daffodil API functions. Those are now declared, which
+requires users of the API to explicitly catch these exceptions or mark them as
+thrown.</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2287">DAFFODIL-2287</a>] JApi throws checked exceptions without declaring</p>
+
+    <p>dfdl:outputValueCalc is now allowed on global/root elements</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2939">DAFFODIL-2939</a>] Remove UpMoveArray</p>
+
+    <p>DFDL expressions with an upward path step (<code class="language-plaintext highlighter-rouge">..</code>) to an array is deprecated and
+now results in a schema definition warning. Future versions of Daffodil may
+remove support for this and result in a schema definition error.</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2324">DAFFODIL-2324</a>] Unparser choice branch selection not conformant to DFDL standard</p>
+
+    <p>Per DFDL errata 5.60, the first branch that can be unparsed entirely without
+any infoset events (i.e. made up of elements that are dfdl:outputValueCalc,
+option branches, zero length arrays, or defaultable elements) in a choice is
+selected, rather than prioritizing the first empty branch. Also, required
+arrays are no longer treated as optional and hidden IVCs are only permissible
+in choices.</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2855">DAFFODIL-2855</a>] Scoping different when using dfdlx:repType vs type</p>
+
+    <p>When resolving default properties, Daffodil now gives precedence to innermost
+referenced schema components rather than the outermost, as described by section
+8.1.4 of the DFDL specification. If this new logic results in a different
+property value than previous versions of Daffodil then a schema definition
+warning is issued.</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2957">DAFFODIL-2957</a>] dfdl:decimalSigned="no" bugs with negative values and data representations</p>
+
+    <p>Daffodil now errors when dfdl:decimalSigned=no or dfdl:decimalSigned is
+not applicable (as in the case of BCD numbers, which are always positive), but
+an attempt is made to parse to/unparse a negative number</p>
+  </li>
+  <li>
+    <p>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-2768">DAFFODIL-2768</a>] SAX unparse can lead to a hanging thread if the XMLReader stops sending events</p>
+
+    <p>The DaffodilUnhandledSAXException, which can be thrown when unparsing using the
+SAX API and usually indicates a Daffodil bug, is changed from a SAXException to
+a RuntimeException. It is no longer a checked exception and does not need to be
+caught. It should usually be handled just like any other unchecked
+RuntimeException.</p>
+
+    <p>When unparsing using the SAX API, <code class="language-plaintext highlighter-rouge">DaffodilUnparseContentHandler.finish()</code>
+should be called after <code class="language-plaintext highlighter-rouge">xmlReader.parse(...)</code> returns, regardless of success,
+to ensure all resources are cleaned up. For example:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">DaffodilUnparseContentHandler</span> <span class="n">contentHandler</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="na">newContentHandlerInstance</span><span class="o">(...);</span>
+<span class="n">xmlReader</span><span class="o">.</span><span class="na">setContentHandler</span><span class="o">(</span><span class="n">contentHandler</span><span class="o">);</span>
+<span class="k">try</span> <span class="o">{</span>
+  <span class="n">xmlReader</span><span class="o">.</span><span class="na">parse</span><span class="o">(...);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(...)</span> <span class="o">{</span>
+  <span class="o">...</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+  <span class="n">contentHandler</span><span class="o">.</span><span class="na">finish</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="dependency-changes">Dependency Changes</h2>
+
+<p>The following dependencies have been added, updated, or removed:</p>
+
+<h3 id="core">Core</h3>
+
+<ul>
+  <li>Apache Commons IO 2.21.0 <small>(update)</small></li>
+  <li>ICU4J 78.2 <small>(update)</small></li>
+  <li>Scala Library 3.3.7 <small>(updated)</small></li>
+  <li>Scala Logging 3.3.6 <small>(update)</small></li>
+</ul>
+
+<h3 id="code-generation">Code Generation</h3>
+
+<ul>
+  <li>OS Lib 0.11.6 <small>(update)</small></li>
+  <li>OS Zip 0.11.6 <small>(update)</small></li>
+</ul>
+
+<h3 id="command-line-interface">Command Line Interface</h3>
+
+<ul>
+  <li>JLine 3.30.6 <small>(update)</small></li>
+  <li>Scallop 5.3.0 <small>(update)</small></li>
+</ul>
+
+<h3 id="schematron-validator">Schematron Validator</h3>
+
+<ul>
+  <li>Saxon-HE 12.9 <small>(update)</small></li>
+  <li>XML APIs 1.4.01 <small>(removed)</small></li>
+</ul>
+
+
+      <footer>
+        <footer class="site-footer">
+    <div class="wrapper">
+        <div class="footer-col-wrapper" style="font-size: .85em;">
+            <hr>
+            <div>
+                <div style="text-align: center;">
+                    Copyright &copy; 2025 <a href="https://www.apache.org">The Apache Software Foundation</a>.
+                    Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version
+                    2.0</a>.
+                    <br>
+                    Apache, Apache Daffodil, Daffodil, and the Apache Daffodil logo
+                    are trademarks of The Apache Software Foundation.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+      </footer>
+    </div>
+
+    <script src="/assets/themes/apache/jquery/jquery-2.1.1.min.js"></script>
+
+    <script src="/assets/themes/apache/bootstrap/js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>
+
