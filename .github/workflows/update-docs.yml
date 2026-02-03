@@ -38,6 +38,7 @@ jobs:
   update-docs:
     name: Update Docs ${{ inputs.project }} ${{ inputs.version }}
     strategy:
+      max-parallel: 1
       matrix:
         java_distribution: [ temurin ]
         java_version: [ 17 ]
