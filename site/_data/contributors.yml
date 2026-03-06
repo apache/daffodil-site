@@ -25,6 +25,12 @@
   githubId: mbeckerle
   role: PMC (Chair)
 
+- first: Ryan
+  last: Cover
+  apacheId: coverryan
+  githubId: coverryan
+  role: PMC
+
 - first: Beth
   last: Fahl
   apacheId: efinnegan
