@@ -128,13 +128,13 @@ or commands to run via SBT, see the [GitHub README](https://github.com/apache/da
 Use the below template for the build.sbt file:
 
 ``` scala
-name := "dfdl-rfmt"
- 
-organization := "com.example"
- 
-version := "0.0.1"
- 
-enablePlugins(DaffodilPlugin)
+val root = (project in file("."))
+  .settings(
+    name := "dfdl-rfmt",
+    organization := "com.example",
+    version := "0.0.1",
+  )
+  .daffodilProject()
 ```
 
 
