@@ -215,13 +215,13 @@ or commands to run via SBT, see the <a href="https://github.com/apache/daffodil-
 
 <p>Use the below template for the build.sbt file:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">:=</span> <span class="s">"dfdl-rfmt"</span>
- 
-<span class="n">organization</span> <span class="o">:=</span> <span class="s">"com.example"</span>
- 
-<span class="n">version</span> <span class="o">:=</span> <span class="s">"0.0.1"</span>
- 
-<span class="nf">enablePlugins</span><span class="o">(</span><span class="nc">DaffodilPlugin</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">root</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="nf">file</span><span class="o">(</span><span class="s">"."</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
+    <span class="n">name</span> <span class="o">:=</span> <span class="s">"dfdl-rfmt"</span><span class="o">,</span>
+    <span class="n">organization</span> <span class="o">:=</span> <span class="s">"com.example"</span><span class="o">,</span>
+    <span class="n">version</span> <span class="o">:=</span> <span class="s">"0.0.1"</span><span class="o">,</span>
+  <span class="o">)</span>
+  <span class="o">.</span><span class="py">daffodilProject</span><span class="o">()</span>
 </code></pre></div></div>
 
 <h2 id="gitattributes">.gitattributes</h2>
