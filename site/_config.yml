@@ -45,9 +45,10 @@ defaults:
 jira_base_url: https://issues.apache.org/jira/browse
 jira_key: DAFFODIL
 
-# plugin for asciidoc (.adoc) files
+# plugins
 plugins:
 - jekyll-asciidoc
+- jekyll-redirect-from
 - asciidoctor-diagram
 
 keep_files:

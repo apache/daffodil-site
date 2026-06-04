@@ -17,6 +17,7 @@ source 'https://rubygems.org'
 
 gem 'jekyll', '= 4.2.2'
 gem 'jekyll-asciidoc', '= 3.0.1'
+gem 'jekyll-redirect-from', '= 0.16.0'
 gem 'asciidoctor-diagram', '= 3.0.0'
 gem 'asciidoctor-diagram-plantuml', '= 1.2025.2'
 gem 'asciidoctor-diagram-ditaamini', '= 1.0.3'
