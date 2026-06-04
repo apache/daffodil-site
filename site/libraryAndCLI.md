@@ -2,6 +2,7 @@
 layout: page
 title: Daffodil Library and CLI
 group: nav-right
+redirect_from: /releases/
 ---
 <!--
 {% comment %}
