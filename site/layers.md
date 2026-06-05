@@ -608,7 +608,17 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
 
 - Name: gzip
 - Namespace URI: urn:org.apache.daffodil.layers.gzip
-- Parameter Variables: None
+- Parameter Variables
+  - `compressionLevel` an integer specifying the gzip compression level used
+    when unparsing. Valid values are:
+    - `0` — no compression
+    - `1 to 9` — amount of compression, ranging from 1 (fastest with least compression)
+                 to 9 (slowest with best compression)
+    - `-1` —  use implementation default, usually level 6. This is the default parameter
+              value if the variable is not set.
+
+	This variable is declared with `external="true"`, so it can be overridden
+    externally without having to modify the schema.  
 - Result Variables: None
 - Import Statement:
 ```
@@ -617,14 +627,6 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
 ```
 This layer uses the `java.util.zip.GZIPInputStream` and `java.util.zip.GZIPOutputStream` 
 libraries to decode and encode.
-
-Prior to Java 16, the `java.util.zip.GZIPOutputStream` wrote a value of zero for the OS field
-in the header (byte index 9). 
-In Java 16, this was changed to a value of 255 to better abide by the GZIP specification. 
-Unfortunately, this means unparsed data using a GZIP layer might have a single byte difference,
-depending on the Java version used. 
-To avoid inconsistent behavior of test failures that expect a certain byte value this layer
-always writes a consistent header (header byte 9 of 255) regardless of the Java version.
 
 ----
 
