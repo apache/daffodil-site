@@ -743,7 +743,23 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
 <ul>
   <li>Name: gzip</li>
   <li>Namespace URI: urn:org.apache.daffodil.layers.gzip</li>
-  <li>Parameter Variables: None</li>
+  <li>Parameter Variables
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">compressionLevel</code> an integer specifying the gzip compression level used
+when unparsing. Valid values are:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">0</code> — no compression</li>
+          <li><code class="language-plaintext highlighter-rouge">1 to 9</code> — amount of compression, ranging from 1 (fastest with least compression)
+           to 9 (slowest with best compression)</li>
+          <li><code class="language-plaintext highlighter-rouge">-1</code> —  use implementation default, usually level 6. This is the default parameter
+        value if the variable is not set.</li>
+        </ul>
+
+        <p>This variable is declared with <code class="language-plaintext highlighter-rouge">external="true"</code>, so it can be overridden
+externally without having to modify the schema.</p>
+      </li>
+    </ul>
+  </li>
   <li>Result Variables: None</li>
   <li>Import Statement:
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;xs:import namespace="urn:org.apache.daffodil.layers.gzip"
@@ -753,14 +769,6 @@ The entire fixed length region of the data will be pulled into a byte buffer in 
 libraries to decode and encode.</p>
   </li>
 </ul>
-
-<p>Prior to Java 16, the <code class="language-plaintext highlighter-rouge">java.util.zip.GZIPOutputStream</code> wrote a value of zero for the OS field
-in the header (byte index 9). 
-In Java 16, this was changed to a value of 255 to better abide by the GZIP specification. 
-Unfortunately, this means unparsed data using a GZIP layer might have a single byte difference,
-depending on the Java version used. 
-To avoid inconsistent behavior of test failures that expect a certain byte value this layer
-always writes a consistent header (header byte 9 of 255) regardless of the Java version.</p>
 
 <hr />
 
