@@ -1,0 +1,10 @@
+org.apache.daffodil.api
+org.apache.daffodil.api.debugger
+org.apache.daffodil.api.exceptions
+org.apache.daffodil.api.infoset
+org.apache.daffodil.api.layers
+org.apache.daffodil.api.layers.exceptions
+org.apache.daffodil.api.metadata
+org.apache.daffodil.api.udf
+org.apache.daffodil.api.udf.exceptions
+org.apache.daffodil.api.validation
