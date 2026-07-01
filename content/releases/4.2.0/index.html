@@ -296,7 +296,7 @@ that in cases of large infosets or if memory is a concern, the default
 
 <ul>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-182">DAFFODIL-182</a>] - option for having xsi:type added to infoset</li>
-  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3070">DAFFODIL-3070</a>] - Investigate non-streaming InfosetWalker</li>
+  <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3070">DAFFODIL-3070</a>] - Support non-streaming InfosetWalker</li>
   <li>[<a href="https://issues.apache.org/jira/browse/DAFFODIL-3082">DAFFODIL-3082</a>] - Make GZIP layer compression level configurable</li>
 </ul>
 
@@ -330,7 +330,7 @@ that in cases of large infosets or if memory is a concern, the default
     <p>Previous versions of Daffodil used the ScalaXMLInfosetInputter/Outputter as the 
 default inputter/outputter for TDML Runner, this version changed it to XMLTextInfosetInputter/Outputter 
 since it supports the stringsAsXml feature. Note that for this implementation, we check the 
-actual infoset for the presence of XMLTextInfoset.stringAsXML(currently stringAsXML) 
+actual infoset for the presence of XMLTextInfoset.stringAsXML (currently stringAsXML) 
 and don't normalize CRLF to LF for that element</p>
   </li>
   <li>
@@ -338,7 +338,7 @@ and don't normalize CRLF to LF for that element</p>
 
     <p>Previous versions of Daffodil could sometimes use scientific notation
 when outputting elements with an xs:decimal type, which XSD does not
-allow. Daffodil now always outputs xs:deicmal types using standard
+allow. Daffodil now always outputs xs:decimal types using standard
 decimal notation without any exponent part.</p>
   </li>
 </ul>
