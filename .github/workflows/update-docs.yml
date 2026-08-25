@@ -99,15 +99,19 @@ jobs:
         working-directory: project
         if: ${{ inputs.project == 'daffodil' }}
         run: |
-          SITE_ROOT=${{ github.workspace }}/site
-          DOCS_DIR=$SITE_ROOT/site/docs/$VERSION
-          TUTORIALS_DIR=$SITE_ROOT/site/tutorials
+          SITE_REPO=${{ github.workspace }}/site
+          SITE_DIR=$SITE_REPO/site
+          DOCS_DIR=$SITE_DIR/docs/$VERSION
+          TUTORIALS_DIR=$SITE_DIR/tutorials
           rm -rf $DOCS_DIR
           rm -rf $TUTORIALS_DIR
 
           sbt unidoc
           mkdir -p $DOCS_DIR/javadoc/
           cp -R target/scala-*/unidoc/* $DOCS_DIR/javadoc/
+
+          sbt genTunablesDoc
+          cp target/tunables.md $SITE_DIR/
 
           mkdir -p $TUTORIALS_DIR
           cp -R tutorials/src/main/resources/* $TUTORIALS_DIR/
@@ -116,8 +120,9 @@ jobs:
         working-directory: project
         if: ${{ inputs.project == 'daffodil-vscode.wiki' }}
         run: |
-          SITE_ROOT=${{ github.workspace }}/site
-          DOCS_DIR=$SITE_ROOT/site/docs/vscode/$VERSION
+          SITE_REPO=${{ github.workspace }}/site
+          SITE_DIR=$SITE_REPO/site
+          DOCS_DIR=$SITE_DIR/docs/vscode/$VERSION
           rm -rf $DOCS_DIR
 
           MD_NAME="Apache-Daffodil™-Extension-for-Visual-Studio-Code:-v$VERSION.md"
