@@ -132,3 +132,15 @@
   apacheId: jeremyyao
   githubId: jeremyyao
   role: PMC
+
+- first: Peter
+  last: Katlic
+  apacheId: pkatlic
+  githubId: pkatlic
+  role: PMC
+
+- first: Larry
+  last: Barber
+  apacheId: lrbarber
+  githubId: lrbarber
+  role: PMC
