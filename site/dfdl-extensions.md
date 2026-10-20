@@ -91,7 +91,7 @@ and data location.
 the data being read will not be used.
 
 The motivation for this look-ahead capability is explained in these 
-[two slides about forward reference](/tutorials/P-forward-reference-in-fixed-length-data.pdf).
+[two slides about forward reference]({{ site.data.links.slides.fwdRef }}).
   
 ### Examples of `dfdlx:lookAhead`
    

@@ -101,7 +101,7 @@ You will need to be familiar with these concepts:
 - character set - ASCII, Unicode, UTF-8.
   Also called a character _encoding_.
 - [byte order - big-endian and little-endian]( 
-{{ site.data.links.referece.endianness}})
+{{ site.data.links.reference.endianness}})
 - [hexadecimal (aka hex)]({{ site.data.links.reference.hex}})
 
 ### DFDL Basic Terminology
@@ -205,9 +205,8 @@ showcasing:
 # Specific DFDL Properties
 Short training slide decks or pages about specific properties.
 - [DFDL `lengthKind`, `lengthUnits`, `bitOrder`, and `byteOrder` properties](
-/tutorials/P-DFDL-Properties-lengthKind-bitOrder.pdf)
-- [DFDL Pad and Fill (`dfdl:fillByte`)](
-/tutorials/P-Filling-vs-Padding-Trimming.pdf)
+{{ site.data.links.slides.propLengthKind }})
+- [DFDL Pad and Fill (`dfdl:fillByte`)]({{ site.data.links.slides.fillPad }})
 
 
 # Other Learning Resources
@@ -222,8 +221,7 @@ There are a variety of other materials on the Internet that provide some DFDL tr
 - Open Grid Forum DFDL Workgroup has 6 tutorials. 
   [Download PDFs from here]({{ site.data.links.training.ogfTutorials}}).
 
-> **Note:** AI bots like ChatGPT and Gemini don't know much about
-DFDL yet. (as of December 2025)
+> **Note:** AI bots like ChatGPT and Gemini don't know much about DFDL yet. (as of December 2025)
 
 There is also a separate page about
 [best-practices](/dfdl-best-practices) for DFDL schema authors to follow. 

@@ -17,9 +17,12 @@ xml:
 
 slides:
   overviewDFDL: "/presentations/2025-11-13-ASF-Overview-DFDL-v4.0.0.pdf"
-  introXML: "/tutorials/P-DFDL-Intro-to-XML.pdf"
-  introXSD: "/tutorials/P-DFDL-Intro-to-XML-Schema.pdf"
-  comp: "/tutorials/P-DFDL-Schema-Composition.pdf"
+  introXML: "/pdf-tutorials/P-DFDL-Intro-to-XML.pdf"
+  introXSD: "/pdf-tutorials/P-DFDL-Intro-to-XML-Schema.pdf"
+  comp: "/pdf-tutorials/P-DFDL-Schema-Composition.pdf"
+  propLengthKind: "/pdf-tutorials/P-DFDL-Properties-lengthKind-bitOrder.pdf"
+  fillPad: "/pdf-tutorials/P-Filling-vs-Padding-Trimming.pdf"
+  fwdRef: "/pdf-tutorials/P-forward-reference-in-fixed-length-data.pdf"
 
 reference:
   bnf: "https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form#Example"
