@@ -257,6 +257,12 @@ allowed values are:</p>
 
 <p>default: 200</p>
 
+<h3 id="maxbinarynumberlengthinbits">maxBinaryNumberLengthInBits</h3>
+<p>The maximum length, in bits, allowed for packed decimals or non-fixed-width binary
+numbers (e.g. xs:integer).</p>
+
+<p>default: 8192</p>
+
 <h3 id="maxbytearrayoutputstreambuffersizeinbytes">maxByteArrayOutputStreamBufferSizeInBytes</h3>
 <p>When unparsing, this is the maximum size of the buffer that the
 ByteArrayOutputStream can grow to before switching to a file based
@@ -351,6 +357,27 @@ prevent this from taking place. This should usually only be used while debugging
 or with very specific tests.</p>
 
 <p>default: true</p>
+
+<h3 id="infosetbuildermode">infosetBuilderMode</h3>
+<p>How unparsing gets the infoset. Values are:</p>
+<ul>
+  <li>buildAhead: a build pass runs ahead of an unparse pass over the same
+infoset tree, resolving forward references against the tree directly
+instead of via Suspensions where possible. How far build may run
+ahead of unparse is bounded by unparseBuildAheadWindowNodes.</li>
+  <li>eventDriven: the events of the infoset inputter are unparsed as they
+arrive, with no tree built ahead.</li>
+</ul>
+
+<p>default: buildAhead</p>
+
+<h3 id="unparsebuildaheadwindownodes">unparseBuildAheadWindowNodes</h3>
+<p>Only consulted when infosetBuilderMode is buildAhead. The maximum
+number of infoset nodes build may construct ahead of unparse before
+build pauses to let unparse catch up. Bounds peak memory use to
+roughly this many infoset nodes rather than the whole infoset.</p>
+
+<p>default: 1000</p>
 
 <h3 id="requirebitorderproperty">requireBitOrderProperty</h3>
 <p>If true, require that the dfdl:bitOrder property is specified. If false, use a
