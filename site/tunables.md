@@ -195,6 +195,13 @@ The largest allowed value of the dfdl:binaryDecimalVirtualPoint property.
 default: 200
 
 
+## maxBinaryNumberLengthInBits
+The maximum length, in bits, allowed for packed decimals or non-fixed-width binary
+numbers (e.g. xs:integer).
+
+default: 8192
+
+
 ## maxByteArrayOutputStreamBufferSizeInBytes
 When unparsing, this is the maximum size of the buffer that the
 ByteArrayOutputStream can grow to before switching to a file based
@@ -303,6 +310,27 @@ prevent this from taking place. This should usually only be used while debugging
 or with very specific tests.
 
 default: true
+
+
+## infosetBuilderMode
+How unparsing gets the infoset. Values are:
+- buildAhead: a build pass runs ahead of an unparse pass over the same
+infoset tree, resolving forward references against the tree directly
+instead of via Suspensions where possible. How far build may run
+ahead of unparse is bounded by unparseBuildAheadWindowNodes.
+- eventDriven: the events of the infoset inputter are unparsed as they
+arrive, with no tree built ahead.
+
+default: buildAhead
+
+
+## unparseBuildAheadWindowNodes
+Only consulted when infosetBuilderMode is buildAhead. The maximum
+number of infoset nodes build may construct ahead of unparse before
+build pauses to let unparse catch up. Bounds peak memory use to
+roughly this many infoset nodes rather than the whole infoset.
+
+default: 1000
 
 
 ## requireBitOrderProperty
